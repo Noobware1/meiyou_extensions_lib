@@ -12,6 +12,7 @@ export 'src/models/search_response.dart';
 export 'src/models/season_data.dart';
 export 'src/models/show_status.dart';
 export 'src/models/show_type.dart';
+export 'src/models/plugin.dart';
 
 //MediaItem
 export 'src/models/media_item/media_item.dart';
