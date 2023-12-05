@@ -9,6 +9,8 @@ import 'package:ok_http_dart/dom.dart';
 import 'package:ok_http_dart/ok_http_dart.dart';
 
 class AppUtils {
+ 
+
   static Future<OkHttpResponseObject> httpRequest({
     required String url,
     required String method,

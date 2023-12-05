@@ -10,6 +10,8 @@ abstract class ExtractorApi {
   /// The [ExtractorLink] instance that this [ExtractorApi] will use to perform extraction.
   final ExtractorLink extractorLink;
 
+  String get name;
+
   /// Extracts the media from the [ExtractorLink].
   ///
   /// Returns a [Future] that completes with a [Media] object, which can be of type [Video].

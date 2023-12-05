@@ -4,6 +4,7 @@ import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extenstions/src/bridge_models/document.dart';
 import 'package:meiyou_extenstions/src/bridge_models/element.dart';
 import 'package:meiyou_extenstions/src/bridge_models/media/video/subtitle_format.dart';
+import 'package:meiyou_extenstions/src/bridge_models/media/video/video.dart';
 import 'package:meiyou_extenstions/src/bridge_models/ok_http_response.dart';
 import 'package:meiyou_extenstions/src/constants/constants.dart';
 import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
@@ -399,6 +400,7 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(bridgeLibary, 'AppUtils.', $AppUtils.$construct,
         isBridge: true);
+
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.httpRequest', $AppUtils.$httpRequest);
     runtime.registerBridgeFunc(

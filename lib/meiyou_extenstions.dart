@@ -5,5 +5,6 @@ export 'extenstions.dart';
 export 'models.dart';
 export 'dart_eval.dart';
 export 'bridge_models.dart';
+export 'extractors.dart';
 export 'src/complier.dart';
 export 'src/loader.dart';

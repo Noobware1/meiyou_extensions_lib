@@ -130,28 +130,10 @@ class $ExtractorLink implements ExtractorLink, $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    // switch (identifier) {
-    //   case 'name':
-    //     $value.name = value.$reified;
-    //   case 'url':
-    //     $value.name = value.$reified;
-    //   case 'referer':
-    //     $value.referer = value.$reified;
-    //   case 'headers':
-    //     $value.headers = (value.$reified as Map<$Value, $Value>?)
-    //         ?.map((key, value) => MapEntry(key.$value, value.$value));
-    //   case 'extra':
-    //     $value.headers = (value.$reified as Map<$Value, dynamic>?)
-    //         ?.map((key, value) => MapEntry(key.$value, value));
-
-    //   default:
-    //     null;
-    // }
-  }
+  void $setProperty(Runtime runtime, String identifier, $Value value) {}
 
   @override
-  get $reified => $value;
+  ExtractorLink get $reified => $value;
 
   @override
   final ExtractorLink $value;
