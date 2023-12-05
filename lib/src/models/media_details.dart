@@ -7,9 +7,9 @@ import 'package:meiyou_extenstions/src/models/show_type.dart';
 
 class MediaDetails {
   MediaDetails({
-    required this.type,
-    required this.name,
-    required this.url,
+    this.type = ShowType.Others,
+    this.name = '',
+    this.url = '',
     this.otherTitles,
     this.status,
     this.bannerImage,
