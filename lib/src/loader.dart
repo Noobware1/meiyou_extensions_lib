@@ -36,6 +36,8 @@ import 'package:meiyou_extenstions/src/bridge_models/utils_models/iterable_utils
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/list_utils.dart';
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/num_utils.dart';
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/string_utils.dart';
+
+//Generated Extractors
 import 'package:meiyou_extenstions/src/extractors/gogo_cdn/gogo_cdn.eval.dart';
 
 class ExtenstionLoader {
@@ -91,7 +93,7 @@ class ExtenstionLoader {
     $Video.configureForRuntime(runtime);
     $VideoQuality.configureForRuntime(runtime);
     $VideoSource.configureForRuntime(runtime);
-  
+    $Subtitle.configureForRuntime(runtime);
 
     //App utils
     $AppUtils.configureForRuntime(runtime);
@@ -102,7 +104,7 @@ class ExtenstionLoader {
 
     //Extractors
     $GogoCDN.configureForRuntime(runtime);
-    
+
     return runtime;
   }
 }
