@@ -9,7 +9,6 @@ import 'package:meiyou_extenstions/meiyou_extenstions.dart';
 ExtractorApi main(ExtractorLink link) {
   // return the extractor here to test like
   // return GogoCDN(link);
-
 }
 ''',
     }

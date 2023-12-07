@@ -4,7 +4,6 @@ import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extenstions/src/constants/constants.dart';
 import 'package:meiyou_extenstions/src/models/actor_data.dart';
 
-
 class $ActorData implements ActorData, $Instance {
   $ActorData.wrap(this.$value);
 
@@ -95,4 +94,9 @@ class $ActorData implements ActorData, $Instance {
 
   @override
   String get name => $value.name;
+
+  @override
+  String toString() {
+    return 'ActorData(name: $name, image: $image, role: $role)';
+  }
 }
