@@ -12,7 +12,6 @@ class $VideoQuality implements VideoQuality, $Instance {
     runtime.registerBridgeFunc(
         bridgeLibary, 'VideoQuality.', $VideoQuality.$new);
 
-
     // runtime.registerBridgeFunc(
     //     bridgeLibary, 'VideoQuality.unknown', $VideoQuality.$unknown);
 
@@ -57,27 +56,24 @@ class $VideoQuality implements VideoQuality, $Instance {
           BridgeTypeRef(CoreTypes.int),
         ),
       ),
+      'unknown': BridgeFieldDef(
+        BridgeTypeAnnotation(
+          $type,
+        ),
+      ),
+      'hlsMaster': BridgeFieldDef(
+        BridgeTypeAnnotation(
+          $type,
+        ),
+      ),
     },
     methods: {
       'getFromString': BridgeMethodDef(
           BridgeFunctionDef(returns: BridgeTypeAnnotation($type), params: [
-            BridgeParameter(
-                'str',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.string)),
-                false)
+            BridgeParameter('str',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false)
           ]),
           isStatic: true),
-      // 'unknown': BridgeFieldDef(
-      //     BridgeTypeAnnotation(
-      //       $type,
-      //     ),
-      //     isStatic: true),
-      // 'hls': BridgeFieldDef(
-      //     BridgeTypeAnnotation(
-      //       $type,
-      //     ),
-      //     isStatic: true),
     },
     wrap: true,
   );
@@ -129,7 +125,6 @@ class $VideoQuality implements VideoQuality, $Instance {
 
   @override
   int get width => $value.width;
-
 
   @override
   String toString() {
