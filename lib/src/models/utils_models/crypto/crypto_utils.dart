@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:html';
-
 import 'package:crypto_dart/crypto_dart.dart';
 import 'package:crypto_dart/hashers.dart';
 import 'package:meiyou_extenstions/crypto_dart/padding.dart';
