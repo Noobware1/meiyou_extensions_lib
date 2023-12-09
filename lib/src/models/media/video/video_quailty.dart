@@ -8,9 +8,9 @@ class VideoQuality {
   final int width;
   final int height;
 
-  static VideoQuality unknown = VideoQuality(-1, -1);
+  static const VideoQuality unknown = VideoQuality(-1, -1);
 
-  static VideoQuality hlsMaster = VideoQuality(0, 0);
+  static const VideoQuality hlsMaster = VideoQuality(0, 0);
 
   static VideoQuality getFromString(String str) {
     str = str.toLowerCase().trim();
