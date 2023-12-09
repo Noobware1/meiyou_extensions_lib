@@ -57,15 +57,15 @@ class $VideoQuality implements VideoQuality, $Instance {
         ),
       ),
       'unknown': BridgeFieldDef(
-        BridgeTypeAnnotation(
-          $type,
-        ),
-      ),
+          BridgeTypeAnnotation(
+            $type,
+          ),
+          isStatic: true),
       'hlsMaster': BridgeFieldDef(
-        BridgeTypeAnnotation(
-          $type,
-        ),
-      ),
+          BridgeTypeAnnotation(
+            $type,
+          ),
+          isStatic: true),
     },
     methods: {
       'getFromString': BridgeMethodDef(
