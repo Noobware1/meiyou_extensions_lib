@@ -9,8 +9,12 @@ class $CryptoUtils extends CryptoUtils with $Bridge {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(bridgeLibary, 'CryptoUtils.', $new,
         isBridge: true);
+    runtime.registerBridgeFunc(bridgeLibary, 'CryptoUtils.AES', $AES);
+
     runtime.registerBridgeFunc(
-        bridgeLibary, 'CryptoUtils.cryptoJsAes', $cryptoJsAes);
+        bridgeLibary, 'CryptoUtils.TripleDES', $TripleDES);
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'CryptoUtils.HashString', $HashString);
   }
 
   static const $type =
@@ -22,7 +26,7 @@ class $CryptoUtils extends CryptoUtils with $Bridge {
             returns: BridgeTypeAnnotation($type), namedParams: [], params: []))
       },
       methods: {
-        'cryptoJsAes': BridgeMethodDef(
+        'AES': BridgeMethodDef(
             BridgeFunctionDef(
               returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
               namedParams: [
@@ -34,17 +38,48 @@ class $CryptoUtils extends CryptoUtils with $Bridge {
                     'key',
                     BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
                     false),
-                BridgeParameter(
-                    'iv',
-                    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),
-                        nullable: true),
-                    true),
                 BridgeParameter('encrypt',
                     BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool)), false),
                 BridgeParameter(
                     'options',
                     BridgeTypeAnnotation($CryptoOptions.$type, nullable: true),
                     true),
+              ],
+            ),
+            isStatic: true),
+        'TripleDES': BridgeMethodDef(
+            BridgeFunctionDef(
+              returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+              namedParams: [
+                BridgeParameter(
+                    'ciphertext',
+                    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+                    false),
+                BridgeParameter(
+                    'key',
+                    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+                    false),
+                BridgeParameter('encrypt',
+                    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool)), false),
+                BridgeParameter(
+                    'options',
+                    BridgeTypeAnnotation($CryptoOptions.$type, nullable: true),
+                    true),
+              ],
+            ),
+            isStatic: true),
+        'HashString': BridgeMethodDef(
+            BridgeFunctionDef(
+              returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+              params: [
+                BridgeParameter(
+                    'hasher',
+                    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+                    false),
+                BridgeParameter(
+                    'data',
+                    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
+                    false),
               ],
             ),
             isStatic: true)
@@ -55,14 +90,30 @@ class $CryptoUtils extends CryptoUtils with $Bridge {
     return $CryptoUtils();
   }
 
-  static $Value? $cryptoJsAes(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    return $String(CryptoUtils.cryptoJsAes(
+  static $Value? $AES(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $String(CryptoUtils.AES(
       ciphertext: args[0]?.$value,
       key: args[1]?.$value,
-      iv: args[2]?.$value,
-      encrypt: args[3]?.$value,
-      options: args[4]?.$value,
+      encrypt: args[2]?.$value,
+      options: args[3]?.$value,
+    ));
+  }
+
+  static $Value? $TripleDES(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $String(CryptoUtils.TripleDES(
+      ciphertext: args[0]?.$value,
+      key: args[1]?.$value,
+      encrypt: args[2]?.$value,
+      options: args[3]?.$value,
+    ));
+  }
+
+  static $Value? $HashString(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $String(CryptoUtils.HashString(
+      args[0]?.$value,
+      args[1]?.$value,
     ));
   }
 
