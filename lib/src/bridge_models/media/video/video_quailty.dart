@@ -11,6 +11,10 @@ class $VideoQuality implements VideoQuality, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
         bridgeLibary, 'VideoQuality.', $VideoQuality.$new);
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'VideoQuality.unknown', $VideoQuality.$unknown);
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'VideoQuality.hlsMaster', $VideoQuality.$hlsMaster);
 
     // runtime.registerBridgeFunc(
     //     bridgeLibary, 'VideoQuality.unknown', $VideoQuality.$unknown);
@@ -99,7 +103,8 @@ class $VideoQuality implements VideoQuality, $Instance {
     return $VideoQuality.wrap(VideoQuality.unknown);
   }
 
-  static $Value $hls(Runtime runtime, $Value? target, List<$Value?> args) {
+  static $Value $hlsMaster(
+      Runtime runtime, $Value? target, List<$Value?> args) {
     return $VideoQuality.wrap(VideoQuality.hlsMaster);
   }
 
