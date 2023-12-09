@@ -97,6 +97,6 @@ class $ActorData implements ActorData, $Instance {
 
   @override
   String toString() {
-    return 'ActorData(name: $name, image: $image, role: $role)';
+    return $value.toString();
   }
 }

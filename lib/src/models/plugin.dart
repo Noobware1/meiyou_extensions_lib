@@ -76,4 +76,10 @@ class Plugin {
       version: version ?? this.version,
     );
   }
+
+
+  @override
+  String toString() {
+    return 'Plugin(id: $id, name: $name, type: $type, author: $author, description: $description, lang: $lang, baseUrl: $baseUrl, version: $version, downloadUrl: $downloadUrl)';
+  }
 }

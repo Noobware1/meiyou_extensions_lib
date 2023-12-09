@@ -6,4 +6,9 @@ class SeasonList {
   final List<Episode> episodes;
 
   SeasonList({required this.season, required this.episodes});
+
+  @override
+  String toString() {
+    return 'SeasonList(season: $season, episodes: $episodes)';
+  }
 }

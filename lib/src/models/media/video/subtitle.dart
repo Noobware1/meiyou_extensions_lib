@@ -11,4 +11,9 @@ class Subtitle {
   final SubtitleFormat? format;
   final String? langauge;
   final Map<String, String>? headers;
+
+  @override
+  String toString() {
+    return 'Subtitle(url: $url, format: $format, langauge: $langauge, headers: $headers)';
+  }
 }

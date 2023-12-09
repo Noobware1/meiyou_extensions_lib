@@ -85,4 +85,9 @@ class $ExternalId implements ExternalId, $Instance {
   @override
 
   String get name => $value.name;
+
+    @override
+  String toString() {
+    return $value.toString();
+  }
 }

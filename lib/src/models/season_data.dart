@@ -3,4 +3,9 @@ class SeasonData {
 
   final num? season;
   final String? name;
+
+  @override
+  String toString() {
+    return 'SeasonData(season: $season, name: $name)';
+  }
 }

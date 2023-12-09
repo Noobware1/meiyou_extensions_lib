@@ -511,6 +511,11 @@ class $MediaDetails implements MediaDetails, $Instance {
 
   @override
   void copyFromSearchResponse(SearchResponse searchResponse) {
-    // TODO: implement copyFromSearchResponse
+    return $value.copyFromSearchResponse(searchResponse);
+  }
+
+  @override
+  String toString() {
+    return $value.toString();
   }
 }

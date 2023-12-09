@@ -121,4 +121,10 @@ class $Subtitle implements Subtitle, $Instance {
 
   @override
   String get url => $value.url;
+
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }

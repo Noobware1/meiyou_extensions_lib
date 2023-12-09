@@ -13,6 +13,11 @@ class HomePageData {
     return map.entries.map((e) => HomePageData(
         name: e.key, data: e.value, horizontalImages: horizontalImages));
   }
+
+  @override
+  String toString() {
+    return 'HomePageData(name: $name, data: $data, horizontalImages: $horizontalImages)';
+  }
 }
 
 class HomePageRequest {
@@ -22,6 +27,11 @@ class HomePageRequest {
 
   HomePageRequest(
       {required this.name, required this.data, required this.horizontalImages});
+
+  @override
+  String toString() {
+    return 'HomePageRequest(name: $name, data: $data, horizontalImages: $horizontalImages)';
+  }
 }
 
 class HomePage {
@@ -30,6 +40,11 @@ class HomePage {
   final bool? hasNextPage;
 
   HomePage({required this.data, required this.page, this.hasNextPage});
+
+  @override
+  String toString() {
+    return 'HomePage(data: $data, page: $page, hasNextPage: $hasNextPage)';
+  }
 }
 
 class HomePageList {
@@ -42,4 +57,9 @@ class HomePageList {
     required this.data,
     //  this.loadMoreData
   });
+
+  @override
+  String toString() {
+    return 'HomePageList(name: $name, data: $data)';
+  }
 }

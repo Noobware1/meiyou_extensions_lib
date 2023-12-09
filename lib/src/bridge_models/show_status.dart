@@ -45,4 +45,9 @@ class $ShowStaus implements $Instance {
 
   @override
   final ShowStatus $value;
+
+    @override
+  String toString() {
+    return $value.toString();
+  }
 }

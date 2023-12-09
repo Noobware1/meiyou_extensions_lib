@@ -48,4 +48,10 @@ class $SubtitleFormat implements $Instance {
 
   @override
   final SubtitleFormat $value;
+
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }

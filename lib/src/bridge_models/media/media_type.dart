@@ -3,8 +3,6 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extenstions/src/constants/constants.dart';
 import 'package:meiyou_extenstions/src/models/media/media.dart';
 
-
-
 class $MediaType implements $Instance {
   $MediaType.wrap(this.$value);
 
@@ -41,4 +39,9 @@ class $MediaType implements $Instance {
 
   @override
   final MediaType $value;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }

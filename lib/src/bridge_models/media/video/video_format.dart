@@ -45,4 +45,10 @@ class $VideoFormat implements $Instance {
 
   @override
   final VideoFormat $value;
+
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }

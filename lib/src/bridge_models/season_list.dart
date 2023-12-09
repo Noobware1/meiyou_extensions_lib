@@ -84,4 +84,9 @@ class $SeasonList implements SeasonList, $Instance {
 
   @override
   SeasonData get season => $value.season;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }

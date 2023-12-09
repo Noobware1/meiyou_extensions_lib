@@ -160,4 +160,10 @@ class $ExtractorLink implements ExtractorLink, $Instance {
   set extra(Map<String, dynamic>? extra) {
     // TODO: implement extra
   }
+
+
+    @override
+  String toString() {
+    return $value.toString();
+  }
 }

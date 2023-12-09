@@ -17,4 +17,9 @@ class Episode {
   final bool? isFiller;
   final String? description;
   final DateTime? date;
+
+  @override
+  String toString() {
+    return 'Episode(data: $data, name: $name, season: $season, episode: $episode, posterImage: $posterImage, description: $description, isFiller: $isFiller, date: $date)';
+  }
 }

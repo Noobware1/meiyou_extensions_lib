@@ -170,4 +170,9 @@ class $Video implements Video, $Instance {
   set videoSources(List<VideoSource> videoSources) {
     // TODO: implement videoSources
   }
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }

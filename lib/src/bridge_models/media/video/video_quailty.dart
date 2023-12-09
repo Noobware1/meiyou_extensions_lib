@@ -129,4 +129,10 @@ class $VideoQuality implements VideoQuality, $Instance {
 
   @override
   int get width => $value.width;
+
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }

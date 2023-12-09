@@ -107,6 +107,11 @@ class $HomePageData implements HomePageData, $Instance {
 
   @override
   String get name => $value.name;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 class $HomePageRequest implements HomePageRequest, $Instance {
@@ -187,6 +192,11 @@ class $HomePageRequest implements HomePageRequest, $Instance {
 
   @override
   String get name => $value.name;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 class $HomePage implements HomePage, $Instance {
@@ -272,6 +282,11 @@ class $HomePage implements HomePage, $Instance {
 
   @override
   int get page => $value.page;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 class $HomePageList implements HomePageList, $Instance {
@@ -377,4 +392,9 @@ class $HomePageList implements HomePageList, $Instance {
   // @override
   // Future<List<SearchResponse>> Function(int page)? get loadMoreData =>
   //     $value.loadMoreData;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }

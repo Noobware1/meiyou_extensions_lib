@@ -22,4 +22,9 @@ class SearchResponse {
   final double? rating;
   final int? current;
   final int? total;
+
+  @override
+  String toString() {
+    return 'SearchResponse(title: $title, url: $url, poster: $poster, type: $type, description: $description, generes: $generes, rating: $rating, current: $current, total: $total)';
+  }
 }

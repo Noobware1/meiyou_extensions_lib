@@ -130,4 +130,9 @@ class $Media implements Media, $Instance {
   set mediaType(MediaType? mediaType) {
     // TODO: implement mediaType
   }
+
+    @override
+  String toString() {
+    return $value.toString();
+  }
 }

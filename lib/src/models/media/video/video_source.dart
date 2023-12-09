@@ -15,4 +15,9 @@ class VideoSource {
   VideoQuality? quality;
   bool isBackup;
   String? title;
+
+  @override
+  String toString() {
+    return 'VideoSource(url: $url, format: $format, quality: $quality, isBackup: $isBackup, title: $title)';
+  }
 }

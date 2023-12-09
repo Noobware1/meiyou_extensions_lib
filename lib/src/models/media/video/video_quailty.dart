@@ -33,4 +33,9 @@ class VideoQuality {
 
     return unknown;
   }
+
+  @override
+  String toString() {
+    return 'VideoQuality(width: $width, height: $height)';
+  }
 }

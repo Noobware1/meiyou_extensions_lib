@@ -174,4 +174,9 @@ class $SearchResponse implements SearchResponse, $Instance {
 
   @override
   int? get total => $value.total;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }

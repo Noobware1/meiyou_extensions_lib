@@ -50,4 +50,9 @@ class MediaDetails {
     url = searchResponse.url;
     type = searchResponse.type;
   }
+
+  @override
+  String toString() {
+    return 'MediaDetails(type: $type, name: $name, url: $url, otherTitles: $otherTitles, status: $status, bannerImage: $bannerImage, posterImage: $posterImage, rating: $rating, description: $description, startDate: $startDate, endDate: $endDate, duration: $duration, genres: $genres, recommendations: $recommendations, externalIds: $externalIds, actorData: $actorData, mediaItem: $mediaItem)';
+  }
 }

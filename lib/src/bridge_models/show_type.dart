@@ -60,4 +60,9 @@ class $ShowType implements $Instance {
 
   @override
   final ShowType $value;
+
+    @override
+  String toString() {
+    return $value.toString();
+  }
 }
