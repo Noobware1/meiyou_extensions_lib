@@ -31,6 +31,7 @@ class CryptoUtils {
     CryptoOptions? options,
   }) {
     final cipherOptions = CipherOptions(
+        iv: options?.iv,
         ivEncoding: options?.ivEncoding,
         keyEncoding: options?.keyEncoding,
         textEncoding: options?.textEncoding,
@@ -53,34 +54,36 @@ class CryptoUtils {
   }
 
   static String HashString(String hasher, dynamic data) {
+    final Hasher h;
     switch (hasher.toLowerCase()) {
       case 'md2':
-        return MD2(data).toString();
+        h = MD2(data);
       case 'md4':
-        return MD4(data).toString();
+        h = MD4(data);
       case 'md5':
-        return MD5(data).toString();
+        h = MD5(data);
       case 'ripemd160':
-        return RIPEMD160(data).toString();
+        h = RIPEMD160(data);
       case 'sha1':
-        return SHA1(data).toString();
+        h = SHA1(data);
       case 'sha3':
-        return SHA3(data).toString();
+        h = SHA3(data);
       case 'sha224':
-        return SHA224(data).toString();
+        h = SHA224(data);
       case 'sha256':
-        return SHA256(data).toString();
+        h = SHA256(data);
       case 'sha384':
-        return SHA384(data).toString();
+        h = SHA384(data);
       case 'sha512':
-        return SHA512(data).toString();
+        h = SHA512(data);
       case 'tiger':
-        return TIGER(data).toString();
+        h = TIGER(data);
       case 'whirlpool':
-        return WHIRLPOOL(data).toString();
+        h = WHIRLPOOL(data);
       default:
         throw Exception('Hasher $hasher not found');
     }
+    return h.toString();
   }
 
   static String TripleDES({

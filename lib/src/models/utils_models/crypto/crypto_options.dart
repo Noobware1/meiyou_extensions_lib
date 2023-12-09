@@ -1,4 +1,6 @@
 class CryptoOptions {
+  final String? iv;
+
   final String? textEncoding;
 
   final String? keyEncoding;
@@ -16,6 +18,7 @@ class CryptoOptions {
   final String? encoding;
 
   CryptoOptions({
+    this.iv,
     this.textEncoding,
     this.keyEncoding,
     this.ivEncoding,
@@ -28,17 +31,6 @@ class CryptoOptions {
 
   @override
   String toString() {
-    return '''CryptoOptions(
-    textEncoding: $textEncoding,
-    keyEncoding: $keyEncoding,
-    ivEncoding: $ivEncoding,
-    salt: $salt,
-    saltEncoding: $saltEncoding,
-    mode: $mode,
-    padding: $padding,
-    encoding: $encoding,
-  );
-''';
+    return '''CryptoOptions(iv: $iv, textEncoding: $textEncoding, keyEncoding: $keyEncoding, ivEncoding: $ivEncoding, salt: $salt, saltEncoding: $saltEncoding, mode: $mode, padding: $padding, encoding: $encoding)''';
   }
 }
-

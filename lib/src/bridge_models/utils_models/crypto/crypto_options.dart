@@ -4,7 +4,6 @@ import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extenstions/src/constants/constants.dart';
 import 'package:meiyou_extenstions/src/models/utils_models/crypto/crypto_options.dart';
 
-
 class $CryptoOptions implements $Instance, CryptoOptions {
   $CryptoOptions.wrap(this.$value) : _superclass = $Object($value);
 
@@ -21,6 +20,11 @@ class $CryptoOptions implements $Instance, CryptoOptions {
       constructors: {
         '': BridgeConstructorDef(
           BridgeFunctionDef(returns: BridgeTypeAnnotation($type), namedParams: [
+            BridgeParameter(
+                'iv',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),
+                    nullable: true),
+                true),
             BridgeParameter(
                 'textEncoding',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),
@@ -65,6 +69,9 @@ class $CryptoOptions implements $Instance, CryptoOptions {
         )
       },
       fields: {
+        'iv': BridgeFieldDef(BridgeTypeAnnotation(
+            BridgeTypeRef(CoreTypes.string),
+            nullable: true)),
         'textEncoding': BridgeFieldDef(BridgeTypeAnnotation(
             BridgeTypeRef(CoreTypes.string),
             nullable: true)),
@@ -95,6 +102,8 @@ class $CryptoOptions implements $Instance, CryptoOptions {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
+      case 'iv':
+        return $value.iv == null ? $null() : $String($value.iv!);
       case 'ivEncoding':
         return $value.ivEncoding == null
             ? $null()
@@ -134,14 +143,15 @@ class $CryptoOptions implements $Instance, CryptoOptions {
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
     return $CryptoOptions.wrap(CryptoOptions(
-      textEncoding: args[0]?.$value,
-      keyEncoding: args[1]?.$value,
-      ivEncoding: args[2]?.$value,
-      salt: args[3]?.$value,
-      saltEncoding: args[4]?.$value,
-      mode: args[5]?.$value,
-      padding: args[6]?.$value,
-      encoding: args[7]?.$value,
+      iv: args[0]?.$value,
+      textEncoding: args[1]?.$value,
+      keyEncoding: args[2]?.$value,
+      ivEncoding: args[3]?.$value,
+      salt: args[4]?.$value,
+      saltEncoding: args[5]?.$value,
+      mode: args[6]?.$value,
+      padding: args[7]?.$value,
+      encoding: args[8]?.$value,
     ));
   }
 
@@ -182,4 +192,7 @@ class $CryptoOptions implements $Instance, CryptoOptions {
 
   @override
   String? get encoding => $value.encoding;
+
+  @override
+  String? get iv => $value.iv;
 }
