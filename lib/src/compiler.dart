@@ -36,8 +36,6 @@ import 'package:meiyou_extenstions/src/bridge_models/utils_models/list_utils.dar
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/num_utils.dart';
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/string_utils.dart';
 
-//Generated Extractors
-import 'package:meiyou_extenstions/src/extractors/gogo_cdn/gogo_cdn.eval.dart';
 
 class ExtenstionComplier {
   Uint8List compilePackages(Map<String, Map<String, String>> packages) {
@@ -98,8 +96,6 @@ class ExtenstionComplier {
       $ExtractorApi.$declaration,
       $BasePluginApi.$declaration,
 
-      //Extractors
-      $GogoCDN.$declaration,
 
     ]);
     final program = compiler.compile(packages);

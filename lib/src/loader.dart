@@ -37,8 +37,6 @@ import 'package:meiyou_extenstions/src/bridge_models/utils_models/list_utils.dar
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/num_utils.dart';
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/string_utils.dart';
 
-//Generated Extractors
-import 'package:meiyou_extenstions/src/extractors/gogo_cdn/gogo_cdn.eval.dart';
 
 class ExtenstionLoader {
   Runtime runtimeEval(Uint8List bytecode) {
@@ -102,8 +100,6 @@ class ExtenstionLoader {
     $ExtractorApi.configureForRuntime(runtime);
     $BasePluginApi.configureForRuntime(runtime);
 
-    //Extractors
-    $GogoCDN.configureForRuntime(runtime);
 
     return runtime;
   }
