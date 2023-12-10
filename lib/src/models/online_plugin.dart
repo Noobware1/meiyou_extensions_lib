@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:meiyou_extenstions/meiyou_extenstions.dart';
 
 class OnlinePlugin extends Plugin {
@@ -14,6 +16,67 @@ class OnlinePlugin extends Plugin {
       required this.iconUrl});
 
   final String iconUrl;
+
+  @override
+  String get encode => jsonEncode(toJson());
+
+  factory OnlinePlugin.decode(String json) =>
+      OnlinePlugin.fromJson(jsonDecode(json));
+
+  factory OnlinePlugin.fromJson(Map<String, dynamic> json) {
+    return OnlinePlugin(
+      id: json['id'],
+      name: json['name'],
+      type: json['type'],
+      downloadUrl: json['downloadUrl'],
+      author: json['author'],
+      description: json['description'],
+      lang: json['lang'],
+      baseUrl: json['baseUrl'],
+      version: json['version'],
+      iconUrl: json['iconUrl'],
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'type': type,
+        'downloadUrl': downloadUrl,
+        'author': author,
+        'description': description,
+        'lang': lang,
+        'baseUrl': baseUrl,
+        'version': version,
+      };
+
+  @override
+  OnlinePlugin copyWith({
+    int? id,
+    String? name,
+    String? type,
+    String? author,
+    String? description,
+    String? lang,
+    String? baseUrl,
+    String? version,
+    String? downloadUrl,
+    String? iconUrl,
+  }) {
+    return OnlinePlugin(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      downloadUrl: downloadUrl ?? this.downloadUrl,
+      author: author ?? this.author,
+      description: description ?? this.description,
+      lang: lang ?? this.lang,
+      baseUrl: baseUrl ?? this.baseUrl,
+      version: version ?? this.version,
+      iconUrl: iconUrl ?? this.iconUrl,
+    );
+  }
 
   @override
   String toString() {
