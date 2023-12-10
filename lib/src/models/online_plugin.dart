@@ -10,5 +10,13 @@ class OnlinePlugin extends Plugin {
       required super.lang,
       required super.baseUrl,
       required super.version,
-      required super.downloadUrl});
+      required super.downloadUrl,
+      required this.iconUrl});
+
+  final String iconUrl;
+
+  @override
+  String toString() {
+    return 'OnlinePlugin(id: $id, name: $name, type: $type, author: $author, description: $description, lang: $lang, baseUrl: $baseUrl, version: $version, downloadUrl: $downloadUrl, iconUrl: $iconUrl)';
+  }
 }
