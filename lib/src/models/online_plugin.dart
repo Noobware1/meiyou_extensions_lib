@@ -49,6 +49,7 @@ class OnlinePlugin extends Plugin {
         'lang': lang,
         'baseUrl': baseUrl,
         'version': version,
+        'iconUrl': iconUrl,
       };
 
   @override
