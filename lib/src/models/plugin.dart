@@ -1,8 +1,10 @@
+// ignore_for_file: unnecessary_this
+
 import 'dart:convert';
 
 class Plugin {
   Plugin({
-    this.id,
+    int? id,
     required this.name,
     required this.type,
     required this.author,
@@ -11,9 +13,9 @@ class Plugin {
     required this.baseUrl,
     required this.version,
     required this.downloadUrl,
-  });
+  }) : this.id = id ?? 'meiyou_extentsion-$name$version$lang'.hashCode;
 
-  final int? id;
+  final int id;
   final String name;
   final String type;
   final String author;
@@ -42,7 +44,7 @@ class Plugin {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id ?? name.hashCode + version.hashCode + downloadUrl.hashCode,
+        'id': id,
         'name': name,
         'type': type,
         'downloadUrl': downloadUrl,
@@ -76,7 +78,6 @@ class Plugin {
       version: version ?? this.version,
     );
   }
-
 
   @override
   String toString() {

@@ -13,6 +13,7 @@ export 'src/models/season_data.dart';
 export 'src/models/show_status.dart';
 export 'src/models/show_type.dart';
 export 'src/models/plugin.dart';
+export 'src/models/online_plugin.dart';
 
 //MediaItem
 export 'src/models/media_item/media_item.dart';

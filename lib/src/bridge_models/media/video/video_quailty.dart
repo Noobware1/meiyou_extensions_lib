@@ -12,6 +12,11 @@ class $VideoQuality implements VideoQuality, $Instance {
     runtime.registerBridgeFunc(
         bridgeLibary, 'VideoQuality.', $VideoQuality.$new);
 
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'VideoQuality.unknown*g', $VideoQuality.$unknown);
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'VideoQuality.hlsMaster*g', $VideoQuality.$hlsMaster);
+
     runtime.registerBridgeFunc(bridgeLibary, 'VideoQuality.getFromString',
         $VideoQuality.$getFromString);
   }
@@ -50,7 +55,7 @@ class $VideoQuality implements VideoQuality, $Instance {
           BridgeTypeRef(CoreTypes.int),
         ),
       ),
-       'unknown': BridgeFieldDef(
+      'unknown': BridgeFieldDef(
           BridgeTypeAnnotation(
             $type,
           ),
@@ -79,10 +84,6 @@ class $VideoQuality implements VideoQuality, $Instance {
         return $int($value.height);
       case 'width':
         return $int($value.width);
-      case 'hlsMaster':
-        return $VideoQuality.wrap(VideoQuality.hlsMaster);
-      case 'unknown':
-        return $VideoQuality.wrap(VideoQuality.unknown);
 
       default:
         return $null();
@@ -96,6 +97,15 @@ class $VideoQuality implements VideoQuality, $Instance {
   static $Value $getFromString(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $VideoQuality.wrap(VideoQuality.getFromString(args[0]?.$value));
+  }
+
+  static $Value $unknown(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $VideoQuality.wrap(VideoQuality.unknown);
+  }
+
+  static $Value $hlsMaster(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $VideoQuality.wrap(VideoQuality.hlsMaster);
   }
 
   @override
