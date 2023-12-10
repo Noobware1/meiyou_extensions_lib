@@ -29,12 +29,12 @@ class OnlinePlugin extends Plugin {
       name: json['name'],
       type: json['type'],
       downloadUrl: json['downloadUrl'],
-      author: json['author'],
-      description: json['description'],
+      author: json['author'] ?? 'Unknown',
+      description: json['description'] ?? '',
       lang: json['lang'],
-      baseUrl: json['baseUrl'],
-      version: json['version'],
-      iconUrl: json['iconUrl'],
+      baseUrl: json['baseUrl'] ?? '',
+      version: json['version'] ?? '0.0.1',
+      iconUrl: json['iconUrl'] ?? '',
     );
   }
 

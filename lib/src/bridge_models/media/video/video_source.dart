@@ -8,7 +8,6 @@ import 'package:meiyou_extenstions/src/models/media/video/video_format.dart';
 import 'package:meiyou_extenstions/src/models/media/video/video_quailty.dart';
 import 'package:meiyou_extenstions/src/models/media/video/video_source.dart';
 
-
 class $VideoSource implements VideoSource, $Instance {
   $VideoSource.wrap(this.$value);
 
@@ -159,5 +158,10 @@ class $VideoSource implements VideoSource, $Instance {
   @override
   set isBackup(bool isBackup) {
     // TODO: implement isBackup
+  }
+
+  @override
+  String toString() {
+    return $value.toString();
   }
 }
