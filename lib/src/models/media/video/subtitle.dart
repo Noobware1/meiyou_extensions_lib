@@ -12,6 +12,9 @@ class Subtitle {
   final String? langauge;
   final Map<String, String>? headers;
 
+  static const noSubtitle =
+      Subtitle(url: '', format: null, langauge: 'No Subtitle', headers: null);
+
   @override
   String toString() {
     return 'Subtitle(url: $url, format: $format, langauge: $langauge, headers: $headers)';
