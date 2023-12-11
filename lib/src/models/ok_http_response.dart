@@ -20,7 +20,7 @@ class OkHttpResponseObject {
 
   DocumentObject get document => AppUtils.parseHtml(text);
 
-  E json<E>(E Function(dynamic json) fromJson) {
-    return fromJson(jsonDecode(text));
+  E json<E>([E Function(dynamic json)? fromJson]) {
+    return fromJson == null ? jsonDecode(text) : fromJson(jsonDecode(text));
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
@@ -67,7 +66,7 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
                 BridgeParameter(
                     'fromJson',
                     BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
-                    false)
+                    true)
               ],
               generics: {
                 'E': BridgeGenericParam()
@@ -112,10 +111,12 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
   }
 
   static $Value? $json(Runtime runtime, $Value? target, List<$Value?> args) {
-    final fromJson = args[0] as EvalCallable;
-    return (target?.$value as OkHttpResponseObject).json((json) => fromJson
-        .call(runtime, target,
-            [json is $Value ? json : runtime.wrapRecursive(json)]));
+    final fromJson = args[0] as EvalCallable?;
+    return (target?.$value as OkHttpResponseObject).json((json) {
+      final decoded = json is $Value ? json : runtime.wrapRecursive(json);
+      if (fromJson == null) return decoded;
+      fromJson.call(runtime, target, [decoded]);
+    });
   }
 
   @override
@@ -146,5 +147,5 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
   bool get hasError => $value.hasError;
 
   @override
-  E json<E>(E Function(dynamic json) fromJson) => $value.json(fromJson);
+  E json<E>([E Function(dynamic json)? fromJson]) => $value.json(fromJson);
 }
