@@ -16,7 +16,8 @@ class DocumentObject {
   }
 
   ElementObject selectFirst(String selector) {
-    return ElementObject(document.selectFirst(selector));
+    return trySync(() => ElementObject(document.selectFirst(selector))) ??
+        ElementObject(Element.tag('div'));
   }
 
   ElementObject? trySelectFirst(String selector) {
