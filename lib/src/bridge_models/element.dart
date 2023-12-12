@@ -144,12 +144,12 @@ class $ElementObject implements ElementObject, $Instance {
     return $ElementObject.wrap(value);
   }
 
-  static $Value _trySelectFirst(
+  static $Value? _trySelectFirst(
       final Runtime runtime, final $Value? target, final List<$Value?> args) {
     final value =
         (target!.$value as ElementObject).trySelectFirst(args[0]!.$value);
 
-    return value == null ? $ElementObject.wrap(value!) : const $null();
+    return value == null ? null : $ElementObject.wrap(value);
   }
 
   @override
