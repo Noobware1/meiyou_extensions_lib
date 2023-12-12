@@ -320,7 +320,7 @@ class $MediaDetails implements MediaDetails, $Instance {
   }
 
   @override
-  get $reified => $value;
+  MediaDetails get $reified => $value;
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {

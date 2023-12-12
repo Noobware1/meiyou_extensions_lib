@@ -23,4 +23,12 @@ class OkHttpResponseObject {
   E json<E>([E Function(dynamic json)? fromJson]) {
     return fromJson == null ? jsonDecode(text) : fromJson(jsonDecode(text));
   }
+
+  E? jsonSafe<E>([E Function(dynamic json)? fromJson]) {
+    try {
+      return fromJson == null ? jsonDecode(text) : fromJson(jsonDecode(text));
+    } catch (e) {
+      return null;
+    }
+  }
 }

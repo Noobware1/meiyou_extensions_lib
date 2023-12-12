@@ -139,7 +139,7 @@ class $ElementObject implements ElementObject, $Instance {
   static $Value? _selectFirst(
       final Runtime runtime, final $Value? target, final List<$Value?> args) {
     final value =
-        (target!.$value as ElementObject).selectFirst(args[0]?.$value);
+        (target!.$value as ElementObject).selectFirst(args[0]!.$value);
 
     return $ElementObject.wrap(value);
   }
@@ -147,7 +147,7 @@ class $ElementObject implements ElementObject, $Instance {
   static $Value _trySelectFirst(
       final Runtime runtime, final $Value? target, final List<$Value?> args) {
     final value =
-        (target!.$value as ElementObject).trySelectFirst(args[0]?.$value);
+        (target!.$value as ElementObject).trySelectFirst(args[0]!.$value);
 
     return value == null ? $ElementObject.wrap(value!) : const $null();
   }

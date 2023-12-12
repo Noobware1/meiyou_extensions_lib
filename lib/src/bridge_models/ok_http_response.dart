@@ -71,6 +71,20 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
               generics: {
                 'E': BridgeGenericParam()
               }),
+        ),
+        'jsonSafe': BridgeMethodDef(
+          BridgeFunctionDef(
+              returns:
+                  BridgeTypeAnnotation(BridgeTypeRef.ref('E'), nullable: true),
+              params: [
+                BridgeParameter(
+                    'fromJson',
+                    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
+                    true)
+              ],
+              generics: {
+                'E': BridgeGenericParam()
+              }),
         )
       },
       wrap: true);
@@ -115,7 +129,21 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
     return (target?.$value as OkHttpResponseObject).json((json) {
       final decoded = json is $Value ? json : runtime.wrapRecursive(json);
       if (fromJson == null) return decoded;
-      fromJson.call(runtime, target, [decoded]);
+      return fromJson.call(runtime, target, [decoded]);
+    });
+  }
+
+  static $Value? $jsonSafe(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final fromJson = args[0] as EvalCallable?;
+    return (target?.$value as OkHttpResponseObject).jsonSafe((json) {
+      try {
+        final decoded = json is $Value ? json : runtime.wrapRecursive(json);
+        if (fromJson == null) return decoded!;
+        return fromJson.call(runtime, target, [decoded])!;
+      } catch (e) {
+        return $null();
+      }
     });
   }
 
@@ -148,4 +176,8 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
 
   @override
   E json<E>([E Function(dynamic json)? fromJson]) => $value.json(fromJson);
+
+  @override
+  E? jsonSafe<E>([E Function(dynamic json)? fromJson]) =>
+      $value.jsonSafe(fromJson);
 }
