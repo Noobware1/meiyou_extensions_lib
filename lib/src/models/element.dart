@@ -8,6 +8,9 @@ class ElementObject {
 
   final Element element;
 
+
+
+
   String attr(String attr) {
     return trySync(() => element.attr(attr)) ?? '';
   }

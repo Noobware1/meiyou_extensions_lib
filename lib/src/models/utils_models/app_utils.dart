@@ -9,8 +9,6 @@ import 'package:ok_http_dart/dom.dart';
 import 'package:ok_http_dart/ok_http_dart.dart';
 
 class AppUtils {
- 
-
   static Future<OkHttpResponseObject> httpRequest({
     required String url,
     required String method,
@@ -91,7 +89,12 @@ class AppUtils {
   static String httpify(String url) =>
       url.startsWith('//') ? 'https:$url' : url;
 
-  static String getHost(String url) => trySync(() => Uri.parse(url).host) ?? '';
+  static String getBackgroundImage(String style) {
+    return RegExp(r"""background-image:\s?url\(['"](.*)['"]\);""")
+            .firstMatch(style)
+            ?.group(1) ??
+        '';
+  }
 
   static int getMonthByName(String name) {
     name = name.substring(0, 3).toLowerCase();
@@ -112,10 +115,6 @@ class AppUtils {
     };
 
     return months[name]!;
-  }
-
-  static String? regexFirstMatch(RegExp regExp, String input, int group) {
-    return regExp.firstMatch(input)?.group(group);
   }
 
   static SubtitleFormat? getSubtitleFromatFromUrl(String url) {

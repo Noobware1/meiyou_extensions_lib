@@ -178,17 +178,19 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
                 ],
                 namedParams: []),
             isStatic: true),
-        'getHost': BridgeMethodDef(
+
+        'getBackgroundImage': BridgeMethodDef(
             BridgeFunctionDef(
                 returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
                 params: [
                   BridgeParameter(
-                      'url',
+                      'style',
                       BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
                       false),
                 ],
                 namedParams: []),
             isStatic: true),
+
         'getMonthByName': BridgeMethodDef(
             BridgeFunctionDef(
                 returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
@@ -196,26 +198,6 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
                   BridgeParameter(
                       'name',
                       BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-                      false),
-                ],
-                namedParams: []),
-            isStatic: true),
-        'regexFirstMatch': BridgeMethodDef(
-            BridgeFunctionDef(
-                returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),
-                    nullable: true),
-                params: [
-                  BridgeParameter(
-                      'regExp',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.regExp)),
-                      false),
-                  BridgeParameter(
-                      'input',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-                      false),
-                  BridgeParameter(
-                      'group',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
                       false),
                 ],
                 namedParams: []),
@@ -321,6 +303,11 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
     return $String(AppUtils.encode(args[0]?.$value));
   }
 
+  static $String $getBackgroundImage(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $String(AppUtils.getBackgroundImage(args[0]!.$value));
+  }
+
   static $DateTime $toDateTime(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $DateTime.wrap(AppUtils.toDateTime(
@@ -358,20 +345,9 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
     return $String(AppUtils.httpify(args[0]?.$value));
   }
 
-  static $Value $getHost(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $String(AppUtils.getHost(args[0]?.$value));
-  }
-
   static $Value $getMonthByName(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $int(AppUtils.getMonthByName(args[0]?.$value));
-  }
-
-  static $Value $regexFirstMatch(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final result = AppUtils.regexFirstMatch(
-        args[0]!.$value, args[1]!.$value, args[2]!.$value);
-    return result == null ? const $null() : $String(result);
   }
 
   static $Value? $getSubtitleFromatFromUrl(
@@ -415,11 +391,10 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.httpify', $AppUtils.$httpify);
     runtime.registerBridgeFunc(
-        bridgeLibary, 'AppUtils.getHost', $AppUtils.$getHost);
-    runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.getMonthByName', $AppUtils.$getMonthByName);
-    runtime.registerBridgeFunc(
-        bridgeLibary, 'AppUtils.regexFirstMatch', $AppUtils.$regexFirstMatch);
+    runtime.registerBridgeFunc(bridgeLibary, 'AppUtils.getBackgroundImage',
+        $AppUtils.$getBackgroundImage);
+
     runtime.registerBridgeFunc(
         bridgeLibary,
         'AppUtils.getSubtitleFromatFromUrl',
@@ -428,6 +403,7 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
         bridgeLibary, 'AppUtils.isNotNull', $AppUtils.$isNotNull);
     runtime.registerBridgeFunc(bridgeLibary, 'AppUtils.evalAndStatements',
         $AppUtils.$evalAndStatements);
+
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.evalOrStatements', $AppUtils.$evalOrStatements);
   }
