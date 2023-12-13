@@ -64,10 +64,7 @@ class $MediaItem implements MediaItem, $Instance {
   @override
   MediaItemType get type => $value.type;
 
-  @override
-  String toString() {
-    return $reified.toString();
-  }
+
 }
 
 class $MediaItemType implements $Instance {

@@ -86,8 +86,5 @@ class $Movie extends Movie with $Bridge<Movie> {
     // TODO: implement $bridgeSet
   }
 
-  @override
-  String toString() {
-    return $reified.toString();
-  }
+
 }
