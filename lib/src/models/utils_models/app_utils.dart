@@ -4,7 +4,6 @@ import 'package:meiyou_extenstions/src/models/document.dart';
 import 'package:meiyou_extenstions/src/models/element.dart';
 import 'package:meiyou_extenstions/src/models/media/video/subtitle_format.dart';
 import 'package:meiyou_extenstions/src/models/ok_http_response.dart';
-import 'package:meiyou_extenstions/src/utils/try_catch.dart';
 import 'package:ok_http_dart/dom.dart';
 import 'package:ok_http_dart/ok_http_dart.dart';
 
@@ -90,7 +89,7 @@ class AppUtils {
       url.startsWith('//') ? 'https:$url' : url;
 
   static String getBackgroundImage(String style) {
-    return RegExp(r"""background-image:\s?url\(['"](.*)['"]\);""")
+    return RegExp(r"""background-image:\s?url\(['"]?(.*?)['"]?\);""")
             .firstMatch(style)
             ?.group(1) ??
         '';
