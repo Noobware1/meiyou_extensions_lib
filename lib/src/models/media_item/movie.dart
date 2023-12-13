@@ -9,4 +9,9 @@ class Movie extends MediaItem {
   final String? posterImage;
 
   final String? description;
+
+  @override
+  String toString() {
+    return 'Movie(url: $url, posterImage: $posterImage, description: $description)';
+  }
 }

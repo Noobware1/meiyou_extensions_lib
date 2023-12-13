@@ -70,4 +70,9 @@ class $Anime extends Anime with $Bridge<Anime> {
   void $bridgeSet(String identifier, $Value value) {
     // TODO: implement $bridgeSet
   }
+
+  @override
+  String toString() {
+    return $reified.toString();
+  }
 }

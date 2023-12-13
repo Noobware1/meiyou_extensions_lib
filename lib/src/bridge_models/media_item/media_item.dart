@@ -10,8 +10,7 @@ class $MediaItem implements MediaItem, $Instance {
     runtime.registerBridgeFunc(bridgeLibary, 'MediaItem.', $new);
   }
 
-  static const $type =
-      BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'MediaItem'));
+  static const $type = BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'MediaItem'));
 
   static const $declaration = BridgeClassDef(BridgeClassType($type),
       constructors: {
@@ -64,6 +63,11 @@ class $MediaItem implements MediaItem, $Instance {
 
   @override
   MediaItemType get type => $value.type;
+
+  @override
+  String toString() {
+    return $reified.toString();
+  }
 }
 
 class $MediaItemType implements $Instance {

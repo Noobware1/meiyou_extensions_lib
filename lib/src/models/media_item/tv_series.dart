@@ -5,4 +5,9 @@ class TvSeries extends MediaItem {
   TvSeries({required this.data}) : super(type: MediaItemType.TvSeries);
 
   final List<SeasonList> data;
+
+  @override
+  String toString() {
+    return 'TvSeries(data: $data)';
+  }
 }

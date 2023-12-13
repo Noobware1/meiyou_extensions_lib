@@ -61,4 +61,9 @@ class $TvSeries extends TvSeries with $Bridge<TvSeries> {
   void $bridgeSet(String identifier, $Value value) {
     // TODO: implement $bridgeSet
   }
+
+  @override
+  String toString() {
+    return $reified.toString();
+  }
 }
