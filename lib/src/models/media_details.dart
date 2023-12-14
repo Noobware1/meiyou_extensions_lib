@@ -46,9 +46,12 @@ class MediaDetails {
 
   void copyFromSearchResponse(SearchResponse searchResponse) {
     name = searchResponse.title;
-    posterImage = searchResponse.poster;
     url = searchResponse.url;
+    posterImage = searchResponse.poster;
     type = searchResponse.type;
+    description = searchResponse.description;
+    genres = searchResponse.generes;
+    rating = searchResponse.rating;
   }
 
   @override
