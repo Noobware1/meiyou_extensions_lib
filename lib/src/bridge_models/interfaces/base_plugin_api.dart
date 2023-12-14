@@ -18,8 +18,6 @@ import 'package:meiyou_extenstions/src/models/media_details.dart';
 import 'package:meiyou_extenstions/src/models/search_response.dart';
 import 'package:meiyou_extenstions/src/utils/unwrap.dart';
 
-
-
 class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
@@ -109,6 +107,11 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
             ),
           },
           getters: {
+            'baseurl': BridgeMethodDef(
+              BridgeFunctionDef(
+                returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+              ),
+            ),
             'homePage': BridgeMethodDef(
               BridgeFunctionDef(
                 returns: BridgeTypeAnnotation(
@@ -171,6 +174,12 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
   @override
   $Value? $bridgeGet(String identifier) {
     switch (identifier) {
+      case 'homePage':
+        return $Iterable.wrap(
+            homePage.map((it) => it is $Value ? it : $HomePageData.wrap(it)));
+      case 'baseurl':
+        return $String(baseUrl);
+
       case 'loadHomePage':
         return const $Function($loadHomePage);
       case 'search':
@@ -181,7 +190,6 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
         return const $Function($loadLinks);
       case 'loadMedia':
         return const $Function($loadMedia);
-
       default:
         return null;
     }
@@ -244,4 +252,7 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
   @override
   Iterable<HomePageData> get homePage =>
       unwrapIterable<HomePageData>($_get('homePage') as Iterable);
+
+  @override
+  String get baseUrl => $_get('baseUrl').toString();
 }

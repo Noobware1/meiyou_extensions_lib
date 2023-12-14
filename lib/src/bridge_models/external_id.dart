@@ -8,7 +8,7 @@ import 'package:meiyou_extenstions/src/models/external_id.dart';
 class $ExternalId implements ExternalId, $Instance {
   $ExternalId.wrap(this.$value) : _superclass = $Object($value);
 
-  late final $Instance _superclass;
+late final $Instance _superclass;
 
   static const $type =
       BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'ExternalId'));
