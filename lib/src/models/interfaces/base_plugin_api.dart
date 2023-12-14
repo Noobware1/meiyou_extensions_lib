@@ -1,5 +1,3 @@
-
-
 import 'package:meiyou_extenstions/src/models/extractor_link.dart';
 import 'package:meiyou_extenstions/src/models/homepage.dart';
 import 'package:meiyou_extenstions/src/models/media/media.dart';
@@ -8,6 +6,8 @@ import 'package:meiyou_extenstions/src/models/search_response.dart';
 
 abstract class BasePluginApi {
   BasePluginApi();
+
+  String get baseUrl;
 
   Iterable<HomePageData> get homePage;
 
