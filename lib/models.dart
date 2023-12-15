@@ -1,3 +1,6 @@
+//Exceptions
+export 'src/models/plugin_exception.dart';
+
 export 'src/models/actor_data.dart';
 export 'src/models/document.dart';
 export 'src/models/element.dart';

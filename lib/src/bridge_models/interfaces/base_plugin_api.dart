@@ -15,6 +15,7 @@ import 'package:meiyou_extenstions/src/models/interfaces/base_plugin_api.dart';
 import 'package:meiyou_extenstions/src/models/media/media.dart';
 import 'package:meiyou_extenstions/src/models/media/video/video.dart';
 import 'package:meiyou_extenstions/src/models/media_details.dart';
+import 'package:meiyou_extenstions/src/models/plugin_exception.dart';
 import 'package:meiyou_extenstions/src/models/search_response.dart';
 import 'package:meiyou_extenstions/src/utils/unwrap.dart';
 
@@ -155,7 +156,7 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
             $List.wrap(value.mapAsList((it) => $ExtractorLink.wrap(it)))));
   }
 
-  static $Future<$Value?> $loadMedia(
+  static $Value? $loadMedia(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap((target?.$value as BasePluginApi)
         .loadMedia(args[0]?.$value)
@@ -200,53 +201,40 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
 
   @override
   Future<MediaDetails> loadMediaDetails(SearchResponse searchResponse) async {
-    final value = await ($_invoke(
-        'loadMediaDetails', [$SearchResponse.wrap(searchResponse)]) as Future);
-    if (value is $MediaDetails) {
-      return value.$value;
+    try {
+      final value = await ($_invoke(
+              'loadMediaDetails', [$SearchResponse.wrap(searchResponse)])
+          as Future);
+      return value as $MediaDetails;
+    } catch (e, s) {
+      throw PluginException(e.toString(), s);
     }
-    throw Exception('Bad Response');
   }
 
   @override
   Future<List<SearchResponse>> search(String query) async {
     final value = await ($_invoke('search', [$String(query)]) as Future);
-    try {
-      return unwrapList(unwrapValue<List>(value));
-    } catch (_) {
-      throw Exception('Bad Response');
-    }
+    return (value as List).mapAsList((it) => it as $SearchResponse);
   }
 
   @override
   Future<List<ExtractorLink>> loadLinks(String url) async {
     final value = await ($_invoke('loadLinks', [$String(url)]) as Future);
-
-    try {
-      return unwrapList(unwrapValue<List>(value));
-    } catch (_) {
-      throw Exception('Bad Response');
-    }
+    return (value as List).mapAsList((it) => it as $ExtractorLink);
   }
 
   @override
   Future<Media?> loadMedia(ExtractorLink link) async {
     final value =
         unwrapValue((await $_invoke('loadMedia', [$ExtractorLink.wrap(link)])));
-
-    if (value == null) return null;
-    try {
-      return value as Media;
-    } catch (_) {
-      throw Exception('Bad Response');
-    }
+    return value as Media;
   }
 
   @override
   Future<HomePage> loadHomePage(int page, HomePageRequest request) async {
     final value = unwrapValue((await $_invoke(
         'loadHomePage', [$int(page), $HomePageRequest.wrap(request)])));
-    return unwrapValue<HomePage>(value);
+    return value as $HomePage;
   }
 
   @override
