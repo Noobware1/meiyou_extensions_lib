@@ -33,7 +33,7 @@ class $Subtitle implements Subtitle, $Instance {
               BridgeTypeAnnotation($SubtitleFormat.$type, nullable: true),
               true),
           BridgeParameter(
-              'langauge',
+              'language',
               BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),
                   nullable: true),
               true),
@@ -54,7 +54,7 @@ class $Subtitle implements Subtitle, $Instance {
       'format': BridgeFieldDef(
         BridgeTypeAnnotation($SubtitleFormat.$type, nullable: true),
       ),
-      'langauge': BridgeFieldDef(
+      'language': BridgeFieldDef(
         BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string), nullable: true),
       ),
       'headers': BridgeFieldDef(
@@ -74,8 +74,8 @@ class $Subtitle implements Subtitle, $Instance {
             ? $SubtitleFormat.wrap($value.format!)
             : $null();
 
-      case 'langauge':
-        return $value.langauge != null ? $String($value.langauge!) : $null();
+      case 'language':
+        return $value.language != null ? $String($value.language!) : $null();
       case 'headers':
         return $value.headers != null
             ? $Map.wrap($value.headers!
@@ -91,7 +91,7 @@ class $Subtitle implements Subtitle, $Instance {
     return $Subtitle.wrap(Subtitle(
       url: args[0]?.$value ?? '',
       format: args[1]?.$value,
-      langauge: args[2]?.$value,
+      language: args[2]?.$value,
       headers: (args[3]?.$value as Map?)?.map((key, value) => MapEntry(
           (key is $Value) ? key.$value : key,
           (value is $Value) ? value.$value : value)),
@@ -117,7 +117,7 @@ class $Subtitle implements Subtitle, $Instance {
   Map<String, String>? get headers => $value.headers;
 
   @override
-  String? get langauge => $value.langauge;
+  String? get language => $value.language;
 
   @override
   String get url => $value.url;

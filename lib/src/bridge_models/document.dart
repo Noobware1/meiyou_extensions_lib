@@ -4,10 +4,11 @@ import 'package:meiyou_extenstions/src/bridge_models/element.dart';
 import 'package:meiyou_extenstions/src/constants/constants.dart';
 import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
 import 'package:meiyou_extenstions/src/models/document.dart';
+import 'package:meiyou_extenstions/src/models/element.dart';
 import 'package:ok_http_dart/dom.dart';
 import 'package:dart_eval/stdlib/core.dart';
 
-class $DocumentObject implements $Instance {
+class $DocumentObject implements DocumentObject, $Instance {
   $DocumentObject.wrap(this.$value);
 
   static void configureForRuntime(Runtime runtime) {
@@ -72,8 +73,6 @@ class $DocumentObject implements $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
-      case 'document':
-        return $Document.wrap($value.document);
       case 'select':
         return const $Function(_select);
       case 'selectFirst':
@@ -123,6 +122,16 @@ class $DocumentObject implements $Instance {
       final Runtime runtime, final $Value? target, final List<$Value?> args) {
     return $DocumentObject.wrap(DocumentObject(args[0]?.$value));
   }
+
+  @override
+  List<ElementObject> select(String selector) => $value.select(selector);
+
+  @override
+  ElementObject selectFirst(String selector) => $value.selectFirst(selector);
+
+  @override
+  ElementObject? trySelectFirst(String selector) =>
+      $value.trySelectFirst(selector);
 }
 
 class $Document implements $Instance {

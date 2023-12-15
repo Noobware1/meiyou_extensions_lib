@@ -2,6 +2,18 @@
 
 import 'dart:convert';
 
+/// `Plugin` is a class that represents a plugin.
+///
+/// It includes the following properties:
+/// * `id`: An integer representing the ID of the plugin.
+/// * `name`: A string representing the name of the plugin.
+/// * `type`: A string representing the type of the plugin.
+/// * `author`: A string representing the author of the plugin.
+/// * `description`: A string representing the description of the plugin.
+/// * `lang`: A string representing the language of the plugin.
+/// * `baseUrl`: A string representing the base URL of the plugin.
+/// * `version`: A string representing the version of the plugin.
+/// * `downloadUrl`: A string representing the download URL of the plugin.
 class Plugin {
   Plugin({
     int? id,
@@ -14,21 +26,41 @@ class Plugin {
     required this.version,
     required this.downloadUrl,
   }) : this.id = id ?? 'meiyou_extentsion-$name$version$lang'.hashCode;
-
+  
+  /// ID of the plugin. This will be used to uniquely identify the plugin.
   final int id;
+
+  /// Name of the plugin. This will be used to display the name of the plugin.
   final String name;
+
+  /// Type of the plugin. This will be used to identify the type of the plugin.
   final String type;
+
+  /// Author of the plugin. This will be used to display the author of the plugin.
   final String author;
+
+  /// Description of the plugin. This will be used to display the description about the plugin.
   final String description;
+
+  /// Language of the plugin. This will be used to show supported language for plugin.
   final String lang;
+
+  /// Base URL of the plugin. This will be used to identify url of the site used plugin.
   final String baseUrl;
+
+  /// Version of the plugin. This will be used to identify the version of the plugin.
   final String version;
+
+  /// Download URL of the plugin. This will be used to download the plugin.        
   final String downloadUrl;
 
+  /// Encodes this `Plugin` instance to json string.
   String get encode => jsonEncode(toJson());
 
+  /// Creates a new `Plugin` instance from encoded json.
   factory Plugin.decode(String json) => Plugin.fromJson(jsonDecode(json));
 
+  /// Creates a new `Plugin` instance from decoded json.
   factory Plugin.fromJson(Map<String, dynamic> json) {
     return Plugin(
       id: json['id'],
@@ -43,6 +75,7 @@ class Plugin {
     );
   }
 
+  /// Converts this `Plugin` instance to json.
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
@@ -55,6 +88,7 @@ class Plugin {
         'version': version,
       };
 
+  /// Creates a copy of this `Plugin` instance with the given fields replaced with the new values.
   Plugin copyWith({
     int? id,
     String? name,

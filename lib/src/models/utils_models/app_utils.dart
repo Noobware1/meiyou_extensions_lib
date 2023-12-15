@@ -7,7 +7,28 @@ import 'package:meiyou_extenstions/src/models/ok_http_response.dart';
 import 'package:ok_http_dart/dom.dart';
 import 'package:ok_http_dart/ok_http_dart.dart';
 
+/// A utility class for performing common tasks.
+///
+/// The `AppUtils` class provides static methods for tasks such as sending HTTP requests, encoding query strings, parsing HTML and other utility functions.
+///
+/// This class cannot be instantiated. All its methods are static and should be called directly on the class.
+/// 
 class AppUtils {
+  /// Sends an HTTP request and returns the response.
+  ///
+  /// The `httpRequest` function takes the following parameters:
+  /// * `url`: A string representing the URL to send the request to.
+  /// * `method`: A string representing the HTTP method to use (e.g., 'GET', 'POST').
+  /// * `headers`: An optional map representing the headers to include in the request.
+  /// * `followRedircts`: An optional boolean indicating whether to follow redirects.
+  /// * `cookie`: An optional string representing the cookie to include in the request.
+  /// * `referer`: An optional string representing the referer to include in the request.
+  /// * `params`: An optional map representing the query parameters to include in the request.
+  /// * `body`: An optional object representing the body of the request.
+  ///
+  /// It returns a `Future` that resolves to an `OkHttpResponseObject` representing the response.
+  ///
+  /// If an error occurs during the request, it is caught and the `hasError` property of the `OkHttpResponseObject` is set to `true`.
   static Future<OkHttpResponseObject> httpRequest({
     required String url,
     required String method,
@@ -45,16 +66,31 @@ class AppUtils {
         isRedirect: false,
       );
     }
-    // .then((value) => OkHttpResponseObject(
-    //       text: value.text,
-    //       statusCode: value.statusCode,
-    //       headers: value.headers,
-    //       isRedirect: value.isRedirect,
-    //     ));
   }
+
+  /// Encodes a query string for use in a URL.
+  ///
+  /// The `encode` function takes the following parameters:
+  /// * `query`: A string representing the query to encode.
+  /// * `replaceWith`: An optional string representing the character to replace '+' with. The default is '%20'.
+  ///
+  /// It returns a string representing the encoded query.
+  ///
+  /// This function uses the `Uri.encodeQueryComponent` method to encode the query, and then replaces '+' with the specified character.
 
   static String encode(String query, [String replaceWith = '%20']) =>
       Uri.encodeQueryComponent(query).replaceAll('+', replaceWith);
+
+  /// Converts a year, month, and day to a `DateTime` object.
+  ///
+  /// The `toDateTime` function takes the following parameters:
+  /// * `year`: An integer representing the year.
+  /// * `month`: An optional integer representing the month. The default is 1.
+  /// * `day`: An optional integer representing the day. The default is 1.
+  ///
+  /// It returns a `DateTime` object representing the specified date.
+  ///
+  /// This function uses the `DateTime` constructor to create the `DateTime` object.
 
   static DateTime toDateTime(
     int year, {
@@ -70,24 +106,57 @@ class AppUtils {
         second ?? 0, millisecond ?? 0, microsecond ?? 0);
   }
 
+  /// Parses a HTML string and returns a `DocumentObject`.
+  ///
+  /// The `parseHtml` function takes the following parameter:
+  /// * `html`: A string representing the HTML to parse.
+  ///
+  /// It returns a `DocumentObject` representing the parsed HTML.
+  ///
+  /// This function uses the `Document.html` constructor to parse the HTML.
+
   static DocumentObject parseHtml(String html) =>
       DocumentObject(Document.html(html));
 
+  /// Maps a list of elements to a new list using a generator function.
+  ///
+  /// The `mapList` function takes the following parameters:
+  /// * `list`: A list of elements to map.
+  /// * `generator`: A function that takes an element and returns a new element.
+  ///
+  /// It returns a new list where each element is the result of calling the generator function on the corresponding element in the original list.
+  ///
+  /// This function is similar to `Iterable.map` but instead of returning `Iterable` it returns `List` and can only be used on `List`.
   static List mapList(List list, dynamic Function(dynamic element) generator) =>
       list.mapAsList((it) => generator(it));
+
+  /// Returns a list of `ElementObject` objects that match the specified CSS selector.
+  /// The `select` function takes the following parameters:
+  /// * `selector`: A string representing the CSS selector to match
+  /// It returns a list of `ElementObject` objects that match the specified CSS selector.
 
   static List<String> selectMultiAttr(
       List<ElementObject> elements, String attr) {
     return elements.mapAsList((it) => it.attr(attr));
   }
 
+  /// Returns a list of `ElementObject` objects that match the specified CSS selector.
+  /// The `select` function takes the following parameters:
+  /// * `selector`: A string representing the CSS selector to match
+  /// It returns a list of `ElementObject` objects that match the specified CSS selector.
   static List<String> selectMultiText(List<ElementObject> elements) {
     return elements.mapAsList((it) => it.text());
   }
 
+  /// Converts a URL to HTTP if it starts with '//'.
+  ///
+  /// The `httpify` function takes a string representing a URL and returns the URL with 'https:' prepended if it starts with '//'.
   static String httpify(String url) =>
       url.startsWith('//') ? 'https:$url' : url;
 
+  /// Extracts the background image URL from a CSS style string.
+  ///
+  /// The `getBackgroundImage` function takes a string representing a CSS style and returns the URL of the background image.
   static String getBackgroundImage(String style) {
     return RegExp(r"""background-image:\s?url\(['"]?(.*?)['"]?\);""")
             .firstMatch(style)
@@ -95,6 +164,9 @@ class AppUtils {
         '';
   }
 
+  /// Converts a month name to a month number.
+  ///
+  /// The `getMonthByName` function takes a string representing a month name and returns the corresponding month number.
   static int getMonthByName(String name) {
     name = name.substring(0, 3).toLowerCase();
 
@@ -116,7 +188,15 @@ class AppUtils {
     return months[name]!;
   }
 
-  static SubtitleFormat? getSubtitleFromatFromUrl(String url) {
+  /// Determines the subtitle format based on the URL.
+  ///
+  /// The `getSubtitleFormatFromUrl` function takes the following parameter:
+  /// * `url`: A string representing the URL of the subtitle file.
+  ///
+  /// It returns a `SubtitleFormat` representing the format of the subtitle file, or `null` if the format could not be determined.
+  ///
+  /// This function checks the last 4 characters of the URL to determine the format. If the URL ends with '.vtt', '.srt', or '.ass', it returns the corresponding `SubtitleFormat`. Otherwise, it returns `null`.
+  static SubtitleFormat? getSubtitleFormatFromUrl(String url) {
     final endWith = url.substringSafe(url.length - 4);
     switch (endWith) {
       case '.vtt':
@@ -130,15 +210,40 @@ class AppUtils {
     }
   }
 
+  /// Checks if a value is not null and not empty (if it is a list).
+  ///
+  /// The `isNotNull` function takes the following parameter:
+  /// * `value`: A dynamic value to check.
+  ///
+  /// It returns a boolean indicating whether the value is not null and not empty (if it is a list).
+  ///
+  /// This function checks if the value is a list. If it is, it returns whether the list is not empty. Otherwise, it returns whether the value is not null.
   static bool isNotNull(dynamic value) {
     if (value is List) return value.isNotEmpty;
     return value != null;
   }
 
+  /// Evaluates a list of boolean statements using logical AND.
+  ///
+  /// The `evalAndStatements` function takes the following parameter:
+  /// * `statements`: A list of boolean values to evaluate.
+  ///
+  /// It returns a boolean indicating whether all the statements are `true`.
+  ///
+  /// This function uses the `List.firstWhere` method to find the first statement that is `false`. If such a statement is found, it returns `false`. Otherwise, it returns `true`.
   static bool evalAndStatements(List<bool> statements) {
     final pass = statements.tryfirstWhere((e) => e == false);
     return pass != null ? false : true;
   }
+
+  /// Evaluates a list of boolean statements using logical OR.
+  ///
+  /// The `evalOrStatements` function takes the following parameter:
+  /// * `statements`: A list of boolean values to evaluate.
+  ///
+  /// It returns a boolean indicating whether any of the statements are `true`.
+  ///
+  /// This function uses the `List.firstWhere` method to find the first statement that is `true`. If such a statement is found, it returns `true`. Otherwise, it returns `false`.
 
   static bool evalOrStatements(List<bool> statements) {
     final pass = statements.tryfirstWhere((e) => e == true);

@@ -39,7 +39,6 @@ class $StringUtils implements $Instance {
     runtime.registerBridgeFunc(
         bridgeLibary, 'StringUtils.substringSafe', $substringSafe);
 
-    runtime.registerBridgeFunc(bridgeLibary, 'StringUtils.trim', $trim);
     runtime.registerBridgeFunc(
         bridgeLibary, 'StringUtils.trimAllSides', $trimAllSides);
     runtime.registerBridgeFunc(
@@ -150,12 +149,6 @@ class $StringUtils implements $Instance {
               ],
             ),
             isStatic: true),
-        'trim': BridgeMethodDef(
-            BridgeFunctionDef(
-              returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-              params: [$param],
-            ),
-            isStatic: true),
         'trimAllSides': BridgeMethodDef(
             BridgeFunctionDef(
               returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
@@ -262,9 +255,7 @@ class $StringUtils implements $Instance {
         args[0]?.$value, args[1]?.$value, args[2]?.$value));
   }
 
-  static $Value? $trim(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $String(StringUtils.trim(args[0]?.$value));
-  }
+ 
 
   static $Value? $trimAllSides(
       Runtime runtime, $Value? target, List<$Value?> args) {

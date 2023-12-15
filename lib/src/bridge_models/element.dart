@@ -22,7 +22,7 @@ class $ElementObject implements ElementObject, $Instance {
               namedParams: [],
               params: [
                 BridgeParameter(
-                    'element', BridgeTypeAnnotation($Element.$type), false),
+                    '_element', BridgeTypeAnnotation($Element.$type), false),
               ]),
         )
       },
@@ -83,8 +83,6 @@ class $ElementObject implements ElementObject, $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
-      case 'element':
-        return $Element.wrap($value.element);
       case 'text':
         return const $Function(_text);
       case 'attr':
@@ -154,10 +152,6 @@ class $ElementObject implements ElementObject, $Instance {
 
   @override
   String attr(String attr) => $value.attr(attr);
-
-  @override
-  // TODO: implement element
-  Element get element => $value.element;
 
   @override
   List<ElementObject> select(String selector) => $value.select(selector);

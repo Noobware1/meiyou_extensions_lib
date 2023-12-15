@@ -37,8 +37,10 @@ import 'package:meiyou_extenstions/src/bridge_models/utils_models/list_utils.dar
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/num_utils.dart';
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/string_utils.dart';
 
-
+/// A class to load extenstion which is a form of evc byte code.
 class ExtenstionLoader {
+  /// Loads a extenstion from a byte code.
+  ///   * `bytecode`: The byte code of the extenstion.
   Runtime runtimeEval(Uint8List bytecode) {
     final runtime = Runtime(bytecode.buffer.asByteData());
 
@@ -99,7 +101,6 @@ class ExtenstionLoader {
     //Interfaces
     $ExtractorApi.configureForRuntime(runtime);
     $BasePluginApi.configureForRuntime(runtime);
-
 
     return runtime;
   }

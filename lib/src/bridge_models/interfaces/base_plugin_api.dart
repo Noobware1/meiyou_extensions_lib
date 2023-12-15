@@ -15,7 +15,6 @@ import 'package:meiyou_extenstions/src/models/interfaces/base_plugin_api.dart';
 import 'package:meiyou_extenstions/src/models/media/media.dart';
 import 'package:meiyou_extenstions/src/models/media/video/video.dart';
 import 'package:meiyou_extenstions/src/models/media_details.dart';
-import 'package:meiyou_extenstions/src/models/plugin_exception.dart';
 import 'package:meiyou_extenstions/src/models/search_response.dart';
 import 'package:meiyou_extenstions/src/utils/unwrap.dart';
 
@@ -201,14 +200,9 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
 
   @override
   Future<MediaDetails> loadMediaDetails(SearchResponse searchResponse) async {
-    try {
-      final value = await ($_invoke(
-              'loadMediaDetails', [$SearchResponse.wrap(searchResponse)])
-          as Future);
-      return value as $MediaDetails;
-    } catch (e, s) {
-      throw PluginException(e.toString(), s);
-    }
+    final value = await ($_invoke(
+        'loadMediaDetails', [$SearchResponse.wrap(searchResponse)]) as Future);
+    return value as $MediaDetails;
   }
 
   @override

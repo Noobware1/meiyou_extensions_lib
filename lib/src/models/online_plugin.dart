@@ -2,6 +2,11 @@ import 'dart:convert';
 
 import 'package:meiyou_extenstions/meiyou_extenstions.dart';
 
+/// `OnlinePlugin` represents an online plugin mainly used by index.json present in a repository.
+///
+/// It includes all the properties of the `Plugin` class, plus the following additional property:
+/// * `iconUrl`: A string representing the URL of the icon for the plugin.
+///
 class OnlinePlugin extends Plugin {
   OnlinePlugin(
       {super.id,
@@ -14,15 +19,19 @@ class OnlinePlugin extends Plugin {
       required super.version,
       required super.downloadUrl,
       required this.iconUrl});
-
+      
+  /// icon url for the plugin. this will be used to display the icon for the plugin.
   final String iconUrl;
 
+  /// Encodes this `OnlinePlugin` instance to json string.
   @override
   String get encode => jsonEncode(toJson());
 
+  /// Creates a new `OnlinePlugin` instance from encoded json.
   factory OnlinePlugin.decode(String json) =>
       OnlinePlugin.fromJson(jsonDecode(json));
 
+  /// Creates a new `OnlinePlugin` instance from decoded json.
   factory OnlinePlugin.fromJson(Map<String, dynamic> json) {
     return OnlinePlugin(
       id: json['id'],
@@ -38,6 +47,7 @@ class OnlinePlugin extends Plugin {
     );
   }
 
+  /// Converts this `OnlinePlugin` instance to json.
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -52,6 +62,7 @@ class OnlinePlugin extends Plugin {
         'iconUrl': iconUrl,
       };
 
+  /// Creates a copy of this `OnlinePlugin` instance with the given fields replaced with the new values.
   @override
   OnlinePlugin copyWith({
     int? id,

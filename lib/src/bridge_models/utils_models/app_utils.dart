@@ -202,7 +202,7 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
                 ],
                 namedParams: []),
             isStatic: true),
-        'getSubtitleFromatFromUrl': BridgeMethodDef(
+        'getSubtitleFormatFromUrl': BridgeMethodDef(
           BridgeFunctionDef(
               returns:
                   BridgeTypeAnnotation($SubtitleFormat.$type, nullable: true),
@@ -350,10 +350,10 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
     return $int(AppUtils.getMonthByName(args[0]?.$value));
   }
 
-  static $Value? $getSubtitleFromatFromUrl(
+  static $Value? $getSubtitleFormatFromUrl(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $result =
-        AppUtils.getSubtitleFromatFromUrl(args[0]?.$value as String);
+        AppUtils.getSubtitleFormatFromUrl(args[0]?.$value as String);
     return $result == null ? const $null() : $SubtitleFormat.wrap($result);
   }
 
@@ -397,8 +397,8 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
 
     runtime.registerBridgeFunc(
         bridgeLibary,
-        'AppUtils.getSubtitleFromatFromUrl',
-        $AppUtils.$getSubtitleFromatFromUrl);
+        'AppUtils.getSubtitleFormatFromUrl',
+        $AppUtils.$getSubtitleFormatFromUrl);
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.isNotNull', $AppUtils.$isNotNull);
     runtime.registerBridgeFunc(bridgeLibary, 'AppUtils.evalAndStatements',

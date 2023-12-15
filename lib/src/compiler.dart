@@ -36,8 +36,16 @@ import 'package:meiyou_extenstions/src/bridge_models/utils_models/list_utils.dar
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/num_utils.dart';
 import 'package:meiyou_extenstions/src/bridge_models/utils_models/string_utils.dart';
 
-
+/// A class that compiles packages.
+///
+/// The `ExtenstionComplier` class has the following methods:
+/// * `compilePackages`: Compiles a map of packages into a `Uint8List`.
 class ExtenstionComplier {
+  /// Compiles a map of packages into a `Uint8List`.
+  ///
+  /// The method takes the following parameters:
+  /// * `packages`: A map of packages to compile.
+  ///
   Uint8List compilePackages(Map<String, Map<String, String>> packages) {
     final compiler = Compiler();
     compiler.defineBridgeEnum($ShowType.$declaration);
@@ -95,8 +103,6 @@ class ExtenstionComplier {
       //Interfaces
       $ExtractorApi.$declaration,
       $BasePluginApi.$declaration,
-
-
     ]);
     final program = compiler.compile(packages);
 
