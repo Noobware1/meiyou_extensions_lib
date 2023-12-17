@@ -257,16 +257,19 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
         //         ],
         //         namedParams: []),
         //     isStatic: true),
-        // 'tryWithSync': BridgeMethodDef(
-        //     BridgeFunctionDef(
-        //         returns: BridgeTypeAnnotation(BridgeTypeRef.ref('E'),
-        //             nullable: true),
-        //         params: [
-        //           BridgeParameter('fun',
-        //               BridgeTypeAnnotation(BridgeTypeRef.ref('E')), false),
-        //         ],
-        //         namedParams: []),
-        //     isStatic: true),
+        'trySync': BridgeMethodDef(
+            BridgeFunctionDef(
+                returns: BridgeTypeAnnotation(BridgeTypeRef.ref('T'),
+                    nullable: true),
+                params: [
+                  BridgeParameter('fun',
+                      BridgeTypeAnnotation(BridgeTypeRef.ref('T')), false),
+                ],
+                namedParams: [],
+                generics: {
+                  'T': BridgeGenericParam(),
+                }),
+            isStatic: true),
       },
       fields: {},
       getters: {},
@@ -372,6 +375,14 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
     return $bool(AppUtils.evalOrStatements(unwrapList<bool>(args[0]!.$value)));
   }
 
+  static $Value? $trySync(Runtime runtime, $Value? target, List<$Value?> args) {
+    final fun = args[0] as EvalCallable;
+
+    final result = AppUtils.trySync(() => fun.call(runtime, target, []));
+
+    return result ?? const $null();
+  }
+
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(bridgeLibary, 'AppUtils.', $AppUtils.$construct,
         isBridge: true);
@@ -406,6 +417,8 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
 
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.evalOrStatements', $AppUtils.$evalOrStatements);
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'AppUtils.trySync', $AppUtils.$trySync);
   }
 
   @override

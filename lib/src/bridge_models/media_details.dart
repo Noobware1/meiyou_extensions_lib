@@ -328,28 +328,28 @@ class $MediaDetails implements MediaDetails, $Instance {
       case 'type':
         $value.type = value.$reified;
       case 'name':
-        $value.name = value.$reified;
+        $value.name = value.$reified is String ? value.$reified : null;
       case 'url':
-        $value.url = value.$reified;
+        $value.url = value.$reified is String ? value.$reified : null;
       case 'otherTitles':
         $value.otherTitles =
             (value.$reified as List?)?.mapAsList((it) => it.toString());
       case 'status':
         $value.status = value.$reified;
       case 'bannerImage':
-        $value.bannerImage = value.$reified;
+        $value.bannerImage = value.$reified is String ? value.$reified : null;
       case 'posterImage':
-        $value.posterImage = value.$reified;
+        $value.posterImage = value.$reified is String ? value.$reified : null;
       case 'rating':
-        $value.rating = value.$reified;
+        $value.rating = value.$reified is double ? value.$reified : null;
       case 'description':
-        $value.description = value.$reified;
+        $value.description = value.$reified is String ? value.$reified : null;
       case 'startDate':
-        $value.startDate = value.$reified;
+        $value.startDate = value.$reified is DateTime ? value.$reified : null;
       case 'endDate':
-        $value.endDate = value.$reified;
+        $value.endDate = value.$reified is DateTime ? value.$reified : null;
       case 'duration':
-        $value.duration = value.$reified;
+        $value.duration = value.$reified is Duration ? value.$reified : null;
       case 'genres':
         $value.genres =
             (value.$reified as List?)?.mapAsList((it) => it.toString());

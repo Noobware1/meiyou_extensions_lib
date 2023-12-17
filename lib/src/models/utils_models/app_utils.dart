@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
 import 'package:meiyou_extenstions/src/extenstions/string.dart';
 import 'package:meiyou_extenstions/src/models/document.dart';
@@ -12,7 +14,7 @@ import 'package:ok_http_dart/ok_http_dart.dart';
 /// The `AppUtils` class provides static methods for tasks such as sending HTTP requests, encoding query strings, parsing HTML and other utility functions.
 ///
 /// This class cannot be instantiated. All its methods are static and should be called directly on the class.
-/// 
+///
 class AppUtils {
   /// Sends an HTTP request and returns the response.
   ///
@@ -249,4 +251,13 @@ class AppUtils {
     final pass = statements.tryfirstWhere((e) => e == true);
     return pass != null ? true : false;
   }
+
+  static T? trySync<T>(T Function() fun) {
+    try {
+      return fun();
+    } catch (e) {
+      return null;
+    }
+  }
+  
 }
