@@ -202,19 +202,19 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
   Future<MediaDetails> loadMediaDetails(SearchResponse searchResponse) async {
     final value = await ($_invoke(
         'loadMediaDetails', [$SearchResponse.wrap(searchResponse)]) as Future);
-    return value as $MediaDetails;
+    return value as MediaDetails;
   }
 
   @override
   Future<List<SearchResponse>> search(String query) async {
     final value = await ($_invoke('search', [$String(query)]) as Future);
-    return (value as List).mapAsList((it) => it as $SearchResponse);
+    return (value as List).mapAsList((it) => it as SearchResponse);
   }
 
   @override
   Future<List<ExtractorLink>> loadLinks(String url) async {
     final value = await ($_invoke('loadLinks', [$String(url)]) as Future);
-    return (value as List).mapAsList((it) => it as $ExtractorLink);
+    return (value as List).mapAsList((it) => it as ExtractorLink);
   }
 
   @override
@@ -228,12 +228,12 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
   Future<HomePage> loadHomePage(int page, HomePageRequest request) async {
     final value = unwrapValue((await $_invoke(
         'loadHomePage', [$int(page), $HomePageRequest.wrap(request)])));
-    return value as $HomePage;
+    return value as HomePage;
   }
 
   @override
   Iterable<HomePageData> get homePage =>
-      unwrapIterable<HomePageData>($_get('homePage') as Iterable);
+      ($_get('homePage') as Iterable).map((e) => e as HomePageData);
 
   @override
   String get baseUrl => $_get('baseUrl').toString();
