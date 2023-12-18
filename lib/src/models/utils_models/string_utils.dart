@@ -1,4 +1,4 @@
-import 'package:meiyou_extenstions/src/extenstions/string.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
 
 /// A class that provides utility functions for strings.
 class StringUtils {

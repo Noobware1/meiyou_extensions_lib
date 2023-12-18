@@ -1,6 +1,6 @@
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
-import 'package:meiyou_extenstions/src/extenstions/string.dart';
-import 'package:meiyou_extenstions/src/utils/try_catch.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
+import 'package:meiyou_extensions_lib/src/utils/try_catch.dart';
 
 /// A class that represents the quality of a video.
 ///

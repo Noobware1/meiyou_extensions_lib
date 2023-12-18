@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:meiyou_extenstions/src/extenstions/string.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
 
 /// `ShowStatus` is an enumeration that represents the status of a show.
 ///

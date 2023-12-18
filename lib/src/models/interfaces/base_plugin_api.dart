@@ -1,8 +1,8 @@
-import 'package:meiyou_extenstions/src/models/extractor_link.dart';
-import 'package:meiyou_extenstions/src/models/homepage.dart';
-import 'package:meiyou_extenstions/src/models/media/media.dart';
-import 'package:meiyou_extenstions/src/models/media_details.dart';
-import 'package:meiyou_extenstions/src/models/search_response.dart';
+import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
+import 'package:meiyou_extensions_lib/src/models/homepage.dart';
+import 'package:meiyou_extensions_lib/src/models/media/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 
 /// [BasePluginApi] is an abstract class that serves as the core for loading everything in the app.
 /// It provides the base structure for the plugin API.

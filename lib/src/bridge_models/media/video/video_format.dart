@@ -1,8 +1,7 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/media/video/video_format.dart';
-
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/media/video/video_format.dart';
 
 class $VideoFormat implements $Instance {
   $VideoFormat.wrap(this.$value);
@@ -45,7 +44,6 @@ class $VideoFormat implements $Instance {
 
   @override
   final VideoFormat $value;
-
 
   @override
   String toString() {

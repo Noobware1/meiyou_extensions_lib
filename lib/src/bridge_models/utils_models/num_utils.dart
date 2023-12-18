@@ -1,9 +1,8 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/utils_models/num_utils.dart';
-
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/utils_models/num_utils.dart';
 
 class $NumUtils extends NumUtils with $Bridge<NumUtils> {
   static void configureForRuntime(Runtime runtime) {

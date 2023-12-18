@@ -1,12 +1,12 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/bridge_models/media_item/media_item.dart';
-import 'package:meiyou_extenstions/src/bridge_models/season_list.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
-import 'package:meiyou_extenstions/src/models/media_item/tv_series.dart';
-import 'package:meiyou_extenstions/src/models/season_list.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/media_item/media_item.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/season_list.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/models/media_item/tv_series.dart';
+import 'package:meiyou_extensions_lib/src/models/season_list.dart';
 
 class $TvSeries extends TvSeries with $Bridge<TvSeries> {
   $TvSeries({required super.data});
@@ -61,5 +61,4 @@ class $TvSeries extends TvSeries with $Bridge<TvSeries> {
   void $bridgeSet(String identifier, $Value value) {
     // TODO: implement $bridgeSet
   }
-
 }

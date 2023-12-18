@@ -1,12 +1,12 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/bridge_models/episode.dart';
-import 'package:meiyou_extenstions/src/bridge_models/media_item/media_item.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
-import 'package:meiyou_extenstions/src/models/episode.dart';
-import 'package:meiyou_extenstions/src/models/media_item/anime.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/episode.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/media_item/media_item.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/models/episode.dart';
+import 'package:meiyou_extensions_lib/src/models/media_item/anime.dart';
 
 class $Anime extends Anime with $Bridge<Anime> {
   $Anime({required super.episodes});
@@ -70,5 +70,4 @@ class $Anime extends Anime with $Bridge<Anime> {
   void $bridgeSet(String identifier, $Value value) {
     // TODO: implement $bridgeSet
   }
-
 }

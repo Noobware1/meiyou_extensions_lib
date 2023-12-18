@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:meiyou_extenstions/src/utils/try_catch.dart';
+import 'package:meiyou_extensions_lib/src/utils/try_catch.dart';
 
 extension IterableExtenstions<E> on Iterable<E> {
   E? tryElementAt(index) => trySync(() => elementAt(index));

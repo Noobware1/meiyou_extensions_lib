@@ -1,4 +1,4 @@
-import 'package:meiyou_extenstions/src/models/media/video/subtitle_format.dart';
+import 'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dart';
 
 /// A class that represents a subtitle.
 ///

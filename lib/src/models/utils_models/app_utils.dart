@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
-import 'package:meiyou_extenstions/src/extenstions/string.dart';
-import 'package:meiyou_extenstions/src/models/document.dart';
-import 'package:meiyou_extenstions/src/models/element.dart';
-import 'package:meiyou_extenstions/src/models/media/video/subtitle_format.dart';
-import 'package:meiyou_extenstions/src/models/ok_http_response.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
+import 'package:meiyou_extensions_lib/src/models/document.dart';
+import 'package:meiyou_extensions_lib/src/models/element.dart';
+import 'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dart';
+import 'package:meiyou_extensions_lib/src/models/ok_http_response.dart';
 import 'package:ok_http_dart/dom.dart';
 import 'package:ok_http_dart/ok_http_dart.dart';
 

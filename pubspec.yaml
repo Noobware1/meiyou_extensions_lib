@@ -1,4 +1,4 @@
-name: meiyou_extenstions
+name: meiyou_extensions_lib
 description: Package used for making extenstions for Meiyou app.
 version: 1.0.0
 publish_to: none

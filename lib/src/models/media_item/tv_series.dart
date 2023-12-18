@@ -1,5 +1,5 @@
-import 'package:meiyou_extenstions/src/models/media_item/media_item.dart';
-import 'package:meiyou_extenstions/src/models/season_list.dart';
+import 'package:meiyou_extensions_lib/src/models/media_item/media_item.dart';
+import 'package:meiyou_extensions_lib/src/models/season_list.dart';
 
 /// A class that represents a TV series.
 ///

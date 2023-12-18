@@ -1,14 +1,13 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/external_id.dart';
-
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/external_id.dart';
 
 class $ExternalId implements ExternalId, $Instance {
   $ExternalId.wrap(this.$value) : _superclass = $Object($value);
 
-late final $Instance _superclass;
+  late final $Instance _superclass;
 
   static const $type =
       BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'ExternalId'));
@@ -83,10 +82,9 @@ late final $Instance _superclass;
   String get id => $value.id;
 
   @override
-
   String get name => $value.name;
 
-    @override
+  @override
   String toString() {
     return $value.toString();
   }

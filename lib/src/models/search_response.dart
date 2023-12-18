@@ -1,4 +1,4 @@
-import 'package:meiyou_extenstions/src/models/show_type.dart';
+import 'package:meiyou_extensions_lib/src/models/show_type.dart';
 
 /// `SearchResponse` is a class that represents the response from a search operation.
 ///

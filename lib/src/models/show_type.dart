@@ -1,9 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:meiyou_extenstions/src/extenstions/string.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
 
 /// `ShowType` is an enumeration that represents different types of shows.
-/// 
+///
 /// It includes the following types:
 /// * `Movie`: Represents a standard movie.
 /// * `AnimeMovie`: Represents an anime movie.
@@ -16,7 +16,7 @@ import 'package:meiyou_extenstions/src/extenstions/string.dart';
 /// * `AsainDrama`: Represents an Asian drama show.
 /// * `Live`: Represents a live show.
 /// * `Others`: Represents other types of shows not covered by the above categories.
-/// 
+///
 /// Each `ShowType` can be converted to a string using the `toString` method, which overrides the default `toString` method
 /// to provide a more readable string representation of the `ShowType`.
 enum ShowType {

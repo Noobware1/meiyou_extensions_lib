@@ -1,8 +1,8 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/utils_models/string_utils.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/utils_models/string_utils.dart';
 
 class $StringUtils implements $Instance {
   $StringUtils.wrap(this.$value);
@@ -254,8 +254,6 @@ class $StringUtils implements $Instance {
     return $String(StringUtils.substringSafe(
         args[0]?.$value, args[1]?.$value, args[2]?.$value));
   }
-
- 
 
   static $Value? $trimAllSides(
       Runtime runtime, $Value? target, List<$Value?> args) {

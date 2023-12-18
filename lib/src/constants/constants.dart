@@ -1,1 +1,1 @@
-const bridgeLibary = 'package:meiyou_extenstions/meiyou_extenstions.dart';
+const bridgeLibary = 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';

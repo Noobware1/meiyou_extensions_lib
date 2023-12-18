@@ -1,9 +1,9 @@
-import 'package:meiyou_extenstions/src/models/actor_data.dart';
-import 'package:meiyou_extenstions/src/models/external_id.dart';
-import 'package:meiyou_extenstions/src/models/media_item/media_item.dart';
-import 'package:meiyou_extenstions/src/models/search_response.dart';
-import 'package:meiyou_extenstions/src/models/show_status.dart';
-import 'package:meiyou_extenstions/src/models/show_type.dart';
+import 'package:meiyou_extensions_lib/src/models/actor_data.dart';
+import 'package:meiyou_extensions_lib/src/models/external_id.dart';
+import 'package:meiyou_extensions_lib/src/models/media_item/media_item.dart';
+import 'package:meiyou_extensions_lib/src/models/search_response.dart';
+import 'package:meiyou_extensions_lib/src/models/show_status.dart';
+import 'package:meiyou_extensions_lib/src/models/show_type.dart';
 
 /// `MediaDetails` is a class that represents the details of a media item.
 ///

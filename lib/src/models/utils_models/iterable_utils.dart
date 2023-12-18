@@ -1,4 +1,4 @@
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 
 /// A class that provides utility functions for iterables.
 class IterableUtils {

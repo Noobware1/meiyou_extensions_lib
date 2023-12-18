@@ -1,6 +1,6 @@
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
-import 'package:meiyou_extenstions/src/extenstions/object.dart';
-import 'package:meiyou_extenstions/src/utils/try_catch.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/object.dart';
+import 'package:meiyou_extensions_lib/src/utils/try_catch.dart';
 
 /// A class that provides utility functions for lists.
 class ListUtils {

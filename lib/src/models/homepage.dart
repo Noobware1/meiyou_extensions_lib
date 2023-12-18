@@ -1,4 +1,4 @@
-import 'package:meiyou_extenstions/src/models/search_response.dart';
+import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 
 /// `HomePageData` is a class that represents the data for a home page.
 ///
@@ -67,7 +67,6 @@ class HomePage {
     return 'HomePage(data: $data, page: $page, hasNextPage: $hasNextPage)';
   }
 }
-
 
 /// `HomePageList` is a class that represents a list of home pages.
 ///   * `name`: A string representing the name of the home page.

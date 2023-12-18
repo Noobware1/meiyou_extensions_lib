@@ -1,13 +1,13 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/bridge_models/extractor_link.dart';
-import 'package:meiyou_extenstions/src/bridge_models/media/media.dart';
-import 'package:meiyou_extenstions/src/bridge_models/media/video/video.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/interfaces/extractor_api.dart';
-import 'package:meiyou_extenstions/src/models/media/media.dart';
-import 'package:meiyou_extenstions/src/models/media/video/video.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extractor_link.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/media/media.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/media/video/video.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/interfaces/extractor_api.dart';
+import 'package:meiyou_extensions_lib/src/models/media/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media/video/video.dart';
 
 class $ExtractorApi extends ExtractorApi with $Bridge<ExtractorApi> {
   $ExtractorApi(super.extractorLink);

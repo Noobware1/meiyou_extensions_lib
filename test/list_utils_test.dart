@@ -1,5 +1,5 @@
-import 'package:meiyou_extenstions/meiyou_extenstions.dart';
-import 'package:meiyou_extenstions/src/utils/unwrap.dart';
+import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
+import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -14,7 +14,7 @@ void main() {
       final runtime = compiler.compileWriteAndLoad({
         'example': {
           'main.dart': '''
-          import 'package:meiyou_extenstions/meiyou_extenstions.dart';
+          import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 
           List<String> main() {
             final List<int> list = [1, 2, 3];
@@ -33,7 +33,7 @@ void main() {
       final runtime = compiler.compileWriteAndLoad({
         'example': {
           'main.dart': '''
-          import 'package:meiyou_extenstions/meiyou_extenstions.dart';
+          import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 
           List<String> main() {
             return ListUtils.mapIndexed<int, String>([1, 2, 3], (index, item) => '\$index: \$item');
@@ -52,7 +52,7 @@ void main() {
       final runtime = compiler.compileWriteAndLoad({
         'example': {
           'main.dart': '''
-          import 'package:meiyou_extenstions/meiyou_extenstions.dart';
+          import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 
           List<int> main() {
             return ListUtils.mapNotNull<int, int>([1, null, 3], (item) => item * 2);
@@ -70,7 +70,7 @@ void main() {
       final runtime = compiler.compileWriteAndLoad({
         'example': {
           'main.dart': '''
-          import 'package:meiyou_extenstions/meiyou_extenstions.dart';
+          import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 
           List<int> main() {
             return ListUtils.whereNotNull<int, int>([1, null, 3]);
@@ -88,7 +88,7 @@ void main() {
       final list = compiler.compileWriteAndLoad({
         'example': {
           'main.dart': '''
-          import 'package:meiyou_extenstions/meiyou_extenstions.dart';
+          import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 
           List<int> main() {
             return [
@@ -107,7 +107,7 @@ void main() {
       final list = compiler.compileWriteAndLoad({
         'example': {
           'main.dart': '''
-          import 'package:meiyou_extenstions/meiyou_extenstions.dart';
+          import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 
           List<int> main() {
             return ListUtils.faltten([[1, 2], [3, 4]]);
@@ -123,7 +123,7 @@ void main() {
       final list = compiler.compileWriteAndLoad({
         'example': {
           'main.dart': '''
-          import 'package:meiyou_extenstions/meiyou_extenstions.dart';
+          import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 
           List<int> main() {
             final List<int> list = [1, 2, 3];

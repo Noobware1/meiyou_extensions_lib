@@ -1,5 +1,5 @@
-import 'package:meiyou_extenstions/src/models/media/video/video_format.dart';
-import 'package:meiyou_extenstions/src/models/media/video/video_quailty.dart';
+import 'package:meiyou_extensions_lib/src/models/media/video/video_format.dart';
+import 'package:meiyou_extensions_lib/src/models/media/video/video_quailty.dart';
 
 /// A class that represents a source of a video.
 ///

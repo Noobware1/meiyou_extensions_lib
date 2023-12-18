@@ -1,10 +1,10 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:meiyou_extenstions/src/bridge_models/element.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
-import 'package:meiyou_extenstions/src/models/document.dart';
-import 'package:meiyou_extenstions/src/models/element.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/element.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/models/document.dart';
+import 'package:meiyou_extensions_lib/src/models/element.dart';
 import 'package:ok_http_dart/dom.dart';
 import 'package:dart_eval/stdlib/core.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:meiyou_extenstions/meiyou_extenstions.dart';
+import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 
 /// `OnlinePlugin` represents an online plugin mainly used by index.json present in a repository.
 ///
@@ -19,7 +19,7 @@ class OnlinePlugin extends Plugin {
       required super.version,
       required super.downloadUrl,
       required this.iconUrl});
-      
+
   /// icon url for the plugin. this will be used to display the icon for the plugin.
   final String iconUrl;
 

@@ -1,8 +1,8 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/show_type.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/show_type.dart';
 
 class $ShowType implements $Instance {
   $ShowType.wrap(this.$value) : _superclass = $Object($value);
@@ -61,7 +61,7 @@ class $ShowType implements $Instance {
   @override
   final ShowType $value;
 
-    @override
+  @override
   String toString() {
     return $value.toString();
   }

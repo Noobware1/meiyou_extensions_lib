@@ -1,9 +1,9 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/bridge_models/media_item/media_item.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/media_item/movie.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/media_item/media_item.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/media_item/movie.dart';
 
 class $Movie extends Movie with $Bridge<Movie> {
   $Movie({required super.url, super.posterImage, super.description});
@@ -85,6 +85,4 @@ class $Movie extends Movie with $Bridge<Movie> {
   void $bridgeSet(String identifier, $Value value) {
     // TODO: implement $bridgeSet
   }
-
-
 }

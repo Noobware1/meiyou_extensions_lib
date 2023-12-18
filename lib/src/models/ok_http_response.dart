@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:meiyou_extenstions/src/models/document.dart';
-import 'package:meiyou_extenstions/src/models/utils_models/app_utils.dart';
+import 'package:meiyou_extensions_lib/src/models/document.dart';
+import 'package:meiyou_extensions_lib/src/models/utils_models/app_utils.dart';
 
 /// `OkHttpResponseObject` is a class that represents the response from an HTTP request.
 ///

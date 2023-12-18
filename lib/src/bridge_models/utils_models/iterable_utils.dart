@@ -1,8 +1,8 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/utils_models/iterable_utils.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/utils_models/iterable_utils.dart';
 
 class $IterableUtils extends IterableUtils with $Bridge<IterableUtils> {
   // $IterableUtils.wrap(this.$value);

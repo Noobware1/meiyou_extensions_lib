@@ -1,8 +1,8 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/show_status.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/show_status.dart';
 
 class $ShowStaus implements $Instance {
   $ShowStaus.wrap(this.$value) : _superclass = $Object($value);
@@ -46,7 +46,7 @@ class $ShowStaus implements $Instance {
   @override
   final ShowStatus $value;
 
-    @override
+  @override
   String toString() {
     return $value.toString();
   }

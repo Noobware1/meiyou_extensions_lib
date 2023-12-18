@@ -1,8 +1,8 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/extractor_link.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
 
 class $ExtractorLink implements ExtractorLink, $Instance {
   $ExtractorLink.wrap(this.$value);
@@ -161,8 +161,7 @@ class $ExtractorLink implements ExtractorLink, $Instance {
     // TODO: implement extra
   }
 
-
-    @override
+  @override
   String toString() {
     return $value.toString();
   }

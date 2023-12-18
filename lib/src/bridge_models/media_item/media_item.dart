@@ -1,7 +1,7 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/media_item/media_item.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/media_item/media_item.dart';
 
 class $MediaItem implements MediaItem, $Instance {
   $MediaItem.wrap(this.$value);
@@ -63,8 +63,6 @@ class $MediaItem implements MediaItem, $Instance {
 
   @override
   MediaItemType get type => $value.type;
-
-
 }
 
 class $MediaItemType implements $Instance {

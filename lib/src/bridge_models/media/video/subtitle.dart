@@ -1,12 +1,10 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/bridge_models/media/video/subtitle_format.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/media/video/subtitle.dart';
-import 'package:meiyou_extenstions/src/models/media/video/subtitle_format.dart';
-
-
+import 'package:meiyou_extensions_lib/src/bridge_models/media/video/subtitle_format.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/media/video/subtitle.dart';
+import 'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dart';
 
 class $Subtitle implements Subtitle, $Instance {
   $Subtitle.wrap(this.$value);
@@ -121,7 +119,6 @@ class $Subtitle implements Subtitle, $Instance {
 
   @override
   String get url => $value.url;
-
 
   @override
   String toString() {

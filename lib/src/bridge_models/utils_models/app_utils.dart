@@ -1,15 +1,15 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/bridge_models/document.dart';
-import 'package:meiyou_extenstions/src/bridge_models/element.dart';
-import 'package:meiyou_extenstions/src/bridge_models/media/video/subtitle_format.dart';
-import 'package:meiyou_extenstions/src/bridge_models/ok_http_response.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
-import 'package:meiyou_extenstions/src/models/element.dart';
-import 'package:meiyou_extenstions/src/models/utils_models/app_utils.dart';
-import 'package:meiyou_extenstions/src/utils/unwrap.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/document.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/element.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/media/video/subtitle_format.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/ok_http_response.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/models/element.dart';
+import 'package:meiyou_extensions_lib/src/models/utils_models/app_utils.dart';
+import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 
 class $AppUtils extends AppUtils with $Bridge<AppUtils> {
   static const $type = BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'AppUtils'));

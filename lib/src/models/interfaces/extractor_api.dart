@@ -1,5 +1,5 @@
-import 'package:meiyou_extenstions/src/models/extractor_link.dart';
-import 'package:meiyou_extenstions/src/models/media/media.dart';
+import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
+import 'package:meiyou_extensions_lib/src/models/media/media.dart';
 
 /// [ExtractorApi] is an abstract class that serves as a blueprint for building extractors for the [BasePluginApi] class.
 /// It is used by the function loadMedia in the [BasePluginApi]`.

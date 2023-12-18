@@ -2,10 +2,10 @@
 
 import 'package:crypto_dart/crypto_dart.dart';
 import 'package:crypto_dart/hashers.dart';
-import 'package:meiyou_extenstions/crypto_dart/padding.dart';
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
-import 'package:meiyou_extenstions/src/extenstions/string.dart';
-import 'package:meiyou_extenstions/src/models/utils_models/crypto/crypto_options.dart';
+import 'package:meiyou_extensions_lib/crypto_dart/padding.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
+import 'package:meiyou_extensions_lib/src/models/utils_models/crypto/crypto_options.dart';
 
 Encoder getEncoder(String? encoding) {
   final enc = CryptoDart.enc;

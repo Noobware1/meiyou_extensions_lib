@@ -1,8 +1,8 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/models/media/video/subtitle_format.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dart';
 
 class $SubtitleFormat implements $Instance {
   $SubtitleFormat.wrap(this.$value) : _superclass = $Object($value);
@@ -44,11 +44,8 @@ class $SubtitleFormat implements $Instance {
     _superclass.$setProperty(runtime, identifier, value);
   }
 
- 
-
   @override
   final SubtitleFormat $value;
-
 
   @override
   String toString() {

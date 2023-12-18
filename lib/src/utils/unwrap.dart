@@ -1,5 +1,5 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 
 E unwrapValue<E>(dynamic value) {
   return (value is $Value ? value.$value : value) as E;

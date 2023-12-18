@@ -1,12 +1,12 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extenstions/src/bridge_models/show_type.dart';
-import 'package:meiyou_extenstions/src/constants/constants.dart';
-import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
-import 'package:meiyou_extenstions/src/models/search_response.dart';
-import 'package:meiyou_extenstions/src/models/show_type.dart';
-import 'package:meiyou_extenstions/src/utils/unwrap.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/show_type.dart';
+import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/models/search_response.dart';
+import 'package:meiyou_extensions_lib/src/models/show_type.dart';
+import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 
 class $SearchResponse implements SearchResponse, $Instance {
   $SearchResponse.wrap(this.$value);
@@ -76,7 +76,6 @@ class $SearchResponse implements SearchResponse, $Instance {
         'description': BridgeFieldDef(BridgeTypeAnnotation(
             BridgeTypeRef(CoreTypes.string),
             nullable: true)),
-            
         'generes': BridgeFieldDef(BridgeTypeAnnotation(
             BridgeTypeRef(CoreTypes.list),
             nullable: true)),
