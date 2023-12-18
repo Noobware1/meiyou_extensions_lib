@@ -63,6 +63,16 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
                       BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.object),
                           nullable: true),
                       true),
+                  BridgeParameter(
+                      'verify',
+                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool),
+                          nullable: true),
+                      true),
+                  BridgeParameter(
+                      'retry',
+                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool),
+                          nullable: true),
+                      true),
                 ]),
             isStatic: true),
         'encode': BridgeMethodDef(
@@ -283,20 +293,31 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
 
   static $Future $httpRequest(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(AppUtils.httpRequest(
-      url: args[0]?.$value,
-      method: args[1]?.$value,
-      headers: args[2]?.$value != null
-          ? unwrapMap<String, String>(args[2]?.$value as Map)
-          : null,
-      followRedircts: args[3]?.$value,
-      cookie: args[4]?.$value,
-      referer: args[5]?.$value,
-      params: args[6]?.$value != null
-          ? unwrapMap<String, dynamic>(args[6]?.$value as Map)
-          : null,
-      body: args[7]?.$value,
-    ).then((value) => $OkHttpResponseObject.wrap(value)));
+    Object? body = args[7]?.$value;
+
+    if (body is Map) {
+      body = unwrapMap<String, String>(body);
+    } else if (body is List) {
+      body = unwrapList<String>(body);
+    }
+    return $Future.wrap(
+      AppUtils.httpRequest(
+        url: args[0]?.$value,
+        method: args[1]?.$value,
+        headers: args[2]?.$value != null
+            ? unwrapMap<String, String>(args[2]?.$value as Map)
+            : null,
+        followRedircts: args[3]?.$value,
+        cookie: args[4]?.$value,
+        referer: args[5]?.$value,
+        params: args[6]?.$value != null
+            ? unwrapMap<String, dynamic>(args[6]?.$value as Map)
+            : null,
+        body: body,
+        verify: args[8]?.$value,
+        retry: args[9]?.$value,
+      ).then((value) => $OkHttpResponseObject.wrap(value)),
+    );
   }
 
   static $String $encode(Runtime runtime, $Value? target, List<$Value?> args) {

@@ -1,7 +1,6 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extenstions/src/extenstions/iterable.dart';
 
-
 E unwrapValue<E>(dynamic value) {
   return (value is $Value ? value.$value : value) as E;
 }
@@ -18,5 +17,3 @@ Map<K, V> unwrapMap<K, V>(Map map) {
 List<E> unwrapList<E>(List list) {
   return list.mapAsList((it) => unwrapValue<E>(it)).nonNullsList;
 }
-
-

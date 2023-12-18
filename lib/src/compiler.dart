@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:dart_eval/dart_eval.dart';
+import 'package:meiyou_extenstions/meiyou_extenstions.dart';
 import 'package:meiyou_extenstions/src/bridge_models/actor_data.dart';
 import 'package:meiyou_extenstions/src/bridge_models/document.dart';
 import 'package:meiyou_extenstions/src/bridge_models/element.dart';
@@ -108,5 +109,9 @@ class ExtenstionComplier {
 
     final bytecode = program.write();
     return bytecode;
+  }
+
+  Runtime compileWriteAndLoad(Map<String, Map<String, String>> packages) {
+    return ExtenstionLoader().runtimeEval(compilePackages(packages));
   }
 }

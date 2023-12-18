@@ -40,6 +40,8 @@ class AppUtils {
     String? referer,
     Map<String, dynamic>? params,
     Object? body,
+    bool? verify,
+    bool? retry,
   }) async {
     try {
       final response = await OKHttpClient().request(
@@ -51,6 +53,8 @@ class AppUtils {
         referer: referer,
         params: params,
         body: body,
+        verify: verify,
+        retry: retry,
       );
       return OkHttpResponseObject(
         text: response.text,
@@ -259,5 +263,4 @@ class AppUtils {
       return null;
     }
   }
-  
 }
