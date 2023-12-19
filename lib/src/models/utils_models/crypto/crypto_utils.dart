@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:typed_data';
+
 import 'package:crypto_dart/crypto_dart.dart';
 import 'package:crypto_dart/hashers.dart';
 import 'package:meiyou_extensions_lib/crypto_dart/padding.dart';
@@ -7,7 +9,7 @@ import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
 import 'package:meiyou_extensions_lib/src/models/utils_models/crypto/crypto_options.dart';
 
-Encoder getEncoder(String? encoding) {
+Encoder _getEncoder(String? encoding) {
   final enc = CryptoDart.enc;
   switch (encoding) {
     case 'base64':
@@ -56,12 +58,12 @@ class CryptoUtils {
     if (encrypt) {
       return CryptoDart.AES
           .encrypt(ciphertext, key, options: cipherOptions)
-          .toString(getEncoder(options?.encoding));
+          .toString(_getEncoder(options?.encoding));
     }
 
     return CryptoDart.AES
         .decrypt(ciphertext, key, options: cipherOptions)
-        .convertToString(getEncoder(options?.encoding ?? 'utf8'));
+        .convertToString(_getEncoder(options?.encoding ?? 'utf8'));
   }
 
   /// Hashes a string using a specified hashing algorithm.
@@ -139,10 +141,18 @@ class CryptoUtils {
     if (encrypt) {
       return CryptoDart.TripleDES.encrypt(ciphertext, key,
               options: cipherOptions)
-          .toString(getEncoder(options?.encoding));
+          .toString(_getEncoder(options?.encoding));
     }
 
     return CryptoDart.TripleDES.decrypt(ciphertext, key, options: cipherOptions)
-        .convertToString(getEncoder(options?.encoding ?? 'utf8'));
+        .convertToString(_getEncoder(options?.encoding ?? 'utf8'));
+  }
+
+  static String EncStringify(String name, List<int> data) {
+    return _getEncoder(name).stringify(Uint8List.fromList(data));
+  }
+
+  static List<int> EncParse(String name, String data) {
+    return _getEncoder(name).parse(data).mapAsList((e) => e);
   }
 }
