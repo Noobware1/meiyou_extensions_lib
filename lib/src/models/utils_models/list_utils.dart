@@ -26,6 +26,17 @@ class ListUtils {
     ];
   }
 
+  static List<B> mapWhen<A, B>(
+    List<A> list,
+    B Function(A) toElement,
+    bool Function(A) test,
+  ) {
+    return [
+      for (var e in list)
+        if (test(e)) toElement(e)
+    ];
+  }
+
   static List<A> whereNotNull<A>(List<A?> list) {
     return [
       for (var e in list)
@@ -47,4 +58,6 @@ class ListUtils {
       if (value != null) list.add(value);
     });
   }
+
+
 }

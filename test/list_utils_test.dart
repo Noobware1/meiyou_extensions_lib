@@ -66,6 +66,28 @@ void main() {
           [2, 6]);
     });
 
+    test('mapWhen', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+          import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
+
+          List<int> main() {
+            return ListUtils.mapWhen<int, int>([1, 2, 3], (item) => item * 2, (item) => isNotTwo(item));
+          }
+
+          bool isNotTwo(int item) {
+           return item != 2;
+          }
+          '''
+        }
+      });
+      expect(
+          unwrapList<int>(
+              runtime.executeLib('package:example/main.dart', 'main') as List),
+          [2, 6]);
+    });
+
     test('whereNotNull', () {
       final runtime = compiler.compileWriteAndLoad({
         'example': {

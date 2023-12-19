@@ -1,38 +1,45 @@
 import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/object.dart';
 
 /// A class that provides utility functions for iterables.
 class IterableUtils {
-  /// Tries to get an element at a specific index in an iterable.
-  ///
-  /// If the index is out of bounds, it returns `null`.
-  static E? tryElementAt<E>(Iterable<E> iterable, int index) =>
-      iterable.tryElementAt(index);
+  static Iterable<B> mapIndexed<A, B>(
+      Iterable<A> iterable, B Function(int, A) toElement) {
+    return iterable.mapWithIndex(toElement);
+  }
 
-  /// Maps an iterable to a list using a generator function.
-  ///
-  /// This function uses the `List.map` method to create the new list.
-  static List<T> mapAsList<T, E>(
-          Iterable<E> iterable, T Function(E it) toElement) =>
-      iterable.mapAsList((it) => toElement(it));
+  static Iterable<B> mapNotNull<A, B>(
+      Iterable<A?> iterable, B Function(A) toElement) {
+    return [
+      for (var e in iterable)
+        if (e.isNotNull) toElement(e as A)
+    ];
+  }
 
-  /// Maps an iterable to a list using a generator function that includes the index.
-  ///
-  /// This function uses the `List.map` method to create the new list.
-  static List<E> mapWithIndex<E>(
-          Iterable iterable, E Function(int index, dynamic it) toElement) =>
-      iterable.mapWithIndex((index, it) => toElement(index, it));
+  static Iterable<B> mapWhen<A, B>(
+    Iterable<A> iterable,
+    B Function(A) toElement,
+    bool Function(A) test,
+  ) {
+    return [
+      for (var e in iterable)
+        if (test(e)) toElement(e)
+    ];
+  }
 
-  /// Tries to find the first element in an iterable that satisfies a given condition.
-  ///
-  /// If no such element is found, it returns the result of calling `orElse`, or `null` if `orElse` is not provided.
-  static E? tryfirstWhere<E>(Iterable<E> iterable, bool Function(E it) test,
-          {E Function()? orElse}) =>
-      iterable.tryfirstWhere((it) => test(it), orElse: orElse);
+  static Iterable<A> whereNotNull<A>(Iterable<A?> iterable) {
+    return [
+      for (var e in iterable)
+        if (e.isNotNull) e!
+    ];
+  }
 
-  /// Returns a new iterable with all elements that satisfy the given predicate.
-  ///
-  /// If no such elements are found, it returns `null`.
-  static Iterable<E>? tryWhere<E>(
-          Iterable<E> iterable, bool Function(E element) test) =>
-      iterable.tryWhere(test);
+  static A? firstWhereOrNull<A>(Iterable<A> iterable, bool Function(A) test,
+      {A Function()? orElse}) {
+    return iterable.tryfirstWhere((it) => test(it), orElse: orElse);
+  }
+
+  static Iterable<A> faltten<A>(Iterable<Iterable<A>> iterable) {
+    return iterable.faltten();
+  }
 }

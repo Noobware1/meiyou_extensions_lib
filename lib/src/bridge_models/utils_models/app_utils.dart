@@ -188,7 +188,6 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
                 ],
                 namedParams: []),
             isStatic: true),
-
         'getBackgroundImage': BridgeMethodDef(
             BridgeFunctionDef(
                 returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
@@ -200,7 +199,6 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
                 ],
                 namedParams: []),
             isStatic: true),
-
         'getMonthByName': BridgeMethodDef(
             BridgeFunctionDef(
                 returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
@@ -253,20 +251,6 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
               ]),
           isStatic: true,
         ),
-        // 'tryWithAsync': BridgeMethodDef(
-        //     BridgeFunctionDef(
-        //         returns: BridgeTypeAnnotation(
-        //             BridgeTypeRef(CoreTypes.future, [BridgeTypeRef.ref('E')]),
-        //             nullable: true),
-        //         params: [
-        //           BridgeParameter(
-        //               'fun',
-        //               BridgeTypeAnnotation(BridgeTypeRef(
-        //                   CoreTypes.function, [BridgeTypeRef.ref('E')])),
-        //               false),
-        //         ],
-        //         namedParams: []),
-        //     isStatic: true),
         'trySync': BridgeMethodDef(
             BridgeFunctionDef(
                 returns: BridgeTypeAnnotation(BridgeTypeRef.ref('T'),
@@ -279,6 +263,33 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
                 generics: {
                   'T': BridgeGenericParam(),
                 }),
+            isStatic: true),
+        'parseDuration': BridgeMethodDef(BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration)),
+          params: [
+            BridgeParameter('value',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+            BridgeParameter('format',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+          ],
+          namedParams: [],
+        )),
+        'tryParseDuration': BridgeMethodDef(
+            BridgeFunctionDef(
+              returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration),
+                  nullable: true),
+              params: [
+                BridgeParameter(
+                    'value',
+                    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+                    false),
+                BridgeParameter(
+                    'format',
+                    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+                    false),
+              ],
+              namedParams: [],
+            ),
             isStatic: true),
       },
       fields: {},
@@ -404,6 +415,22 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
     return result ?? const $null();
   }
 
+  static $Value? $parseDuration(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final value = args[0]?.$value as String;
+    final format = args[1]?.$value as String;
+
+    return $Duration.wrap(AppUtils.parseDuration(value, format));
+  }
+
+  static $Value? $tryParseDuration(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final value = args[0]?.$value as String;
+    final format = args[1]?.$value as String;
+    final result = AppUtils.tryParseDuration(value, format);
+    return result == null ? const $null() : $Duration.wrap(result);
+  }
+
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(bridgeLibary, 'AppUtils.', $AppUtils.$construct,
         isBridge: true);
@@ -440,6 +467,10 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
         bridgeLibary, 'AppUtils.evalOrStatements', $AppUtils.$evalOrStatements);
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.trySync', $AppUtils.$trySync);
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'AppUtils.parseDuration', $AppUtils.$parseDuration);
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'AppUtils.tryParseDuration', $AppUtils.$tryParseDuration);
   }
 
   @override

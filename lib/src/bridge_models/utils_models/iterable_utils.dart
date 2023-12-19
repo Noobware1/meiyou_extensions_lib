@@ -3,34 +3,30 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
 import 'package:meiyou_extensions_lib/src/models/utils_models/iterable_utils.dart';
+import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 
-class $IterableUtils extends IterableUtils with $Bridge<IterableUtils> {
-  // $IterableUtils.wrap(this.$value);
+class $IterableUtils implements $Instance {
+  $IterableUtils.wrap(this.$value);
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(bridgeLibary, 'IterableUtils.', $new,
-        isBridge: true);
+    runtime.registerBridgeFunc(bridgeLibary, 'IterableUtils.', $new);
     runtime.registerBridgeFunc(
-        bridgeLibary, 'IterableUtils.tryElementAt', $tryElementAt);
+        bridgeLibary, 'IterableUtils.mapIndexed', $mapIndexed);
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'IterableUtils.mapNotNull', $mapNotNull);
+
+    runtime.registerBridgeFunc(bridgeLibary, 'IterableUtils.mapWhen', $mapWhen);
 
     runtime.registerBridgeFunc(
-        bridgeLibary, 'IterableUtils.mapAsList', $mapAsList);
+        bridgeLibary, 'IterableUtils.whereNotNull', $whereNotNull);
 
     runtime.registerBridgeFunc(
-        bridgeLibary, 'IterableUtils.mapWithIndex', $mapWithIndex);
-
-    runtime.registerBridgeFunc(
-        bridgeLibary, 'IterableUtils.tryfirstWhere', $tryfirstWhere);
+        bridgeLibary, 'IterableUtils.firstWhereOrNull', $firstWhereOrNull);
+    runtime.registerBridgeFunc(bridgeLibary, 'IterableUtils.faltten', $faltten);
   }
 
   static const $type =
       BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'IterableUtils'));
-
-  static const $param = BridgeParameter(
-    'iterable',
-    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.iterable)),
-    false,
-  );
 
   static const $declaration = BridgeClassDef(BridgeClassType($type),
       constructors: {
@@ -38,131 +34,213 @@ class $IterableUtils extends IterableUtils with $Bridge<IterableUtils> {
             returns: BridgeTypeAnnotation($type), namedParams: [], params: []))
       },
       methods: {
-        'tryElementAt': BridgeMethodDef(
-            BridgeFunctionDef(
-                returns: BridgeTypeAnnotation(BridgeTypeRef.ref('E'),
-                    nullable: true),
-                params: [
-                  $param,
-                  BridgeParameter(
-                      'index',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
-                      false),
-                ]),
-            isStatic: true),
-        'mapAsList': BridgeMethodDef(
+        'mapIndexed': BridgeMethodDef(
             BridgeFunctionDef(
                 returns: BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.list, [BridgeTypeRef.ref('T')]),
-                    nullable: true),
+                    BridgeTypeRef(CoreTypes.iterable, [BridgeTypeRef.ref('B')])),
                 params: [
-                  $param,
+                  BridgeParameter(
+                      'iterable',
+                      BridgeTypeAnnotation(BridgeTypeRef(
+                          CoreTypes.iterable, [BridgeTypeRef.ref('A')])),
+                      false),
                   BridgeParameter(
                       'toElement',
                       BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
-                      false),
+                      false)
                 ],
                 generics: {
-                  'T': BridgeGenericParam(),
-                  'E': BridgeGenericParam(),
+                  'A': BridgeGenericParam(),
+                  'B': BridgeGenericParam()
                 }),
             isStatic: true),
-        'mapWithIndex': BridgeMethodDef(
+        'mapNotNull': BridgeMethodDef(
             BridgeFunctionDef(
                 returns: BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.list, [BridgeTypeRef.ref('E')]),
-                    nullable: true),
+                    BridgeTypeRef(CoreTypes.iterable, [BridgeTypeRef.ref('B')])),
                 params: [
-                  $param,
+                  BridgeParameter(
+                      'iterable',
+                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.iterable, [
+                        BridgeTypeRef.ref('A'),
+                        BridgeTypeRef(CoreTypes.nullType)
+                      ])),
+                      false),
+                  BridgeParameter(
+                      'toElement',
+                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
+                      false)
+                ],
+                generics: {
+                  'A': BridgeGenericParam(),
+                  'B': BridgeGenericParam()
+                }),
+            isStatic: true),
+        'mapWhen': BridgeMethodDef(
+            BridgeFunctionDef(
+                returns: BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.iterable, [BridgeTypeRef.ref('B')])),
+                params: [
+                  BridgeParameter(
+                      'iterable',
+                      BridgeTypeAnnotation(BridgeTypeRef(
+                          CoreTypes.iterable, [BridgeTypeRef.ref('A')])),
+                      false),
                   BridgeParameter(
                       'toElement',
                       BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
                       false),
-                ]),
-            isStatic: true),
-        'tryfirstWhere': BridgeMethodDef(
-            BridgeFunctionDef(
-                returns: BridgeTypeAnnotation(BridgeTypeRef.ref('E'),
-                    nullable: true),
-                params: [
-                  $param,
                   BridgeParameter(
                       'test',
                       BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
+                      false)
+                ],
+                generics: {
+                  'A': BridgeGenericParam(),
+                  'B': BridgeGenericParam()
+                }),
+            isStatic: true),
+        'whereNotNull': BridgeMethodDef(
+            BridgeFunctionDef(
+                returns: BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.iterable, [BridgeTypeRef.ref('A')])),
+                params: [
+                  BridgeParameter(
+                      'iterable',
+                      BridgeTypeAnnotation(
+                        BridgeTypeRef(CoreTypes.iterable, [
+                          BridgeTypeRef.ref('A'),
+                          BridgeTypeRef(CoreTypes.nullType)
+                        ]),
+                      ),
                       false),
+                ],
+                generics: {
+                  'A': BridgeGenericParam(),
+                }),
+            isStatic: true),
+        'firstWhereOrNull': BridgeMethodDef(
+            BridgeFunctionDef(
+                returns: BridgeTypeAnnotation(BridgeTypeRef.ref('A'),
+                    nullable: true),
+                params: [
+                  BridgeParameter(
+                      'iterable',
+                      BridgeTypeAnnotation(
+                        BridgeTypeRef(CoreTypes.iterable, [
+                          BridgeTypeRef.ref('A'),
+                        ]),
+                      ),
+                      false),
+                  BridgeParameter(
+                      'test',
+                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
+                      false)
                 ],
                 namedParams: [
                   BridgeParameter(
                       'orElse',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function),
-                          nullable: true),
-                      true),
-                ]),
+                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
+                      true)
+                ],
+                generics: {
+                  'A': BridgeGenericParam(),
+                }),
             isStatic: true),
+        'faltten': BridgeMethodDef(
+            BridgeFunctionDef(
+                returns: BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.iterable, [BridgeTypeRef.ref('A')]),
+                    nullable: true),
+                params: [
+                  BridgeParameter(
+                      'iterable',
+                      BridgeTypeAnnotation(
+                        BridgeTypeRef(CoreTypes.iterable, [
+                          BridgeTypeRef(
+                              CoreTypes.iterable, [BridgeTypeRef.ref('A')]),
+                        ]),
+                      ),
+                      false),
+                ],
+                generics: {
+                  'A': BridgeGenericParam(),
+                }),
+            isStatic: true),
+       
       },
-      fields: {},
-      getters: {},
-      setters: {},
-      bridge: true);
+      wrap: true);
+
+  @override
+  $Value? $getProperty(Runtime runtime, String identifier) {
+    return null;
+  }
+
+  @override
+  int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
+
+  @override
+  get $reified => $value;
+
+  @override
+  void $setProperty(Runtime runtime, String identifier, $Value value) {}
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $IterableUtils();
+    return $IterableUtils.wrap(IterableUtils());
   }
 
-  static $Value? $tryElementAt(
+  static $Iterable<$Value> $mapIndexed(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return IterableUtils.tryElementAt(args[0]?.$value, args[1]?.$value);
+    final fun = args[1] as EvalCallable;
+
+    return $Iterable.wrap(IterableUtils.mapIndexed(
+        args[0]?.$value,
+        (index, value) =>
+            fun.call(runtime, target, [$int(index), value as $Value?])!));
   }
 
-  static $Value? $mapAsList(
+  static $Iterable<$Value> $mapNotNull(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final fun = args[1] as EvalFunction;
+    final fun = args[1] as EvalCallable;
 
-    return $List.wrap(IterableUtils.mapAsList(args[0]?.$value, (e) {
-      return fun.call(runtime, target, [e as $Value]);
-    }));
+    return $Iterable.wrap(IterableUtils.mapNotNull(args[0]?.$value,
+        (value) => fun.call(runtime, target, [value as $Value])!));
   }
 
-  static $Value? $mapWithIndex(
+  static $Iterable<$Value> $mapWhen(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final fun = args[1] as EvalFunction;
-
-    return $List.wrap(IterableUtils.mapWithIndex(args[0]?.$value,
-        (index, it) => fun.call(runtime, target, [$int(index), it])?.$value));
+    final fun = args[1] as EvalCallable;
+    final test = args[2] as EvalCallable;
+    return $Iterable.wrap(
+      IterableUtils.mapWhen(
+          args[0]?.$value,
+          (value) => fun.call(runtime, target, [value as $Value])!,
+          (value) =>
+              test.call(runtime, target, [value as $Value])!.$value as bool),
+    );
   }
 
-  static $Value? $tryfirstWhere(
+  static $Iterable<$Value> $whereNotNull(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final test = args[1] as EvalFunction;
-    final orElse = args[2] as EvalFunction?;
-
-    return IterableUtils.tryfirstWhere<dynamic>(args[0]?.$value as Iterable,
-        (element) {
-      print(test.call(runtime, target, [(element as $Value?)])?.$value);
-      return test.call(runtime, target, [(element)])?.$value;
-    },
-        orElse: orElse != null
-            ? () => orElse.call(runtime, target, [])?.$value
-            : null);
+    return $Iterable.wrap(IterableUtils.whereNotNull(args[0]?.$value));
   }
 
-  static Iterable<E>? tryWhere<E>(
-      Iterable<E> iterable, bool Function(E element) test) {
-    try {
-      return iterable.where(test);
-    } catch (_) {
-      return null;
-    }
+  static $Value? $firstWhereOrNull(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final test = args[1] as EvalCallable;
+    final orElse = args[2] as EvalCallable?;
+    return IterableUtils.firstWhereOrNull(args[0]?.$value,
+        (value) => test.call(runtime, target, [value])!.$value as bool,
+        orElse:
+            orElse == null ? null : () => orElse.call(runtime, target, [])!);
+  }
+
+  static $Value $faltten(Runtime runtime, $Value? target, List<$Value?> args) {
+    final iterable = args[0]!.$value as List;
+    return $Iterable.wrap(IterableUtils.faltten(
+        iterable is List<$Value> ? unwrapList<List>(iterable) : iterable as List<List>));
   }
 
   @override
-  $Value? $bridgeGet(String identifier) {
-    // TODO: implement $bridgeGet
-    throw UnimplementedError();
-  }
-
-  @override
-  void $bridgeSet(String identifier, $Value value) {
-    // TODO: implement $bridgeSet
-  }
+  final IterableUtils $value;
 }

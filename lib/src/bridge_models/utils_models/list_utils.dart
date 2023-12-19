@@ -15,8 +15,12 @@ class $ListUtils implements $Instance {
         bridgeLibary, 'ListUtils.mapIndexed', $mapIndexed);
     runtime.registerBridgeFunc(
         bridgeLibary, 'ListUtils.mapNotNull', $mapNotNull);
+
+    runtime.registerBridgeFunc(bridgeLibary, 'ListUtils.mapWhen', $mapWhen);
+
     runtime.registerBridgeFunc(
         bridgeLibary, 'ListUtils.whereNotNull', $whereNotNull);
+
     runtime.registerBridgeFunc(
         bridgeLibary, 'ListUtils.firstWhereOrNull', $firstWhereOrNull);
     runtime.registerBridgeFunc(bridgeLibary, 'ListUtils.faltten', $faltten);
@@ -86,6 +90,30 @@ class $ListUtils implements $Instance {
                       false),
                   BridgeParameter(
                       'toElement',
+                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
+                      false)
+                ],
+                generics: {
+                  'A': BridgeGenericParam(),
+                  'B': BridgeGenericParam()
+                }),
+            isStatic: true),
+        'mapWhen': BridgeMethodDef(
+            BridgeFunctionDef(
+                returns: BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [BridgeTypeRef.ref('B')])),
+                params: [
+                  BridgeParameter(
+                      'list',
+                      BridgeTypeAnnotation(BridgeTypeRef(
+                          CoreTypes.list, [BridgeTypeRef.ref('A')])),
+                      false),
+                  BridgeParameter(
+                      'toElement',
+                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
+                      false),
+                  BridgeParameter(
+                      'test',
                       BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
                       false)
                 ],
@@ -233,6 +261,19 @@ class $ListUtils implements $Instance {
 
     return $List.wrap(ListUtils.mapNotNull(args[0]?.$value,
         (value) => fun.call(runtime, target, [value as $Value])!));
+  }
+
+  static $List<$Value> $mapWhen(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final fun = args[1] as EvalCallable;
+    final test = args[2] as EvalCallable;
+    return $List.wrap(
+      ListUtils.mapWhen(
+          args[0]?.$value,
+          (value) => fun.call(runtime, target, [value as $Value])!,
+          (value) =>
+              test.call(runtime, target, [value as $Value])!.$value as bool),
+    );
   }
 
   static $List<$Value> $whereNotNull(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:meiyou_extensions_lib/src/extenstions/duration.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
 import 'package:meiyou_extensions_lib/src/models/document.dart';
@@ -262,5 +263,21 @@ class AppUtils {
     } catch (e) {
       return null;
     }
+  }
+
+  // static Future<T?> tryAsync<T>(Future<T> Function() fun) async {
+  //   try {
+  //     return await fun();
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
+
+  static Duration? tryParseDuration(String value, String format) {
+    return DurationUtils.tryParse(value, format);
+  }
+
+  static Duration parseDuration(String value, String format) {
+    return DurationUtils.parse(value, format);
   }
 }

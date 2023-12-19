@@ -46,6 +46,12 @@ extension Faltten<E> on List<List<E>> {
   }
 }
 
+extension FalttenIterable<E> on Iterable<Iterable<E>> {
+  Iterable<E> faltten() {
+    return [for (Iterable<E> l in this) ...l];
+  }
+}
+
 extension IterableFutureUtils<E> on Iterable<Future<E>> {
   Future<List<E?>> get tryWait {
     var results = [for (var f in this) _FutureResult<E>(f)];
