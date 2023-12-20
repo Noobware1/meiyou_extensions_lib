@@ -64,7 +64,7 @@ class ListUtils {
 
   static void addIfNotNull<A>(List<A> list, A? value) {
     return trySync<void>(() {
-      if (value != null) list.add(value);
+      if (value.isNotNull) list.add(value as A);
     });
   }
 }
