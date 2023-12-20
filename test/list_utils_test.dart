@@ -1,4 +1,6 @@
+import 'package:meiyou_extensions_lib/dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/object.dart';
 import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 import 'package:test/test.dart';
 
@@ -64,6 +66,22 @@ void main() {
           unwrapList<int>(
               runtime.executeLib('package:example/main.dart', 'main') as List),
           [2, 6]);
+    });
+
+    test('mapNullable', () {
+      final result = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+          import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
+
+          List<int>? main() {
+            return ListUtils.mapNullable<int, int>(null, (item) => item * 2);
+          }
+          '''
+        }
+      }).executeLib('package:example/main.dart', 'main') as $Value?;
+
+      expect(result?.$value, null);
     });
 
     test('mapWhen', () {

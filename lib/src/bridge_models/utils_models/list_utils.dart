@@ -16,6 +16,9 @@ class $ListUtils implements $Instance {
     runtime.registerBridgeFunc(
         bridgeLibary, 'ListUtils.mapNotNull', $mapNotNull);
 
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'ListUtils.mapNullable', $mapNullable);
+
     runtime.registerBridgeFunc(bridgeLibary, 'ListUtils.mapWhen', $mapWhen);
 
     runtime.registerBridgeFunc(
@@ -87,6 +90,30 @@ class $ListUtils implements $Instance {
                         BridgeTypeRef.ref('A'),
                         BridgeTypeRef(CoreTypes.nullType)
                       ])),
+                      false),
+                  BridgeParameter(
+                      'toElement',
+                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function)),
+                      false)
+                ],
+                generics: {
+                  'A': BridgeGenericParam(),
+                  'B': BridgeGenericParam()
+                }),
+            isStatic: true),
+        'mapNullable': BridgeMethodDef(
+            BridgeFunctionDef(
+                returns: BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [BridgeTypeRef.ref('B')]),
+                    nullable: true),
+                params: [
+                  BridgeParameter(
+                      'list',
+                      BridgeTypeAnnotation(
+                          BridgeTypeRef(CoreTypes.list, [
+                            BridgeTypeRef.ref('A'),
+                          ]),
+                          nullable: true),
                       false),
                   BridgeParameter(
                       'toElement',
@@ -261,6 +288,14 @@ class $ListUtils implements $Instance {
 
     return $List.wrap(ListUtils.mapNotNull(args[0]?.$value,
         (value) => fun.call(runtime, target, [value as $Value])!));
+  }
+
+  static $Value? $mapNullable(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final fun = args[1] as EvalCallable;
+    final list = ListUtils.mapNullable(args[0]?.$value,
+        (value) => fun.call(runtime, target, [value as $Value])!);
+    return list == null ? const $null() : $List.wrap(list);
   }
 
   static $List<$Value> $mapWhen(

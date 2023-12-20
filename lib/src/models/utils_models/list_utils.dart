@@ -26,6 +26,15 @@ class ListUtils {
     ];
   }
 
+  static List<B>? mapNullable<A, B>(List<A>? list, B Function(A) toElement) {
+    return list == null
+        ? null
+        : [
+            for (var e in list)
+              if (e.isNotNull) toElement(e)
+          ];
+  }
+
   static List<B> mapWhen<A, B>(
     List<A> list,
     B Function(A) toElement,
@@ -58,6 +67,4 @@ class ListUtils {
       if (value != null) list.add(value);
     });
   }
-
-
 }
