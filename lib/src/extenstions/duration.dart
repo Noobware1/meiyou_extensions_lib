@@ -39,7 +39,7 @@ class DurationUtils {
     return _parseSingleFormatValue(value, format);
   }
 
-  static RegExp _regExp = RegExp(r'\d+');
+  static final RegExp _regExp = RegExp(r'\d+');
 
   static Duration _parseSingleFormatValue(String val, String format) {
     final value = int.parse(_regExp.firstMatch(val)!.group(0)!);

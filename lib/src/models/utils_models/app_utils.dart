@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/duration.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
@@ -227,7 +228,7 @@ class AppUtils {
   /// This function checks if the value is a list. If it is, it returns whether the list is not empty. Otherwise, it returns whether the value is not null.
   static bool isNotNull(dynamic value) {
     if (value is List) return value.isNotEmpty;
-    return value != null;
+    return value != null && value != const $null();
   }
 
   /// Evaluates a list of boolean statements using logical AND.

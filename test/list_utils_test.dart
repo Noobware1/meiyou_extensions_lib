@@ -1,6 +1,5 @@
 import 'package:meiyou_extensions_lib/dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/object.dart';
 import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 import 'package:test/test.dart';
 
