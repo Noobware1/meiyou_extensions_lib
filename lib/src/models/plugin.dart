@@ -25,8 +25,9 @@ class Plugin {
     required this.baseUrl,
     required this.version,
     required this.downloadUrl,
-  }) : this.id = id ?? 'meiyou_extentsion-$name$version$lang'.hashCode;
-  
+  }) : this.id = id ??
+            'meiyou_extension-$name$version$lang$baseUrl$downloadUrl'.hashCode;
+
   /// ID of the plugin. This will be used to uniquely identify the plugin.
   final int id;
 
@@ -51,7 +52,7 @@ class Plugin {
   /// Version of the plugin. This will be used to identify the version of the plugin.
   final String version;
 
-  /// Download URL of the plugin. This will be used to download the plugin.        
+  /// Download URL of the plugin. This will be used to download the plugin.
   final String downloadUrl;
 
   /// Encodes this `Plugin` instance to json string.
