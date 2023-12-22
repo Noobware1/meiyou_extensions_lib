@@ -126,18 +126,6 @@ class AppUtils {
   static DocumentObject parseHtml(String html) =>
       DocumentObject(Document.html(html));
 
-  /// Maps a list of elements to a new list using a generator function.
-  ///
-  /// The `mapList` function takes the following parameters:
-  /// * `list`: A list of elements to map.
-  /// * `generator`: A function that takes an element and returns a new element.
-  ///
-  /// It returns a new list where each element is the result of calling the generator function on the corresponding element in the original list.
-  ///
-  /// This function is similar to `Iterable.map` but instead of returning `Iterable` it returns `List` and can only be used on `List`.
-  static List mapList(List list, dynamic Function(dynamic element) generator) =>
-      list.mapAsList((it) => generator(it));
-
   /// Returns a list of `ElementObject` objects that match the specified CSS selector.
   /// The `select` function takes the following parameters:
   /// * `selector`: A string representing the CSS selector to match
@@ -168,7 +156,9 @@ class AppUtils {
   static String getBackgroundImage(String style) {
     return RegExp(r"""background-image:\s?url\(['"]?(.*?)['"]?\);""")
             .firstMatch(style)
-            ?.group(1) ??
+            ?.group(1)
+            ?.replaceAll('&quot;', '')
+            .trim() ??
         '';
   }
 
