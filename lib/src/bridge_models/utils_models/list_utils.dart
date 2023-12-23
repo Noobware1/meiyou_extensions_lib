@@ -15,15 +15,11 @@ class $ListUtils implements $Instance {
         bridgeLibary, 'ListUtils.mapIndexed', $mapIndexed);
     runtime.registerBridgeFunc(
         bridgeLibary, 'ListUtils.mapNotNull', $mapNotNull);
-
     runtime.registerBridgeFunc(
         bridgeLibary, 'ListUtils.mapNullable', $mapNullable);
-
     runtime.registerBridgeFunc(bridgeLibary, 'ListUtils.mapWhen', $mapWhen);
-
     runtime.registerBridgeFunc(
         bridgeLibary, 'ListUtils.whereNotNull', $whereNotNull);
-
     runtime.registerBridgeFunc(
         bridgeLibary, 'ListUtils.firstWhereOrNull', $firstWhereOrNull);
     runtime.registerBridgeFunc(bridgeLibary, 'ListUtils.faltten', $faltten);
@@ -242,13 +238,7 @@ class $ListUtils implements $Instance {
 
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
-    switch (identifier) {
-      case 'map':
-        return $Function($map);
-
-      default:
-        return $null();
-    }
+    throw UnimplementedError();
   }
 
   @override

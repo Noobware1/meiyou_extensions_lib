@@ -14,6 +14,8 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
         bridgeLibary, 'OkHttpResponseObject.', $OkHttpResponseObject.$new);
   }
 
+  late final $Instance _superclass = $Object($value);
+
   static const $type =
       BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'OkHttpResponseObject'));
 
@@ -107,7 +109,7 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
       case 'json':
         return const $Function($json);
       default:
-        return null;
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -151,7 +153,8 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {}
+  void $setProperty(Runtime runtime, String identifier, $Value value) =>
+      _superclass.$setProperty(runtime, identifier, value);
 
   @override
   final OkHttpResponseObject $value;

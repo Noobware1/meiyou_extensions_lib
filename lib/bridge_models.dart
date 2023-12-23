@@ -1,5 +1,4 @@
 export 'src/bridge_models/actor_data.dart';
-export 'src/bridge_models/doc.dart';
 export 'src/bridge_models/document.dart';
 export 'src/bridge_models/element.dart';
 export 'src/bridge_models/episode.dart';

@@ -105,10 +105,13 @@ class $Media implements Media, $Instance {
     switch (identifier) {
       case 'mediaType':
         $value.mediaType = value.$reified;
+        break;
       case 'headers':
         $value.headers = value.$reified;
+        break;
       case 'extra':
         $value.extra = value.$reified;
+        break;
     }
   }
 

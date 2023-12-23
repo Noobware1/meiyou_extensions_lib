@@ -108,12 +108,16 @@ class $VideoSource implements VideoSource, $Instance {
     switch (identifier) {
       case 'url':
         $value.url = value.$reified;
+        break;
       case 'quality':
         $value.quality = value.$reified;
+        break;
       case 'format':
         $value.format = value.$reified;
+        break;
       case 'title':
         $value.title = value.$reified;
+        break;
     }
   }
 

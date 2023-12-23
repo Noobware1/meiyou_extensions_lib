@@ -15,6 +15,8 @@ class $DocumentObject implements DocumentObject, $Instance {
     runtime.registerBridgeFunc(bridgeLibary, 'DocumentObject.', $new);
   }
 
+  late final $Instance _superclass = $Object($value);
+
   static const $type =
       BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'DocumentObject'));
 
@@ -80,7 +82,7 @@ class $DocumentObject implements DocumentObject, $Instance {
       case 'trySelectFirst':
         return const $Function(_trySelectFirst);
       default:
-        return null;
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -113,7 +115,8 @@ class $DocumentObject implements DocumentObject, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {}
+  void $setProperty(Runtime runtime, String identifier, $Value value) =>
+      _superclass.$setProperty(runtime, identifier, value);
 
   @override
   final DocumentObject $value;
@@ -137,6 +140,8 @@ class $DocumentObject implements DocumentObject, $Instance {
 class $Document implements $Instance {
   $Document.wrap(this.$value);
 
+  late final $Instance _superclass = $Object($value);
+
   static const $type = BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'Document'));
 
   static const $declaration = BridgeClassDef(
@@ -149,9 +154,8 @@ class $Document implements $Instance {
   );
 
   @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
-    throw UnimplementedError();
-  }
+  $Value? $getProperty(Runtime runtime, String identifier) =>
+      _superclass.$getProperty(runtime, identifier);
 
   @override
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
@@ -160,9 +164,8 @@ class $Document implements $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    // TODO: implement $setProperty
-  }
+  void $setProperty(Runtime runtime, String identifier, $Value value) =>
+      _superclass.$setProperty(runtime, identifier, value);
 
   @override
   final Document $value;

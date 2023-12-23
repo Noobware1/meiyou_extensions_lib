@@ -8,6 +8,7 @@ import 'package:meiyou_extensions_lib/src/models/document.dart';
 import 'package:meiyou_extensions_lib/src/models/element.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dart';
 import 'package:meiyou_extensions_lib/src/models/ok_http_response.dart';
+import 'package:meiyou_extensions_lib/src/utils/js_unpacker.dart';
 import 'package:ok_http_dart/dom.dart';
 import 'package:ok_http_dart/ok_http_dart.dart';
 
@@ -270,5 +271,9 @@ class AppUtils {
 
   static Duration parseDuration(String value, String format) {
     return DurationUtils.parse(value, format);
+  }
+
+  static String? unpackJS(String packedJS) {
+    return JSUnpacker(packedJS).unpack();
   }
 }

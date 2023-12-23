@@ -11,6 +11,8 @@ class $Episode implements Episode, $Instance {
     runtime.registerBridgeFunc(bridgeLibary, 'Episode.', $new);
   }
 
+  late final $Instance _superclass = $Object($value);
+
   static const $type = BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'Episode'));
 
   static const $declaration = BridgeClassDef(BridgeClassType($type),
@@ -111,11 +113,10 @@ class $Episode implements Episode, $Instance {
         return $value.isFiller != null ? $bool($value.isFiller!) : $null();
       case 'date':
         return $value.date != null ? $DateTime.wrap($value.date!) : $null();
-
       case 'episode':
         return $value.episode != null ? $num($value.episode!) : $null();
       default:
-        return null;
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -139,7 +140,36 @@ class $Episode implements Episode, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {}
+  void $setProperty(Runtime runtime, String identifier, $Value value) {
+    switch (identifier) {
+      case 'data':
+        $value.data = value.$reified;
+        break;
+      case 'name':
+        $value.name = value.$reified;
+        break;
+      case 'description':
+        $value.description = value.$reified;
+        break;
+      case 'posterImage':
+        $value.posterImage = value.$reified;
+        break;
+      case 'season':
+        $value.season = value.$reified;
+        break;
+      case 'isFiller':
+        $value.isFiller = value.$reified;
+        break;
+      case 'date':
+        $value.date = value.$reified;
+        break;
+      case 'episode':
+        $value.episode = value.$reified;
+        break;
+      default:
+        return _superclass.$setProperty(runtime, identifier, value);
+    }
+  }
 
   @override
   final Episode $value;
@@ -167,4 +197,44 @@ class $Episode implements Episode, $Instance {
 
   @override
   bool? get isFiller => $value.isFiller;
+
+  @override
+  set description(String? description) {
+    this.description = description;
+  }
+
+  @override
+  set episode(num? episode) {
+    this.episode = episode;
+  }
+
+  @override
+  set isFiller(bool? isFiller) {
+    this.isFiller = isFiller;
+  }
+
+  @override
+  set name(String? name) {
+    this.name = name;
+  }
+
+  @override
+  set posterImage(String? posterImage) {
+    this.posterImage = posterImage;
+  }
+
+  @override
+  set season(int? season) {
+    this.season = season;
+  }
+
+  @override
+  set data(String data) {
+    this.data = data;
+  }
+
+  @override
+  set date(DateTime? date) {
+    this.date = date;
+  }
 }

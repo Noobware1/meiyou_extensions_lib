@@ -1,10 +1,13 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
 import 'package:meiyou_extensions_lib/src/models/media_item/media_item.dart';
 
 class $MediaItem implements MediaItem, $Instance {
   $MediaItem.wrap(this.$value);
+
+  late final $Instance _superclass = $Object($value);
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(bridgeLibary, 'MediaItem.', $new);
@@ -37,9 +40,18 @@ class $MediaItem implements MediaItem, $Instance {
     switch (identifier) {
       case 'type':
         return $MediaItemType.wrap($value.type);
-
+      case 'isMovie':
+        return $bool(isMovie);
+      case 'isTvSeries':
+        return $bool(isTvSeries);
+      case 'isAnime':
+        return $bool(isAnime);
+      case 'isManga':
+        return $bool(isManga);
+      case 'isNovel':
+        return $bool(isNovel);
       default:
-        return null;
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -56,13 +68,30 @@ class $MediaItem implements MediaItem, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {}
+  void $setProperty(Runtime runtime, String identifier, $Value value) {
+    _superclass.$setProperty(runtime, identifier, value);
+  }
 
   @override
   final MediaItem $value;
 
   @override
   MediaItemType get type => $value.type;
+
+  @override
+  bool get isAnime => $value.isAnime;
+
+  @override
+  bool get isManga => $value.isManga;
+
+  @override
+  bool get isMovie => $value.isMovie;
+
+  @override
+  bool get isNovel => $value.isNovel;
+
+  @override
+  bool get isTvSeries => $value.isTvSeries;
 }
 
 class $MediaItemType implements $Instance {

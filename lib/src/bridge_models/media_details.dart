@@ -24,6 +24,8 @@ class $MediaDetails implements MediaDetails, $Instance {
     runtime.registerBridgeFunc(bridgeLibary, 'MediaDetails.', $new);
   }
 
+  late final $Instance _superclass = $Object($value);
+
   static const $type =
       BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'MediaDetails'));
 
@@ -278,7 +280,7 @@ class $MediaDetails implements MediaDetails, $Instance {
       case 'copyFromSearchResponse':
         return const $Function($copyFromSearchResponse);
       default:
-        return const $null();
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -327,46 +329,63 @@ class $MediaDetails implements MediaDetails, $Instance {
     switch (identifier) {
       case 'type':
         $value.type = value.$reified;
+        break;
       case 'name':
         $value.name = value.$reified is String ? value.$reified : null;
+        break;
       case 'url':
         $value.url = value.$reified is String ? value.$reified : null;
+        break;
       case 'otherTitles':
         $value.otherTitles =
             (value.$reified as List?)?.mapAsList((it) => it.toString());
+        break;
       case 'status':
         $value.status = value.$reified;
+        break;
       case 'bannerImage':
         $value.bannerImage = value.$reified is String ? value.$reified : null;
+        break;
       case 'posterImage':
         $value.posterImage = value.$reified is String ? value.$reified : null;
+        break;
       case 'rating':
         $value.rating = value.$reified is double ? value.$reified : null;
+        break;
       case 'description':
         $value.description = value.$reified is String ? value.$reified : null;
+        break;
       case 'startDate':
         $value.startDate = value.$reified is DateTime ? value.$reified : null;
+        break;
       case 'endDate':
         $value.endDate = value.$reified is DateTime ? value.$reified : null;
+        break;
       case 'duration':
         $value.duration = value.$reified is Duration ? value.$reified : null;
+        break;
       case 'genres':
         $value.genres =
             (value.$reified as List?)?.mapAsList((it) => it.toString());
+        break;
       case 'recommendations':
         $value.recommendations = (value.$reified as List?)?.mapAsList(
             (it) => (it is $Value ? it.$value : it) as SearchResponse);
+        break;
       case 'externalIds':
         $value.externalIds = (value.$reified as List?)
             ?.mapAsList((it) => (it is $Value ? it.$value : it) as ExternalId);
+        break;
       case 'actorData':
         $value.actorData = (value.$reified as List?)
             ?.mapAsList((it) => (it is $Value ? it.$value : it) as ActorData);
+        break;
       case 'mediaItem':
         $value.mediaItem = value.$reified as MediaItem?;
 
         break;
       default:
+        return _superclass.$setProperty(runtime, identifier, value);
     }
   }
 

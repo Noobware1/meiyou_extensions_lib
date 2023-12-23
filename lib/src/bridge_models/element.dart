@@ -11,6 +11,8 @@ class $ElementObject implements ElementObject, $Instance {
     runtime.registerBridgeFunc(bridgeLibary, 'ElementObject.', $new);
   }
 
+  late final $Instance _superclass = $Object($value);
+
   static const $type =
       BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'ElementObject'));
 
@@ -94,7 +96,7 @@ class $ElementObject implements ElementObject, $Instance {
       case 'trySelectFirst':
         return const $Function(_trySelectFirst);
       default:
-        return const $null();
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -105,7 +107,8 @@ class $ElementObject implements ElementObject, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {}
+  void $setProperty(Runtime runtime, String identifier, $Value value) =>
+      _superclass.$setProperty(runtime, identifier, value);
 
   $ElementObject.wrap(this.$value);
 
@@ -169,6 +172,8 @@ class $ElementObject implements ElementObject, $Instance {
 class $Element implements $Instance {
   $Element.wrap(this.$value);
 
+  late final $Instance _superclass = $Object($value);
+
   static const $type = BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'Element'));
 
   static const $declaration = BridgeClassDef(
@@ -181,10 +186,8 @@ class $Element implements $Instance {
   );
 
   @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
-    // TODO: implement $getProperty
-    throw UnimplementedError();
-  }
+  $Value? $getProperty(Runtime runtime, String identifier) =>
+      _superclass.$getProperty(runtime, identifier);
 
   @override
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
@@ -193,9 +196,8 @@ class $Element implements $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    // TODO: implement $setProperty
-  }
+  void $setProperty(Runtime runtime, String identifier, $Value value) =>
+      _superclass.$setProperty(runtime, identifier, value);
 
   @override
   final Element $value;

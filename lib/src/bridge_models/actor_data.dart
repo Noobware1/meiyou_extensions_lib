@@ -11,6 +11,8 @@ class $ActorData implements ActorData, $Instance {
     runtime.registerBridgeFunc(bridgeLibary, 'ActorData.', $new);
   }
 
+  late final $Instance _superclass = $Object($value);
+
   static const $type = BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'ActorData'));
 
   static const $declaration = BridgeClassDef(BridgeClassType($type),
@@ -62,7 +64,7 @@ class $ActorData implements ActorData, $Instance {
       case 'role':
         return $value.role != null ? $String($value.role!) : $null();
       default:
-        return $null();
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -81,7 +83,8 @@ class $ActorData implements ActorData, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {}
+  void $setProperty(Runtime runtime, String identifier, $Value value) =>
+      _superclass.$setProperty(runtime, identifier, value);
 
   @override
   final ActorData $value;

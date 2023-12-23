@@ -71,9 +71,8 @@ class $ExternalId implements ExternalId, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    _superclass.$setProperty(runtime, identifier, value);
-  }
+  void $setProperty(Runtime runtime, String identifier, $Value value) =>
+      _superclass.$setProperty(runtime, identifier, value);
 
   @override
   final ExternalId $value;

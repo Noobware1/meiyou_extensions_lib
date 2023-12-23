@@ -72,9 +72,8 @@ class $SeasonList implements SeasonList, $Instance {
   @override
   get $reified => $value;
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    _superclass.$setProperty(runtime, identifier, value);
-  }
+  void $setProperty(Runtime runtime, String identifier, $Value value) =>
+      _superclass.$setProperty(runtime, identifier, value);
 
   @override
   final SeasonList $value;

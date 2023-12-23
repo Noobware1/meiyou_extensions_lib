@@ -14,7 +14,7 @@
 ///
 /// It also includes a method for getting a string representation of the `Episode` object (`toString`).
 class Episode {
-  const Episode({
+  Episode({
     required this.data,
     this.name,
     this.season,
@@ -25,14 +25,14 @@ class Episode {
     this.date,
   });
 
-  final String data;
-  final String? name;
-  final int? season;
-  final num? episode;
-  final String? posterImage;
-  final bool? isFiller;
-  final String? description;
-  final DateTime? date;
+  String data;
+  String? name;
+  int? season;
+  num? episode;
+  String? posterImage;
+  bool? isFiller;
+  String? description;
+  DateTime? date;
 
   @override
   String toString() {

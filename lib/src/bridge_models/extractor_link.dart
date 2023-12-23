@@ -11,6 +11,8 @@ class $ExtractorLink implements ExtractorLink, $Instance {
     runtime.registerBridgeFunc(bridgeLibary, 'ExtractorLink.', $new);
   }
 
+  late final $Instance _superclass = $Object($value);
+
   static const $type =
       BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'ExtractorLink'));
 
@@ -122,7 +124,7 @@ class $ExtractorLink implements ExtractorLink, $Instance {
                 .wrap(extra!.map((key, value) => MapEntry($String(key), value)))
             : const $null();
       default:
-        return null;
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -130,7 +132,8 @@ class $ExtractorLink implements ExtractorLink, $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {}
+  void $setProperty(Runtime runtime, String identifier, $Value value) =>
+      _superclass.$setProperty(runtime, identifier, value);
 
   @override
   ExtractorLink get $reified => $value;

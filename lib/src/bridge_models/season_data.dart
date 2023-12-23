@@ -10,6 +10,8 @@ class $SeasonData implements SeasonData, $Instance {
   static const $type =
       BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'SeasonData'));
 
+  late final $Instance _superclass = $Object($value);
+
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(bridgeLibary, 'SeasonData.', $SeasonData.$new);
   }
@@ -53,7 +55,7 @@ class $SeasonData implements SeasonData, $Instance {
       case 'name':
         return $value.name != null ? $String($value.name!) : $null();
       default:
-        return $null();
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -71,7 +73,8 @@ class $SeasonData implements SeasonData, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {}
+  void $setProperty(Runtime runtime, String identifier, $Value value) =>
+      _superclass.$setProperty(runtime, identifier, value);
 
   @override
   final SeasonData $value;

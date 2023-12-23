@@ -291,6 +291,19 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
               namedParams: [],
             ),
             isStatic: true),
+        'unpackJS': BridgeMethodDef(
+            BridgeFunctionDef(
+              returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),
+                  nullable: true),
+              params: [
+                BridgeParameter(
+                    'packedJS',
+                    BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+                    false),
+              ],
+              namedParams: [],
+            ),
+            isStatic: true),
       },
       fields: {},
       getters: {},
@@ -431,6 +444,12 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
     return result == null ? const $null() : $Duration.wrap(result);
   }
 
+  static $Value? $unpackJS(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final unpacked = AppUtils.unpackJS(args[0]?.$value);
+    return unpacked == null ? $null() : $String(unpacked);
+  }
+
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(bridgeLibary, 'AppUtils.', $AppUtils.$construct,
         isBridge: true);
@@ -453,7 +472,6 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
         bridgeLibary, 'AppUtils.getMonthByName', $AppUtils.$getMonthByName);
     runtime.registerBridgeFunc(bridgeLibary, 'AppUtils.getBackgroundImage',
         $AppUtils.$getBackgroundImage);
-
     runtime.registerBridgeFunc(
         bridgeLibary,
         'AppUtils.getSubtitleFormatFromUrl',
@@ -462,7 +480,6 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
         bridgeLibary, 'AppUtils.isNotNull', $AppUtils.$isNotNull);
     runtime.registerBridgeFunc(bridgeLibary, 'AppUtils.evalAndStatements',
         $AppUtils.$evalAndStatements);
-
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.evalOrStatements', $AppUtils.$evalOrStatements);
     runtime.registerBridgeFunc(
@@ -471,6 +488,8 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
         bridgeLibary, 'AppUtils.parseDuration', $AppUtils.$parseDuration);
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.tryParseDuration', $AppUtils.$tryParseDuration);
+    runtime.registerBridgeFunc(
+        bridgeLibary, 'AppUtils.unpackJS', $AppUtils.$unpackJS);
   }
 
   @override
