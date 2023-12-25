@@ -32,7 +32,7 @@ class AppUtils {
   /// * `body`: An optional object representing the body of the request.
   /// * `verify`: An optional boolean indicating whether to verify the SSL Cerficate for request.
   /// * `retry`: An optional boolean indicating whether to rety failed request.
-  /// 
+  ///
   /// It returns a `Future` that resolves to an `OkHttpResponseObject` representing the response.
   ///
   /// If an error occurs during the request, it is caught and the `hasError` property of the `OkHttpResponseObject` is set to `true`.
@@ -48,35 +48,35 @@ class AppUtils {
     bool? verify,
     bool? retry,
   }) async {
-    try {
-      final response = await OKHttpClient().request(
-        url: url,
-        method: method,
-        headers: headers,
-        followRedircts: followRedircts,
-        cookie: cookie,
-        referer: referer,
-        params: params,
-        body: body,
-        verify: verify,
-        retry: retry,
-      );
-      return OkHttpResponseObject(
-        text: response.text,
-        statusCode: response.statusCode,
-        headers: response.headers,
-        hasError: false,
-        isRedirect: response.isRedirect,
-      );
-    } catch (e) {
-      return OkHttpResponseObject(
-        text: '',
-        statusCode: 500,
-        headers: {'error': e.toString()},
-        hasError: true,
-        isRedirect: false,
-      );
-    }
+    // try {
+    final response = await OKHttpClient().request(
+      url: url,
+      method: method,
+      headers: headers,
+      followRedircts: followRedircts,
+      cookie: cookie,
+      referer: referer,
+      params: params,
+      body: body,
+      verify: verify,
+      retry: retry,
+    );
+    return OkHttpResponseObject(
+      text: response.text,
+      statusCode: response.statusCode,
+      headers: response.headers,
+      hasError: false,
+      isRedirect: response.isRedirect,
+    );
+    // } catch (e) {
+    //   return OkHttpResponseObject(
+    //     text: '',
+    //     statusCode: 500,
+    //     headers: {'error': e.toString()},
+    //     hasError: true,
+    //     isRedirect: false,
+    //   );
+    // }
   }
 
   /// Encodes a query string for use in a URL.
