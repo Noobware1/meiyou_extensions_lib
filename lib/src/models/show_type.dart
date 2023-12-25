@@ -34,6 +34,15 @@ enum ShowType {
 
   @override
   String toString() {
-    return super.toString().substringAfter('.');
+    final input = super.toString().substringAfter('ShowType.');
+    final buffer = StringBuffer();
+    for (var i = 0; i < input.length; i++) {
+      if (input[i].toUpperCase() == input[i]) {
+        buffer.write(' ${input[i]}');
+      } else {
+        buffer.write(input[i]);
+      }
+    }
+    return buffer.toString();
   }
 }

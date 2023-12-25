@@ -30,7 +30,9 @@ class AppUtils {
   /// * `referer`: An optional string representing the referer to include in the request.
   /// * `params`: An optional map representing the query parameters to include in the request.
   /// * `body`: An optional object representing the body of the request.
-  ///
+  /// * `verify`: An optional boolean indicating whether to verify the SSL Cerficate for request.
+  /// * `retry`: An optional boolean indicating whether to rety failed request.
+  /// 
   /// It returns a `Future` that resolves to an `OkHttpResponseObject` representing the response.
   ///
   /// If an error occurs during the request, it is caught and the `hasError` property of the `OkHttpResponseObject` is set to `true`.
@@ -249,6 +251,11 @@ class AppUtils {
     return pass != null ? true : false;
   }
 
+  /// Executes a synchronous function and returns its result or null if an exception occurs.
+  ///
+  /// * `fun`: The synchronous function to execute.
+  ///
+  /// Returns the result of the function or null if an exception occurs.
   static T? trySync<T>(T Function() fun) {
     try {
       return fun();
@@ -257,6 +264,11 @@ class AppUtils {
     }
   }
 
+  // /// Executes an asynchronous function and returns its result or null if an exception occurs.
+  // ///
+  // /// * `fun`: The asynchronous function to execute.
+  // ///
+  // /// Returns the result of the function or null if an exception occurs.
   // static Future<T?> tryAsync<T>(Future<T> Function() fun) async {
   //   try {
   //     return await fun();
@@ -265,14 +277,31 @@ class AppUtils {
   //   }
   // }
 
+  /// Attempts to parse a duration from a string using the specified format.
+  ///
+  /// * `value`: The string representing the duration.
+  /// * `format`: The format of the duration string.
+  ///
+  /// Returns a `Duration` object if parsing is successful, or null if an exception occurs during parsing.
   static Duration? tryParseDuration(String value, String format) {
     return DurationUtils.tryParse(value, format);
   }
 
+  /// Parses a duration from a string using the specified format.
+  ///
+  /// * `value`: The string representing the duration.
+  /// * `format`: The format of the duration string.
+  ///
+  /// Returns a `Duration` object.
   static Duration parseDuration(String value, String format) {
     return DurationUtils.parse(value, format);
   }
 
+  /// Unpacks JavaScript code from a packed string.
+  ///
+  /// * `packedJS`: The packed JavaScript code.
+  ///
+  /// Returns the unpacked JavaScript code as a string, or null if an exception occurs during unpacking.
   static String? unpackJS(String packedJS) {
     return JSUnpacker(packedJS).unpack();
   }

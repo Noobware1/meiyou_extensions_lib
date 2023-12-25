@@ -12,14 +12,12 @@ class DocumentObject {
   final Document _document;
 
   /// select: Returns a list of `ElementObject` objects that match the specified CSS selector.
-
   List<ElementObject> select(String selector) {
     return (trySync(() => _document.select(selector)) ?? [])
         .mapAsList((it) => ElementObject(it));
   }
 
   /// Returns the first `ElementObject` object that matches the specified CSS selector. If no match is found, it returns an `ElementObject` with a `div` tag.
-
   ElementObject selectFirst(String selector) {
     return trySync(() => ElementObject(_document.selectFirst(selector))) ??
         ElementObject(Element.tag('div'));

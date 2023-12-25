@@ -6,19 +6,19 @@ class StringUtils {
   static num toNum(String str) => str.toNum();
 
   /// turns a `String` to `Num` but returns `null` if the string is not a valid number
-  static num? toNumOrNull(String str) => str.toNumOrNull();
+  static num? toNumOrNull(String? str) => str?.toNumOrNull();
 
   /// turns a `String` to `int`
   static int toInt(String str) => str.toInt();
 
   /// turns a `String` to `int` but returns `null` if the string is not a valid number
-  static int? toIntOrNull(String str) => str.toIntOrNull();
+  static int? toIntOrNull(String? str) => str?.toIntOrNull();
 
   /// turns a `String` to `double`
   static double toDouble(String str) => str.toDouble();
 
   /// turns a `String` to `double` but returns `null` if the string is not a valid number
-  static double? toDoubleOrNull(String str) => str.toDoubleOrNull();
+  static double? toDoubleOrNull(String? str) => str?.toDoubleOrNull();
 
   /// trims all new lines from a string
   static String trimNewLines(String str) => str.trimNewLines();

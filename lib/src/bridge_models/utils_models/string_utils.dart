@@ -51,8 +51,12 @@ class $StringUtils implements $Instance {
   static const $param = BridgeParameter(
       'str', BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false);
 
+  static const $nullableParam = BridgeParameter(
+      'str', BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string), nullable: true), false);
+
   static const $patterParam = BridgeParameter(
       'pattern', BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false);
+
 
   static const $declaration = BridgeClassDef(BridgeClassType($type),
       constructors: {
@@ -69,7 +73,7 @@ class $StringUtils implements $Instance {
             BridgeFunctionDef(
               returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.num),
                   nullable: true),
-              params: [$param],
+              params: [$nullableParam],
             ),
             isStatic: true),
         'toInt': BridgeMethodDef(
@@ -82,7 +86,7 @@ class $StringUtils implements $Instance {
             BridgeFunctionDef(
               returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int),
                   nullable: true),
-              params: [$param],
+              params: [$nullableParam],
             ),
             isStatic: true),
         'toDouble': BridgeMethodDef(
@@ -95,7 +99,7 @@ class $StringUtils implements $Instance {
             BridgeFunctionDef(
               returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double),
                   nullable: true),
-              params: [$param],
+              params: [$nullableParam],
             ),
             isStatic: true),
         'trimNewLines': BridgeMethodDef(
