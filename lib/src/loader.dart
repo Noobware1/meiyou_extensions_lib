@@ -7,7 +7,9 @@ import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/plu
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/plugin.dart';
 
 class ExtensionLoader {
-  ExtensionLoader(Runtime runtime) {
+  final Runtime runtime;
+  
+  ExtensionLoader(this.runtime) {
     setUpFroRuntime(runtime);
   }
 
