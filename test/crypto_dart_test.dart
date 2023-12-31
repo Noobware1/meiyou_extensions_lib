@@ -8,7 +8,7 @@ void main() {
   group('CryptoDart', () {
     late Compiler compiler;
     setUp(() {
-      compiler = CustomCompiler()..addPlugin(CryptoDartPlugin());
+      compiler = ExtensionComplier()..addPlugin(CryptoDartPlugin());
     });
 
     test('CryptoDart', () async {

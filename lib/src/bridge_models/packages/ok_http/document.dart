@@ -19,7 +19,8 @@ class $Document implements $Instance {
   export 'src/document.dart';
 ''');
 
-  static const $type = BridgeTypeRef(BridgeTypeSpec(OkHttpDartTypes.DocumentSrc, 'Document'));
+  static const $type =
+      BridgeTypeRef(BridgeTypeSpec(OkHttpDartTypes.DocumentSrc, 'Document'));
 
   static const $methods = {
     'select': BridgeMethodDef(BridgeFunctionDef(
@@ -48,6 +49,34 @@ class $Document implements $Instance {
           ]),
       isStatic: false,
     ),
+    'selectMultiAttr': BridgeMethodDef(
+        BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(
+                CoreTypes.list, [BridgeTypeRef(CoreTypes.string)])),
+            params: [
+              BridgeParameter(
+                  'elements',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(CoreTypes.list, [$Element.$type])),
+                  false),
+              BridgeParameter('attr',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+            ],
+            namedParams: []),
+        isStatic: true),
+    'selectMultiText': BridgeMethodDef(
+        BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(
+                CoreTypes.list, [BridgeTypeRef(CoreTypes.string)])),
+            params: [
+              BridgeParameter(
+                  'elements',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(CoreTypes.list, [$Element.$type])),
+                  false),
+            ],
+            namedParams: []),
+        isStatic: true),
   };
 
   static const $constructors = {

@@ -4,10 +4,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('List Utils', () {
-    late ExtenstionComplier compiler;
+    late ExtensionComplier compiler;
 
     setUp(() {
-      compiler = ExtenstionComplier();
+      compiler = ExtensionComplier();
     });
 
     test('trySync', () {

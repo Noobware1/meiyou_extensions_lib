@@ -67,17 +67,6 @@ class $Element implements $Instance {
           ]),
           isStatic: false,
         ),
-        // 'trySelectFirst': BridgeMethodDef(
-        //   BridgeFunctionDef(
-        //       returns: BridgeTypeAnnotation($type, nullable: true),
-        //       params: [
-        //         BridgeParameter(
-        //             'selector',
-        //             BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-        //             false)
-        //       ]),
-        //   isStatic: false,
-        // ),
       },
       wrap: true);
 
@@ -92,8 +81,7 @@ class $Element implements $Instance {
         return const $Function(_select);
       case 'selectFirst':
         return const $Function(_selectFirst);
-      // case 'trySelectFirst':
-      //   return const $Function(_trySelectFirst);
+
       default:
         return _superclass.$getProperty(runtime, identifier);
     }

@@ -4,10 +4,7 @@ import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/duration.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
-import 'package:meiyou_extensions_lib/src/models/document.dart';
-import 'package:meiyou_extensions_lib/src/models/element.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dart';
-import 'package:meiyou_extensions_lib/src/models/ok_http_response.dart';
 import 'package:meiyou_extensions_lib/src/utils/js_unpacker.dart';
 import 'package:ok_http_dart/dom.dart';
 import 'package:ok_http_dart/ok_http_dart.dart';
@@ -19,64 +16,21 @@ import 'package:ok_http_dart/ok_http_dart.dart';
 /// This class cannot be instantiated. All its methods are static and should be called directly on the class.
 ///
 class AppUtils {
-  /// Sends an HTTP request and returns the response.
-  ///
-  /// The `httpRequest` function takes the following parameters:
-  /// * `url`: A string representing the URL to send the request to.
-  /// * `method`: A string representing the HTTP method to use (e.g., 'GET', 'POST').
-  /// * `headers`: An optional map representing the headers to include in the request.
-  /// * `followRedirects`: An optional boolean indicating whether to follow redirects.
-  /// * `cookie`: An optional string representing the cookie to include in the request.
-  /// * `referer`: An optional string representing the referer to include in the request.
-  /// * `params`: An optional map representing the query parameters to include in the request.
-  /// * `body`: An optional object representing the body of the request.
-  /// * `verify`: An optional boolean indicating whether to verify the SSL Cerficate for request.
-  /// * `retry`: An optional boolean indicating whether to rety failed request.
-  ///
-  /// It returns a `Future` that resolves to an `okhttpResponseSrcObject` representing the response.
-  ///
-  /// If an error occurs during the request, it is caught and the `hasError` property of the `okhttpResponseSrcObject` is set to `true`.
-  static Future<okhttpResponseSrcObject> httpRequest({
-    required String url,
-    required String method,
-    Map<String, String>? headers,
-    bool? followRedirects,
-    String? cookie,
-    String? referer,
-    Map<String, dynamic>? params,
-    Object? body,
-    bool? verify,
-    bool? retry,
-  }) async {
-    // try {
-    final response = await OkHttpClient().request(OKHttpRequest.builder(
-      url: url,
-      method: method,
-      headers: headers,
-      followRedirects: followRedirects,
-      cookie: cookie,
-      referer: referer,
-      params: params,
-      body: body,
-      verify: verify,
-      retry: retry,
-    ));
-    return okhttpResponseSrcObject(
-      text: response.text,
-      statusCode: response.statusCode,
-      headers: response.headers,
-      hasError: false,
-      isRedirect: response.isRedirect,
-    );
-    // } catch (e) {
-    //   return okhttpResponseSrcObject(
-    //     text: '',
-    //     statusCode: 500,
-    //     headers: {'error': e.toString()},
-    //     hasError: true,
-    //     isRedirect: false,
-    //   );
-    // }
+  /// Returns a list of `ElementObject` objects that match the specified CSS selector.
+  /// The `select` function takes the following parameters:
+  /// * `selector`: A string representing the CSS selector to match
+  /// It returns a list of `ElementObject` objects that match the specified CSS selector.
+
+  static List<String> selectMultiAttr(List<Element> elements, String attr) {
+    return elements.mapAsList((it) => it.attr(attr));
+  }
+
+  /// Returns a list of `Element` objects that match the specified CSS selector.
+  /// The `select` function takes the following parameters:
+  /// * `selector`: A string representing the CSS selector to match
+  /// It returns a list of `Element` objects that match the specified CSS selector.
+  static List<String> selectMultiText(List<Element> elements) {
+    return elements.mapAsList((it) => it.text);
   }
 
   /// Encodes a query string for use in a URL.
@@ -115,36 +69,6 @@ class AppUtils {
   }) {
     return DateTime(year, month ?? 1, day ?? 1, hour ?? 0, minute ?? 0,
         second ?? 0, millisecond ?? 0, microsecond ?? 0);
-  }
-
-  /// Parses a HTML string and returns a `DocumentObject`.
-  ///
-  /// The `parseHtml` function takes the following parameter:
-  /// * `html`: A string representing the HTML to parse.
-  ///
-  /// It returns a `DocumentObject` representing the parsed HTML.
-  ///
-  /// This function uses the `Document.html` constructor to parse the HTML.
-
-  static DocumentObject parseHtml(String html) =>
-      DocumentObject(Document.html(html));
-
-  /// Returns a list of `ElementObject` objects that match the specified CSS selector.
-  /// The `select` function takes the following parameters:
-  /// * `selector`: A string representing the CSS selector to match
-  /// It returns a list of `ElementObject` objects that match the specified CSS selector.
-
-  static List<String> selectMultiAttr(
-      List<ElementObject> elements, String attr) {
-    return elements.mapAsList((it) => it.attr(attr));
-  }
-
-  /// Returns a list of `ElementObject` objects that match the specified CSS selector.
-  /// The `select` function takes the following parameters:
-  /// * `selector`: A string representing the CSS selector to match
-  /// It returns a list of `ElementObject` objects that match the specified CSS selector.
-  static List<String> selectMultiText(List<ElementObject> elements) {
-    return elements.mapAsList((it) => it.text());
   }
 
   /// Converts a URL to HTTP if it starts with '//'.

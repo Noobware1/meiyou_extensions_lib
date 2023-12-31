@@ -4,8 +4,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/plugin.
 
 void main() {
   late Compiler compiler;
-  compiler = CustomCompiler();
-  compiler.addPlugin(OkHttpPlugin());
+  compiler = ExtensionComplier();
 
   final compiled = compiler.compile({
     'example': {
@@ -22,7 +21,7 @@ void main() {
     },
   });
   final runtime = Runtime.ofProgram(compiled);
-  runtime.addPlugin(OkHttpPlugin());
+  ExtensionLoader.getRuntime(compiled.write());
   final value = runtime.executeLib('package:example/main.dart', 'main');
   print(value);
   // expect((value as $OkHttpResponse).$value.statusCode, 200);

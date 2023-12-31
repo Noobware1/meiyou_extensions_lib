@@ -1,11 +1,8 @@
 export 'src/bridge_models/actor_data.dart';
-export 'src/bridge_models/document.dart';
-export 'src/bridge_models/element.dart';
 export 'src/bridge_models/episode.dart';
 export 'src/bridge_models/external_id.dart';
 export 'src/bridge_models/extractor_link.dart';
 export 'src/bridge_models/homepage.dart';
-export 'src/bridge_models/ok_http_response.dart';
 export 'src/bridge_models/media_details.dart';
 export 'src/bridge_models/season_list.dart';
 export 'src/bridge_models/search_response.dart';

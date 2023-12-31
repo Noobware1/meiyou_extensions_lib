@@ -1,15 +1,14 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/document.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/element.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media/video/subtitle_format.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/ok_http_response.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/document.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/element.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
-import 'package:meiyou_extensions_lib/src/models/element.dart';
 import 'package:meiyou_extensions_lib/src/models/utils_models/app_utils.dart';
 import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
+import 'package:ok_http_dart/dom.dart';
 
 class $AppUtils extends AppUtils with $Bridge<AppUtils> {
   static const $type = BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'AppUtils'));
@@ -20,61 +19,6 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
             returns: BridgeTypeAnnotation($type), namedParams: [], params: []))
       },
       methods: {
-        'httpRequest': BridgeMethodDef(
-            BridgeFunctionDef(
-                returns: BridgeTypeAnnotation(BridgeTypeRef(
-                    CoreTypes.future, [$OkHttpResponseObject.$type])),
-                namedParams: [
-                  BridgeParameter(
-                      'url',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-                      false),
-                  BridgeParameter(
-                      'method',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-                      false),
-                  BridgeParameter(
-                      'headers',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.map),
-                          nullable: true),
-                      true),
-                  BridgeParameter(
-                      'followRedircts',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool),
-                          nullable: true),
-                      true),
-                  BridgeParameter(
-                      'cookie',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),
-                          nullable: true),
-                      true),
-                  BridgeParameter(
-                      'referer',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),
-                          nullable: true),
-                      true),
-                  BridgeParameter(
-                      'params',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.map),
-                          nullable: true),
-                      true),
-                  BridgeParameter(
-                      'body',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.object),
-                          nullable: true),
-                      true),
-                  BridgeParameter(
-                      'verify',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool),
-                          nullable: true),
-                      true),
-                  BridgeParameter(
-                      'retry',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool),
-                          nullable: true),
-                      true),
-                ]),
-            isStatic: true),
         'encode': BridgeMethodDef(
             BridgeFunctionDef(
                 returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
@@ -138,7 +82,7 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
             isStatic: true),
         'parseHtml': BridgeMethodDef(
             BridgeFunctionDef(
-                returns: BridgeTypeAnnotation($DocumentObject.$type),
+                returns: BridgeTypeAnnotation($Document.$type),
                 params: [
                   BridgeParameter(
                       'html',
@@ -154,8 +98,8 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
                 params: [
                   BridgeParameter(
                       'elements',
-                      BridgeTypeAnnotation(BridgeTypeRef(
-                          CoreTypes.list, [$ElementObject.$type])),
+                      BridgeTypeAnnotation(
+                          BridgeTypeRef(CoreTypes.list, [$Element.$type])),
                       false),
                   BridgeParameter(
                       'attr',
@@ -171,8 +115,8 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
                 params: [
                   BridgeParameter(
                       'elements',
-                      BridgeTypeAnnotation(BridgeTypeRef(
-                          CoreTypes.list, [$ElementObject.$type])),
+                      BridgeTypeAnnotation(
+                          BridgeTypeRef(CoreTypes.list, [$Element.$type])),
                       false),
                 ],
                 namedParams: []),
@@ -315,35 +259,6 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
     return $AppUtils();
   }
 
-  static $Future $httpRequest(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    Object? body = args[7]?.$value;
-
-    if (body is Map) {
-      body = unwrapMap<String, String>(body);
-    } else if (body is List) {
-      body = unwrapList<String>(body);
-    }
-    return $Future.wrap(
-      AppUtils.httpRequest(
-        url: args[0]?.$value,
-        method: args[1]?.$value,
-        headers: args[2]?.$value != null
-            ? unwrapMap<String, String>(args[2]?.$value as Map)
-            : null,
-        followRedirects: args[3]?.$value,
-        cookie: args[4]?.$value,
-        referer: args[5]?.$value,
-        params: args[6]?.$value != null
-            ? unwrapMap<String, dynamic>(args[6]?.$value as Map)
-            : null,
-        body: body,
-        verify: args[8]?.$value,
-        retry: args[9]?.$value,
-      ).then((value) => $OkHttpResponseObject.wrap(value)),
-    );
-  }
-
   static $String $encode(Runtime runtime, $Value? target, List<$Value?> args) {
     if (args[1]?.$value != null) {
       return $String(AppUtils.encode(args[0]?.$value, args[1]?.$value));
@@ -370,11 +285,6 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
     ));
   }
 
-  static $DocumentObject $parseHtml(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    return $DocumentObject.wrap(AppUtils.parseHtml(args[0]?.$value));
-  }
-
   static $Value $selectMultiAttr(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $List.wrap(AppUtils.selectMultiAttr(args[0]?.$value, args[1]?.$value)
@@ -384,8 +294,7 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
   static $Value $selectMultiText(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $List.wrap(AppUtils.selectMultiText((args[0]?.$value as List)
-            .mapAsList(
-                (it) => (it is $Value ? it.$value : it) as ElementObject))
+            .mapAsList((it) => (it is $Value ? it.$value : it) as Element))
         .mapAsList((it) => $String(it)));
   }
 
@@ -455,13 +364,9 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
         isBridge: true);
 
     runtime.registerBridgeFunc(
-        bridgeLibary, 'AppUtils.httpRequest', $AppUtils.$httpRequest);
-    runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.encode', $AppUtils.$encode);
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.toDateTime', $AppUtils.$toDateTime);
-    runtime.registerBridgeFunc(
-        bridgeLibary, 'AppUtils.parseHtml', $AppUtils.$parseHtml);
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.selectMultiAttr', $AppUtils.$selectMultiAttr);
     runtime.registerBridgeFunc(
