@@ -40,54 +40,32 @@ class $Document implements $Instance {
             BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
       ],
     )),
-    'trySelectFirst': BridgeMethodDef(
-      BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type, nullable: true),
-          params: [
-            BridgeParameter('selector',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false)
-          ]),
-      isStatic: false,
-    ),
-    'selectMultiAttr': BridgeMethodDef(
-        BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(
-                CoreTypes.list, [BridgeTypeRef(CoreTypes.string)])),
-            params: [
-              BridgeParameter(
-                  'elements',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(CoreTypes.list, [$Element.$type])),
-                  false),
-              BridgeParameter('attr',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
-            ],
-            namedParams: []),
-        isStatic: true),
-    'selectMultiText': BridgeMethodDef(
-        BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(
-                CoreTypes.list, [BridgeTypeRef(CoreTypes.string)])),
-            params: [
-              BridgeParameter(
-                  'elements',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(CoreTypes.list, [$Element.$type])),
-                  false),
-            ],
-            namedParams: []),
-        isStatic: true),
+    // 'trySelectFirst': BridgeMethodDef(
+    //   BridgeFunctionDef(
+    //       returns: BridgeTypeAnnotation($type, nullable: true),
+    //       params: [
+    //         BridgeParameter('selector',
+    //             BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false)
+    //       ]),
+    //   isStatic: false,
+    // ),
   };
 
   static const $constructors = {
     '': BridgeConstructorDef(
       BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          namedParams: [],
-          params: [
-            BridgeParameter(
-                'document', BridgeTypeAnnotation($Document.$type), false),
-          ]),
+        returns: BridgeTypeAnnotation($type),
+      ),
+    ),
+    'html': BridgeConstructorDef(
+      BridgeFunctionDef(
+        returns: BridgeTypeAnnotation($type),
+        namedParams: [],
+        params: [
+          BridgeParameter('html',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+        ],
+      ),
     )
   };
   static const $fields = {
@@ -109,8 +87,6 @@ class $Document implements $Instance {
         return const $Function(_select);
       case 'selectFirst':
         return const $Function(_selectFirst);
-      // case 'trySelectFirst':
-      //   return const $Function(_trySelectFirst);
       default:
         return _superclass.$getProperty(runtime, identifier);
     }

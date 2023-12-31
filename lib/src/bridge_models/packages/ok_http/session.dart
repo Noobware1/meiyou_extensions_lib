@@ -147,7 +147,12 @@ class $OkHttpClientSession implements OkHttpClientSession, $Instance {
                   false),
             ],
           ),
-        )
+        ),
+        'close': BridgeMethodDef(
+            BridgeFunctionDef(
+              returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.voidType)),
+            ),
+            isStatic: false)
       },
       wrap: true);
 

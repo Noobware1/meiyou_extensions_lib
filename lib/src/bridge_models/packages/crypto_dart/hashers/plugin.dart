@@ -1,5 +1,5 @@
 import 'package:dart_eval/src/eval/runtime/runtime.dart';
-import 'package:meiyou_extensions_lib/dart_eval/dart_eval_bridge.dart';
+import 'package:dart_eval/dart_eval_bridge.dart';
 
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/hashers/hasher.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/hashers/md2.dart';

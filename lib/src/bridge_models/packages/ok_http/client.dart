@@ -2,6 +2,7 @@ import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/base_request.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/session.dart';
 import 'package:ok_http_dart/ok_http_dart.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/response.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/types.dart';
@@ -161,7 +162,12 @@ class $OkHttpClient implements OkHttpClient, $Instance {
                   'request', BridgeTypeAnnotation($BaseRequest.$type), false),
             ],
           ),
-        )
+        ),
+        'session': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation($OkHttpClientSession.$type),
+          ),
+        ),
       },
       wrap: true);
 
@@ -182,6 +188,8 @@ class $OkHttpClient implements OkHttpClient, $Instance {
         return const $Function($put);
       case 'request':
         return const $Function($request);
+      case 'session':
+        return const $Function($session);
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -485,5 +493,10 @@ class $OkHttpClient implements OkHttpClient, $Instance {
   OkHttpClientSession session() {
     // TODO: implement session
     throw UnimplementedError();
+  }
+
+  static $Value? $session(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $OkHttpClientSession
+        .wrap((target!.$value as OkHttpClient).session());
   }
 }

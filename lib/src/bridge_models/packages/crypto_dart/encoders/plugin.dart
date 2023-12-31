@@ -1,5 +1,5 @@
 import 'package:dart_eval/dart_eval.dart';
-import 'package:meiyou_extensions_lib/dart_eval/dart_eval_bridge.dart';
+import 'package:dart_eval/dart_eval_bridge.dart';
 
 import 'base64.dart';
 import 'encoder.dart';

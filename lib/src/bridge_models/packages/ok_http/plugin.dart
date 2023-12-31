@@ -5,6 +5,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/base_re
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/client.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/request.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/response.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/session.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/types.dart';
 import 'element.dart';
 import 'document.dart';
@@ -16,6 +17,7 @@ class OkHttpPlugin extends EvalPlugin {
     registry.defineBridgeClass($OkHttpRequest.$declaration);
     registry.defineBridgeClass($OkHttpResponse.$declaration);
     registry.defineBridgeClass($OkHttpClient.$declaration);
+    registry.defineBridgeClass($OkHttpClientSession.$declaration);
     registry.defineBridgeClass($Element.$declaration);
     registry.defineBridgeClass($Document.$declaration);
     // registry.addSource($Document.dartSource);
