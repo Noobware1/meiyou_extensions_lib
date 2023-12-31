@@ -6,18 +6,18 @@ import 'package:meiyou_extensions_lib/src/constants/constants.dart';
 import 'package:meiyou_extensions_lib/src/models/document.dart';
 import 'package:meiyou_extensions_lib/src/models/ok_http_response.dart';
 
-class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
+class $OkHttpResponseObject implements okhttpResponseSrcObject, $Instance {
   $OkHttpResponseObject.wrap(this.$value);
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        bridgeLibary, 'OkHttpResponseObject.', $OkHttpResponseObject.$new);
+        bridgeLibary, 'okhttpResponseSrcObject.', $OkHttpResponseObject.$new);
   }
 
   late final $Instance _superclass = $Object($value);
 
   static const $type =
-      BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'OkHttpResponseObject'));
+      BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'okhttpResponseSrcObject'));
 
   static const $declaration = BridgeClassDef(
       BridgeClassType(
@@ -117,7 +117,7 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $OkHttpResponseObject.wrap(OkHttpResponseObject(
+    return $OkHttpResponseObject.wrap(okhttpResponseSrcObject(
       text: args[0]?.$value,
       statusCode: args[1]?.$value,
       headers: args[2]?.$value,
@@ -128,7 +128,7 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
 
   static $Value? $json(Runtime runtime, $Value? target, List<$Value?> args) {
     final fromJson = args[0] as EvalCallable?;
-    return (target?.$value as OkHttpResponseObject).json((json) {
+    return (target?.$value as okhttpResponseSrcObject).json((json) {
       final decoded = json is $Value ? json : runtime.wrapRecursive(json);
       if (fromJson == null) return decoded;
       return fromJson.call(runtime, target, [decoded]);
@@ -138,7 +138,7 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
   static $Value? $jsonSafe(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final fromJson = args[0] as EvalCallable?;
-    return (target?.$value as OkHttpResponseObject).jsonSafe((json) {
+    return (target?.$value as okhttpResponseSrcObject).jsonSafe((json) {
       try {
         final decoded = json is $Value ? json : runtime.wrapRecursive(json);
         if (fromJson == null) return decoded!;
@@ -157,7 +157,7 @@ class $OkHttpResponseObject implements OkHttpResponseObject, $Instance {
       _superclass.$setProperty(runtime, identifier, value);
 
   @override
-  final OkHttpResponseObject $value;
+  final okhttpResponseSrcObject $value;
 
   @override
   Map<String, String> get headers => $value.headers;

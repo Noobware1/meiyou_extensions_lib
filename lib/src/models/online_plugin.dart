@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
+import 'package:meiyou_extensions_lib/src/models/plugin.dart';
 
 /// `OnlinePlugin` represents an online plugin mainly used by index.json present in a repository.
 ///

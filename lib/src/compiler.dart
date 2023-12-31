@@ -28,8 +28,6 @@ class ExtenstionComplier {
       $NumUtils.$declaration,
       $IterableUtils.$declaration,
       $ListUtils.$declaration,
-      $CryptoOptions.$declaration,
-      $CryptoUtils.$declaration,
 
       //OkHttp
       $Element.$declaration,

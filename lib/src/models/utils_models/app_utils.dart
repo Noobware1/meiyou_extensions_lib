@@ -25,7 +25,7 @@ class AppUtils {
   /// * `url`: A string representing the URL to send the request to.
   /// * `method`: A string representing the HTTP method to use (e.g., 'GET', 'POST').
   /// * `headers`: An optional map representing the headers to include in the request.
-  /// * `followRedircts`: An optional boolean indicating whether to follow redirects.
+  /// * `followRedirects`: An optional boolean indicating whether to follow redirects.
   /// * `cookie`: An optional string representing the cookie to include in the request.
   /// * `referer`: An optional string representing the referer to include in the request.
   /// * `params`: An optional map representing the query parameters to include in the request.
@@ -33,14 +33,14 @@ class AppUtils {
   /// * `verify`: An optional boolean indicating whether to verify the SSL Cerficate for request.
   /// * `retry`: An optional boolean indicating whether to rety failed request.
   ///
-  /// It returns a `Future` that resolves to an `OkHttpResponseObject` representing the response.
+  /// It returns a `Future` that resolves to an `okhttpResponseSrcObject` representing the response.
   ///
-  /// If an error occurs during the request, it is caught and the `hasError` property of the `OkHttpResponseObject` is set to `true`.
-  static Future<OkHttpResponseObject> httpRequest({
+  /// If an error occurs during the request, it is caught and the `hasError` property of the `okhttpResponseSrcObject` is set to `true`.
+  static Future<okhttpResponseSrcObject> httpRequest({
     required String url,
     required String method,
     Map<String, String>? headers,
-    bool? followRedircts,
+    bool? followRedirects,
     String? cookie,
     String? referer,
     Map<String, dynamic>? params,
@@ -49,19 +49,19 @@ class AppUtils {
     bool? retry,
   }) async {
     // try {
-    final response = await OKHttpClient().request(
+    final response = await OkHttpClient().request(OKHttpRequest.builder(
       url: url,
       method: method,
       headers: headers,
-      followRedircts: followRedircts,
+      followRedirects: followRedirects,
       cookie: cookie,
       referer: referer,
       params: params,
       body: body,
       verify: verify,
       retry: retry,
-    );
-    return OkHttpResponseObject(
+    ));
+    return okhttpResponseSrcObject(
       text: response.text,
       statusCode: response.statusCode,
       headers: response.headers,
@@ -69,7 +69,7 @@ class AppUtils {
       isRedirect: response.isRedirect,
     );
     // } catch (e) {
-    //   return OkHttpResponseObject(
+    //   return okhttpResponseSrcObject(
     //     text: '',
     //     statusCode: 500,
     //     headers: {'error': e.toString()},

@@ -331,7 +331,7 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
         headers: args[2]?.$value != null
             ? unwrapMap<String, String>(args[2]?.$value as Map)
             : null,
-        followRedircts: args[3]?.$value,
+        followRedirects: args[3]?.$value,
         cookie: args[4]?.$value,
         referer: args[5]?.$value,
         params: args[6]?.$value != null
