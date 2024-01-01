@@ -4,9 +4,9 @@ import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/show_type.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/value.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/models/show_type.dart';
-import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 
 class $SearchResponse implements SearchResponse, $Instance {
   $SearchResponse.wrap(this.$value);
@@ -127,9 +127,7 @@ class $SearchResponse implements SearchResponse, $Instance {
       url: args[2]?.$value,
       type: args[3]?.$value,
       description: args[4]?.$value,
-      generes: args[5]?.$value != null
-          ? unwrapList<String>(args[5]?.$value as List)
-          : null,
+      generes: args[5].unwrapList<String>(),
       rating: args[6]?.$value,
       current: args[7]?.$value,
       total: args[8]?.$value,

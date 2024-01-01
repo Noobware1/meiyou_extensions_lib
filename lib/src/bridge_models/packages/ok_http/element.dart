@@ -7,6 +7,8 @@ import 'package:ok_http_dart/dom.dart';
 import 'package:ok_http_dart/ok_http_dart.dart';
 
 class $Element implements $Instance {
+  $Element.wrap(this.$value);
+
   late final $Instance _superclass = $Object($value);
 
   static final dartSource = DartSource(OkHttpDartTypes.Element.library, '''
@@ -95,8 +97,6 @@ class $Element implements $Instance {
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) =>
       _superclass.$setProperty(runtime, identifier, value);
-
-  $Element.wrap(this.$value);
 
   @override
   final Element $value;

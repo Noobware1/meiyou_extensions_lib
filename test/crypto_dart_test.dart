@@ -1,6 +1,7 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/eval_plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/plugin.dart';
 import 'package:test/test.dart';
 
@@ -8,7 +9,7 @@ void main() {
   group('CryptoDart', () {
     late Compiler compiler;
     setUp(() {
-      compiler = ExtensionComplier()..addPlugin(CryptoDartPlugin());
+      compiler = ExtensionComplier('');
     });
 
     test('CryptoDart', () async {
@@ -35,7 +36,7 @@ void main() {
         },
       }).write();
       final runtime = Runtime(compiled.buffer.asByteData())
-        ..addPlugin(CryptoDartPlugin());
+        ..addPlugin(ExtensionLibPlugin());
       final value = runtime.executeLib('package:example/main.dart', 'main');
       expect((value as $Value).$value, 'hello world');
     });

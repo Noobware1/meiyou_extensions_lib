@@ -2,8 +2,8 @@ import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/value.dart';
 import 'package:meiyou_extensions_lib/src/models/utils_models/iterable_utils.dart';
-import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 
 class $IterableUtils implements $Instance {
   $IterableUtils.wrap(this.$value);
@@ -36,8 +36,8 @@ class $IterableUtils implements $Instance {
       methods: {
         'mapIndexed': BridgeMethodDef(
             BridgeFunctionDef(
-                returns: BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.iterable, [BridgeTypeRef.ref('B')])),
+                returns: BridgeTypeAnnotation(BridgeTypeRef(
+                    CoreTypes.iterable, [BridgeTypeRef.ref('B')])),
                 params: [
                   BridgeParameter(
                       'iterable',
@@ -56,8 +56,8 @@ class $IterableUtils implements $Instance {
             isStatic: true),
         'mapNotNull': BridgeMethodDef(
             BridgeFunctionDef(
-                returns: BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.iterable, [BridgeTypeRef.ref('B')])),
+                returns: BridgeTypeAnnotation(BridgeTypeRef(
+                    CoreTypes.iterable, [BridgeTypeRef.ref('B')])),
                 params: [
                   BridgeParameter(
                       'iterable',
@@ -78,8 +78,8 @@ class $IterableUtils implements $Instance {
             isStatic: true),
         'mapWhen': BridgeMethodDef(
             BridgeFunctionDef(
-                returns: BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.iterable, [BridgeTypeRef.ref('B')])),
+                returns: BridgeTypeAnnotation(BridgeTypeRef(
+                    CoreTypes.iterable, [BridgeTypeRef.ref('B')])),
                 params: [
                   BridgeParameter(
                       'iterable',
@@ -102,8 +102,8 @@ class $IterableUtils implements $Instance {
             isStatic: true),
         'whereNotNull': BridgeMethodDef(
             BridgeFunctionDef(
-                returns: BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.iterable, [BridgeTypeRef.ref('A')])),
+                returns: BridgeTypeAnnotation(BridgeTypeRef(
+                    CoreTypes.iterable, [BridgeTypeRef.ref('A')])),
                 params: [
                   BridgeParameter(
                       'iterable',
@@ -167,7 +167,6 @@ class $IterableUtils implements $Instance {
                   'A': BridgeGenericParam(),
                 }),
             isStatic: true),
-       
       },
       wrap: true);
 
@@ -236,9 +235,8 @@ class $IterableUtils implements $Instance {
   }
 
   static $Value $faltten(Runtime runtime, $Value? target, List<$Value?> args) {
-    final iterable = args[0]!.$value as List;
-    return $Iterable.wrap(IterableUtils.faltten(
-        iterable is List<$Value> ? unwrapList<List>(iterable) : iterable as List<List>));
+    return $Iterable
+        .wrap(IterableUtils.faltten(args[0].unwrapIterable<Iterable>()!));
   }
 
   @override

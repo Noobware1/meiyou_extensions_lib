@@ -1,10 +1,12 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/client.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/response.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/types.dart';
 import 'package:ok_http_dart/http.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:ok_http_dart/ok_http_dart.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/value.dart';
 
 class $OkHttpClientSession implements OkHttpClientSession, $Instance {
   $OkHttpClientSession.wrap(this.$value);
@@ -201,6 +203,7 @@ class $OkHttpClientSession implements OkHttpClientSession, $Instance {
     // TODO: implement close
   }
 
+
   static $Value? $close(Runtime runtime, $Value? target, List<$Value?> args) {
     (target!.$value as OkHttpClientSession).close();
     return null;
@@ -212,11 +215,11 @@ class $OkHttpClientSession implements OkHttpClientSession, $Instance {
       client
           .delete(
             args[0]?.$value,
-            headers: args[1]?.$reified,
-            body: args[2]?.$reified,
+            headers: $OkHttpClient. convertHeaders(args[1]),
+            body: $OkHttpClient.convertBody(args[2]),
             cookie: args[3]?.$value,
             referer: args[4]?.$value,
-            params: args[5]?.$reified,
+            params: $OkHttpClient.convertParams(args[5]),
             followRedirects: args[6]?.$value,
           )
           .then((value) => $OkHttpResponse.wrap(value)),
@@ -265,11 +268,11 @@ class $OkHttpClientSession implements OkHttpClientSession, $Instance {
     return $Future.wrap(client
         .get(
           args[0]?.$value,
-          headers: args[1]?.$reified,
+          headers: $OkHttpClient. convertHeaders(args[1]),
           followRedirects: args[2]?.$value,
           referer: args[3]?.$value,
           cookie: args[4]?.$value,
-          params: args[5]?.$reified,
+          params: $OkHttpClient.convertParams(args[5]),
         )
         .then((value) => $OkHttpResponse.wrap(value)));
   }
@@ -297,11 +300,11 @@ class $OkHttpClientSession implements OkHttpClientSession, $Instance {
     return $Future.wrap(client
         .head(
           args[0]?.$value,
-          headers: args[1]?.$reified,
+          headers: $OkHttpClient. convertHeaders(args[1]),
           followRedirects: args[2]?.$value,
           referer: args[3]?.$value,
           cookie: args[4]?.$value,
-          params: args[5]?.$reified,
+          params: $OkHttpClient.convertParams(args[5]),
         )
         .then((value) => $OkHttpResponse.wrap(value)));
   }
@@ -329,12 +332,12 @@ class $OkHttpClientSession implements OkHttpClientSession, $Instance {
     return $Future.wrap(client
         .patch(
           args[0]?.$value,
-          headers: args[1]?.$reified,
-          body: args[2]?.$reified,
+          headers: $OkHttpClient. convertHeaders(args[1]),
+          body: $OkHttpClient.convertBody(args[2]),
           followRedirects: args[3]?.$value,
           referer: args[4]?.$value,
           cookie: args[5]?.$value,
-          params: args[6]?.$reified,
+          params: $OkHttpClient.convertParams(args[6]?.$reified),
         )
         .then((value) => $OkHttpResponse.wrap(value)));
   }
@@ -364,12 +367,12 @@ class $OkHttpClientSession implements OkHttpClientSession, $Instance {
     return $Future.wrap(client
         .post(
           args[0]?.$value,
-          headers: args[1]?.$reified,
-          body: args[2]?.$reified,
+          headers: $OkHttpClient. convertHeaders(args[1]),
+          body: $OkHttpClient.convertBody(args[2]),
           followRedirects: args[3]?.$value,
           referer: args[4]?.$value,
           cookie: args[5]?.$value,
-          params: args[6]?.$reified,
+          params: $OkHttpClient.convertParams(args[6]?.$reified),
         )
         .then((value) => $OkHttpResponse.wrap(value)));
   }
@@ -399,12 +402,12 @@ class $OkHttpClientSession implements OkHttpClientSession, $Instance {
     return $Future.wrap(client
         .put(
           args[0]?.$value,
-          headers: args[1]?.$reified,
-          body: args[2]?.$reified,
+          headers: $OkHttpClient. convertHeaders(args[1]),
+          body: $OkHttpClient.convertBody(args[2]),
           followRedirects: args[3]?.$value,
           referer: args[4]?.$value,
           cookie: args[5]?.$value,
-          params: args[6]?.$reified,
+          params: $OkHttpClient.convertParams(args[6]?.$reified),
         )
         .then((value) => $OkHttpResponse.wrap(value)));
   }

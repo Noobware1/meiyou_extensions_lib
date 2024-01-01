@@ -1,10 +1,8 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/plugin.dart';
-
 void main() {
   late Compiler compiler;
-  compiler = ExtensionComplier();
+  compiler = ExtensionComplier('');
 
   final compiled = compiler.compile({
     'example': {

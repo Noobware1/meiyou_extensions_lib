@@ -1,14 +1,17 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
-import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 import 'package:test/test.dart';
+
+List<E> unwrapList<E>(List l) {
+  return l.cast<E>();
+}
 
 void main() {
   group('List Utils', () {
     late ExtensionComplier compiler;
 
     setUp(() {
-      compiler = ExtensionComplier();
+      compiler = ExtensionComplier('');
     });
 
     test('map', () {

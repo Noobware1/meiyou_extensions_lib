@@ -6,8 +6,8 @@ import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/documen
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/element.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/value.dart';
 import 'package:meiyou_extensions_lib/src/models/utils_models/app_utils.dart';
-import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 import 'package:ok_http_dart/dom.dart';
 
 class $AppUtils extends AppUtils with $Bridge<AppUtils> {
@@ -287,14 +287,15 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
 
   static $Value $selectMultiAttr(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $List.wrap(AppUtils.selectMultiAttr(args[0]?.$value, args[1]?.$value)
-        .mapAsList((it) => $String(it)));
+    return $List.wrap(AppUtils.selectMultiAttr(
+      args[0].unwrapList<Element>()!,
+      args[1]?.$value,
+    ).mapAsList((it) => $String(it)));
   }
 
   static $Value $selectMultiText(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $List.wrap(AppUtils.selectMultiText((args[0]?.$value as List)
-            .mapAsList((it) => (it is $Value ? it.$value : it) as Element))
+    return $List.wrap(AppUtils.selectMultiText(args[0].unwrapList<Element>()!)
         .mapAsList((it) => $String(it)));
   }
 
@@ -321,12 +322,12 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
 
   static $Value? $evalAndStatements(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $bool(AppUtils.evalAndStatements(unwrapList<bool>(args[0]!.$value)));
+    return $bool(AppUtils.evalAndStatements(args[0].unwrapList<bool>()!));
   }
 
   static $Value? $evalOrStatements(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $bool(AppUtils.evalOrStatements(unwrapList<bool>(args[0]!.$value)));
+    return $bool(AppUtils.evalOrStatements(args[0].unwrapList<bool>()!));
   }
 
   static $Value? $trySync(Runtime runtime, $Value? target, List<$Value?> args) {

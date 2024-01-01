@@ -16,7 +16,6 @@ import 'package:meiyou_extensions_lib/src/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/video.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
-import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 
 class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
   static void configureForRuntime(Runtime runtime) {
@@ -218,15 +217,14 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
 
   @override
   Future<Media?> loadMedia(ExtractorLink link) async {
-    final value =
-        unwrapValue((await $_invoke('loadMedia', [$ExtractorLink.wrap(link)])));
+    final value = (await $_invoke('loadMedia', [$ExtractorLink.wrap(link)]));
     return value as Media;
   }
 
   @override
   Future<HomePage> loadHomePage(int page, HomePageRequest request) async {
-    final value = unwrapValue((await $_invoke(
-        'loadHomePage', [$int(page), $HomePageRequest.wrap(request)])));
+    final value = (await $_invoke(
+        'loadHomePage', [$int(page), $HomePageRequest.wrap(request)]));
     return value as HomePage;
   }
 

@@ -6,9 +6,11 @@ import 'package:meiyou_extensions_lib/src/bridge_models/eval_plugin.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
 
 class ExtensionComplier extends Compiler {
-  ExtensionComplier() {
+  ExtensionComplier(this.sourcePath) {
     addPlugin(ExtensionLibPlugin());
   }
+
+  final String sourcePath;
 
   @override
   Program compile(Map<String, Map<String, String>> packages) {
@@ -17,20 +19,22 @@ class ExtensionComplier extends Compiler {
         packages[key]![_key] = reslovePackagesImport(_value);
       });
     });
-    print(packages);
+    // print(packages);
     return super.compile(packages);
   }
 
-  Program compileExtensionCode(String package, String code) {
-    return compile({package: getAllFiles(code)});
+  Program compileExtensionCode(String package, String filePath) {
+    final code = File(filePath).readAsStringSync();
+
+    return compile({package: getAllFiles(filePath, code)});
   }
 
-  Map<String, String> getAllFiles(String code) {
-    return _getFixedImports('main.dart', code, {});
+  Map<String, String> getAllFiles(String filePath, String code) {
+    return _getFixedImports(filePath, 'main.dart', code, {});
   }
 
   Map<String, String> _getFixedImports(
-      String name, String code, Map<String, String> files) {
+      String filePath, String name, String code, Map<String, String> files) {
     final fixedImports = <String, ({String name, String path})>{};
 
     final regex = RegExp(
@@ -38,12 +42,12 @@ class ExtensionComplier extends Compiler {
         caseSensitive: false,
         multiLine: true);
 
-    final currentDir = Directory.current.path.replaceAll('\\', '/');
+    // final currentDir = Directory.current.path.replaceAll('\\', '/');
 
     final matches = regex.allMatches(code);
 
     for (var element in matches) {
-      String? filePath;
+      String? codePath;
       var import = element.group(0)!;
 
       // element.group(0)!.replaceFirst('import ', '').replaceAll("'", '');
@@ -54,19 +58,19 @@ class ExtensionComplier extends Compiler {
             'MotherFucker, Releative Imports like $import are not supported fix them');
       }
 
-      final package = currentDir.substringBefore('/src');
+      final package = sourcePath.substringBefore('/src');
 
       if (!import.startsWith('package:') &&
           !import.startsWith('..') &&
           !import.startsWith('dart:')) {
-        filePath = '$currentDir/$import';
+        codePath = '${filePath.substringBeforeLast('/')}$import';
       }
       if (import.startsWith('package:')) {
-        filePath = '$package/lib/${import.split('/').sublist(1).join('/')}';
+        codePath = '$package/lib/${import.split('/').sublist(1).join('/')}';
       }
-      if (filePath != null) {
+      if (codePath != null) {
         fixedImports[import] =
-            (name: filePath.substringAfterLast('/'), path: filePath);
+            (name: codePath.substringAfterLast('/'), path: codePath);
       }
     }
 
@@ -77,7 +81,8 @@ class ExtensionComplier extends Compiler {
     files[name] = code;
 
     fixedImports.forEach((key, value) {
-      _getFixedImports(value.name, File(value.path).readAsStringSync(), files);
+      _getFixedImports(
+          filePath, value.name, File(value.path).readAsStringSync(), files);
     });
 
     return files;

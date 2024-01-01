@@ -99,16 +99,18 @@ class $BlockCipher implements $Instance {
   static $Value? $_encrypt(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $CipherParams.wrap((target!.$value as BlockCipher).encrypt(
-      args[0]?.$value,
-      args[1]?.$value,
+      args[0]?.$reified,
+      args[1]?.$reified,
+      options: args[2]?.$reified,
     ));
   }
 
   static $Value? $_decrypt(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $Uint8List.wrap((target!.$value as BlockCipher).decrypt(
-      args[0]?.$value,
-      args[1]?.$value,
+      args[0]?.$reified,
+      args[1]?.$reified,
+      options: args[2]?.$reified,
     ));
   }
 

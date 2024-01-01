@@ -3,9 +3,9 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/value.dart';
 import 'package:meiyou_extensions_lib/src/models/homepage.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
-import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 
 class $HomePageData implements HomePageData, $Instance {
   static const $type =
@@ -64,7 +64,7 @@ class $HomePageData implements HomePageData, $Instance {
   }
 
   static $Value? $fromMap(Runtime runtime, $Value? target, List<$Value?> args) {
-    final map = unwrapMap<String, String>(args[0]!.$value);
+    final map = args[0].unwrapMap<String, String>()!;
     return $Iterable.wrap(HomePageData.fromMap(map, args[1]?.$value ?? false)
         .map((e) => $HomePageData.wrap(e)));
   }
@@ -236,7 +236,7 @@ class $HomePage implements HomePage, $Instance {
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
     return $HomePage.wrap(HomePage(
-        data: unwrapValue<HomePageList>(args[0]!.$value),
+        data: args[0]!.$value,
         page: args[1]?.$value ?? 1,
         hasNextPage: args[2]?.$value));
   }
@@ -335,7 +335,7 @@ class $HomePageList implements HomePageList, $Instance {
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
     return $HomePageList.wrap(HomePageList(
       name: args[0]?.$value,
-      data: unwrapList<SearchResponse>(args[1]?.$value),
+      data: args[1].unwrapList<SearchResponse>()!,
       // loadMoreData:
       //     args[2]?.$value as Future<List<SearchResponse>> Function(int page)?,
     ));

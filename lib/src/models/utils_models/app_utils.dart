@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/duration.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';

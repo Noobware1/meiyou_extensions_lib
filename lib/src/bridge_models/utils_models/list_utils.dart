@@ -2,8 +2,8 @@ import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
+import 'package:meiyou_extensions_lib/src/extenstions/value.dart';
 import 'package:meiyou_extensions_lib/src/models/utils_models/list_utils.dart';
-import 'package:meiyou_extensions_lib/src/utils/unwrap.dart';
 
 class $ListUtils implements $Instance {
   $ListUtils.wrap(this.$value);
@@ -317,9 +317,7 @@ class $ListUtils implements $Instance {
   }
 
   static $Value $faltten(Runtime runtime, $Value? target, List<$Value?> args) {
-    final list = args[0]!.$value as List;
-    return $List.wrap(ListUtils.faltten(
-        list is List<$Value> ? unwrapList<List>(list) : list as List<List>));
+    return $List.wrap(ListUtils.faltten(args[0].unwrapList<List>()!));
   }
 
   static $Value? $addIfNotNull(
