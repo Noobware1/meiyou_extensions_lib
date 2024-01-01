@@ -33,6 +33,7 @@ class OkHttpPlugin extends EvalPlugin {
     $OkHttpRequest.configureForRuntime(runtime);
     $OkHttpResponse.configureForRuntime(runtime);
     $OkHttpClient.configureForRuntime(runtime);
+    $OkHttpClientSession.configureForRuntime(runtime);
   }
 
   @override

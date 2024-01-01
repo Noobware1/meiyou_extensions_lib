@@ -1,5 +1,6 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/block_ciphers/aes.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/block_ciphers/block_cipher.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/block_ciphers/triple_des.dart';
@@ -58,10 +59,8 @@ class CryptoDartPlugin extends EvalPlugin {
     registry.defineBridgeClass($TIGER.$declaration);
     registry.defineBridgeClass($WHIRLPOOL.$declaration);
     registry.defineBridgeClass($CryptoDart.$declaration);
-    registry.addSource(
-        DartSource('package:crypto_dart/crypto_dart.dart', pkdf2Source));
-    registry.addSource(
-        DartSource('package:crypto_dart/crypto_dart.dart', evpkdfSource));
+    registry.addSource(DartSource(bridgeLibary, pkdf2Source));
+    registry.addSource(DartSource(bridgeLibary, evpkdfSource));
   }
 
   @override
@@ -92,6 +91,5 @@ class CryptoDartPlugin extends EvalPlugin {
   }
 
   @override
-  String get identifier =>
-      'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
+  String get identifier => bridgeLibary;
 }

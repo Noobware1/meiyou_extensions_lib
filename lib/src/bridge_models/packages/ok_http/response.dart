@@ -28,11 +28,10 @@ class $OkHttpResponse implements OkHttpResponse, $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        OkHttpDartTypes.okhttpResponseSrc, 'OkHttpResponse.', $new);
+        OkHttpDartTypes.OkHttpResponse.library, 'OkHttpResponse.', $new);
   }
 
-  static const $type = BridgeTypeRef(
-      BridgeTypeSpec(OkHttpDartTypes.okhttpResponseSrc, 'OkHttpResponse'));
+  static const $type = BridgeTypeRef(OkHttpDartTypes.OkHttpResponse);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType($type),

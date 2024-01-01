@@ -1,6 +1,6 @@
 const pkdf2Source = '''
 import 'dart:typed_data';
-import 'package:crypto_dart/crypto_dart.dart';
+import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 
 Uint8List PBKDF2({
   String hasher = 'SHA256',

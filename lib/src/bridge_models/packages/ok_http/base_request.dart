@@ -15,8 +15,7 @@ class $BaseRequest implements $Instance {
   export 'src/base_request.dart';
 ''');
 
-  static const $type = BridgeTypeRef(
-      BridgeTypeSpec(OkHttpDartTypes.BaseRequestSrc, 'BaseRequest'));
+  static const $type = BridgeTypeRef(OkHttpDartTypes.BaseRequest);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(

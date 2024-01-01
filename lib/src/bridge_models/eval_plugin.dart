@@ -87,6 +87,9 @@ class ExtensionLibPlugin extends EvalPlugin {
     //Interfaces
     registry.defineBridgeClass($ExtractorApi.$declaration);
     registry.defineBridgeClass($BasePluginApi.$declaration);
+
+    OkHttpPlugin().configureForCompile(registry);
+    CryptoDartPlugin().configureForCompile(registry);
   }
 
   @override
@@ -142,6 +145,9 @@ class ExtensionLibPlugin extends EvalPlugin {
     //Interfaces
     $ExtractorApi.configureForRuntime(runtime);
     $BasePluginApi.configureForRuntime(runtime);
+
+    OkHttpPlugin().configureForRuntime(runtime);
+    CryptoDartPlugin().configureForRuntime(runtime);
   }
 
   @override

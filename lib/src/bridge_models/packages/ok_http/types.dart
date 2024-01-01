@@ -3,42 +3,34 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 
 class OkHttpDartTypes {
-  static const String OkHttpDartLib = 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
+  static const String OkHttpDartLib =
+      'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
 
-  static const OkHttpResponse =
-      BridgeTypeSpec('package:meiyou_extensions_lib/meiyou_extensions_lib.dart', 'OkHttpResponse');
+  static const OkHttpResponse = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/meiyou_extensions_lib.dart',
+      'OkHttpResponse');
 
-  static const OkHttpRequest =
-      BridgeTypeSpec('package:meiyou_extensions_lib/meiyou_extensions_lib.dart', 'OkHttpRequest');
+  static const OkHttpRequest = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/meiyou_extensions_lib.dart',
+      'OkHttpRequest');
 
-  static const OkHttpClient =
-      BridgeTypeSpec('package:meiyou_extensions_lib/meiyou_extensions_lib.dart', 'OkHttpClient');
+  static const OkHttpClient = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/meiyou_extensions_lib.dart',
+      'OkHttpClient');
 
-  static const session =
-      BridgeTypeSpec('package:meiyou_extensions_lib/meiyou_extensions_lib.dart', 'OkHttpClientSession');
+  static const session = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/meiyou_extensions_lib.dart',
+      'OkHttpClientSession');
 
-  static const BaseRequest =
-      BridgeTypeSpec('package:meiyou_extensions_lib/meiyou_extensions_lib.dart', 'BaseRequest');
+  static const BaseRequest = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/meiyou_extensions_lib.dart',
+      'BaseRequest');
 
-  static const Element =
-      BridgeTypeSpec('package:meiyou_extensions_lib/meiyou_extensions_lib.dart', 'Element');
+  static const Element = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/meiyou_extensions_lib.dart', 'Element');
 
-  static const Document =
-      BridgeTypeSpec('package:meiyou_extensions_lib/meiyou_extensions_lib.dart', 'Document');
-
-  static const okhttpResponseSrc = 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
-
-  static const OkHttpRequestSrc = 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
-
-  static const OkHttpClientSrc = 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
-
-  static const sessionSrc = 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
-
-  static const BaseRequestSrc = 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
-
-  static const ElementSrc = 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
-
-  static const DocumentSrc = 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
+  static const Document = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/meiyou_extensions_lib.dart', 'Document');
   // static const String OkHttpDartLib = 'package:ok_http';
 
   // static const OkHttpResponse =

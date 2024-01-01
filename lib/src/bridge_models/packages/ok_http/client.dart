@@ -21,11 +21,10 @@ class $OkHttpClient implements OkHttpClient, $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        OkHttpDartTypes.OkHttpClientSrc, 'OkHttpClient.', $new);
+        OkHttpDartTypes.OkHttpClient.library, 'OkHttpClient.', $new);
   }
 
-  static const $type = BridgeTypeRef(
-      BridgeTypeSpec(OkHttpDartTypes.OkHttpClientSrc, 'OkHttpClient'));
+  static const $type = BridgeTypeRef(OkHttpDartTypes.OkHttpClient);
 
   static const $urlParam = BridgeParameter(
       'url', BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false);

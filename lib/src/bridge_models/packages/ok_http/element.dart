@@ -15,8 +15,7 @@ class $Element implements $Instance {
   export 'src/element.dart';
 ''');
 
-  static const $type =
-      BridgeTypeRef(BridgeTypeSpec(OkHttpDartTypes.ElementSrc, 'Element'));
+  static const $type = BridgeTypeRef(OkHttpDartTypes.Element);
 
   static const $declaration = BridgeClassDef(BridgeClassType($type),
       constructors: {

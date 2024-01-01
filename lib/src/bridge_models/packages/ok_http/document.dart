@@ -19,8 +19,7 @@ class $Document implements $Instance {
   export 'src/document.dart';
 ''');
 
-  static const $type =
-      BridgeTypeRef(BridgeTypeSpec(OkHttpDartTypes.DocumentSrc, 'Document'));
+  static const $type = BridgeTypeRef(OkHttpDartTypes.Document);
 
   static const $methods = {
     'select': BridgeMethodDef(BridgeFunctionDef(

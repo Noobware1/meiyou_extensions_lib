@@ -3,14 +3,12 @@ import 'dart:typed_data';
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_security.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/eval_plugin.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/plugin.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/plugin.dart';
 
 class ExtensionLoader {
   final Runtime runtime;
-  
+
   ExtensionLoader(this.runtime) {
-    setUpFroRuntime(runtime);
+    setUpForRuntime(runtime);
   }
 
   factory ExtensionLoader.fromProgram(Program program) {
@@ -24,12 +22,10 @@ class ExtensionLoader {
     return ExtensionLoader(runtime);
   }
 
-  static void setUpFroRuntime(Runtime runtime) {
+  static void setUpForRuntime(Runtime runtime) {
     runtime
       ..grant(NetworkPermission.any)
       ..grant(FilesystemPermission.any)
-      ..addPlugin(OkHttpPlugin())
-      ..addPlugin(CryptoDartPlugin())
       ..addPlugin(ExtensionLibPlugin());
   }
 }

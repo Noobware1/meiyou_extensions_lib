@@ -19,11 +19,10 @@ class $OkHttpClientSession implements OkHttpClientSession, $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        OkHttpDartTypes.sessionSrc, 'OkHttpClientSession.', $new);
+        OkHttpDartTypes.session.library, 'OkHttpClientSession.', $new);
   }
 
-  static const $type = BridgeTypeRef(
-      BridgeTypeSpec(OkHttpDartTypes.sessionSrc, 'OkHttpClientSession'));
+  static const $type = BridgeTypeRef(OkHttpDartTypes.session);
 
   static const $urlParam = BridgeParameter(
       'url', BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false);

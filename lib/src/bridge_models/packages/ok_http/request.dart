@@ -21,13 +21,12 @@ class $OkHttpRequest implements $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        OkHttpDartTypes.OkHttpRequestSrc, 'OkHttpRequest.', $new);
-    runtime.registerBridgeFunc(
-        OkHttpDartTypes.OkHttpRequestSrc, 'OkHttpRequest.builder', $builder);
+        OkHttpDartTypes.OkHttpRequest.library, 'OkHttpRequest.', $new);
+    runtime.registerBridgeFunc(OkHttpDartTypes.OkHttpRequest.library,
+        'OkHttpRequest.builder', $builder);
   }
 
-  static const $type = BridgeTypeRef(
-      BridgeTypeSpec(OkHttpDartTypes.OkHttpRequestSrc, 'OkHttpRequest'));
+  static const $type = BridgeTypeRef(OkHttpDartTypes.OkHttpRequest);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(

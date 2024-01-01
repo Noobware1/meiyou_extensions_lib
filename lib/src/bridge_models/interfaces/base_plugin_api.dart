@@ -179,7 +179,6 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
             homePage.map((it) => it is $Value ? it : $HomePageData.wrap(it)));
       case 'baseurl':
         return $String(baseUrl);
-
       case 'loadHomePage':
         return const $Function($loadHomePage);
       case 'search':
