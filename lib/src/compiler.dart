@@ -88,7 +88,7 @@ class ExtensionComplier extends Compiler {
         RegExp(r'''import\s\'package:meiyou_extensions_lib\/(.*)';''');
 
     packagesRegex.allMatches(code).forEach((element) {
-      code = code.replaceFirst(element.group(0)!, 'DELETED IMPORT');
+      code = code.replaceFirst(element.group(0)!, '');
     });
 
     code =
