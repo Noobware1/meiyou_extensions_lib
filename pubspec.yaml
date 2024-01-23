@@ -9,18 +9,23 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  okhttp:
+    git:
+      url: https://github.com/Noobware1/okhttp.git
+      ref: master
   dart_eval:
     git:
       url: https://github.com/Noobware1/dart_eval.git
-      ref: master
-  ok_http_dart:
-    git:
-      url: https://github.com/Noobware1/ok_http.git
       ref: master
   crypto_dart:
     git:
       url: https://github.com/Noobware1/crypto_dart.git
       ref: master
+  dartx:
+    git:
+      url: https://github.com/Noobware1/dartx.git
+      ref: master
+  html: ^0.15.4
 
   # path: ^1.8.0
 

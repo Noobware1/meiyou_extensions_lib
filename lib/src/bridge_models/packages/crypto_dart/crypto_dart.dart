@@ -9,8 +9,7 @@ import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/stdlib/typed_data.dart';
 import 'package:crypto_dart/encoders.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:meiyou_extensions_lib/extenstions.dart';
-import 'package:meiyou_extensions_lib/packages/crypto_dart/encoders/encoders.dart';
+import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/encoders/encoders.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/hashers/md2.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/types.dart';
@@ -364,7 +363,7 @@ class $CryptoDart implements $Instance {
               salt: args[3]?.$value,
               iterations: args[4]?.$value,
               hasher: args[5]?.$value)
-          .mapAsList($Uint8List.wrap),
+          .mapList($Uint8List.wrap),
     );
   }
 

@@ -26,7 +26,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/media_item/media_item.da
 import 'package:meiyou_extensions_lib/src/bridge_models/media_item/movie.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media_item/tv_series.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/plugin.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/plugin.dart';
+// import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/season_list.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/season_data.dart';
@@ -88,7 +88,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     registry.defineBridgeClass($ExtractorApi.$declaration);
     registry.defineBridgeClass($BasePluginApi.$declaration);
 
-    OkHttpPlugin().configureForCompile(registry);
+    // OkHttpPlugin().configureForCompile(registry);
     CryptoDartPlugin().configureForCompile(registry);
   }
 
@@ -146,7 +146,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     $ExtractorApi.configureForRuntime(runtime);
     $BasePluginApi.configureForRuntime(runtime);
 
-    OkHttpPlugin().configureForRuntime(runtime);
+    // OkHttpPlugin().configureForRuntime(runtime);
     CryptoDartPlugin().configureForRuntime(runtime);
   }
 

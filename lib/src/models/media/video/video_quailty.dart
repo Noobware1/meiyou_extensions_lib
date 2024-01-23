@@ -1,5 +1,5 @@
-import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
+
+import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/utils/try_catch.dart';
 
 /// A class that represents the quality of a video.
@@ -41,7 +41,7 @@ class VideoQuality {
       VideoQuality((value * 16) ~/ 9, value);
     } else if (str.contains('x')) {
       final heightAndWidth =
-          str.split('x').mapAsList((it) => it.trim().toIntOrNull());
+          str.split('x').mapList((it) => it.trim().toIntOrNull());
       if (heightAndWidth.length != 2 && heightAndWidth.contains(null)) {
         return unknown;
       }

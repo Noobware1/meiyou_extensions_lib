@@ -1,3 +1,4 @@
+import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
 
 /// A class that provides utility functions for strings.
@@ -21,7 +22,9 @@ class StringUtils {
   static double? toDoubleOrNull(String? str) => str?.toDoubleOrNull();
 
   /// trims all new lines from a string
-  static String trimNewLines(String str) => str.trimNewLines();
+  static String trimNewLines(String str) {
+    return str.replaceAll(RegExp(r'\s+'), ' ').trim();
+  }
 
   /// Returns a substring before the first occurrence of [pattern].
   /// If [pattern] is not found, returns the original string.
@@ -44,7 +47,7 @@ class StringUtils {
       str.substringAfterLast(pattern);
 
   /// Truns the first letter of a string to upper case
-  static String toUpperCaseFirst(String str) => str.toUpperCaseFirst();
+  static String toUpperCaseFirst(String str) => str.ca();
 
   /// Uses the substring method to get a substring from a string but returns original string on error.
   static String substringSafe(String str, int start, [int? end]) =>

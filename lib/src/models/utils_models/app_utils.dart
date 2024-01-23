@@ -1,11 +1,10 @@
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/duration.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dart';
 import 'package:meiyou_extensions_lib/src/utils/js_unpacker.dart';
-import 'package:ok_http_dart/dom.dart';
-import 'package:ok_http_dart/ok_http_dart.dart';
+// import 'package:ok_http_dart/dom.dart';
+// import 'package:ok_http_dart/ok_http_dart.dart';
 
 /// A utility class for performing common tasks.
 ///
@@ -19,17 +18,17 @@ class AppUtils {
   /// * `selector`: A string representing the CSS selector to match
   /// It returns a list of `ElementObject` objects that match the specified CSS selector.
 
-  static List<String> selectMultiAttr(List<Element> elements, String attr) {
-    return elements.mapAsList((it) => it.attr(attr));
-  }
+  // static List<String> selectMultiAttr(List<Element> elements, String attr) {
+  //   return elements.mapAsList((it) => it.attr(attr));
+  // }
 
-  /// Returns a list of `Element` objects that match the specified CSS selector.
-  /// The `select` function takes the following parameters:
-  /// * `selector`: A string representing the CSS selector to match
-  /// It returns a list of `Element` objects that match the specified CSS selector.
-  static List<String> selectMultiText(List<Element> elements) {
-    return elements.mapAsList((it) => it.text);
-  }
+  // /// Returns a list of `Element` objects that match the specified CSS selector.
+  // /// The `select` function takes the following parameters:
+  // /// * `selector`: A string representing the CSS selector to match
+  // /// It returns a list of `Element` objects that match the specified CSS selector.
+  // static List<String> selectMultiText(List<Element> elements) {
+  //   return elements.mapAsList((it) => it.text);
+  // }
 
   /// Encodes a query string for use in a URL.
   ///
@@ -120,7 +119,8 @@ class AppUtils {
   ///
   /// This function checks the last 4 characters of the URL to determine the format. If the URL ends with '.vtt', '.srt', or '.ass', it returns the corresponding `SubtitleFormat`. Otherwise, it returns `null`.
   static SubtitleFormat? getSubtitleFormatFromUrl(String url) {
-    final endWith = url.substringSafe(url.length - 4);
+    final endWith =
+        runCatching(() => url.substring(url.length - 4)).getOrDefault('');
     switch (endWith) {
       case '.vtt':
         return SubtitleFormat.vtt;
@@ -155,8 +155,8 @@ class AppUtils {
   ///
   /// This function uses the `List.firstWhere` method to find the first statement that is `false`. If such a statement is found, it returns `false`. Otherwise, it returns `true`.
   static bool evalAndStatements(List<bool> statements) {
-    final pass = statements.tryfirstWhere((e) => e == false);
-    return pass != null ? false : true;
+    final pass = runCatching(() => statements.firstWhere((e) => e == false));
+    return pass.isSuccess ? false : true;
   }
 
   /// Evaluates a list of boolean statements using logical OR.
@@ -169,8 +169,8 @@ class AppUtils {
   /// This function uses the `List.firstWhere` method to find the first statement that is `true`. If such a statement is found, it returns `true`. Otherwise, it returns `false`.
 
   static bool evalOrStatements(List<bool> statements) {
-    final pass = statements.tryfirstWhere((e) => e == true);
-    return pass != null ? true : false;
+    final pass = runCatching(() => statements.firstWhere((e) => e == true));
+    return pass.isSuccess ? true : false;
   }
 
   /// Executes a synchronous function and returns its result or null if an exception occurs.

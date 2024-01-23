@@ -1,6 +1,7 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/homepage.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media/media.dart';
@@ -8,7 +9,6 @@ import 'package:meiyou_extensions_lib/src/bridge_models/media/video/video.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/models/homepage.dart';
 import 'package:meiyou_extensions_lib/src/models/interfaces/base_plugin_api.dart';
@@ -136,7 +136,7 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
     return $Future.wrap((target?.$value as BasePluginApi)
         .search(args[0]?.$value)
         .then((value) =>
-            $List.wrap(value.mapAsList((it) => $SearchResponse.wrap(it)))));
+            $List.wrap(value.mapList((it) => $SearchResponse.wrap(it)))));
   }
 
   static $Future<$MediaDetails> $loadMediaDetails(
@@ -151,7 +151,7 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
     return $Future.wrap((target?.$value as BasePluginApi)
         .loadLinks(args[0]?.$value)
         .then((value) =>
-            $List.wrap(value.mapAsList((it) => $ExtractorLink.wrap(it)))));
+            $List.wrap(value.mapList((it) => $ExtractorLink.wrap(it)))));
   }
 
   static $Value? $loadMedia(
@@ -206,13 +206,13 @@ class $BasePluginApi extends BasePluginApi with $Bridge<BasePluginApi> {
   @override
   Future<List<SearchResponse>> search(String query) async {
     final value = await ($_invoke('search', [$String(query)]) as Future);
-    return (value as List).mapAsList((it) => it as SearchResponse);
+    return (value as List).mapList((it) => it as SearchResponse);
   }
 
   @override
   Future<List<ExtractorLink>> loadLinks(String url) async {
     final value = await ($_invoke('loadLinks', [$String(url)]) as Future);
-    return (value as List).mapAsList((it) => it as ExtractorLink);
+    return (value as List).mapList((it) => it as ExtractorLink);
   }
 
   @override

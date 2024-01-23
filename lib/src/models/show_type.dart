@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
+import 'package:dartx/dartx.dart';
 
 /// `ShowType` is an enumeration that represents different types of shows.
 ///

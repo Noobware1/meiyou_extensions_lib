@@ -2,13 +2,12 @@ import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media/video/subtitle_format.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/document.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/element.dart';
+// import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/document.dart';
+// import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/element.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/value.dart';
 import 'package:meiyou_extensions_lib/src/models/utils_models/app_utils.dart';
-import 'package:ok_http_dart/dom.dart';
+// import 'package:ok_http_dart/dom.dart';
 
 class $AppUtils extends AppUtils with $Bridge<AppUtils> {
   static const $type = BridgeTypeRef(BridgeTypeSpec(bridgeLibary, 'AppUtils'));
@@ -80,47 +79,47 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
               ],
             ),
             isStatic: true),
-        'parseHtml': BridgeMethodDef(
-            BridgeFunctionDef(
-                returns: BridgeTypeAnnotation($Document.$type),
-                params: [
-                  BridgeParameter(
-                      'html',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-                      false),
-                ],
-                namedParams: []),
-            isStatic: true),
-        'selectMultiAttr': BridgeMethodDef(
-            BridgeFunctionDef(
-                returns: BridgeTypeAnnotation(BridgeTypeRef(
-                    CoreTypes.list, [BridgeTypeRef(CoreTypes.string)])),
-                params: [
-                  BridgeParameter(
-                      'elements',
-                      BridgeTypeAnnotation(
-                          BridgeTypeRef(CoreTypes.list, [$Element.$type])),
-                      false),
-                  BridgeParameter(
-                      'attr',
-                      BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-                      false),
-                ],
-                namedParams: []),
-            isStatic: true),
-        'selectMultiText': BridgeMethodDef(
-            BridgeFunctionDef(
-                returns: BridgeTypeAnnotation(BridgeTypeRef(
-                    CoreTypes.list, [BridgeTypeRef(CoreTypes.string)])),
-                params: [
-                  BridgeParameter(
-                      'elements',
-                      BridgeTypeAnnotation(
-                          BridgeTypeRef(CoreTypes.list, [$Element.$type])),
-                      false),
-                ],
-                namedParams: []),
-            isStatic: true),
+        // 'parseHtml': BridgeMethodDef(
+        //     BridgeFunctionDef(
+        //         returns: BridgeTypeAnnotation($Document.$type),
+        //         params: [
+        //           BridgeParameter(
+        //               'html',
+        //               BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+        //               false),
+        //         ],
+        //         namedParams: []),
+        //     isStatic: true),
+        // 'selectMultiAttr': BridgeMethodDef(
+        //     BridgeFunctionDef(
+        //         returns: BridgeTypeAnnotation(BridgeTypeRef(
+        //             CoreTypes.list, [BridgeTypeRef(CoreTypes.string)])),
+        //         params: [
+        //           BridgeParameter(
+        //               'elements',
+        //               BridgeTypeAnnotation(
+        //                   BridgeTypeRef(CoreTypes.list, [$Element.$type])),
+        //               false),
+        //           BridgeParameter(
+        //               'attr',
+        //               BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+        //               false),
+        //         ],
+        //         namedParams: []),
+        //     isStatic: true),
+        // 'selectMultiText': BridgeMethodDef(
+        //     BridgeFunctionDef(
+        //         returns: BridgeTypeAnnotation(BridgeTypeRef(
+        //             CoreTypes.list, [BridgeTypeRef(CoreTypes.string)])),
+        //         params: [
+        //           BridgeParameter(
+        //               'elements',
+        //               BridgeTypeAnnotation(
+        //                   BridgeTypeRef(CoreTypes.list, [$Element.$type])),
+        //               false),
+        //         ],
+        //         namedParams: []),
+        //     isStatic: true),
         'httpify': BridgeMethodDef(
             BridgeFunctionDef(
                 returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
@@ -285,19 +284,19 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
     ));
   }
 
-  static $Value $selectMultiAttr(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    return $List.wrap(AppUtils.selectMultiAttr(
-      args[0].unwrapList<Element>()!,
-      args[1]?.$value,
-    ).mapAsList((it) => $String(it)));
-  }
+  // static $Value $selectMultiAttr(
+  //     Runtime runtime, $Value? target, List<$Value?> args) {
+  //   return $List.wrap(AppUtils.selectMultiAttr(
+  //     args[0].unwrapList<Element>()!,
+  //     args[1]?.$value,
+  //   ).mapAsList((it) => $String(it)));
+  // }
 
-  static $Value $selectMultiText(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    return $List.wrap(AppUtils.selectMultiText(args[0].unwrapList<Element>()!)
-        .mapAsList((it) => $String(it)));
-  }
+  // static $Value $selectMultiText(
+  //     Runtime runtime, $Value? target, List<$Value?> args) {
+  //   return $List.wrap(AppUtils.selectMultiText(args[0].unwrapList<Element>()!)
+  //       .mapAsList((it) => $String(it)));
+  // }
 
   static $Value $httpify(Runtime runtime, $Value? target, List<$Value?> args) {
     return $String(AppUtils.httpify(args[0]?.$value));
@@ -368,10 +367,10 @@ class $AppUtils extends AppUtils with $Bridge<AppUtils> {
         bridgeLibary, 'AppUtils.encode', $AppUtils.$encode);
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.toDateTime', $AppUtils.$toDateTime);
-    runtime.registerBridgeFunc(
-        bridgeLibary, 'AppUtils.selectMultiAttr', $AppUtils.$selectMultiAttr);
-    runtime.registerBridgeFunc(
-        bridgeLibary, 'AppUtils.selectMultiText', $AppUtils.$selectMultiText);
+    // runtime.registerBridgeFunc(
+    //     bridgeLibary, 'AppUtils.selectMultiAttr', $AppUtils.$selectMultiAttr);
+    // runtime.registerBridgeFunc(
+    //     bridgeLibary, 'AppUtils.selectMultiText', $AppUtils.$selectMultiText);
     runtime.registerBridgeFunc(
         bridgeLibary, 'AppUtils.httpify', $AppUtils.$httpify);
     runtime.registerBridgeFunc(

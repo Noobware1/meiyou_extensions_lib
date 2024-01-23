@@ -6,11 +6,11 @@ import 'package:meiyou_extensions_lib/src/bridge_models/media/media_type.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media/video/subtitle.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media/video/video_source.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 import 'package:meiyou_extensions_lib/src/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/subtitle.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/video.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/video_source.dart';
+import 'package:dartx/dartx.dart';
 
 class $Video implements Video, $Instance {
   $Video.wrap(this.$value);
@@ -76,9 +76,8 @@ class $Video implements Video, $Instance {
   static $Value $new(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Video.wrap(Video(
       videoSources:
-          (args[0]?.$value as List?)?.mapAsList((it) => it as VideoSource) ??
-              [],
-      subtitles: (args[1]?.$value as List?)?.mapAsList((it) => it as Subtitle),
+          (args[0]?.$value as List?)?.mapList((it) => it as VideoSource) ?? [],
+      subtitles: (args[1]?.$value as List?)?.mapList((it) => it as Subtitle),
       headers: (args[2]?.$value as Map?)?.map((key, value) => MapEntry(
           key is $Value ? key.$value : value,
           value is $Value ? value.$value : value)),
@@ -111,11 +110,10 @@ class $Video implements Video, $Instance {
 
       case 'videoSources':
         return $List
-            .wrap($value.videoSources.mapAsList((it) => $VideoSource.wrap(it)));
+            .wrap($value.videoSources.mapList((it) => $VideoSource.wrap(it)));
       case 'subtitles':
         return $value.subtitles != null
-            ? $List
-                .wrap($value.subtitles!.mapAsList((it) => $Subtitle.wrap(it)))
+            ? $List.wrap($value.subtitles!.mapList((it) => $Subtitle.wrap(it)))
             : const $null();
 
       case 'headers':

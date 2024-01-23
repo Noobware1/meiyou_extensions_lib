@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:dart_eval/dart_eval.dart';
-import 'package:meiyou_extensions_lib/extenstions.dart';
+import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/eval_plugin.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
 
 class ExtensionComplier extends Compiler {
   ExtensionComplier(this.sourcePath) {
