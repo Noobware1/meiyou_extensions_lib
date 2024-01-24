@@ -1,6 +1,6 @@
 import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/media/video/subtitle_format.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/media/video/subtitle_format.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/duration.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dart';
 import 'package:meiyou_extensions_lib/src/utils/js_unpacker.dart';

@@ -108,6 +108,8 @@ class StringUtils {
   static int? toIntOrNull(String? str) => str.toIntOrNull();
 
   static double? toDoubleOrNull(String? str) => str.toDoubleOrNull();
+
+  static String valueToString(dynamic value) => value.toString();
 }
 
 /// dart_eval bimodal wrapper for [StringUtils]
@@ -198,6 +200,9 @@ class $StringUtils implements StringUtils, $Instance {
         utilsLib, 'StringUtils.toIntOrNull', __$static$method$toIntOrNull.call);
     runtime.registerBridgeFunc(utilsLib, 'StringUtils.toDoubleOrNull',
         __$static$method$toDoubleOrNull.call);
+    runtime.registerBridgeFunc(utilsLib, 'StringUtils.valueToString',
+        __$static$method$valueToString.call);
+  
   }
 
   late final $Instance _superclass = $Object($value);
@@ -918,6 +923,20 @@ class $StringUtils implements StringUtils, $Instance {
             namedParams: [],
           ),
           isStatic: true),
+      'valueToString': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'value',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic, []),
+                      nullable: true),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
     },
     getters: {},
     setters: {},
@@ -1361,6 +1380,15 @@ class $StringUtils implements StringUtils, $Instance {
     final str = args[0]?.$reified as String;
     final $result = StringUtils.toDoubleOrNull(str);
     return $result == null ? $null() : $double($result);
+  }
+
+  static const __$static$method$valueToString =
+      $Function(_$static$method$valueToString);
+  static $Value? _$static$method$valueToString(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final value = args[0]?.$reified as String;
+    final $result = StringUtils.valueToString(value);
+    return $String($result);
   }
 
   static const __$StringUtils$new = $Function(_$StringUtils$new);

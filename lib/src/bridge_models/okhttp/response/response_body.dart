@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/stdlib/async.dart';
+import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/media_type.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
+import 'package:meiyou_extensions_lib/src/okhttp_extensions.dart';
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/response.dart';
 
@@ -46,7 +50,42 @@ class $ResponseBody implements ResponseBody, $Instance {
               nullable: false),
           isStatic: true),
     },
-    methods: {},
+    methods: {
+      'json': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'fromJson',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  true)
+            ],
+            namedParams: [],
+            generics: {
+              'T': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
+      'jsonSafe': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
+                nullable: true),
+            params: [
+              BridgeParameter(
+                  'fromJson',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  true)
+            ],
+            namedParams: [],
+            generics: {
+              'T': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
+    },
     getters: {
       'contentLength': BridgeMethodDef(
           BridgeFunctionDef(
@@ -107,6 +146,10 @@ class $ResponseBody implements ResponseBody, $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
+      case 'json':
+        return __$json;
+      case 'jsonSafe':
+        return __$jsonSafe;
       case 'contentLength':
         return $int($value.contentLength);
       case 'contentType':
@@ -165,4 +208,26 @@ class $ResponseBody implements ResponseBody, $Instance {
 
   @override
   Stream<String> get charStream => $value.charStream;
+
+  static const __$json = $Function(_$json);
+  static $Value? _$json(Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as ResponseBody;
+    final fromJson = args[0] as EvalCallable?;
+
+    final $result = obj.json(fromJson != null
+        ? (json) => fromJson.call(runtime, null, [runtime.wrapRecursive(json)])
+        : null);
+    return $result;
+  }
+
+  static const __$jsonSafe = $Function(_$jsonSafe);
+  static $Value? _$jsonSafe(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as ResponseBody;
+    final fromJson = args[0] as EvalCallable?;
+    final $result = obj.jsonSafe(fromJson != null
+        ? (json) => fromJson.call(runtime, null, [runtime.wrapRecursive(json)])
+        : null);
+    return $result ?? $null();
+  }
 }

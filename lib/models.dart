@@ -17,7 +17,7 @@ export 'src/models/media_item/movie.dart';
 export 'src/models/media_item/tv_series.dart';
 
 //Interfaces
-export 'src/models/interfaces/base_plugin_api.dart';
+export 'src/models/interfaces/base_source.dart';
 export 'src/models/interfaces/extractor_api.dart';
 
 //Media
@@ -28,5 +28,5 @@ export 'src/models/media/video/subtitle.dart';
 export 'src/models/media/video/subtitle_format.dart';
 export 'src/models/media/video/video.dart';
 export 'src/models/media/video/video_format.dart';
-export 'src/models/media/video/video_quailty.dart';
+export 'src/models/media/video/video_quality.dart';
 export 'src/models/media/video/video_source.dart';
