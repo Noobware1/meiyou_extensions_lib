@@ -1,1 +1,0 @@
-export 'package:meiyou_extensions_lib/src/models/external_id.dart';

@@ -14,8 +14,8 @@ class ExtensionComplier extends Compiler {
   @override
   Program compile(Map<String, Map<String, String>> packages) {
     packages.forEach((key, value) {
-      value.forEach((_key, _value) {
-        packages[key]![_key] = reslovePackagesImport(_value);
+      value.forEach((key, value) {
+        packages[key]![key] = reslovePackagesImport(value);
       });
     });
     // print(packages);

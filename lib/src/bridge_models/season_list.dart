@@ -1,10 +1,10 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/episode.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/season_data.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 import 'package:meiyou_extensions_lib/src/models/episode.dart';
 import 'package:meiyou_extensions_lib/src/models/season_data.dart';
 import 'package:meiyou_extensions_lib/src/models/season_list.dart';
@@ -48,7 +48,7 @@ class $SeasonList implements SeasonList, $Instance {
     return $SeasonList.wrap(SeasonList(
       season: args[0]?.$value,
       episodes: (args[1]?.$value as List)
-          .mapAsList((it) => (it as $Value).$value as Episode),
+          .mapList((it) => (it as $Value).$value as Episode),
     ));
   }
 
@@ -58,7 +58,7 @@ class $SeasonList implements SeasonList, $Instance {
       case 'season':
         return $SeasonData.wrap($value.season);
       case 'episodes':
-        return $List.wrap(episodes.mapAsList((it) => $Episode.wrap(it)));
+        return $List.wrap(episodes.mapList((it) => $Episode.wrap(it)));
       default:
         return _superclass.$getProperty(runtime, identifier);
     }

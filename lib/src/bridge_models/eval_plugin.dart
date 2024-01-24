@@ -25,19 +25,13 @@ import 'package:meiyou_extensions_lib/src/bridge_models/media_item/anime.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media_item/media_item.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media_item/movie.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media_item/tv_series.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/packages/crypto_dart/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/plugin.dart';
 // import 'package:meiyou_extensions_lib/src/bridge_models/packages/ok_http/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/season_list.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/season_data.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/show_status.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/show_type.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/utils_models/app_utils.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/utils_models/iterable_utils.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/utils_models/list_utils.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/utils_models/num_utils.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/utils_models/string_utils.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/string.dart';
 
 class ExtensionLibPlugin extends EvalPlugin {
   @override
@@ -48,12 +42,6 @@ class ExtensionLibPlugin extends EvalPlugin {
     registry.defineBridgeEnum($MediaType.$declaration);
     registry.defineBridgeEnum($SubtitleFormat.$declaration);
     registry.defineBridgeEnum($VideoFormat.$declaration);
-
-    //Extenstions
-    registry.defineBridgeClass($StringUtils.$declaration);
-    registry.defineBridgeClass($NumUtils.$declaration);
-    registry.defineBridgeClass($IterableUtils.$declaration);
-    registry.defineBridgeClass($ListUtils.$declaration);
 
     //HomePage
     registry.defineBridgeClass($HomePageData.$declaration);
@@ -81,15 +69,9 @@ class ExtensionLibPlugin extends EvalPlugin {
     registry.defineBridgeClass($VideoQuality.$declaration);
     registry.defineBridgeClass($VideoSource.$declaration);
 
-    //App utils
-    registry.defineBridgeClass($AppUtils.$declaration);
-
     //Interfaces
     registry.defineBridgeClass($ExtractorApi.$declaration);
     registry.defineBridgeClass($BasePluginApi.$declaration);
-
-    // OkHttpPlugin().configureForCompile(registry);
-    CryptoDartPlugin().configureForCompile(registry);
   }
 
   @override
@@ -110,13 +92,6 @@ class ExtensionLibPlugin extends EvalPlugin {
     $HomePageRequest.configureForRuntime(runtime);
     $HomePage.configureForRuntime(runtime);
     $HomePageList.configureForRuntime(runtime);
-
-    //Extenstions
-    $StringUtils.configureForRuntime(runtime);
-    $NumUtils.configureForRuntime(runtime);
-    $IterableUtils.configureForRuntime(runtime);
-    $ListUtils.configureForRuntime(runtime);
-    // $CryptoOptions.configureForRuntime(runtime);
 
     //MediaDetails
     $MediaDetails.configureForRuntime(runtime);
@@ -139,15 +114,9 @@ class ExtensionLibPlugin extends EvalPlugin {
     $VideoSource.configureForRuntime(runtime);
     $Subtitle.configureForRuntime(runtime);
 
-    //App utils
-    $AppUtils.configureForRuntime(runtime);
-
     //Interfaces
     $ExtractorApi.configureForRuntime(runtime);
     $BasePluginApi.configureForRuntime(runtime);
-
-    // OkHttpPlugin().configureForRuntime(runtime);
-    CryptoDartPlugin().configureForRuntime(runtime);
   }
 
   @override

@@ -1,5 +1,5 @@
 import 'package:dart_eval/dart_eval.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/packages/okhttp/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,9 +1,9 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/show_type.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/value.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/models/show_type.dart';
@@ -105,7 +105,7 @@ class $SearchResponse implements SearchResponse, $Instance {
       case 'generes':
         return generes == null
             ? const $null()
-            : $List.wrap(generes!.mapAsList((it) => $String(it)));
+            : $List.wrap(generes!.mapList((it) => $String(it)));
       case 'rating':
         return rating == null ? const $null() : $double(rating!);
       case 'current':

@@ -1,5 +1,5 @@
 import 'package:dart_eval/dart_eval.dart';
-import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';
+import 'package:meiyou_extensions_lib/extensions_lib.dart';
 void main() {
   late Compiler compiler;
   compiler = ExtensionComplier('');

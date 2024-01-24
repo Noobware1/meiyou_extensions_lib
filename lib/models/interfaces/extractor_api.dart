@@ -1,1 +1,0 @@
-export 'package:meiyou_extensions_lib/src/models/interfaces/extractor_api.dart';

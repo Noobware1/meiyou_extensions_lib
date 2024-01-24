@@ -1,6 +1,7 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/actor_data.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/external_id.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/media_item/media_item.dart';
@@ -8,7 +9,6 @@ import 'package:meiyou_extensions_lib/src/bridge_models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/show_status.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/show_type.dart';
 import 'package:meiyou_extensions_lib/src/constants/constants.dart';
-import 'package:meiyou_extensions_lib/src/extenstions/iterable.dart';
 import 'package:meiyou_extensions_lib/src/models/actor_data.dart';
 import 'package:meiyou_extensions_lib/src/models/external_id.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
@@ -209,7 +209,7 @@ class $MediaDetails implements MediaDetails, $Instance {
 
       case 'otherTitles':
         return $value.otherTitles != null
-            ? $List.wrap($value.otherTitles!.mapAsList((it) => $String(it)))
+            ? $List.wrap($value.otherTitles!.mapList((it) => $String(it)))
             : const $null();
 
       case 'status':
@@ -252,25 +252,25 @@ class $MediaDetails implements MediaDetails, $Instance {
 
       case 'genres':
         return $value.genres != null
-            ? $List.wrap($value.genres!.mapAsList((it) => $String(it)))
+            ? $List.wrap($value.genres!.mapList((it) => $String(it)))
             : const $null();
 
       case 'recommendations':
         return $value.otherTitles != null
             ? $List.wrap($value.recommendations!
-                .mapAsList((it) => $SearchResponse.wrap(it)))
+                .mapList((it) => $SearchResponse.wrap(it)))
             : const $null();
 
       case 'externalIds':
         return $value.externalIds != null
             ? $List
-                .wrap($value.externalIds!.mapAsList((e) => $ExternalId.wrap(e)))
+                .wrap($value.externalIds!.mapList((e) => $ExternalId.wrap(e)))
             : const $null();
 
       case 'actorData':
         return $value.actorData != null
             ? $List
-                .wrap($value.actorData!.mapAsList((it) => $ActorData.wrap(it)))
+                .wrap($value.actorData!.mapList((it) => $ActorData.wrap(it)))
             : const $null();
 
       case 'mediaItem':
@@ -300,7 +300,7 @@ class $MediaDetails implements MediaDetails, $Instance {
       name: args[1]?.$value ?? '',
       url: args[2]?.$value ?? '',
       otherTitles:
-          (args[3]?.$value as List?)?.mapAsList((it) => (it as $String).$value),
+          (args[3]?.$value as List?)?.mapList((it) => (it as $String).$value),
       status: args[4]?.$value,
       bannerImage: args[5]?.$value,
       posterImage: args[6]?.$value,
@@ -310,13 +310,13 @@ class $MediaDetails implements MediaDetails, $Instance {
       endDate: args[10]?.$value,
       duration: args[11]?.$value,
       genres: (args[12]?.$value as List?)
-          ?.mapAsList((it) => (it as $String).$value),
+          ?.mapList((it) => (it as $String).$value),
       recommendations:
-          (args[13]?.$value as List?)?.mapAsList((it) => it as $SearchResponse),
+          (args[13]?.$value as List?)?.mapList((it) => it as $SearchResponse),
       externalIds:
-          (args[14]?.$value as List?)?.mapAsList((e) => e as $ExternalId),
+          (args[14]?.$value as List?)?.mapList((e) => e as $ExternalId),
       actorData:
-          (args[15]?.$value as List?)?.mapAsList((it) => it as $ActorData),
+          (args[15]?.$value as List?)?.mapList((it) => it as $ActorData),
       mediaItem: args[16]?.$value,
     ));
   }
@@ -338,7 +338,7 @@ class $MediaDetails implements MediaDetails, $Instance {
         break;
       case 'otherTitles':
         $value.otherTitles =
-            (value.$reified as List?)?.mapAsList((it) => it.toString());
+            (value.$reified as List?)?.mapList((it) => it.toString());
         break;
       case 'status':
         $value.status = value.$reified;
@@ -366,19 +366,19 @@ class $MediaDetails implements MediaDetails, $Instance {
         break;
       case 'genres':
         $value.genres =
-            (value.$reified as List?)?.mapAsList((it) => it.toString());
+            (value.$reified as List?)?.mapList((it) => it.toString());
         break;
       case 'recommendations':
-        $value.recommendations = (value.$reified as List?)?.mapAsList(
+        $value.recommendations = (value.$reified as List?)?.mapList(
             (it) => (it is $Value ? it.$value : it) as SearchResponse);
         break;
       case 'externalIds':
         $value.externalIds = (value.$reified as List?)
-            ?.mapAsList((it) => (it is $Value ? it.$value : it) as ExternalId);
+            ?.mapList((it) => (it is $Value ? it.$value : it) as ExternalId);
         break;
       case 'actorData':
         $value.actorData = (value.$reified as List?)
-            ?.mapAsList((it) => (it is $Value ? it.$value : it) as ActorData);
+            ?.mapList((it) => (it is $Value ? it.$value : it) as ActorData);
         break;
       case 'mediaItem':
         $value.mediaItem = value.$reified as MediaItem?;
