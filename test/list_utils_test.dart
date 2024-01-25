@@ -11,7 +11,7 @@ void main() {
     late ExtensionComplier compiler;
 
     setUp(() {
-      compiler = ExtensionComplier('');
+      compiler = ExtensionComplier();
     });
 
     test('map', () {

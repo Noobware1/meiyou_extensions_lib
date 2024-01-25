@@ -94,36 +94,38 @@ class $IterableUtils implements IterableUtils, $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        utilsLib, 'IterableUtils.', __$IterableUtils$new.call);
+        $type.spec!.library, 'IterableUtils.', __$IterableUtils$new.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'IterableUtils.orEmpty',
+        __$static$method$orEmpty.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'IterableUtils.flatten',
+        __$static$method$flatten.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'IterableUtils.mapNotNull',
+        __$static$method$mapNotNull.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'IterableUtils.orEmpty', __$static$method$orEmpty.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'IterableUtils.flatten', __$static$method$flatten.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'IterableUtils.mapNotNull', __$static$method$mapNotNull.call);
-    runtime.registerBridgeFunc(utilsLib, 'IterableUtils.mapNotNullIndexed',
+        $type.spec!.library,
+        'IterableUtils.mapNotNullIndexed',
         __$static$method$mapNotNullIndexed.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'IterableUtils.get', __$static$method$get.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'IterableUtils.getOrNull', __$static$method$getOrNull.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'IterableUtils.getOrElse', __$static$method$getOrElse.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'IterableUtils.lastIndex', __$static$method$lastIndex.call);
-    runtime.registerBridgeFunc(utilsLib, 'IterableUtils.forEachIndexed',
-        __$static$method$forEachIndexed.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'IterableUtils.mapIndexed', __$static$method$mapIndexed.call);
-    runtime.registerBridgeFunc(utilsLib, 'IterableUtils.containsAll',
+        $type.spec!.library, 'IterableUtils.get', __$static$method$get.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'IterableUtils.getOrNull',
+        __$static$method$getOrNull.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'IterableUtils.getOrElse',
+        __$static$method$getOrElse.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'IterableUtils.lastIndex',
+        __$static$method$lastIndex.call);
+    runtime.registerBridgeFunc($type.spec!.library,
+        'IterableUtils.forEachIndexed', __$static$method$forEachIndexed.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'IterableUtils.mapIndexed',
+        __$static$method$mapIndexed.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'IterableUtils.containsAll',
         __$static$method$containsAll.call);
-    runtime.registerBridgeFunc(utilsLib, 'IterableUtils.filterIndexed',
-        __$static$method$filterIndexed.call);
-    runtime.registerBridgeFunc(utilsLib, 'IterableUtils.filterIndexedTo',
-        __$static$method$filterIndexedTo.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'IterableUtils.filterNot', __$static$method$filterNot.call);
-    runtime.registerBridgeFunc(utilsLib, 'IterableUtils.filterNotTo',
+    runtime.registerBridgeFunc($type.spec!.library,
+        'IterableUtils.filterIndexed', __$static$method$filterIndexed.call);
+    runtime.registerBridgeFunc($type.spec!.library,
+        'IterableUtils.filterIndexedTo', __$static$method$filterIndexedTo.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'IterableUtils.filterNot',
+        __$static$method$filterNot.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'IterableUtils.filterNotTo',
         __$static$method$filterNotTo.call);
   }
 
@@ -139,7 +141,7 @@ class $IterableUtils implements IterableUtils, $Instance {
       isAbstract: false,
     ),
     constructors: {
-      utilsLib: BridgeConstructorDef(
+      '': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [],

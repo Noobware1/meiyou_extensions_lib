@@ -20,6 +20,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/hashers/hash
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/hashers/md2.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/hashers/md4.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/hashers/md5.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/hashers/ripemd160.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/hashers/sha1.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/hashers/sha224.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/hashers/sha256.dart';
@@ -35,6 +36,20 @@ import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/cipher_param
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/tripledes.dart';
 
 class CryptoDartPlugin extends EvalPlugin {
+  void addAllExports(StringBuffer buffer) {
+    [
+      'import \'package:crypto_dart/crypto_dart.dart\';',
+      'import \'package:crypto_dart/aes.dart\';',
+      'import \'package:crypto_dart/pkdf2.dart\';',
+      'import \'package:crypto_dart/evpkdf.dart\';',
+      'import \'package:crypto_dart/tripledes.dart\';',
+      'import \'package:crypto_dart/encoders.dart\';',
+      'import \'package:crypto_dart/hashers.dart\';',
+    ].forEach((element) {
+      buffer.writeln(element);
+    });
+  }
+
   @override
   void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($Encoder.$declaration);
@@ -54,6 +69,7 @@ class CryptoDartPlugin extends EvalPlugin {
     registry.defineBridgeClass($MD2.$declaration);
     registry.defineBridgeClass($MD4.$declaration);
     registry.defineBridgeClass($MD5.$declaration);
+    registry.defineBridgeClass($RIPEMD160.$declaration);
     registry.defineBridgeClass($SHA1.$declaration);
     registry.defineBridgeClass($SHA3.$declaration);
     registry.defineBridgeClass($SHA224.$declaration);
@@ -91,6 +107,7 @@ class CryptoDartPlugin extends EvalPlugin {
     $MD2.configureForRuntime(runtime);
     $MD4.configureForRuntime(runtime);
     $MD5.configureForRuntime(runtime);
+    $RIPEMD160.configureForRuntime(runtime);
     $SHA1.configureForRuntime(runtime);
     $SHA3.configureForRuntime(runtime);
     $SHA224.configureForRuntime(runtime);

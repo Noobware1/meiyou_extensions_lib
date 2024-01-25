@@ -5,6 +5,9 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/stdlib/async.dart';
 import 'package:dartx/dartx.dart';
+import 'package:html/dom.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/html/document.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/media_type.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/okhttp_extensions.dart';
@@ -87,6 +90,14 @@ class $ResponseBody implements ResponseBody, $Instance {
           isStatic: false),
     },
     getters: {
+      'document': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.document, []),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
       'contentLength': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
@@ -146,6 +157,8 @@ class $ResponseBody implements ResponseBody, $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
+      case 'document':
+        return $Document.wrap(Document.html(string));
       case 'json':
         return __$json;
       case 'jsonSafe':

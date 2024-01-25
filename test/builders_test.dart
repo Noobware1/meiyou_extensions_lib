@@ -5,15 +5,16 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:meiyou_extensions_lib/extensions_lib.dart';
 
 import 'package:test/test.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
 
 void main() {
-  group('\$Iterableutils', () {
+  group('Builders', () {
     late Compiler compiler;
     setUp(() {
-      compiler = Compiler()..addPlugin(DartxPlugin());
+      compiler = ExtensionComplier();
     });
     test('buildString', () {
       var compiled = compiler.compile({
@@ -35,7 +36,7 @@ String main() {
         },
       });
 
-      var runtime = Runtime.ofProgram(compiled)..addPlugin(DartxPlugin());
+      var runtime = ExtensionLoader.fromProgram(compiled).runtime;
       var value = runtime.executeLib('package:example/main.dart', 'main');
       expect((value as $Value).$value, 'hello world');
     });

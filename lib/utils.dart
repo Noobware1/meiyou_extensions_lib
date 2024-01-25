@@ -5,3 +5,4 @@ export 'src/bridge_models/dartx/result.dart'
     hide $Result, $ResultsUtils, $Failure;
 export 'src/bridge_models/dartx/app_utils.dart' hide $AppUtils;
 export 'src/bridge_models/dartx/string.dart' hide $StringUtils;
+export 'package:dartx/dartx.dart' show buildString, buildList, buildMap;

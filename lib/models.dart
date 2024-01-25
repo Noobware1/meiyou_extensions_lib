@@ -16,9 +16,17 @@ export 'src/models/media_item/anime.dart';
 export 'src/models/media_item/movie.dart';
 export 'src/models/media_item/tv_series.dart';
 
+// Filters
+export 'src/models/filter.dart';
+export 'src/models/filter_list.dart';
+
 //Interfaces
 export 'src/models/interfaces/base_source.dart';
 export 'src/models/interfaces/extractor_api.dart';
+export 'src/models/interfaces/source.dart';
+export 'src/models/interfaces/catalogue_source.dart';
+export 'src/models/interfaces/online/http_source.dart';
+export 'src/models/interfaces/online/parsed_http_source.dart';
 
 //Media
 export 'src/models/media/media.dart';

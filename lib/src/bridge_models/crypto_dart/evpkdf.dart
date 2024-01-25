@@ -2,6 +2,7 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 
 final evpkdfSource = DartSource('package:crypto_dart/evpkdf.dart', '''
 import 'dart:typed_data';
+import 'hashers.dart';
 import 'package:crypto_dart/crypto_dart.dart';
 
 List<Uint8List> EvpKDF({

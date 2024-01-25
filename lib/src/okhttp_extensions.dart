@@ -1,8 +1,7 @@
-
 import 'dart:convert';
 import 'package:dartx/dartx.dart';
+import 'package:html/dom.dart';
 import 'package:okhttp/response.dart';
-
 
 extension ResponseBodyExtensions on ResponseBody {
   T json<T>([T Function(dynamic json)? fromJson]) {
@@ -13,5 +12,5 @@ extension ResponseBodyExtensions on ResponseBody {
     return runCatching(() => json(fromJson)).getOrNull();
   }
 
-  
+  Document get document => Document.html(string);
 }

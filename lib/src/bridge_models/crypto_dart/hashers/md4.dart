@@ -14,7 +14,7 @@ class $MD4 implements $Instance {
     runtime.registerBridgeFunc(CryptoDartTypes.md4.library, 'MD4.', $new);
   }
 
-  static const $type = BridgeTypeRef(CryptoDartTypes.md5);
+  static const $type = BridgeTypeRef(CryptoDartTypes.md4);
 
   static const $params = [
     BridgeParameter(
@@ -22,11 +22,11 @@ class $MD4 implements $Instance {
   ];
 
   static const $declaration = BridgeClassDef(
-    BridgeClassType(BridgeTypeRef(CryptoDartTypes.hasher)),
+    BridgeClassType($type, $extends: BridgeTypeRef(CryptoDartTypes.hasher)),
     constructors: {
       '': BridgeConstructorDef(
         BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(CryptoDartTypes.hasher)),
+          returns: BridgeTypeAnnotation($type),
           params: $params,
         ),
       ),

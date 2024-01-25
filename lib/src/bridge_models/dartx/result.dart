@@ -12,11 +12,12 @@ class $Result<T> implements Result<T>, $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(utilsLib, 'Result.', __$Result$new.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'Result.success', __$static$method$success.call);
+        $type.spec!.library, 'Result.', __$Result$new.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'Result.failure', __$static$method$failure.call);
+        $type.spec!.library, 'Result.success', __$static$method$success.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Result.failure', __$static$method$failure.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -376,25 +377,26 @@ class $ResultsUtils implements ResultsUtils, $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(utilsLib, 'ResultsUtils.', __$ResultsUtils$new);
-    runtime.registerBridgeFunc(utilsLib, 'ResultsUtils.runCatching',
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'ResultsUtils.', __$ResultsUtils$new);
+    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.runCatching',
         __$static$method$runCatching.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'ResultsUtils.getOrThrow', __$static$method$getOrThrow.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'ResultsUtils.getOrElse', __$static$method$getOrElse.call);
-    runtime.registerBridgeFunc(utilsLib, 'ResultsUtils.getOrDefault',
+    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.getOrThrow',
+        __$static$method$getOrThrow.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.getOrElse',
+        __$static$method$getOrElse.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.getOrDefault',
         __$static$method$getOrDefault.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ResultsUtils.fold', __$static$method$fold.call);
+        $type.spec!.library, 'ResultsUtils.fold', __$static$method$fold.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ResultsUtils.map', __$static$method$map.call);
-    runtime.registerBridgeFunc(utilsLib, 'ResultsUtils.mapCatching',
+        $type.spec!.library, 'ResultsUtils.map', __$static$method$map.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.mapCatching',
         __$static$method$mapCatching.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'ResultsUtils.recover', __$static$method$recover.call);
-    runtime.registerBridgeFunc(utilsLib, 'ResultsUtils.recoverCatching',
-        __$static$method$recoverCatching.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.recover',
+        __$static$method$recover.call);
+    runtime.registerBridgeFunc($type.spec!.library,
+        'ResultsUtils.recoverCatching', __$static$method$recoverCatching.call);
   }
 
   late final $Instance _superclass = $Object($value);

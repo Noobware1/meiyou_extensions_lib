@@ -42,7 +42,7 @@ Request DELETE(String url, [Headers? headers, RequestBody? body]) {
 }
 
 class $Requests {
-  static const requests = 'package:meyiou_extensions_lib/src/requests.dart';
+  static const requests = 'package:meiyou_extensions_lib/src/requests.dart';
 
   /// Configure the [$Requests] wrapper for use in a [Runtime]
   static void configureForCompileTime(BridgeDeclarationRegistry registry) {

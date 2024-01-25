@@ -8,7 +8,7 @@ void main() {
     late Compiler compiler;
 
     setUp(() {
-      compiler = ExtensionComplier('');
+      compiler = ExtensionComplier();
     });
 
     test('trySync', () {

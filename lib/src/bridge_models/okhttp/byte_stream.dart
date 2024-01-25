@@ -163,8 +163,8 @@ class $ByteStream implements $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as ByteStream;
     final $result = obj.toBytes();
-    return $Future.wrap($result).then((value) => $Uint8List.wrap(value))
-        as $Value?;
+    return $Future.wrap($result.then((value) => $Uint8List.wrap(value))
+     ) as $Value?;
   }
 
   static const __$bytesToString = $Function(_$bytesToString);
@@ -173,7 +173,7 @@ class $ByteStream implements $Instance {
     final obj = target?.$value as ByteStream;
     final encoding = args[0]?.$reified as Encoding? ?? utf8;
     final $result = obj.bytesToString(encoding);
-    return $Future.wrap($result).then((value) => $String(value)) as $Value?;
+    return $Future.wrap($result.then((value) => $String(value))) as $Value?;
   }
 
   static const __$toStringStream = $Function(_$toStringStream);

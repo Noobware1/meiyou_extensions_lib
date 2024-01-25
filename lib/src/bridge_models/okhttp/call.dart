@@ -175,8 +175,8 @@ class $Call implements Call, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as Call;
     final $result = obj.execute();
-    return $Future.wrap($result).then((value) => $Response.wrap(value))
-        as $Value?;
+
+    return $Future.wrap($result.then((value) => $Response.wrap(value)));
   }
 
   @override
@@ -206,9 +206,7 @@ class $Call implements Call, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as Call;
     final request = args[0]?.$reified as Request;
-    final $result = obj.newCall(
-      request,
-    );
+    final $result = obj.newCall(request);
     return $Call.wrap($result);
   }
 }

@@ -121,88 +121,91 @@ class $StringUtils implements StringUtils, $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.', __$StringUtils$new.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.orEmpty', __$static$method$orEmpty.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.lastIndex', __$static$method$lastIndex.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.capitalize', __$static$method$capitalize.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.decapitalize',
+        $type.spec!.library, 'StringUtils.', __$StringUtils$new.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.orEmpty',
+        __$static$method$orEmpty.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.lastIndex',
+        __$static$method$lastIndex.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.capitalize',
+        __$static$method$capitalize.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.decapitalize',
         __$static$method$decapitalize.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.get', __$static$method$get.call);
+        $type.spec!.library, 'StringUtils.get', __$static$method$get.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.getOrNull',
+        __$static$method$getOrNull.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.getOrElse',
+        __$static$method$getOrElse.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.getOrNull', __$static$method$getOrNull.call);
+        $type.spec!.library, 'StringUtils.plus', __$static$method$plus.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.getOrElse', __$static$method$getOrElse.call);
+        $type.spec!.library, 'StringUtils.max', __$static$method$max.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.plus', __$static$method$plus.call);
+        $type.spec!.library, 'StringUtils.min', __$static$method$min.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.equals',
+        __$static$method$equals.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.max', __$static$method$max.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.min', __$static$method$min.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.equals', __$static$method$equals.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.drop', __$static$method$drop.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.dropLast', __$static$method$dropLast.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.filter', __$static$method$filter.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.filterTo', __$static$method$filterTo.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.filterIndexed',
+        $type.spec!.library, 'StringUtils.drop', __$static$method$drop.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.dropLast',
+        __$static$method$dropLast.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.filter',
+        __$static$method$filter.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.filterTo',
+        __$static$method$filterTo.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.filterIndexed',
         __$static$method$filterIndexed.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.filterIndexedTo',
-        __$static$method$filterIndexedTo.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.filterNot', __$static$method$filterNot.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.filterNotTo', __$static$method$filterNotTo.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.dropWhile', __$static$method$dropWhile.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.dropLastWhile',
+    runtime.registerBridgeFunc($type.spec!.library,
+        'StringUtils.filterIndexedTo', __$static$method$filterIndexedTo.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.filterNot',
+        __$static$method$filterNot.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.filterNotTo',
+        __$static$method$filterNotTo.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.dropWhile',
+        __$static$method$dropWhile.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.dropLastWhile',
         __$static$method$dropLastWhile.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.take', __$static$method$take.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.takeLast', __$static$method$takeLast.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.takeWhile', __$static$method$takeWhile.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.takeLastWhile',
+        $type.spec!.library, 'StringUtils.take', __$static$method$take.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.takeLast',
+        __$static$method$takeLast.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.takeWhile',
+        __$static$method$takeWhile.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.takeLastWhile',
         __$static$method$takeLastWhile.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.toRegex',
+        __$static$method$toRegex.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.toList',
+        __$static$method$toList.call);
+    runtime.registerBridgeFunc($type.spec!.library,
+        'StringUtils.codeUnitBefore', __$static$method$codeUnitBefore.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.reversed',
+        __$static$method$reversed.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.toRegex', __$static$method$toRegex.call);
+        $type.spec!.library, 'StringUtils.toNum', __$static$method$toNum.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.toList', __$static$method$toList.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.codeUnitBefore',
-        __$static$method$codeUnitBefore.call);
+        $type.spec!.library, 'StringUtils.toInt', __$static$method$toInt.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.toDouble',
+        __$static$method$toDouble.call);
+    runtime.registerBridgeFunc($type.spec!.library,
+        'StringUtils.substringBefore', __$static$method$substringBefore.call);
+    runtime.registerBridgeFunc($type.spec!.library,
+        'StringUtils.substringAfter', __$static$method$substringAfter.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.reversed', __$static$method$reversed.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.toNum', __$static$method$toNum.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.toInt', __$static$method$toInt.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.toDouble', __$static$method$toDouble.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.substringBefore',
-        __$static$method$substringBefore.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.substringAfter',
-        __$static$method$substringAfter.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.substringBeforeLast',
+        $type.spec!.library,
+        'StringUtils.substringBeforeLast',
         __$static$method$substringBeforeLast.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.substringAfterLast',
+    runtime.registerBridgeFunc(
+        $type.spec!.library,
+        'StringUtils.substringAfterLast',
         __$static$method$substringAfterLast.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.toNumOrNull', __$static$method$toNumOrNull.call);
-    runtime.registerBridgeFunc(
-        utilsLib, 'StringUtils.toIntOrNull', __$static$method$toIntOrNull.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.toDoubleOrNull',
-        __$static$method$toDoubleOrNull.call);
-    runtime.registerBridgeFunc(utilsLib, 'StringUtils.valueToString',
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.toNumOrNull',
+        __$static$method$toNumOrNull.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.toIntOrNull',
+        __$static$method$toIntOrNull.call);
+    runtime.registerBridgeFunc($type.spec!.library,
+        'StringUtils.toDoubleOrNull', __$static$method$toDoubleOrNull.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.valueToString',
         __$static$method$valueToString.call);
-  
   }
 
   late final $Instance _superclass = $Object($value);

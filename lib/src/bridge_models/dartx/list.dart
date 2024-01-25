@@ -85,36 +85,36 @@ class $ListUtils implements ListUtils, $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(utilsLib, 'ListUtils.', __$ListUtils$new.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ListUtils.', __$ListUtils$new.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.orEmpty', __$static$method$orEmpty.call);
+        $type.spec!.library, 'ListUtils.orEmpty', __$static$method$orEmpty.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.flatten', __$static$method$flatten.call);
+        $type.spec!.library, 'ListUtils.flatten', __$static$method$flatten.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.mapNotNull', __$static$method$mapNotNull.call);
-    runtime.registerBridgeFunc(utilsLib, 'ListUtils.mapNotNullIndexed',
+        $type.spec!.library, 'ListUtils.mapNotNull', __$static$method$mapNotNull.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ListUtils.mapNotNullIndexed',
         __$static$method$mapNotNullIndexed.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.get', __$static$method$get.call);
+        $type.spec!.library, 'ListUtils.get', __$static$method$get.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.getOrNull', __$static$method$getOrNull.call);
+        $type.spec!.library, 'ListUtils.getOrNull', __$static$method$getOrNull.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.getOrElse', __$static$method$getOrElse.call);
+        $type.spec!.library, 'ListUtils.getOrElse', __$static$method$getOrElse.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.lastIndex', __$static$method$lastIndex.call);
+        $type.spec!.library, 'ListUtils.lastIndex', __$static$method$lastIndex.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.dropWhile', __$static$method$dropWhile.call);
-    runtime.registerBridgeFunc(utilsLib, 'ListUtils.dropLastWhile',
+        $type.spec!.library, 'ListUtils.dropWhile', __$static$method$dropWhile.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ListUtils.dropLastWhile',
         __$static$method$dropLastWhile.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.takeAsList', __$static$method$takeAsList.call);
+        $type.spec!.library, 'ListUtils.takeAsList', __$static$method$takeAsList.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.takeLast', __$static$method$takeLast.call);
-    runtime.registerBridgeFunc(utilsLib, 'ListUtils.takeLastWhile',
+        $type.spec!.library, 'ListUtils.takeLast', __$static$method$takeLast.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ListUtils.takeLastWhile',
         __$static$method$takeLastWhile.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'ListUtils.mapList', __$static$method$mapList.call);
-    runtime.registerBridgeFunc(utilsLib, 'ListUtils.mapListIndexed',
+        $type.spec!.library, 'ListUtils.mapList', __$static$method$mapList.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ListUtils.mapListIndexed',
         __$static$method$mapListIndexed.call);
   }
 

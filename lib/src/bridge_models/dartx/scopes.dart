@@ -37,17 +37,18 @@ class $Scopes implements Scopes, $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(utilsLib, 'Scopes.', __$Scopes$new.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'Scopes.apply', __$static$method$apply.call);
+        $type.spec!.library, 'Scopes.', __$Scopes$new.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'Scopes.also', __$static$method$also.call);
+        $type.spec!.library, 'Scopes.apply', __$static$method$apply.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'Scopes.let', __$static$method$let.call);
+        $type.spec!.library, 'Scopes.also', __$static$method$also.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'Scopes.takeIf', __$static$method$takeIf.call);
+        $type.spec!.library, 'Scopes.let', __$static$method$let.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'Scopes.takeUnless', __$static$method$takeUnless.call);
+        $type.spec!.library, 'Scopes.takeIf', __$static$method$takeIf.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'Scopes.takeUnless',
+        __$static$method$takeUnless.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -276,4 +277,3 @@ class $Scopes implements Scopes, $Instance {
     return $Scopes.wrap(Scopes());
   }
 }
-

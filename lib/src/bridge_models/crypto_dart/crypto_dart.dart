@@ -35,6 +35,7 @@ import 'dart:typed_data';
 import 'aes.dart';
 import 'tripledes.dart';
 import 'encoders.dart';
+import 'hashers.dart';
 export 'src/crypto_dart.dart';
 export 'src/hash_algorithms.dart';
 

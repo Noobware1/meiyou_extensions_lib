@@ -9,10 +9,10 @@ import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 ///
 /// Each method in this class should be overridden by the concrete implementation of the plugin API.
 abstract class BaseSource {
-  /// Constructor for `BaseSource`.
-  BaseSource();
+  // /// Contains the source details.
+  // final Source source;
 
-  /// The base URL for the API.
+  /// Base url of the website without the trailing slash, like: http://mysite.com
   String get baseUrl;
 
   /// An iterable of `HomePageData` objects representing the home page data.

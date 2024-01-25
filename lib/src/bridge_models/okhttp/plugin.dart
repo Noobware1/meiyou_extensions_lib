@@ -26,6 +26,18 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/stream_response_body.dart';
 
 class OkHttpPlugin extends EvalPlugin {
+  void addAllExport(StringBuffer buffer) {
+    [
+      'import \'package:okhttp/okhttp.dart\';',
+      'import \'package:okhttp/request.dart\';',
+      'import \'package:okhttp/response.dart\';',
+      'import \'package:okhttp/adapter.dart\';',
+      'import \'package:okhttp/interceptor.dart\';',
+    ].forEach((element) {
+      buffer.writeln(element);
+    });
+  }
+
   @override
   void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($OkHttpClient.$declaration);
@@ -110,6 +122,7 @@ class OkHttpPlugin extends EvalPlugin {
 }
 
 final _okhttpSource = DartSource('package:okhttp/okhttp.dart', '''
+import 'package:html/dom.dart';
 export 'src/mediatype';
 export 'src/headers.dart';
 export 'src/cookie.dart';
@@ -120,11 +133,18 @@ export 'src/date_fromatter.dart';
 ''');
 
 final _adapterSource = DartSource('package:okhttp/adapter.dart', '''
+import 'package:html/dom.dart';
+import 'package:okhttp/request.dart';
+import 'package:okhttp/response.dart';
 export 'src/client_adapter.dart';
 export 'src/adapters/http_client_adapter.dart';
 ''');
 
 final _interceptorSource = DartSource('package:okhttp/interceptor.dart', '''
+import 'package:html/dom.dart';
+import 'package:okhttp/response.dart';
+import 'package:okhttp/request.dart';
+import 'package:okhttp/adapter.dart';
 export 'src/interceptor.dart';
 export 'src/interceptors/http_logging_interceptor.dart';
 export 'src/interceptors/bridge_interceptor.dart';
@@ -135,6 +155,8 @@ export 'src/interceptors/response_body_interceptor.dart';
 ''');
 
 final _responseSource = DartSource('package:okhttp/response.dart', '''
+import 'package:html/dom.dart';
+import 'package:okhttp/okhttp.dart';
 export 'src/response.dart';
 export 'src/response_body.dart';
 export 'src/response_body/stream_response_body.dart';
@@ -143,6 +165,9 @@ export 'src/response_body/real_response_body.dart';
 ''');
 
 final _requestSource = DartSource('package:okhttp/request.dart', '''
+import 'package:okhttp/okhttp.dart';
+import 'package:html/dom.dart';
+
 export 'src/request.dart';
 export 'src/request_body.dart';
 export 'src/form_body.dart';

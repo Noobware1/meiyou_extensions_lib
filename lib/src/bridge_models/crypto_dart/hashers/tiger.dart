@@ -14,18 +14,18 @@ class $TIGER implements $Instance {
     runtime.registerBridgeFunc(CryptoDartTypes.tiger.library, 'TIGER.', $new);
   }
 
-  static const $type = BridgeTypeRef(CryptoDartTypes.md5);
+  static const $type = BridgeTypeRef(CryptoDartTypes.tiger);
 
   static const $params = [
     BridgeParameter(
         'data', BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)), false)
   ];
   static const $declaration = BridgeClassDef(
-    BridgeClassType(BridgeTypeRef(CryptoDartTypes.hasher)),
+    BridgeClassType($type, $extends: BridgeTypeRef(CryptoDartTypes.hasher)),
     constructors: {
       '': BridgeConstructorDef(
         BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(CryptoDartTypes.hasher)),
+          returns: BridgeTypeAnnotation($type),
           params: $params,
         ),
       ),

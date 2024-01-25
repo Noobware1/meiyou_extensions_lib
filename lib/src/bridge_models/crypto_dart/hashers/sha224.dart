@@ -14,19 +14,20 @@ class $SHA224 implements $Instance {
     runtime.registerBridgeFunc(CryptoDartTypes.sha224.library, 'SHA224.', $new);
   }
 
-  static const $type = BridgeTypeRef(CryptoDartTypes.md5);
+  static const $type = BridgeTypeRef(CryptoDartTypes.sha224);
 
   static const $params = [
     BridgeParameter(
         'data', BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)), false)
   ];
 
+    // BridgeClassType($type, $extends: BridgeTypeRef(CryptoDartTypes.hasher)),
   static const $declaration = BridgeClassDef(
-    BridgeClassType(BridgeTypeRef(CryptoDartTypes.hasher)),
+    BridgeClassType($type, $extends: BridgeTypeRef(CryptoDartTypes.hasher)),
     constructors: {
       '': BridgeConstructorDef(
         BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(CryptoDartTypes.hasher)),
+          returns: BridgeTypeAnnotation($type),
           params: $params,
         ),
       ),

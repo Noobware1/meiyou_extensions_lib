@@ -111,8 +111,8 @@ class $ClientAdapter implements ClientAdapter, $Instance {
     final $result = obj.newCall(
       request,
     );
-    return $Future.wrap($result).then((value) => $Response.wrap(value))
-        as $Value?;
+    return $Future.wrap($result.then((value) => $Response.wrap(value))
+      )  as $Value?;
   }
 
   @override

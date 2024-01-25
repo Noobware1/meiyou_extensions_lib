@@ -114,8 +114,7 @@ class $IOStreamResponseBody implements $Instance {
   static $Value? _$close(Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as IOStreamResponseBody;
     final $result = obj.close();
-    return $Future.wrap($result).then((value) => $ResponseBody.wrap(value))
-        as $Value?;
+    return $Future.wrap($result.then((value) => $ResponseBody.wrap(value)));
   }
 
   static const __$detachSocketCallBack = $Function(_$detachSocketCallBack);

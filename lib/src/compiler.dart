@@ -1,107 +1,14 @@
-import 'dart:io';
-
 import 'package:dart_eval/dart_eval.dart';
-import 'package:dartx/dartx.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/eval_plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 
 class ExtensionComplier extends Compiler {
-  ExtensionComplier(this.sourcePath) {
+  ExtensionComplier() {
+    addPlugin(OkHttpPlugin());
+    addPlugin(HTMLPlugin());
+    addPlugin(CryptoDartPlugin());
     addPlugin(ExtensionLibPlugin());
   }
-
-  final String sourcePath;
-
-  @override
-  Program compile(Map<String, Map<String, String>> packages) {
-    packages.forEach((key, value) {
-      value.forEach((key, value) {
-        packages[key]![key] = reslovePackagesImport(value);
-      });
-    });
-    // print(packages);
-    return super.compile(packages);
-  }
-
-  Program compileExtensionCode(String package, String filePath) {
-    final code = File(filePath).readAsStringSync();
-
-    return compile({package: getAllFiles(filePath, code)});
-  }
-
-  Map<String, String> getAllFiles(String filePath, String code) {
-    return _getFixedImports(filePath, 'main.dart', code, {});
-  }
-
-  Map<String, String> _getFixedImports(
-      String filePath, String name, String code, Map<String, String> files) {
-    final fixedImports = <String, ({String name, String path})>{};
-
-    final regex = RegExp(
-        r'^import\s+(?![^\r\n]*meiyou_extensions_lib)[^\r\n;]*;',
-        caseSensitive: false,
-        multiLine: true);
-
-    // final currentDir = Directory.current.path.replaceAll('\\', '/');
-
-    final matches = regex.allMatches(code);
-
-    for (var element in matches) {
-      String? codePath;
-      var import = element.group(0)!;
-
-      // element.group(0)!.replaceFirst('import ', '').replaceAll("'", '');
-      import = import.substring(8, import.length - 2);
-
-      if (import.startsWith('..')) {
-        throw Exception(
-            'MotherFucker, Releative Imports like $import are not supported fix them');
-      }
-
-      final package = sourcePath.substringBefore('/src');
-
-      if (!import.startsWith('package:') &&
-          !import.startsWith('..') &&
-          !import.startsWith('dart:')) {
-        codePath = '${filePath.substringBeforeLast('/')}$import';
-      }
-      if (import.startsWith('package:')) {
-        codePath = '$package/lib/${import.split('/').sublist(1).join('/')}';
-      }
-      if (codePath != null) {
-        fixedImports[import] =
-            (name: codePath.substringAfterLast('/'), path: codePath);
-      }
-    }
-
-    fixedImports.forEach((key, value) {
-      code = code.replaceAll(key, value.name);
-    });
-
-    files[name] = code;
-
-    fixedImports.forEach((key, value) {
-      _getFixedImports(
-          filePath, value.name, File(value.path).readAsStringSync(), files);
-    });
-
-    return files;
-  }
-
-  String reslovePackagesImport(String code) {
-    final packagesRegex =
-        RegExp(r'''import\s\'package:meiyou_extensions_lib\/(.*)';''');
-
-    packagesRegex.allMatches(code).forEach((element) {
-      code = code.replaceFirst(element.group(0)!, '');
-    });
-
-    code =
-        "import 'package:meiyou_extensions_lib/meiyou_extensions_lib.dart';\n$code";
-    return code;
-  }
-}
-
-extension on Directory {
-  String get fixedPath =>
-      path.contains('\\') ? path.replaceAll('\\', '/') : path;
 }

@@ -1,6 +1,6 @@
 import 'package:dartx/dartx.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/media/video/subtitle_format.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media/video/subtitle_format.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/duration.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dart';
 import 'package:meiyou_extensions_lib/src/utils/js_unpacker.dart';
@@ -172,27 +172,27 @@ class $AppUtils implements AppUtils, $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(utilsLib, 'AppUtils.', __$AppUtils$new.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.', __$AppUtils$new.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'AppUtils.encode', __$static$method$encode.call);
+        $type.spec!.library, 'AppUtils.encode', __$static$method$encode.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'AppUtils.toDateTime', __$static$method$toDateTime.call);
+        $type.spec!.library, 'AppUtils.toDateTime', __$static$method$toDateTime.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'AppUtils.httpify', __$static$method$httpify.call);
-    runtime.registerBridgeFunc(utilsLib, 'AppUtils.getBackgroundImage',
+        $type.spec!.library, 'AppUtils.httpify', __$static$method$httpify.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.getBackgroundImage',
         __$static$method$getBackgroundImage.call);
-    runtime.registerBridgeFunc(utilsLib, 'AppUtils.getMonthByName',
+    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.getMonthByName',
         __$static$method$getMonthByName.call);
-    runtime.registerBridgeFunc(utilsLib, 'AppUtils.getSubtitleFormatFromUrl',
+    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.getSubtitleFormatFromUrl',
         __$static$method$getSubtitleFormatFromUrl.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'AppUtils.isNotNull', __$static$method$isNotNull.call);
-    runtime.registerBridgeFunc(utilsLib, 'AppUtils.tryParseDuration',
+        $type.spec!.library, 'AppUtils.isNotNull', __$static$method$isNotNull.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.tryParseDuration',
         __$static$method$tryParseDuration.call);
-    runtime.registerBridgeFunc(utilsLib, 'AppUtils.parseDuration',
+    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.parseDuration',
         __$static$method$parseDuration.call);
     runtime.registerBridgeFunc(
-        utilsLib, 'AppUtils.unpackJS', __$static$method$unpackJS.call);
+        $type.spec!.library, 'AppUtils.unpackJS', __$static$method$unpackJS.call);
   }
 
   late final $Instance _superclass = $Object($value);

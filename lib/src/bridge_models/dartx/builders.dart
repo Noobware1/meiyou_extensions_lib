@@ -2,7 +2,6 @@ import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:dartx/dartx.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
 
 class $BuildersUtils {
   static void configureForCompile(BridgeDeclarationRegistry registry) {
@@ -10,14 +9,15 @@ class $BuildersUtils {
     registry.defineBridgeTopLevelFunction(buildList);
   }
 
+  static const _lib = 'package:meiyou_extensions_lib/src/builders.dart';
+
   static void configuresForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(
-        utilsLib, 'buildString', const _$BuildString().call);
-    runtime.registerBridgeFunc(utilsLib, 'buildList', const _$BuildList().call);
+    runtime.registerBridgeFunc(_lib, 'buildString', const _$BuildString().call);
+    runtime.registerBridgeFunc(_lib, 'buildList', const _$BuildList().call);
   }
 
   static const buildString = BridgeFunctionDeclaration(
-    utilsLib,
+    _lib,
     'buildString',
     BridgeFunctionDef(
         returns: BridgeTypeAnnotation(
@@ -35,7 +35,7 @@ class $BuildersUtils {
   );
 
   static const buildList = BridgeFunctionDeclaration(
-    utilsLib,
+    _lib,
     'buildList',
     BridgeFunctionDef(
         returns: BridgeTypeAnnotation(

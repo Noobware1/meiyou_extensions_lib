@@ -22,11 +22,11 @@ class $MD5 implements $Instance {
   ];
 
   static const $declaration = BridgeClassDef(
-    BridgeClassType(BridgeTypeRef(CryptoDartTypes.hasher)),
+    BridgeClassType($type, $extends: BridgeTypeRef(CryptoDartTypes.hasher)),
     constructors: {
       '': BridgeConstructorDef(
         BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(CryptoDartTypes.hasher)),
+          returns: BridgeTypeAnnotation($type),
           params: $params,
         ),
       ),

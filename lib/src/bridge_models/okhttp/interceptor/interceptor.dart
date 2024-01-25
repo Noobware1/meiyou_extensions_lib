@@ -113,8 +113,7 @@ class $Interceptor implements Interceptor, $Instance {
     final obj = target?.$value as Interceptor;
     final chain = args[0]?.$reified as Chain;
     final $result = obj.intercept(chain);
-    return $Future.wrap($result).then((value) => $Response.wrap(value))
-        as $Value?;
+    return $Future.wrap($result.then((value) => $Response.wrap(value)));
   }
 
   static const __$Interceptor$new = $Function(_$Interceptor$new);
@@ -240,7 +239,7 @@ class $Chain implements Chain, $Instance {
     final $result = obj.proceed(
       request,
     );
-    return $Future.wrap($result).then((value) => $Response.wrap(value))
+    return $Future.wrap($result.then((value) => $Response.wrap(value)))
         as $Value?;
   }
 }
