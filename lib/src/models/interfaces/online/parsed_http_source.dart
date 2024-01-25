@@ -18,11 +18,13 @@ abstract class ParsedHttpSource extends HttpSource {
   HomePage homePageParse(int page, HomePageRequest request, Response response) {
     final document = response.body.document;
 
-    final data = document.select(homePageListDataSelector()).mapList((element) {
-      return homePageListDataFromElement(element);
+    final data = document
+        .select(homePageListDataSelector(page, request))
+        .mapList((element) {
+      return homePageListDataFromElement(page, request, element);
     });
 
-    final hasNextPage = homePageHasNextPageSelector()
+    final hasNextPage = homePageHasNextPageSelector(page, request)
             ?.let((it) => document.select(it).firstOrNull) !=
         null;
 
@@ -33,22 +35,29 @@ abstract class ParsedHttpSource extends HttpSource {
     );
   }
 
-  String homePageListDataSelector();
+  String homePageListDataSelector(
+    int page,
+    HomePageRequest request,
+  );
 
-  String? homePageHasNextPageSelector();
+  String? homePageHasNextPageSelector(
+    int page,
+    HomePageRequest request,
+  );
 
-  SearchResponse homePageListDataFromElement(Element element);
+  SearchResponse homePageListDataFromElement(
+      int page, HomePageRequest request, Element element);
 
   @override
   List<SearchResponse> searchParse(Response response) {
     final document = response.body.document;
 
-    return document.select(searchListDataSelector()).mapList((element) {
+    return document.select(searchListSelector()).mapList((element) {
       return searchResponseFromElement(element);
     });
   }
 
-  String searchListDataSelector();
+  String searchListSelector();
 
   SearchResponse searchResponseFromElement(Element element);
 
@@ -67,12 +76,12 @@ abstract class ParsedHttpSource extends HttpSource {
   List<ExtractorLink> linksParse(Response response) {
     final document = response.body.document;
 
-    return document.select(linksListDataSelector()).mapList((element) {
+    return document.select(linksListSelector()).mapList((element) {
       return linkFromElement(element);
     });
   }
 
-  String linksListDataSelector();
+  String linksListSelector();
 
   ExtractorLink linkFromElement(Element element);
 

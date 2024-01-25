@@ -1,3 +1,4 @@
+import 'package:crypto_dart/hashers.dart';
 import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/homepage.dart';
@@ -16,7 +17,10 @@ abstract class HttpSource extends CatalogueSource {
   /// Network service.
   final NetworkHelper network;
 
-  // int versionId = 0;
+  /// Base url of the website without the trailing slash, like: http://mysite.com
+  abstract final String baseUrl;
+
+  final int versionId = 1;
 
   // /// ID of the source. By default it uses a generated id using the first 16 characters (64 bits)
   // /// of the MD5 of the string `"${name.lowercase()}/$lang/$versionId"`.
@@ -26,7 +30,17 @@ abstract class HttpSource extends CatalogueSource {
   // /// be changed but migrations can be avoided.
   // ///
   // /// Note: the generated ID sets the sign bit to `0`.
-  // final int id = generateId(name, lang, versionId);
+  @override
+  late final int id = _generateId(name, lang, versionId);
+
+  int _generateId(String name, String lang, int versionId) {
+    final key = "${name.toLowerCase()}/$lang/$versionId";
+    final bytes = MD5(key.codeUnits).bytes;
+    return List.generate(
+                8, (index) => (bytes[index] & 0xFF) << (8 * (7 - index)))
+            .reduce((value, element) => value | element) &
+        0x7FFFFFFFFFFFFFFF;
+  }
 
   /// Headers used for requests.
   late final Headers headers = headersBuilder().build();

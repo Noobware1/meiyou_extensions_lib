@@ -35,77 +35,7 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
         ),
       )
     },
-    fields: {
-      'id': BridgeFieldDef(BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int))),
-      'name': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-      ),
-      'lang': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-      ),
-      'supportsHomePage': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool)),
-      ),
-    },
-    getters: {
-      'homePageList': BridgeMethodDef(
-        BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.iterable,
-                [BridgeTypeRef(ExtensionLibTypes.homePageData)])),
-            params: []),
-      ),
-    },
     methods: {
-      'getHomePage': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-            BridgeTypeRef(CoreTypes.future, [
-              BridgeTypeRef(ExtensionLibTypes.homePage),
-            ]),
-          ),
-          params: [
-            BridgeParameter('page',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)), false),
-            BridgeParameter(
-                'request',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.homePageRequest)),
-                false),
-          ],
-        ),
-      ),
-      'getLinks': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-            BridgeTypeRef(CoreTypes.future, [
-              BridgeTypeRef(CoreTypes.list, [
-                BridgeTypeRef(ExtensionLibTypes.extractorLink),
-              ]),
-            ]),
-          ),
-          params: [
-            BridgeParameter('url',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
-          ],
-        ),
-      ),
-      'getMedia': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-            BridgeTypeRef(CoreTypes.future, [
-              BridgeTypeRef(ExtensionLibTypes.media),
-              BridgeTypeRef(CoreTypes.nullType),
-            ]),
-          ),
-          params: [
-            BridgeParameter(
-                'link',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.extractorLink)),
-                false),
-          ],
-        ),
-      ),
       'getFilterList': BridgeMethodDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation(
@@ -130,22 +60,6 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
                 BridgeTypeAnnotation(
                     BridgeTypeRef(ExtensionLibTypes.filterList)),
                 false)
-          ],
-        ),
-      ),
-      'getMediaDetails': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-            BridgeTypeRef(CoreTypes.future, [
-              BridgeTypeRef(ExtensionLibTypes.mediaDetails),
-            ]),
-          ),
-          params: [
-            BridgeParameter(
-                'searchResponse',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.searchResponse)),
-                false),
           ],
         ),
       ),
@@ -225,7 +139,7 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
   String get lang => $_get('lang');
 
   @override
-  FilterList getFilterList() => $_get('getFilterList');
+  FilterList getFilterList() => $_invoke('getFilterList', []);
 
   @override
   Future<List<SearchResponse>> getSearch(

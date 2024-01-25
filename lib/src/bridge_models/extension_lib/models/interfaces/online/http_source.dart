@@ -41,36 +41,30 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
         isAbstract: true),
     constructors: {
       '': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-        ),
+        BridgeFunctionDef(returns: BridgeTypeAnnotation($type), params: [
+          BridgeParameter(
+              'network',
+              BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.networkHelper),
+              ),
+              false),
+        ]),
       )
     },
     fields: {
-      'id': BridgeFieldDef(BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int))),
-      'name': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-      ),
-      'lang': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
-      ),
-      'supportsHomePage': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool)),
-      ),
+      'baseUrl':
+          BridgeFieldDef(BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string))),
       'network': BridgeFieldDef(
         BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.networkHelper)),
+      ),
+      'versionId': BridgeFieldDef(
+        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
       ),
       'headers': BridgeFieldDef(
         BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers)),
       ),
     },
     getters: {
-      'homePageList': BridgeMethodDef(
-        BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.iterable,
-                [BridgeTypeRef(ExtensionLibTypes.homePageData)])),
-            params: []),
-      ),
       'client': BridgeMethodDef(
         BridgeFunctionDef(
           returns:
@@ -80,83 +74,6 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
       ),
     },
     methods: {
-      'getHomePage': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-            BridgeTypeRef(CoreTypes.future, [
-              BridgeTypeRef(ExtensionLibTypes.homePage),
-            ]),
-          ),
-          params: [
-            BridgeParameter('page',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)), false),
-            BridgeParameter(
-                'request',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.homePageRequest)),
-                false),
-          ],
-        ),
-      ),
-      'getLinks': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-            BridgeTypeRef(CoreTypes.future, [
-              BridgeTypeRef(CoreTypes.list, [
-                BridgeTypeRef(ExtensionLibTypes.extractorLink),
-              ]),
-            ]),
-          ),
-          params: [
-            BridgeParameter('url',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
-          ],
-        ),
-      ),
-      'getMedia': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-            BridgeTypeRef(CoreTypes.future, [
-              BridgeTypeRef(ExtensionLibTypes.media),
-              BridgeTypeRef(CoreTypes.nullType),
-            ]),
-          ),
-          params: [
-            BridgeParameter(
-                'link',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.extractorLink)),
-                false),
-          ],
-        ),
-      ),
-      'getFilterList': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-            BridgeTypeRef(ExtensionLibTypes.filterList),
-          ),
-          params: [],
-        ),
-      ),
-      'getSearch': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.future, [
-            BridgeTypeRef(CoreTypes.list,
-                [BridgeTypeRef(ExtensionLibTypes.searchResponse)])
-          ])),
-          params: [
-            BridgeParameter('page',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)), false),
-            BridgeParameter('query',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
-            BridgeParameter(
-                'filters',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.filterList)),
-                false)
-          ],
-        ),
-      ),
       'homePageParse': BridgeMethodDef(
         BridgeFunctionDef(
           returns:
@@ -295,22 +212,6 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
           params: [],
         ),
       ),
-      'getMediaDetails': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-            BridgeTypeRef(CoreTypes.future, [
-              BridgeTypeRef(ExtensionLibTypes.mediaDetails),
-            ]),
-          ),
-          params: [
-            BridgeParameter(
-                'searchResponse',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.searchResponse)),
-                false),
-          ],
-        ),
-      ),
     },
     bridge: true,
   );
@@ -326,6 +227,10 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   @override
   $Value? $bridgeGet(String identifier) {
     switch (identifier) {
+      case 'id':
+        return $int(super.id);
+      case 'versionId':
+        return $int(super.versionId);
       case 'network':
         return $NetworkHelper.wrap(super.network);
       case 'lang':
@@ -445,7 +350,10 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   String get lang => $_get('lang');
 
   @override
-  FilterList getFilterList() => $_get('getFilterList');
+  int get versionId => $_get('versionId');
+
+  @override
+  FilterList getFilterList() => $_invoke('getFilterList', []);
 
   $Value? $getSearch(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(
@@ -525,4 +433,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
     return $_invoke('searchRequest',
         [$int(page), $String(query), $FilterList.wrap(filters)]);
   }
+
+  @override
+  String get baseUrl => $_get('baseUrl');
 }

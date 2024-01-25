@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-abstract interface class Preference<T> {
+abstract class Preference<T> {
   String key();
 
   T get();
