@@ -572,11 +572,9 @@ class $ParsedHttpSource extends ParsedHttpSource
   @override
   Future<List<SearchResponse>> getSearch(
       int page, String query, FilterList filters) {
-    return $_invoke('getSearch', [
-      $int(page),
-      $String(query),
-      $FilterList.wrap(filters)
-    ]).then((value) => (value as List).cast<SearchResponse>());
+    return ($_invoke('getSearch',
+            [$int(page), $String(query), $FilterList.wrap(filters)]) as Future)
+        .then((value) => (value as List).cast<SearchResponse>());
   }
 
   $Value? get _$getSearch => $Function(__$getSearch);
@@ -595,7 +593,8 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   @override
   Future<MediaDetails> getMediaDetails(SearchResponse searchResponse) {
-    return $_invoke('getMediaDetails', [$SearchResponse.wrap(searchResponse)])
+    return ($_invoke('getMediaDetails', [$SearchResponse.wrap(searchResponse)])
+            as Future)
         .then(
       (value) => value as MediaDetails,
     );
