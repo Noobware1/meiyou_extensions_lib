@@ -41,9 +41,6 @@ class ExtensionLibTypes {
 
   //////////////////////////////// Interfaces //////////////////////////////////
 
-  static const baseSource = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/interfaces/base_source.dart',
-      'BaseSource');
 
   static const extractorApi = BridgeTypeSpec(
       'package:meiyou_extensions_lib/src/models/interfaces/extractor_api.dart',
