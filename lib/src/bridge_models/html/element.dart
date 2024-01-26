@@ -125,6 +125,16 @@ class $Element implements $Instance {
             namedParams: [],
           ),
           isStatic: false),
+      'attr': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),
+              nullable: true),
+          params: [
+            BridgeParameter('selector',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+          ],
+        ),
+      )
     },
     getters: {
       'nodeType': BridgeMethodDef(
