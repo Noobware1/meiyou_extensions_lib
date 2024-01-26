@@ -1,0 +1,18 @@
+
+  abstract final int id;
+
+  abstract final String name;
+
+  final bool supportsHomePage = true;
+
+  final String lang = "";
+
+  Iterable<HomePageData> get homePageList;
+
+  Future<HomePage> getHomePage(int page, HomePageRequest request);
+
+  Future<MediaDetails> getMediaDetails(SearchResponse searchResponse);
+
+  Future<List<ExtractorLink>> getLinks(String url);
+
+  Future<Media?> getMedia(ExtractorLink link);

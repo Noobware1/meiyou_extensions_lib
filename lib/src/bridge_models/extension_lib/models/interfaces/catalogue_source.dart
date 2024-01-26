@@ -75,9 +75,9 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
   $Value? $bridgeGet(String identifier) {
     switch (identifier) {
       case 'lang':
-        return $String(super.lang);
+        return _$lang;
       case 'supportsHomePage':
-        return $bool(super.supportsHomePage);
+        return _$supportsHomePage;
       default:
         throw UnimplementedError('Cannot get "$identifier" from "$this"');
     }
@@ -88,56 +88,7 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
     // TODO: implement $bridgeSet
   }
 
-  @override
-  Future<HomePage> getHomePage(int page, HomePageRequest request) {
-    return ($_invoke(
-                'getHomePage', [$int(page), $HomePageRequest.wrap(request)])
-            as Future)
-        .then(
-      (value) => value as HomePage,
-    );
-  }
-
-  @override
-  Future<List<ExtractorLink>> getLinks(String url) {
-    return ($_invoke('getLinks', [$String(url)]) as Future).then(
-      (value) => value is $Value
-          ? (value.$value as List).cast<ExtractorLink>()
-          : value as List<ExtractorLink>,
-    );
-  }
-
-  @override
-  Future<Media?> getMedia(ExtractorLink link) {
-    return ($_invoke('getMedia', [$ExtractorLink.wrap(link)]) as Future).then(
-      (value) => value as $Media?,
-    );
-  }
-
-  @override
-  Future<MediaDetails> getMediaDetails(SearchResponse searchResponse) {
-    return ($_invoke('getMediaDetails', [$SearchResponse.wrap(searchResponse)])
-            as Future)
-        .then(
-      (value) => value as MediaDetails,
-    );
-  }
-
-  @override
-  Iterable<HomePageData> get homePageList => $_get('homePageList');
-
-  @override
-  int get id => $_get('id');
-
-  @override
-  String get name => $_get('name');
-
-  @override
-  bool get supportsHomePage => $_get('supportsHomePage');
-
-  @override
-  String get lang => $_get('lang');
-
+  /// ============================ Methods =====================================
   @override
   FilterList getFilterList() => $_invoke('getFilterList', []);
 
@@ -149,5 +100,50 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
       $String(query),
       $FilterList.wrap(filters)
     ]).then((value) => (value as List).cast<SearchResponse>());
+  }
+
+  // ========================= Inherited and Overriden =========================
+
+  @override
+  int get id => $_get('id');
+
+  @override
+  String get name => $_get('name');
+
+  @override
+  bool get supportsHomePage => $_get('supportsHomePage');
+
+  $Value? get _$supportsHomePage => $bool(super.supportsHomePage);
+
+  @override
+  String get lang => $_get('lang');
+
+  $Value? get _$lang => $String(super.lang);
+
+  @override
+  Iterable<HomePageData> get homePageList => $_get('homePageList');
+
+  @override
+  Future<HomePage> getHomePage(int page, HomePageRequest request) {
+    return $_invoke('getHomePage', [$int(page), $HomePageRequest.wrap(request)])
+        .then((value) => value as HomePage);
+  }
+
+  @override
+  Future<MediaDetails> getMediaDetails(SearchResponse searchResponse) {
+    return $_invoke('getMediaDetails', [$SearchResponse.wrap(searchResponse)])
+        .then((value) => value as MediaDetails);
+  }
+
+  @override
+  Future<List<ExtractorLink>> getLinks(String url) {
+    return $_invoke('getLinks', [$String(url)])
+        .then((value) => (value as List).cast<ExtractorLink>());
+  }
+
+  @override
+  Future<Media?> getMedia(ExtractorLink link) {
+    return $_invoke('getMedia', [$ExtractorLink.wrap(link)])
+        .then((value) => value as Media?);
   }
 }

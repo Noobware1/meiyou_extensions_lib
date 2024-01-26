@@ -28,6 +28,8 @@ import 'package:meiyou_extensions_lib/src/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_item/media_item.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
+import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
+import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
 
@@ -237,51 +239,53 @@ class $ParsedHttpSource extends ParsedHttpSource
     return $ParsedHttpSource(args[0]?.$value);
   }
 
-  $Value? $headersBuilder(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $HeadersBuilder.wrap(super.headersBuilder());
-  }
+  // $Value? $headersBuilder(Runtime runtime, $Value? target, List<$Value?> args) {
+  //   return $HeadersBuilder.wrap(super.headersBuilder());
+  // }
 
   @override
   $Value? $bridgeGet(String identifier) {
     switch (identifier) {
-      case 'id':
-        return $int(super.id);
-      case 'versionId':
-        return $int(super.versionId);
-      case 'network':
-        return $NetworkHelper.wrap(super.network);
+      // ========= Inherited from HttpSource ============
       case 'lang':
-        return $String(super.lang);
+        return _$lang;
       case 'supportsHomePage':
-        return $bool(super.supportsHomePage);
-      case 'headers':
-        return $Headers.wrap(super.headers);
-      case 'headersBuilder':
-        return $Function($headersBuilder);
-      case 'client':
-        return $OkHttpClient.wrap(super.client);
-      case 'getMedia':
-        return $Function($getMedia);
-      case 'getMediaDetails':
-        return $Function($getMediaDetails);
+        return _$supportsHomePage;
+      case 'id':
+        return _$id;
       case 'getHomePage':
-        return $Function($getHomePage);
-      case 'getLinks':
-        return $Function($getLinks);
+        return _$getHomePage;
       case 'getSearch':
-        return $Function($getSearch);
+        return _$getSearch;
+      case 'getMediaDetails':
+        return _$getMediaDetails;
+      case 'getLinks':
+        return _$getLinks;
+      case 'getMedia':
+        return _$getMedia;
+      case 'versionId':
+        return _$versionId;
+      case 'network':
+        return _$network;
+      case 'headers':
+        return _$headers;
+      case 'headersBuilder':
+        return _$headersBuilder;
+      case 'client':
+        return _$client;
+      // ==================== overriden ====================
       case 'homePageParse':
-        return $Function($homePageParse);
-      case 'linksParse':
-        return $Function($linksParse);
-      case 'mediaDetailsParse':
-        return $Function($mediaDetailsParse);
-      case 'mediaItemParse':
-        return $Function($mediaItemParse);
-      case 'mediaParse':
-        return $Function($mediaParse);
+        return _$homePageParse;
       case 'searchParse':
-        return $Function($searchParse);
+        return _$searchParse;
+      case 'mediaDetailsParse':
+        return _$mediaDetailsParse;
+      case 'mediaItemParse':
+        return _$mediaItemParse;
+      case 'linksParse':
+        return _$linksParse;
+      case 'mediaParse':
+        return _$mediaParse;
       default:
         throw UnimplementedError('Cannot get "$identifier" from "$this"');
     }
@@ -292,7 +296,269 @@ class $ParsedHttpSource extends ParsedHttpSource
     // TODO: implement $bridgeSet
   }
 
-  $Value? $getHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
+  // ================================ HomePage =================================
+
+  @override
+  String? homePageHasNextPageSelector(int page, HomePageRequest request) {
+    return $_invoke('homePageHasNextPageSelector',
+        [$int(page), $HomePageRequest.wrap(request)]);
+  }
+
+  @override
+  SearchResponse homePageListDataFromElement(
+      int page, HomePageRequest request, Element element) {
+    return $_invoke('homePageListDataFromElement',
+        [$int(page), $HomePageRequest.wrap(request), $Element.wrap(element)]);
+  }
+
+  @override
+  String homePageListDataSelector(int page, HomePageRequest request) {
+    return $_invoke('homePageListDataSelector',
+        [$int(page), $HomePageRequest.wrap(request)]);
+  }
+
+// ================================ Search =====================================
+  @override
+  String searchListSelector() {
+    return $_invoke('searchListSelector', []);
+  }
+
+  @override
+  SearchResponse searchResponseFromElement(Element element) {
+    return $_invoke('searchResponseFromElement', [$Element.wrap(element)]);
+  }
+
+// ================================ MediaDetails ===============================
+  @override
+  MediaDetails mediaDetailsFromDocument(Document document) {
+    return $_invoke('mediaDetailsFromDocument', [$Document.wrap(document)]);
+  }
+
+  @override
+  MediaItem? mediaItemFromDocument(Document document) {
+    return $_invoke('mediaItemFromDocument', [$Document.wrap(document)]);
+  }
+
+// ================================ Links ======================================
+  @override
+  ExtractorLink linkFromElement(Element element) {
+    return $_invoke('linkFromElement', [$Element.wrap(element)]);
+  }
+
+  @override
+  String linksListSelector() {
+    return $_invoke('linksListSelector', []);
+  }
+
+// ================================ Media ======================================
+  @override
+  Media? mediaFromDocument(Document document) {
+    return $_invoke('mediaFromDocument', [$Document.wrap(document)]);
+  }
+
+// ================================== Inherited From HttpSource ================================
+
+// =============================== Fields ======================================
+
+  @override
+  NetworkHelper get network => $_get('network');
+
+  $Value? get _$network => $NetworkHelper.wrap(super.network);
+
+  @override
+  String get baseUrl => $_get('baseUrl');
+
+  @override
+  int get versionId => $_get('versionId');
+
+  $Value? get _$versionId => $int(super.versionId);
+
+  @override
+  Headers get headers => $_get('headers');
+
+  $Value? get _$headers => $Headers.wrap(super.headers);
+
+  // =============================== Getters ===================================
+
+  @override
+  OkHttpClient get client => $_get('client');
+
+  $Value? get _$client => $OkHttpClient.wrap(super.client);
+
+  // =============================== Methods ===================================
+
+  @override
+  HeadersBuilder headersBuilder() {
+    return $_invoke('headersBuilder', []);
+  }
+
+  $Value? get _$headersBuilder => $Function(__$headersBuilder);
+
+  $Value? __$headersBuilder(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $HeadersBuilder.wrap(super.headersBuilder());
+  }
+
+  // ============================== HomePage ===================================
+  @override
+  Request homePageRequest(int page, HomePageRequest request) {
+    return $_invoke(
+        'homePageRequest', [$int(page), $HomePageRequest.wrap(request)]);
+  }
+
+  @override
+  HomePage homePageParse(int page, HomePageRequest request, Response response) {
+    return $_invoke('homePageParse',
+        [$int(page), $HomePageRequest.wrap(request), $Response.wrap(response)]);
+  }
+
+  $Value get _$homePageParse => $Function(__$homePageParse);
+
+  $Value? __$homePageParse(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $HomePage.wrap(
+        super.homePageParse(args[0]!.$value, args[1]!.$value, args[2]!.$value));
+  }
+
+  // ============================= Search ===================================
+  @override
+  Request searchRequest(int page, String query, FilterList filters) {
+    return $_invoke('searchRequest',
+        [$int(page), $String(query), $FilterList.wrap(filters)]);
+  }
+
+  @override
+  List<SearchResponse> searchParse(Response response) {
+    return $_invoke('searchParse', [$Response.wrap(response)]);
+  }
+
+  $Value get _$searchParse => $Function(__$searchParse);
+
+  $Value? __$searchParse(Runtime runtime, $Value? target, List<$Value?> args) {
+    return super
+        .searchParse(args[0]!.$value)
+        .let((it) => $List.wrap(it.mapList((e) => $SearchResponse.wrap(e))));
+  }
+
+  // ============================= MediaDetails ================================
+  @override
+  Request mediaDetailsRequest(SearchResponse searchResponse) {
+    return $_invoke(
+        'mediaDetailsRequest', [$SearchResponse.wrap(searchResponse)]);
+  }
+
+  @override
+  MediaDetails mediaDetailsParse(Response response) {
+    return $_invoke('mediaDetailsParse', [$Response.wrap(response)]);
+  }
+
+  $Value get _$mediaDetailsParse => $Function(__$mediaDetailsParse);
+
+  $Value? __$mediaDetailsParse(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $MediaDetails.wrap(super.mediaDetailsParse(args[0]!.$value));
+  }
+
+  @override
+  Request? mediaItemRequest(SearchResponse searchResponse, Response response) {
+    return $_invoke('mediaItemRequest',
+        [$SearchResponse.wrap(searchResponse), $Response.wrap(response)]);
+  }
+
+  @override
+  MediaItem? mediaItemParse(SearchResponse searchResponse, Response response) {
+    return $_invoke('mediaItemParse',
+        [$SearchResponse.wrap(searchResponse), $Response.wrap(response)]);
+  }
+
+  $Value get _$mediaItemParse => $Function(__$mediaItemParse);
+
+  $Value? __$mediaItemParse(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return super
+        .mediaItemParse(args[0]!.$value, args[1]!.$value)
+        .let((it) => it == null ? const $null() : $MediaItem.wrap(it));
+  }
+
+  // ============================= Links =======================================
+  @override
+  Request linksRequest(String url) {
+    return $_invoke('linksRequest', [$String(url)]);
+  }
+
+  @override
+  List<ExtractorLink> linksParse(Response response) {
+    return $_invoke('linksParse', [$Response.wrap(response)]);
+  }
+
+  $Value get _$linksParse => $Function(__$linksParse);
+
+  $Value? __$linksParse(Runtime runtime, $Value? target, List<$Value?> args) {
+    return super
+        .linksParse(args[0]!.$value)
+        .let((it) => $List.wrap(it.mapList((e) => $ExtractorLink.wrap(e))));
+  }
+
+  // ============================= Media =======================================
+
+  @override
+  Request? mediaRequest(ExtractorLink link) {
+    return $_invoke('mediaRequest', [$ExtractorLink.wrap(link)]);
+  }
+
+  @override
+  Media? mediaParse(Response response) {
+    return $_invoke('mediaParse', [$Response.wrap(response)]);
+  }
+
+  $Value get _$mediaParse => $Function(__$mediaParse);
+
+  $Value? __$mediaParse(Runtime runtime, $Value? target, List<$Value?> args) {
+    return super
+        .mediaParse(args[0]!.$value)
+        .let((it) => it == null ? const $null() : $Media.wrap(it));
+  }
+
+  // ============================= Inherited  ==================================
+
+  @override
+  bool get supportsHomePage => $_get('supportsHomePage');
+
+  $Value? get _$supportsHomePage => $bool(super.supportsHomePage);
+
+  @override
+  String get lang => $_get('lang');
+
+  $Value? get _$lang => $String(super.lang);
+
+  @override
+  String get name => $_get('name');
+
+  @override
+  Iterable<HomePageData> get homePageList => $_get('homePageList');
+
+  @override
+  FilterList getFilterList() {
+    return $_invoke('getFilterList', []);
+  }
+
+  /// ============================ Inhertied And Overriden =====================================
+
+  @override
+  int get id => $_get('id');
+
+  $Value? get _$id => $int(super.id);
+
+  // ============================== HomePage ===================================
+  @override
+  Future<HomePage> getHomePage(int page, HomePageRequest request) {
+    return $_invoke('getHomePage', [$int(page), $HomePageRequest.wrap(request)])
+        .then((value) => value as HomePage);
+  }
+
+  $Value? get _$getHomePage => $Function(__$getHomePage);
+
+  $Value? __$getHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(
       super
           .getHomePage(
@@ -301,100 +567,7 @@ class $ParsedHttpSource extends ParsedHttpSource
     );
   }
 
-  @override
-  Future<HomePage> getHomePage(int page, HomePageRequest request) {
-    return ($_invoke(
-                'getHomePage', [$int(page), $HomePageRequest.wrap(request)])
-            as Future)
-        .then(
-      (value) => value as HomePage,
-    );
-  }
-
-  $Value? $getLinks(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(super.getLinks(args[0]!.$value as String).then(
-          (value) => $List.wrap(
-            value.mapList(
-              (e) => $ExtractorLink.wrap(e),
-            ),
-          ),
-        ));
-  }
-
-  @override
-  Future<List<ExtractorLink>> getLinks(String url) {
-    return ($_invoke('getLinks', [$String(url)]) as Future).then(
-      (value) => value is $Value
-          ? (value.$value as List).cast<ExtractorLink>()
-          : value as List<ExtractorLink>,
-    );
-  }
-
-  $Value? $getMedia(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(
-      super.getMedia(args[0]!.$value as ExtractorLink).then(
-            (value) => value == null ? const $null() : $Media.wrap(value),
-          ),
-    );
-  }
-
-  @override
-  Future<Media?> getMedia(ExtractorLink link) {
-    return ($_invoke('getMedia', [$ExtractorLink.wrap(link)]) as Future).then(
-      (value) => value as $Media?,
-    );
-  }
-
-  $Value? $getMediaDetails(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(
-      super
-          .getMediaDetails(args[0]!.$value as SearchResponse)
-          .then((value) => $MediaDetails.wrap(value)),
-    );
-  }
-
-  @override
-  Future<MediaDetails> getMediaDetails(SearchResponse searchResponse) {
-    return ($_invoke('getMediaDetails', [$SearchResponse.wrap(searchResponse)])
-            as Future)
-        .then(
-      (value) => value as MediaDetails,
-    );
-  }
-
-  @override
-  Iterable<HomePageData> get homePageList => $_get('homePageList');
-
-  @override
-  int get id => $_get('id');
-
-  @override
-  String get name => $_get('name');
-
-  @override
-  bool get supportsHomePage => $_get('supportsHomePage');
-
-  @override
-  String get lang => $_get('lang');
-
-  @override
-  FilterList getFilterList() => $_invoke('getFilterList', []);
-
-  $Value? $getSearch(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(
-      super
-          .getSearch(args[0]!.$value as int, args[1]!.$value as String,
-              args[2]!.$value as FilterList)
-          .then(
-            (value) => $List.wrap(
-              value.mapList(
-                (e) => $SearchResponse.wrap(e),
-              ),
-            ),
-          ),
-    );
-  }
+  // =============================== Search ====================================
 
   @override
   Future<List<SearchResponse>> getSearch(
@@ -406,148 +579,78 @@ class $ParsedHttpSource extends ParsedHttpSource
     ]).then((value) => (value as List).cast<SearchResponse>());
   }
 
-  $Value? $homePageParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    final homePage = super.homePageParse(args[0]!.$value as int,
-        args[1]!.$value as HomePageRequest, args[2]!.$value as Response);
-    return $HomePage.wrap(HomePage(
-      data: $HomePageList.wrap(HomePageList(
-          name: homePage.data.name,
-          data: homePage.data.data.mapList((e) => $SearchResponse.wrap(e)))),
-      page: homePage.page,
-      hasNextPage: homePage.hasNextPage,
-    ));
+  $Value? get _$getSearch => $Function(__$getSearch);
+
+  $Value? __$getSearch(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $Future.wrap(
+      super
+          .getSearch(args[0]!.$value as int, args[1]!.$value as String,
+              args[2]!.$value as FilterList)
+          .then((value) =>
+              $List.wrap(value.mapList((e) => $SearchResponse.wrap(e)))),
+    );
   }
+
+  // ============================= MediaDetails ================================
 
   @override
-  HomePage homePageParse(int page, HomePageRequest request, Response response) {
-    return $_invoke('homePageParse',
-        [$int(page), $HomePageRequest.wrap(request), $Response.wrap(response)]);
+  Future<MediaDetails> getMediaDetails(SearchResponse searchResponse) {
+    return $_invoke('getMediaDetails', [$SearchResponse.wrap(searchResponse)])
+        .then(
+      (value) => value as MediaDetails,
+    );
   }
 
-  @override
-  Request homePageRequest(int page, HomePageRequest request) {
-    return $_invoke(
-        'homePageRequest', [$int(page), $HomePageRequest.wrap(request)]);
-  }
+  $Value? get _$getMediaDetails => $Function(__$getMediaDetails);
 
-  $Value? $linksParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    final parsed = super.linksParse(args[0]!.$value as Response);
-    return $List.wrap(parsed.mapList($ExtractorLink.wrap));
-  }
-
-  @override
-  List<ExtractorLink> linksParse(Response response) {
-    return $_invoke('linksParse', [$Response.wrap(response)]);
-  }
-
-  @override
-  Request linksRequest(String url) {
-    return $_invoke('linksRequest', [$String(url)]);
-  }
-
-  $Value? $mediaDetailsParse(
+  $Value? __$getMediaDetails(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final parsed = super.mediaDetailsParse(args[0]!.$value as Response);
-    return $MediaDetails.wrap(parsed);
+    return $Future.wrap(
+      super
+          .getMediaDetails(args[0]!.$value as SearchResponse)
+          .then((value) => $MediaDetails.wrap(value)),
+    );
   }
 
+  // ============================= Links =======================================
+
   @override
-  MediaDetails mediaDetailsParse(Response response) {
-    return $_invoke('mediaDetailsParse', [$Response.wrap(response)]);
+  Future<List<ExtractorLink>> getLinks(String url) {
+    return ($_invoke('getLinks', [$String(url)]) as Future).then(
+      (value) => value is $Value
+          ? (value.$value as List).cast<ExtractorLink>()
+          : value as List<ExtractorLink>,
+    );
   }
 
-  @override
-  Request mediaDetailsRequest(SearchResponse searchResponse) {
-    return $_invoke(
-        'mediaDetailsRequest', [$SearchResponse.wrap(searchResponse)]);
+  $Value? get _$getLinks => $Function(__$getLinks);
+
+  $Value? __$getLinks(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $Future.wrap(super.getLinks(args[0]!.$value as String).then(
+          (value) => $List.wrap(
+            value.mapList(
+              (e) => $ExtractorLink.wrap(e),
+            ),
+          ),
+        ));
   }
 
-  $Value? $mediaParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    final parsed = super.mediaParse(args[0]!.$value as Response);
-    return parsed == null ? const $null() : $Media.wrap(parsed);
+  // ============================= Media =======================================
+
+  @override
+  Future<Media?> getMedia(ExtractorLink link) {
+    return ($_invoke('getMedia', [$ExtractorLink.wrap(link)]) as Future).then(
+      (value) => value as $Media?,
+    );
   }
 
-  @override
-  Media? mediaParse(Response response) {
-    return $_invoke('mediaParse', [$Response.wrap(response)]);
-  }
+  $Value? get _$getMedia => $Function(__$getMedia);
 
-  @override
-  Request? mediaRequest(ExtractorLink link) {
-    return $_invoke('mediaRequest', [$ExtractorLink.wrap(link)]);
-  }
-
-  $Value? $searchParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    final parsed = super.searchParse(args[0]!.$value as Response);
-    return $List.wrap(parsed.mapList((e) => $SearchResponse.wrap(e)));
-  }
-
-  @override
-  List<SearchResponse> searchParse(Response response) {
-    return $_invoke('searchParse', [$Response.wrap(response)]);
-  }
-
-  @override
-  Request searchRequest(int page, String query, FilterList filters) {
-    return $_invoke('searchRequest',
-        [$int(page), $String(query), $FilterList.wrap(filters)]);
-  }
-
-  @override
-  String? homePageHasNextPageSelector(int page, HomePageRequest request) =>
-      $_invoke('homePageHasNextPageSelector',
-          [$int(page), $HomePageRequest.wrap(request)]);
-
-  @override
-  SearchResponse homePageListDataFromElement(
-          int page, HomePageRequest request, Element element) =>
-      $_invoke('homePageListDataFromElement', [$Element.wrap(element)]);
-
-  @override
-  String homePageListDataSelector(int page, HomePageRequest request) =>
-      $_invoke('homePageListDataSelector',
-          [$int(page), $HomePageRequest.wrap(request)]);
-
-  @override
-  ExtractorLink linkFromElement(Element element) =>
-      $_invoke('linkFromElement', [$Element.wrap(element)]) as ExtractorLink;
-
-  @override
-  String linksListSelector() => $_invoke('linksListSelector', []);
-
-  @override
-  MediaDetails mediaDetailsFromDocument(Document document) =>
-      $_invoke('mediaDetailsFromDocument', [$Document.wrap(document)])
-          as MediaDetails;
-  @override
-  Media? mediaFromDocument(Document document) =>
-      $_invoke('mediaFromDocument', [$Document.wrap(document)]) as Media?;
-
-  @override
-  String searchListSelector() => $_invoke('searchListSelector', []);
-
-  @override
-  SearchResponse searchResponseFromElement(Element element) =>
-      $_invoke('searchResponseFromElement', [$Element.wrap(element)]);
-
-  @override
-  String get baseUrl => $_get('baseUrl');
-
-  @override
-  MediaItem? mediaItemFromDocument(Document document) {
-    return $_invoke('mediaItemFromDocument', [$Document.wrap(document)]);
-  }
-
-  @override
-  Request? mediaItemRequest(SearchResponse searchResponse, Response response) {
-    return $_invoke('mediaItemRequest',
-        [$SearchResponse.wrap(searchResponse), $Response.wrap(response)]);
-  }
-
-  $Value? $mediaItemParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    return super
-        .mediaItemParse(
-            args[0]!.$value as SearchResponse, args[1]!.$value as Response)
-        .let((it) => it == null ? const $null() : $MediaItem.wrap(it));
+  $Value? __$getMedia(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $Future.wrap(
+      super.getMedia(args[0]!.$value as ExtractorLink).then(
+            (value) => value == null ? const $null() : $Media.wrap(value),
+          ),
+    );
   }
 }
