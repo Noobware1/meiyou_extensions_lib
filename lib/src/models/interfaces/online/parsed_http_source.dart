@@ -70,7 +70,14 @@ abstract class ParsedHttpSource extends HttpSource {
 
   MediaDetails mediaDetailsFromDocument(Document document);
 
-  MediaItem? mediaItemFromElement(Element element);
+  MediaItem? mediaItemFromDocument(Document document);
+
+  @override
+  MediaItem? mediaItemParse(SearchResponse searchResponse, Response response) {
+    final document = response.body.document;
+
+    return mediaItemFromDocument(document);
+  }
 
   @override
   List<ExtractorLink> linksParse(Response response) {

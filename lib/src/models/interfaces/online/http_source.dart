@@ -5,6 +5,7 @@ import 'package:meiyou_extensions_lib/src/models/homepage.dart';
 import 'package:meiyou_extensions_lib/src/models/interfaces/catalogue_source.dart';
 import 'package:meiyou_extensions_lib/src/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/models/media_item/media_item.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
 import 'package:okhttp/okhttp.dart';
@@ -120,12 +121,22 @@ abstract class HttpSource extends CatalogueSource {
   /// * response the response from the site.
   MediaDetails mediaDetailsParse(Response response);
 
+  Request? mediaItemRequest(SearchResponse searchResponse, Response response);
+
+  MediaItem? mediaItemParse(SearchResponse searchResponse, Response response);
+
   @override
-  Future<MediaDetails> getMediaDetails(SearchResponse searchResponse) {
-    return client
-        .newCall(mediaDetailsRequest(searchResponse))
-        .execute()
-        .then((response) => mediaDetailsParse(response));
+  Future<MediaDetails> getMediaDetails(SearchResponse searchResponse) async {
+    var response =
+        await client.newCall(mediaDetailsRequest(searchResponse)).execute();
+    final media = mediaDetailsParse(response);
+    if (media.mediaItem != null) return media;
+    final mediaItemRequest = this.mediaItemRequest(searchResponse, response);
+    if (mediaItemRequest != null) {
+      response = await client.newCall(mediaItemRequest).execute();
+      media.mediaItem = mediaItemParse(searchResponse, response);
+    }
+    return media;
   }
 
   /// Returns the request for the links given the url.

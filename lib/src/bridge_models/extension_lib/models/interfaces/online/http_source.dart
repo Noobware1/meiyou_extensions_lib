@@ -21,6 +21,7 @@ import 'package:meiyou_extensions_lib/src/models/interfaces/online/http_source.d
 
 import 'package:meiyou_extensions_lib/src/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/models/media_item/media_item.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
@@ -36,184 +37,303 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   }
 
   static const $declaration = BridgeClassDef(
-    BridgeClassType($type,
-        $extends: BridgeTypeRef(ExtensionLibTypes.catalogueSource),
-        isAbstract: true),
+    BridgeClassType(
+      $type,
+      $extends: BridgeTypeRef(ExtensionLibTypes.catalogueSource, []),
+      $implements: [],
+      isAbstract: true,
+    ),
     constructors: {
       '': BridgeConstructorDef(
-        BridgeFunctionDef(returns: BridgeTypeAnnotation($type), params: [
-          BridgeParameter(
-              'network',
-              BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.networkHelper),
-              ),
-              false),
-        ]),
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'network',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(ExtensionLibTypes.networkHelper, []),
+                    nullable: false),
+                false)
+          ],
+          namedParams: [],
+        ),
+        isFactory: false,
       )
     },
     fields: {
-      'baseUrl':
-          BridgeFieldDef(BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string))),
       'network': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.networkHelper)),
-      ),
+          BridgeTypeAnnotation(
+              BridgeTypeRef(ExtensionLibTypes.networkHelper, []),
+              nullable: false),
+          isStatic: false),
+      'baseUrl': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+              nullable: false),
+          isStatic: false),
       'versionId': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
-      ),
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+              nullable: false),
+          isStatic: false),
+      'id': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+              nullable: false),
+          isStatic: false),
       'headers': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers)),
-      ),
+          BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
+              nullable: false),
+          isStatic: false),
+    },
+    methods: {
+      'headersBuilder': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.headersBuilder, []),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'homePageRequest': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.request, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'page',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'request',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'homePageParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.homePage, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'page',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'request',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'searchRequest': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.request, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'page',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'query',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'filters',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.filterList, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'searchParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.list, [
+                  BridgeTypeRef(ExtensionLibTypes.searchResponse, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaDetailsRequest': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.request, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'searchResponse',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.searchResponse, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaDetailsParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaItemRequest': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.request, []),
+                nullable: true),
+            params: [
+              BridgeParameter(
+                  'searchResponse',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.searchResponse, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaItemParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.mediaItem, []),
+                nullable: true),
+            params: [
+              BridgeParameter(
+                  'searchResponse',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.searchResponse, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'linksRequest': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.request, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'url',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'linksParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.list, [
+                  BridgeTypeRef(ExtensionLibTypes.extractorLink, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaRequest': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.request, []),
+                nullable: true),
+            params: [
+              BridgeParameter(
+                  'link',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.extractorLink, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.media, []),
+                nullable: true),
+            params: [
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
     },
     getters: {
       'client': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns:
-              BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.okHttpClient)),
-          params: [],
-        ),
-      ),
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.okHttpClient, []),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
     },
-    methods: {
-      'homePageParse': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns:
-              BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.homePage)),
-          params: [
-            BridgeParameter('page',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)), false),
-            BridgeParameter(
-                'request',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.homePageRequest)),
-                false),
-            BridgeParameter(
-                'response',
-                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response)),
-                false)
-          ],
-        ),
-      ),
-      'homePageRequest': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.request, [])),
-          params: [
-            BridgeParameter('page',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)), false),
-            BridgeParameter(
-                'request',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.homePageRequest)),
-                false),
-          ],
-        ),
-      ),
-      'linksParse': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.list,
-              [BridgeTypeRef(ExtensionLibTypes.extractorLink)])),
-          params: [
-            BridgeParameter(
-                'response',
-                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response)),
-                false)
-          ],
-        ),
-      ),
-      'linksRequest': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.request, [])),
-          params: [
-            BridgeParameter('url',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
-          ],
-        ),
-      ),
-      'mediaDetailsParse': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-              BridgeTypeRef(ExtensionLibTypes.mediaDetails)),
-          params: [
-            BridgeParameter(
-                'response',
-                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response)),
-                false)
-          ],
-        ),
-      ),
-      'mediaDetailsRequest': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.request, [])),
-          params: [
-            BridgeParameter(
-                'searchResponse',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.searchResponse)),
-                false),
-          ],
-        ),
-      ),
-      'mediaParse': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(
-              ExtensionLibTypes.media, [BridgeTypeRef(CoreTypes.nullType)])),
-          params: [
-            BridgeParameter(
-                'response',
-                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response)),
-                false)
-          ],
-        ),
-      ),
-      'mediaRequest': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(
-              OkHttpTypes.request, [BridgeTypeRef(CoreTypes.nullType)])),
-          params: [
-            BridgeParameter(
-                'link',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.extractorLink)),
-                false),
-          ],
-        ),
-      ),
-      'searchParse': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.list,
-              [BridgeTypeRef(ExtensionLibTypes.searchResponse)])),
-          params: [
-            BridgeParameter(
-                'response',
-                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response)),
-                false)
-          ],
-        ),
-      ),
-      'searchRequest': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.request, [])),
-          params: [
-            BridgeParameter('page',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)), false),
-            BridgeParameter('query',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
-            BridgeParameter(
-                'filters',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.filterList)),
-                false)
-          ],
-        ),
-      ),
-      'headersBuilder': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns:
-              BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headersBuilder)),
-          params: [],
-        ),
-      ),
-    },
+    setters: {},
     bridge: true,
+    wrap: false,
   );
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
@@ -436,4 +556,16 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   @override
   String get baseUrl => $_get('baseUrl');
+
+  @override
+  MediaItem? mediaItemParse(SearchResponse searchResponse, Response response) {
+    return $_invoke('mediaItemParse',
+        [$SearchResponse.wrap(searchResponse), $Response.wrap(response)]);
+  }
+
+  @override
+  Request? mediaItemRequest(SearchResponse searchResponse, Response response) {
+    return $_invoke('mediaItemRequest',
+        [$SearchResponse.wrap(searchResponse), $Response.wrap(response)]);
+  }
 }
