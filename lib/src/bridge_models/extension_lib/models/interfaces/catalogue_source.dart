@@ -95,11 +95,9 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
   @override
   Future<List<SearchResponse>> getSearch(
       int page, String query, FilterList filters) {
-    return $_invoke('getSearch', [
-      $int(page),
-      $String(query),
-      $FilterList.wrap(filters)
-    ]).then((value) => (value as List).cast<SearchResponse>());
+    return ($_invoke('getSearch',
+            [$int(page), $String(query), $FilterList.wrap(filters)]) as Future)
+        .then((value) => (value as List).cast<SearchResponse>());
   }
 
   // ========================= Inherited and Overriden =========================
@@ -125,25 +123,28 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
 
   @override
   Future<HomePage> getHomePage(int page, HomePageRequest request) {
-    return $_invoke('getHomePage', [$int(page), $HomePageRequest.wrap(request)])
+    return ($_invoke(
+                'getHomePage', [$int(page), $HomePageRequest.wrap(request)])
+            as Future)
         .then((value) => value as HomePage);
   }
 
   @override
   Future<MediaDetails> getMediaDetails(SearchResponse searchResponse) {
-    return $_invoke('getMediaDetails', [$SearchResponse.wrap(searchResponse)])
+    return ($_invoke('getMediaDetails', [$SearchResponse.wrap(searchResponse)])
+            as Future)
         .then((value) => value as MediaDetails);
   }
 
   @override
   Future<List<ExtractorLink>> getLinks(String url) {
-    return $_invoke('getLinks', [$String(url)])
+    return ($_invoke('getLinks', [$String(url)]) as Future)
         .then((value) => (value as List).cast<ExtractorLink>());
   }
 
   @override
   Future<Media?> getMedia(ExtractorLink link) {
-    return $_invoke('getMedia', [$ExtractorLink.wrap(link)])
+    return ($_invoke('getMedia', [$ExtractorLink.wrap(link)]) as Future)
         .then((value) => value as Media?);
   }
 }

@@ -12,7 +12,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/ext
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/homepage.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/base_source.dart';
+// import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/base_source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/catalogue_source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/extractor_api.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/online/http_source.dart';
@@ -105,7 +105,7 @@ class ExtensionLibPlugin extends EvalPlugin {
 
     //Interfaces
     registry.defineBridgeClass($ExtractorApi.$declaration);
-    registry.defineBridgeClass($BaseSource.$declaration);
+    // registry.defineBridgeClass($BaseSource.$declaration);?
     registry.defineBridgeClass($Source.$declaration);
     registry.defineBridgeClass($CatalogueSource.$declaration);
     registry.defineBridgeClass($HttpSource.$declaration);
@@ -201,7 +201,7 @@ class ExtensionLibPlugin extends EvalPlugin {
 
     //Interfaces
     $ExtractorApi.configureForRuntime(runtime);
-    $BaseSource.configureForRuntime(runtime);
+    // $BaseSource.configureForRuntime(runtime);
     $Source.configureForRuntime(runtime);
     $CatalogueSource.configureForRuntime(runtime);
     $HttpSource.configureForRuntime(runtime);

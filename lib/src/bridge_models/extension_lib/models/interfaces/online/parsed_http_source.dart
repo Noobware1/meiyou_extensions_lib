@@ -417,7 +417,7 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value? __$homePageParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $HomePage.wrap(
-        super.homePageParse(args[0]!.$value, args[1]!.$value, args[2]!.$value));
+        super.homePageParse(args[1]!.$value, args[2]!.$value, args[3]!.$value));
   }
 
   // ============================= Search ===================================
@@ -436,7 +436,7 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value? __$searchParse(Runtime runtime, $Value? target, List<$Value?> args) {
     return super
-        .searchParse(args[0]!.$value)
+        .searchParse(args[1]!.$value)
         .let((it) => $List.wrap(it.mapList((e) => $SearchResponse.wrap(e))));
   }
 
@@ -456,7 +456,7 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value? __$mediaDetailsParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $MediaDetails.wrap(super.mediaDetailsParse(args[0]!.$value));
+    return $MediaDetails.wrap(super.mediaDetailsParse(args[1]!.$value));
   }
 
   @override
@@ -476,7 +476,7 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value? __$mediaItemParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return super
-        .mediaItemParse(args[0]!.$value, args[1]!.$value)
+        .mediaItemParse(args[1]!.$value, args[2]!.$value)
         .let((it) => it == null ? const $null() : $MediaItem.wrap(it));
   }
 
@@ -495,7 +495,7 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value? __$linksParse(Runtime runtime, $Value? target, List<$Value?> args) {
     return super
-        .linksParse(args[0]!.$value)
+        .linksParse(args[1]!.$value)
         .let((it) => $List.wrap(it.mapList((e) => $ExtractorLink.wrap(e))));
   }
 
@@ -515,7 +515,7 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value? __$mediaParse(Runtime runtime, $Value? target, List<$Value?> args) {
     return super
-        .mediaParse(args[0]!.$value)
+        .mediaParse(args[1]!.$value)
         .let((it) => it == null ? const $null() : $Media.wrap(it));
   }
 
@@ -562,7 +562,7 @@ class $ParsedHttpSource extends ParsedHttpSource
     return $Future.wrap(
       super
           .getHomePage(
-              args[0]!.$value as int, args[1]!.$value as HomePageRequest)
+              args[1]!.$value as int, args[2]!.$value as HomePageRequest)
           .then((value) => $HomePage.wrap(value)),
     );
   }
@@ -582,8 +582,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value? __$getSearch(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(
       super
-          .getSearch(args[0]!.$value as int, args[1]!.$value as String,
-              args[2]!.$value as FilterList)
+          .getSearch(args[1]!.$value as int, args[2]!.$value as String,
+              args[3]!.$value as FilterList)
           .then((value) =>
               $List.wrap(value.mapList((e) => $SearchResponse.wrap(e)))),
     );
@@ -606,7 +606,7 @@ class $ParsedHttpSource extends ParsedHttpSource
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(
       super
-          .getMediaDetails(args[0]!.$value as SearchResponse)
+          .getMediaDetails(args[1]!.$value as SearchResponse)
           .then((value) => $MediaDetails.wrap(value)),
     );
   }
@@ -625,7 +625,7 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value? get _$getLinks => $Function(__$getLinks);
 
   $Value? __$getLinks(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(super.getLinks(args[0]!.$value as String).then(
+    return $Future.wrap(super.getLinks(args[1]!.$value as String).then(
           (value) => $List.wrap(
             value.mapList(
               (e) => $ExtractorLink.wrap(e),
@@ -647,7 +647,7 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value? __$getMedia(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(
-      super.getMedia(args[0]!.$value as ExtractorLink).then(
+      super.getMedia(args[1]!.$value as ExtractorLink).then(
             (value) => value == null ? const $null() : $Media.wrap(value),
           ),
     );

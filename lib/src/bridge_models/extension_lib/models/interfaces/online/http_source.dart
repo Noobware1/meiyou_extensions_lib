@@ -548,7 +548,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
     return $Future.wrap(
       super
           .getHomePage(
-              args[0]!.$value as int, args[1]!.$value as HomePageRequest)
+              args[1]!.$value as int, args[2]!.$value as HomePageRequest)
           .then((value) => $HomePage.wrap(value)),
     );
   }
@@ -570,8 +570,8 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   $Value? __$getSearch(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(
       super
-          .getSearch(args[0]!.$value as int, args[1]!.$value as String,
-              args[2]!.$value as FilterList)
+          .getSearch(args[1]!.$value as int, args[2]!.$value as String,
+              args[3]!.$value as FilterList)
           .then((value) =>
               $List.wrap(value.mapList((e) => $SearchResponse.wrap(e)))),
     );
@@ -594,7 +594,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(
       super
-          .getMediaDetails(args[0]!.$value as SearchResponse)
+          .getMediaDetails(args[1]!.$value as SearchResponse)
           .then((value) => $MediaDetails.wrap(value)),
     );
   }
@@ -613,7 +613,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   $Value? get _$getLinks => $Function(__$getLinks);
 
   $Value? __$getLinks(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(super.getLinks(args[0]!.$value as String).then(
+    return $Future.wrap(super.getLinks(args[1]!.$value as String).then(
           (value) => $List.wrap(
             value.mapList(
               (e) => $ExtractorLink.wrap(e),
@@ -635,7 +635,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   $Value? __$getMedia(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(
-      super.getMedia(args[0]!.$value as ExtractorLink).then(
+      super.getMedia(args[1]!.$value as ExtractorLink).then(
             (value) => value == null ? const $null() : $Media.wrap(value),
           ),
     );
