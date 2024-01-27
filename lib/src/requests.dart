@@ -10,14 +10,14 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 
 final Headers _DEFAULT_HEADERS = Headers.Builder().build();
 
-Request GET(String url, [Headers? headers]) {
+Request GET(dynamic url, [Headers? headers]) {
   return Request.Builder()
       .url(url)
       .headers(headers ?? _DEFAULT_HEADERS)
       .build();
 }
 
-Request POST(String url, [Headers? headers, RequestBody? body]) {
+Request POST(dynamic url, [Headers? headers, RequestBody? body]) {
   return Request.Builder()
       .url(url)
       .post(body)
@@ -25,7 +25,7 @@ Request POST(String url, [Headers? headers, RequestBody? body]) {
       .build();
 }
 
-Request PUT(String url, [Headers? headers, RequestBody? body]) {
+Request PUT(dynamic url, [Headers? headers, RequestBody? body]) {
   return Request.Builder()
       .url(url)
       .put(body)
@@ -33,7 +33,7 @@ Request PUT(String url, [Headers? headers, RequestBody? body]) {
       .build();
 }
 
-Request DELETE(String url, [Headers? headers, RequestBody? body]) {
+Request DELETE(dynamic url, [Headers? headers, RequestBody? body]) {
   return Request.Builder()
       .url(url)
       .delete(body)
@@ -68,7 +68,7 @@ class $Requests {
       params: [
         BridgeParameter(
             'url',
-            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic, []),
                 nullable: false),
             false),
         BridgeParameter(
@@ -90,7 +90,7 @@ class $Requests {
       params: [
         BridgeParameter(
             'url',
-            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic, []),
                 nullable: false),
             false),
         BridgeParameter(
@@ -117,7 +117,7 @@ class $Requests {
       params: [
         BridgeParameter(
             'url',
-            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic, []),
                 nullable: false),
             false),
         BridgeParameter(
@@ -144,7 +144,7 @@ class $Requests {
       params: [
         BridgeParameter(
             'url',
-            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic, []),
                 nullable: false),
             false),
         BridgeParameter(
@@ -164,7 +164,7 @@ class $Requests {
 
   static const __$GET = $Function(_$GET);
   static $Value? _$GET(Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[0]?.$value as String;
+    final url = args[0]?.$reified;
     final headers = args[1]?.$value as Headers?;
     final $result = GET(url, headers);
     return $Request.wrap($result);
@@ -172,7 +172,7 @@ class $Requests {
 
   static const __$POST = $Function(_$POST);
   static $Value? _$POST(Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[0]?.$value as String;
+    final url = args[0]?.$reified;
     final headers = args[1]?.$value as Headers?;
     final body = args[2]?.$value as RequestBody?;
     final $result = POST(url, headers, body);
@@ -181,7 +181,7 @@ class $Requests {
 
   static const __$PUT = $Function(_$PUT);
   static $Value? _$PUT(Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[0]?.$value as String;
+    final url = args[0]?.$reified;
     final headers = args[1]?.$value as Headers?;
     final body = args[2]?.$value as RequestBody?;
     final $result = PUT(url, headers, body);
@@ -190,7 +190,7 @@ class $Requests {
 
   static const __$DELETE = $Function(_$DELETE);
   static $Value? _$DELETE(Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[0]?.$value as String;
+    final url = args[0]?.$reified;
     final headers = args[1]?.$value as Headers?;
     final body = args[2]?.$value as RequestBody?;
     final $result = DELETE(url, headers, body);

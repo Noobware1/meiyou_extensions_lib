@@ -560,7 +560,7 @@ class $RequestBuilder implements $Instance {
   static const __$post = $Function(_$post);
   static $Value? _$post(Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as RequestBuilder;
-    final body = args[0]?.$reified as RequestBody;
+    final body = args[0]?.$reified as RequestBody?;
     final $result = obj.post(body);
     return $RequestBuilder.wrap($result);
   }
@@ -568,7 +568,7 @@ class $RequestBuilder implements $Instance {
   static const __$delete = $Function(_$delete);
   static $Value? _$delete(Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as RequestBuilder;
-    final body = args[0]?.$reified as RequestBody;
+    final body = args[0]?.$reified as RequestBody?;
     final $result = obj.delete(body);
     return $RequestBuilder.wrap($result);
   }
@@ -576,7 +576,7 @@ class $RequestBuilder implements $Instance {
   static const __$put = $Function(_$put);
   static $Value? _$put(Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as RequestBuilder;
-    final body = args[0]?.$reified as RequestBody;
+    final body = args[0]?.$reified as RequestBody?;
     final $result = obj.put(body);
     return $RequestBuilder.wrap($result);
   }
@@ -584,7 +584,7 @@ class $RequestBuilder implements $Instance {
   static const __$patch = $Function(_$patch);
   static $Value? _$patch(Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as RequestBuilder;
-    final body = args[0]?.$reified as RequestBody;
+    final body = args[0]?.$reified as RequestBody?;
     final $result = obj.patch(
       body,
     );
@@ -595,7 +595,7 @@ class $RequestBuilder implements $Instance {
   static $Value? _$method(Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as RequestBuilder;
     final method = args[0]?.$reified as String;
-    final body = args[1]?.$reified as RequestBody;
+    final body = args[1]?.$reified as RequestBody?;
     final $result = obj.method(method, body);
     return $RequestBuilder.wrap($result);
   }

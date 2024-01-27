@@ -198,9 +198,7 @@ class $Call implements Call, $Instance {
   }
 
   @override
-  Call newCall(Request request) => $value.newCall(
-        request,
-      );
+  Call newCall(Request request) => $value.newCall(request);
   static const __$newCall = $Function(_$newCall);
   static $Value? _$newCall(
       Runtime runtime, $Value? target, List<$Value?> args) {
