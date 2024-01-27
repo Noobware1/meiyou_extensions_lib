@@ -1,5 +1,5 @@
 import 'package:dart_eval/dart_eval.dart';
-import 'package:html/dom.dart';
+
 import 'package:meiyou_extensions_lib/extensions_lib.dart';
 import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/catalogue_source.dart';
@@ -7,16 +7,11 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/int
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/online/parsed_http_source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/network_helper.dart';
-import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
-import 'package:meiyou_extensions_lib/src/network/network_preferences.dart';
 import 'package:meiyou_extensions_lib/src/preference/perference.dart';
 import 'package:meiyou_extensions_lib/src/preference/perference_store.dart';
 import 'package:test/test.dart';
 
-import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/network.dart';
-import 'package:okhttp/request.dart';
-import 'package:okhttp/response.dart';
 import 'package:okhttp/okhttp.dart';
 
 void main() {
