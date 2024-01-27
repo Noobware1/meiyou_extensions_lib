@@ -1,3 +1,4 @@
+import 'package:crypto_dart/evpkdf.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 
 final evpkdfSource = DartSource('package:crypto_dart/evpkdf.dart', '''

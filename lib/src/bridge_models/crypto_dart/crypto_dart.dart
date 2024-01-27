@@ -29,8 +29,6 @@ import 'hashers/tiger.dart';
 import 'hashers/whirlpool.dart';
 
 final cryptoDartSource = DartSource('package:crypto_dart/crypto_dart.dart', '''
-library crypto_dart;
-
 import 'dart:typed_data';
 import 'aes.dart';
 import 'tripledes.dart';
@@ -38,6 +36,12 @@ import 'encoders.dart';
 import 'hashers.dart';
 export 'src/crypto_dart.dart';
 export 'src/hash_algorithms.dart';
+export 'src/cipher_options.dart';
+export 'src/cipher_params.dart';
+export 'src/mode.dart';
+export 'padding.dart';
+export 'src/block_cipher.dart';
+
 
 ''');
 
