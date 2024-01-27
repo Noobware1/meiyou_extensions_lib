@@ -24,6 +24,7 @@ import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_item/media_item.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
+import 'package:meiyou_extensions_lib/src/utils/wrap.dart';
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
@@ -638,7 +639,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   $Value? __$getMedia(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(
       super.getMedia(args[1]!.$value as ExtractorLink).then(
-            (value) => value == null ? const $null() : $Media.wrap(value),
+            (value) => value == null ? const $null() : wrapMedia(value),
           ),
     );
   }
