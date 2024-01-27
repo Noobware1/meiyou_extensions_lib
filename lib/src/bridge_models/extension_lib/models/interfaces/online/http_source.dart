@@ -455,7 +455,8 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   @override
   List<SearchResponse> searchParse(Response response) {
-    return $_invoke('searchParse', [$Response.wrap(response)]);
+    return ($_invoke('searchParse', [$Response.wrap(response)]) as List)
+        .cast<SearchResponse>();
   }
 
   // ============================= MediaDetails ================================
@@ -490,7 +491,8 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   @override
   List<ExtractorLink> linksParse(Response response) {
-    return $_invoke('linksParse', [$Response.wrap(response)]);
+    return ($_invoke('linksParse', [$Response.wrap(response)]) as List)
+        .cast<ExtractorLink>();
   }
 
   // ============================= Media =======================================
@@ -525,7 +527,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   @override
   FilterList getFilterList() {
-    return $_invoke('getFilterList', []);
+    return $_invoke('getFilterList', []) as FilterList;
   }
 
   /// ============================ Inhertied And Overriden =====================================

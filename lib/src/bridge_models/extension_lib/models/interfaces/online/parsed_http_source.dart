@@ -429,7 +429,8 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   @override
   List<SearchResponse> searchParse(Response response) {
-    return $_invoke('searchParse', [$Response.wrap(response)]);
+    return ($_invoke('searchParse', [$Response.wrap(response)]) as List)
+        .cast<SearchResponse>();
   }
 
   $Value get _$searchParse => $Function(__$searchParse);
@@ -488,7 +489,8 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   @override
   List<ExtractorLink> linksParse(Response response) {
-    return $_invoke('linksParse', [$Response.wrap(response)]);
+    return ($_invoke('linksParse', [$Response.wrap(response)]) as List)
+        .cast<ExtractorLink>();
   }
 
   $Value get _$linksParse => $Function(__$linksParse);
