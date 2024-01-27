@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/stdlib/async.dart';
-import 'package:dartx/dartx.dart';
 import 'package:html/dom.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/document.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
@@ -227,9 +224,11 @@ class $ResponseBody implements ResponseBody, $Instance {
     final obj = target?.$value as ResponseBody;
     final fromJson = args[0] as EvalCallable?;
 
-    final $result = obj.json(fromJson != null
-        ? (json) => fromJson.call(runtime, null, [runtime.wrapRecursive(json)])
-        : null);
+    final $result = obj.json((json) {
+      final decoded = runtime.wrapRecursive(json);
+      if (fromJson == null) return decoded;
+      return fromJson.call(runtime, target, [decoded]);
+    });
     return $result;
   }
 
@@ -238,9 +237,11 @@ class $ResponseBody implements ResponseBody, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as ResponseBody;
     final fromJson = args[0] as EvalCallable?;
-    final $result = obj.jsonSafe(fromJson != null
-        ? (json) => fromJson.call(runtime, null, [runtime.wrapRecursive(json)])
-        : null);
+    final $result = obj.jsonSafe((json) {
+      final decoded = runtime.wrapRecursive(json);
+      if (fromJson == null) return decoded;
+      return fromJson.call(runtime, target, [decoded]);
+    });
     return $result ?? $null();
   }
 }
