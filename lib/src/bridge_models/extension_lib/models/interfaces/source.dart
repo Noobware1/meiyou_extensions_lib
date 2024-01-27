@@ -165,7 +165,7 @@ class $Source extends Source with $Bridge<Source> {
   @override
   Future<Media?> getMedia(ExtractorLink link) {
     return ($_invoke('getMedia', [$ExtractorLink.wrap(link)]) as Future).then(
-      (value) => value as $Media?,
+      (value) => value as Media?,
     );
   }
 

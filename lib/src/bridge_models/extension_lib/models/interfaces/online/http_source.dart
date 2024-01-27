@@ -630,7 +630,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   @override
   Future<Media?> getMedia(ExtractorLink link) {
     return ($_invoke('getMedia', [$ExtractorLink.wrap(link)]) as Future).then(
-      (value) => value as $Media?,
+      (value) => value as Media?,
     );
   }
 
