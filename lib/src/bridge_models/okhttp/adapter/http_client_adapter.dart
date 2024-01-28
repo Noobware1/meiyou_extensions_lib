@@ -4,6 +4,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/adapter/client_ad
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 
 import 'package:okhttp/adapter.dart';
+import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
 
@@ -15,8 +16,8 @@ class $HttpClientAdapter implements HttpClientAdapter, $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'HttpClientAdapter.', __$HttpClientAdapter$new.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'HttpClientAdapter.',
+        __$HttpClientAdapter$new.call);
   }
 
   late final $Instance _superclass = $ClientAdapter.wrap($value);
@@ -91,6 +92,8 @@ class $HttpClientAdapter implements HttpClientAdapter, $Instance {
             ],
           ),
           isStatic: false),
+
+          
     },
     getters: {},
     setters: {},
@@ -104,6 +107,8 @@ class $HttpClientAdapter implements HttpClientAdapter, $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
+      case 'addProxy':
+        return __$addProxy;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -144,4 +149,15 @@ class $HttpClientAdapter implements HttpClientAdapter, $Instance {
 
   @override
   Future<Response> newCall(Request request) => $value.newCall(request);
+
+  @override
+  void addProxy(Proxy proxy) => $value.addProxy(proxy);
+  static const __$addProxy = $Function(_$addProxy);
+  static $Value? _$addProxy(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final adapter = target?.$value as HttpClientAdapter;
+    final proxy = args[0]?.$value as Proxy;
+    adapter.addProxy(proxy);
+    return null;
+  }
 }

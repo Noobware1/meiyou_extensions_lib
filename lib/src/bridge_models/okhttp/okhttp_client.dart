@@ -5,6 +5,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/adapter/client_ad
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/call.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/interceptor/interceptor.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/proxy.dart';
 import 'package:okhttp/adapter.dart';
 import 'package:okhttp/interceptor.dart';
 
@@ -109,6 +110,10 @@ class $OkHttpClient implements OkHttpClient, $Instance {
           BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.clientAdapter, []),
               nullable: false),
           isStatic: false),
+      'proxy': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.proxy, []),
+              nullable: false),
+          isStatic: false),
     },
     methods: {
       'Builder': BridgeMethodDef(
@@ -195,6 +200,8 @@ class $OkHttpClient implements OkHttpClient, $Instance {
         return $bool($value.followRedirects);
       case 'maxRedirects':
         return $int($value.maxRedirects);
+      case 'proxy':
+        return $Proxy.wrap($value.proxy);
       case 'adapter':
         return $ClientAdapter.wrap($value.adapter);
       case 'newCall':
@@ -255,17 +262,13 @@ class $OkHttpClient implements OkHttpClient, $Instance {
   ClientAdapter get adapter => $value.adapter;
 
   @override
-  Call newCall(Request request) => $value.newCall(
-        request,
-      );
+  Call newCall(Request request) => $value.newCall(request);
   static const __$newCall = $Function(_$newCall);
   static $Value? _$newCall(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as OkHttpClient;
     final request = args[0]?.$reified as Request;
-    final $result = obj.newCall(
-      request,
-    );
+    final $result = obj.newCall(request);
     return $Call.wrap($result);
   }
 
@@ -301,6 +304,9 @@ class $OkHttpClient implements OkHttpClient, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $OkHttpClient.wrap(OkHttpClient());
   }
+
+  @override
+  Proxy get proxy => $value.proxy;
 }
 
 /// dart_eval bimodal wrapper for [OkHttpClientBuilder]
@@ -553,6 +559,23 @@ class $OkHttpClientBuilder implements $Instance {
             namedParams: [],
           ),
           isStatic: false),
+      'proxy': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.okHttpClientBuilder, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'proxy',
+                  BridgeTypeAnnotation(
+                    BridgeTypeRef(OkHttpTypes.proxy, []),
+                    nullable: true,
+                  ),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
       'build': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -635,6 +658,8 @@ class $OkHttpClientBuilder implements $Instance {
         return __$maxRedirects;
       case 'addAdapter':
         return __$addAdapter;
+      case 'proxy':
+        return __$proxy;
       case 'build':
         return __$build;
       default:
@@ -787,6 +812,14 @@ class $OkHttpClientBuilder implements $Instance {
     final obj = target?.$value as OkHttpClientBuilder;
     final adapter = args[0]?.$reified as ClientAdapter;
     final $result = obj.addAdapter(adapter);
+    return $OkHttpClientBuilder.wrap($result);
+  }
+
+  static const __$proxy = $Function(_$proxy);
+  static $Value? _$proxy(Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as OkHttpClientBuilder;
+    final proxy = args[0]?.$value as Proxy?;
+    final $result = obj.proxy(proxy);
     return $OkHttpClientBuilder.wrap($result);
   }
 

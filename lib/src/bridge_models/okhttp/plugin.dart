@@ -130,6 +130,10 @@ export 'src/call.dart';
 export 'src/okhttp_client.dart';
 export 'src/byte_stream.dart';
 export 'src/date_fromatter.dart';
+export 'src/proxy.dart';
+export 'src/auth.dart';
+export 'src/internet_socket_address.dart';
+
 ''');
 
 final _adapterSource = DartSource('package:okhttp/adapter.dart', '''
@@ -222,6 +226,21 @@ class OkHttpTypes {
   /// Bridge type spec for [$DateFormatter]
   static const dateFormatter =
       BridgeTypeSpec('package:okhttp/src/date_fromatter.dart', 'DateFormatter');
+
+  static const passwordAuthentication =
+      BridgeTypeSpec('package:okhttp/src/auth.dart', 'PasswordAuthentication');
+
+  /// Bridge type spec for [$Proxy]
+  static const proxy = BridgeTypeSpec('package:okhttp/src/proxy.dart', 'Proxy');
+
+  /// Bridge type spec for [$ProxyType]
+  static const proxyType =
+      BridgeTypeSpec('package:okhttp/src/proxy.dart', 'ProxyType');
+
+  /// Bridge type spec for [$InternetSocketAddress]
+  static const internetSocketAddress = BridgeTypeSpec(
+      'package:okhttp/src/internet_socket_address.dart',
+      'InternetSocketAddress');
 
   //////////////////////////////////////////////////////////////////////////////
 

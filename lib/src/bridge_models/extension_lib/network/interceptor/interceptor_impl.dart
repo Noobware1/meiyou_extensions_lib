@@ -8,15 +8,18 @@ import 'package:okhttp/interceptor.dart';
 import 'package:okhttp/response.dart';
 
 class $InterceptorImpl extends InterceptorImpl with $Bridge<InterceptorImpl> {
-  /// Configure the [$Interceptor] wrapper for use in a [Runtime]
+  /// Configure the [$InterceptorImpl] wrapper for use in a [Runtime]
   static void configureForCompileTime(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        $type.spec!.library, 'InterceptorImpl.', __$Interceptor$new.call,
-        isBridge: true);
+      $type.spec!.library,
+      'InterceptorImpl.',
+      __$InterceptorImpl$new.call,
+      isBridge: true,
+    );
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.interceptorImpl);
@@ -24,7 +27,7 @@ class $InterceptorImpl extends InterceptorImpl with $Bridge<InterceptorImpl> {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: BridgeTypeRef(OkHttpTypes.interceptor, []),
+      $extends: null,
       $implements: [],
       isAbstract: true,
     ),
@@ -79,8 +82,8 @@ class $InterceptorImpl extends InterceptorImpl with $Bridge<InterceptorImpl> {
         .then((value) => value as Response);
   }
 
-  static const __$Interceptor$new = $Function(_$Interceptor$new);
-  static $Value? _$Interceptor$new(
+  static const __$InterceptorImpl$new = $Function(_$InterceptorImpl$new);
+  static $Value? _$InterceptorImpl$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $InterceptorImpl();
   }
