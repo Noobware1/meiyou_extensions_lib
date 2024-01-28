@@ -11,7 +11,7 @@ import 'package:okhttp/response.dart';
 /// dart_eval bimodal wrapper for [ClientAdapter]
 class $ClientAdapter implements ClientAdapter, $Instance {
   /// Configure the [$ClientAdapter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -111,8 +111,8 @@ class $ClientAdapter implements ClientAdapter, $Instance {
     final $result = obj.newCall(
       request,
     );
-    return $Future.wrap($result.then((value) => $Response.wrap(value))
-      )  as $Value?;
+    return $Future.wrap($result.then((value) => $Response.wrap(value)))
+        as $Value?;
   }
 
   @override

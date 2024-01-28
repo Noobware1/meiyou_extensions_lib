@@ -12,7 +12,7 @@ import 'package:okhttp/okhttp.dart';
 /// dart_eval bimodal wrapper for [NetworkHelper]
 class $NetworkHelper implements NetworkHelper, $Instance {
   /// Configure the [$NetworkHelper] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

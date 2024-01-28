@@ -11,7 +11,7 @@ import 'package:meiyou_extensions_lib/src/preference/perference_store.dart';
 /// dart_eval bimodal wrapper for [NetworkPreferences]
 class $NetworkPreferences implements NetworkPreferences, $Instance {
   /// Configure the [$NetworkPreferences] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

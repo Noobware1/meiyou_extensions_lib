@@ -13,7 +13,7 @@ class $ProxyType implements $Instance {
 
   late final $Instance _superclass;
 
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeEnum($declaration);
   }
 
@@ -64,7 +64,7 @@ class $ProxyType implements $Instance {
 /// dart_eval bimodal wrapper for [Proxy]
 class $Proxy implements Proxy, $Instance {
   /// Configure the [$Proxy] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

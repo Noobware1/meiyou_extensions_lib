@@ -11,15 +11,15 @@ import 'list.dart';
 class DartxPlugin extends EvalPlugin {
   @override
   void configureForCompile(BridgeDeclarationRegistry registry) {
-    $AppUtils.configureForCompileTime(registry);
-    $Scopes.configureForCompileTime(registry);
-    $StringUtils.configureForCompileTime(registry);
-    $IterableUtils.configureForCompileTime(registry);
-    $ListUtils.configureForCompileTime(registry);
+    $AppUtils.configureForCompile(registry);
+    $Scopes.configureForCompile(registry);
+    $StringUtils.configureForCompile(registry);
+    $IterableUtils.configureForCompile(registry);
+    $ListUtils.configureForCompile(registry);
     $BuildersUtils.configureForCompile(registry);
-    $Result.configureForCompileTime(registry);
-    $ResultsUtils.configureForCompileTime(registry);
-    $Failure.configureForCompileTime(registry);
+    $Result.configureForCompile(registry);
+    $ResultsUtils.configureForCompile(registry);
+    $Failure.configureForCompile(registry);
   }
 
   @override

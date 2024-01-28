@@ -8,7 +8,7 @@ import 'package:okhttp/okhttp.dart';
 /// dart_eval bimodal wrapper for [DateFromat]
 class $DateFromat implements DateFromat, $Instance {
   /// Configure the [$DateFromat] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -102,7 +102,7 @@ class $DateFromat implements DateFromat, $Instance {
 /// dart_eval bimodal wrapper for [DateFormatter]
 class $DateFormatter implements DateFormatter, $Instance {
   /// Configure the [$DateFormatter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

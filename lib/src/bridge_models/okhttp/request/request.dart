@@ -10,7 +10,7 @@ import 'package:okhttp/request.dart';
 /// dart_eval bimodal wrapper for [Request]
 class $Request implements Request, $Instance {
   /// Configure the [$Request] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -164,7 +164,7 @@ class $Request implements Request, $Instance {
 /// dart_eval bimodal wrapper for [RequestBuilder]
 class $RequestBuilder implements $Instance {
   /// Configure the [$RequestBuilder] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

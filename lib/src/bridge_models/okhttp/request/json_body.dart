@@ -13,7 +13,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 /// dart_eval bimodal wrapper for [JsonBody]
 class $JsonBody implements $Instance {
   /// Configure the [$JsonBody] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -172,7 +172,7 @@ class $JsonBody implements $Instance {
 /// dart_eval bimodal wrapper for [JsonBodyBuilder]
 class $JsonBodyBuilder implements $Instance {
   /// Configure the [$JsonBodyBuilder] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

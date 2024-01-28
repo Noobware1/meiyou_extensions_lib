@@ -15,7 +15,7 @@ import 'package:okhttp/request.dart';
 /// dart_eval bimodal wrapper for [OkHttpClient]
 class $OkHttpClient implements OkHttpClient, $Instance {
   /// Configure the [$OkHttpClient] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -312,7 +312,7 @@ class $OkHttpClient implements OkHttpClient, $Instance {
 /// dart_eval bimodal wrapper for [OkHttpClientBuilder]
 class $OkHttpClientBuilder implements $Instance {
   /// Configure the [$OkHttpClientBuilder] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

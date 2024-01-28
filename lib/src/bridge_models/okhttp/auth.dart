@@ -7,7 +7,7 @@ import 'package:okhttp/okhttp.dart';
 /// dart_eval bimodal wrapper for [PasswordAuthentication]
 class $PasswordAuthentication implements $Instance {
   /// Configure the [$PasswordAuthentication] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

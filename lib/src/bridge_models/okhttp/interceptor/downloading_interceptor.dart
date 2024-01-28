@@ -13,7 +13,7 @@ import 'package:okhttp/response.dart';
 /// dart_eval bimodal wrapper for [DownloadingInterceptor]
 class $DownloadingInterceptor implements DownloadingInterceptor, $Instance {
   /// Configure the [$DownloadingInterceptor] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -180,7 +180,7 @@ class $DownloadingInterceptor implements DownloadingInterceptor, $Instance {
 /// dart_eval bimodal wrapper for [DownloadedBody]
 class $DownloadedBody implements DownloadedBody, $Instance {
   /// Configure the [$DownloadedBody] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

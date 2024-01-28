@@ -12,7 +12,7 @@ import 'package:meiyou_extensions_lib/src/models/media_item/media_item.dart';
 /// dart_eval bimodal wrapper for [Anime]
 class $Anime implements Anime, $Instance {
   /// Configure the [$Anime] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

@@ -10,7 +10,7 @@ import 'package:meiyou_extensions_lib/src/html_extensions.dart';
 /// dart_eval bimodal wrapper for [Document]
 class $Document implements $Instance {
   /// Configure the [$Document] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

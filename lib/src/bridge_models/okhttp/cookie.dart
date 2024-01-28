@@ -7,7 +7,7 @@ import 'package:okhttp/okhttp.dart';
 /// dart_eval bimodal wrapper for [Cookie]
 class $Cookie implements Cookie, $Instance {
   /// Configure the [$Cookie] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -545,7 +545,7 @@ class $Cookie implements Cookie, $Instance {
 /// dart_eval bimodal wrapper for [CookieBuilder]
 class $CookieBuilder implements $Instance {
   /// Configure the [$CookieBuilder] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

@@ -12,7 +12,7 @@ import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 /// dart_eval bimodal wrapper for [FilterList]
 class $FilterList<E> implements FilterList<E>, $Instance {
   /// Configure the [$FilterList] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

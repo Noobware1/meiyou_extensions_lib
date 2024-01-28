@@ -12,7 +12,7 @@ import 'package:okhttp/response.dart';
 /// dart_eval bimodal wrapper for [StreamResponseBody]
 class $StreamResponseBody implements $Instance {
   /// Configure the [$StreamResponseBody] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -164,7 +164,6 @@ class $StreamResponseBody implements $Instance {
   static $Value? _$close(Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as StreamResponseBody;
     final $result = obj.close();
-    return $Future.wrap($result.then((value) => $ResponseBody.wrap(value))
-     );
+    return $Future.wrap($result.then((value) => $ResponseBody.wrap(value)));
   }
 }

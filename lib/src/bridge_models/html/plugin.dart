@@ -6,8 +6,8 @@ import 'package:meiyou_extensions_lib/src/bridge_models/html/element.dart';
 class HTMLPlugin extends EvalPlugin {
   @override
   void configureForCompile(BridgeDeclarationRegistry registry) {
-    $Document.configureForCompileTime(registry);
-    $Element.configureForCompileTime(registry);
+    $Document.configureForCompile(registry);
+    $Element.configureForCompile(registry);
   }
 
   @override

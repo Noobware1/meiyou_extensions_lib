@@ -11,7 +11,7 @@ import 'package:okhttp/okhttp.dart' show MediaType;
 /// dart_eval bimodal wrapper for [RequestBody]
 class $RequestBody implements RequestBody, $Instance {
   /// Configure the [$RequestBody] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

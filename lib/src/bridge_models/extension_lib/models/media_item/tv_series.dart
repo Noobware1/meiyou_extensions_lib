@@ -11,7 +11,7 @@ import 'package:meiyou_extensions_lib/src/models/season_list.dart';
 /// dart_eval bimodal wrapper for [TvSeries]
 class $TvSeries implements TvSeries, $Instance {
   /// Configure the [$TvSeries] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

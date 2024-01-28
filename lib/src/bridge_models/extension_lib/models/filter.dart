@@ -10,7 +10,7 @@ import 'package:meiyou_extensions_lib/src/models/filter.dart';
 /// dart_eval bimodal wrapper for [Filter]
 class $Filter<T> implements Filter<T>, $Instance {
   /// Configure the [$Filter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -152,7 +152,7 @@ class $Filter<T> implements Filter<T>, $Instance {
 /// dart_eval bimodal wrapper for [HeaderFilter]
 class $HeaderFilter implements HeaderFilter, $Instance {
   /// Configure the [$HeaderFilter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -251,7 +251,7 @@ class $HeaderFilter implements HeaderFilter, $Instance {
 /// dart_eval bimodal wrapper for [SeparatorFilter]
 class $SeparatorFilter implements SeparatorFilter, $Instance {
   /// Configure the [$SeparatorFilter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -343,7 +343,7 @@ class $SeparatorFilter implements SeparatorFilter, $Instance {
 /// dart_eval bimodal wrapper for [SelectFilter]
 class $SelectFilter implements SelectFilter, $Instance {
   /// Configure the [$SelectFilter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -450,7 +450,7 @@ class $SelectFilter implements SelectFilter, $Instance {
 /// dart_eval bimodal wrapper for [TextFilter]
 class $TextFilter implements TextFilter, $Instance {
   /// Configure the [$TextFilter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -557,7 +557,7 @@ class $TextFilter implements TextFilter, $Instance {
 /// dart_eval bimodal wrapper for [CheckBoxFilter]
 class $CheckBoxFilter implements CheckBoxFilter, $Instance {
   /// Configure the [$CheckBoxFilter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -664,7 +664,7 @@ class $CheckBoxFilter implements CheckBoxFilter, $Instance {
 /// dart_eval bimodal wrapper for [TriStateFilter]
 class $TriStateFilter implements TriStateFilter, $Instance {
   /// Configure the [$TriStateFilter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -852,7 +852,7 @@ class $TriStateFilter implements TriStateFilter, $Instance {
 /// dart_eval bimodal wrapper for [GroupFilter]
 class $GroupFilter<V> implements GroupFilter<V>, $Instance {
   /// Configure the [$GroupFilter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -968,7 +968,7 @@ class $GroupFilter<V> implements GroupFilter<V>, $Instance {
 /// dart_eval bimodal wrapper for [SortFilter]
 class $SortFilter implements SortFilter, $Instance {
   /// Configure the [$SortFilter] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -1102,7 +1102,7 @@ class $SortFilter implements SortFilter, $Instance {
 /// dart_eval bimodal wrapper for [Selection]
 class $Selection implements Selection, $Instance {
   /// Configure the [$Selection] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

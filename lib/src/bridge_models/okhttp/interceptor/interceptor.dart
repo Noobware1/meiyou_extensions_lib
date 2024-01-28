@@ -11,7 +11,7 @@ import 'package:okhttp/response.dart';
 /// dart_eval biomadial wrapper for [Interceptor]
 class $Interceptor implements Interceptor, $Instance {
   /// Configure the [$Interceptor] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -127,7 +127,7 @@ class $Interceptor implements Interceptor, $Instance {
 /// dart_eval bimodal wrapper for [Chain]
 class $Chain implements Chain, $Instance {
   /// Configure the [$Chain] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

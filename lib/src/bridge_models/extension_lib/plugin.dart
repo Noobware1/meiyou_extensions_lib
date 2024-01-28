@@ -113,34 +113,34 @@ class ExtensionLibPlugin extends EvalPlugin {
     registry.defineBridgeClass($ParsedHttpSource.$declaration);
 
     // Filter
-    $FilterList.configureForCompileTime(registry);
-    $Filter.configureForCompileTime(registry);
-    $HeaderFilter.configureForCompileTime(registry);
-    $SeparatorFilter.configureForCompileTime(registry);
-    $SelectFilter.configureForCompileTime(registry);
-    $TextFilter.configureForCompileTime(registry);
-    $CheckBoxFilter.configureForCompileTime(registry);
-    $TriStateFilter.configureForCompileTime(registry);
-    $GroupFilter.configureForCompileTime(registry);
-    $SortFilter.configureForCompileTime(registry);
-    $Selection.configureForCompileTime(registry);
+    $FilterList.configureForCompile(registry);
+    $Filter.configureForCompile(registry);
+    $HeaderFilter.configureForCompile(registry);
+    $SeparatorFilter.configureForCompile(registry);
+    $SelectFilter.configureForCompile(registry);
+    $TextFilter.configureForCompile(registry);
+    $CheckBoxFilter.configureForCompile(registry);
+    $TriStateFilter.configureForCompile(registry);
+    $GroupFilter.configureForCompile(registry);
+    $SortFilter.configureForCompile(registry);
+    $Selection.configureForCompile(registry);
 
     //Utils
     DartxPlugin().configureForCompile(registry);
     registry.addSource(utilsSource);
 
     // Network
-    $Requests.configureForCompileTime(registry);
-    $NetworkHelper.configureForCompileTime(registry);
-    $NetworkPreferences.configureForCompileTime(registry);
-    $UnHandledExceptionInterceptor.configureForCompileTime(registry);
-    $UserAgentInterceptor.configureForCompileTime(registry);
-    $InterceptorImpl.configureForCompileTime(registry);
+    $Requests.configureForCompile(registry);
+    $NetworkHelper.configureForCompile(registry);
+    $NetworkPreferences.configureForCompile(registry);
+    $UnHandledExceptionInterceptor.configureForCompile(registry);
+    $UserAgentInterceptor.configureForCompile(registry);
+    $InterceptorImpl.configureForCompile(registry);
     registry.addSource(networkSource);
 
     // Preference
-    $Preference.configureForCompileTime(registry);
-    $PreferenceStore.configureForCompileTime(registry);
+    $Preference.configureForCompile(registry);
+    $PreferenceStore.configureForCompile(registry);
     registry.addSource(preferenceSource);
 
     registry.addSource(okhttpExtensionsSource);

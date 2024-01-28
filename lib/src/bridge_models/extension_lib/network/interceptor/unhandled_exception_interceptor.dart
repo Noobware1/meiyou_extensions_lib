@@ -14,7 +14,7 @@ import 'package:okhttp/response.dart';
 class $UnHandledExceptionInterceptor
     implements UnHandledExceptionInterceptor, $Instance {
   /// Configure the [$UnHandledExceptionInterceptor] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

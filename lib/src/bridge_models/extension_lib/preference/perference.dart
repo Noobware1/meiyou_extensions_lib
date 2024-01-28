@@ -8,7 +8,7 @@ import 'package:meiyou_extensions_lib/src/preference/perference.dart';
 /// dart_eval bimodal wrapper for [Preference]
 class $Preference<T> implements Preference<T>, $Instance {
   /// Configure the [$Preference] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

@@ -80,7 +80,7 @@ class ListUtils {
 /// dart_eval bimodal wrapper for [ListUtils]
 class $ListUtils implements ListUtils, $Instance {
   /// Configure the [$ListUtils] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

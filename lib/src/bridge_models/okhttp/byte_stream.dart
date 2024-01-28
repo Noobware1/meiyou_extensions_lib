@@ -11,7 +11,7 @@ import 'package:okhttp/okhttp.dart';
 /// dart_eval bimodal wrapper for [ByteStream]
 class $ByteStream implements $Instance {
   /// Configure the [$ByteStream] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -163,8 +163,8 @@ class $ByteStream implements $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as ByteStream;
     final $result = obj.toBytes();
-    return $Future.wrap($result.then((value) => $Uint8List.wrap(value))
-     ) as $Value?;
+    return $Future.wrap($result.then((value) => $Uint8List.wrap(value)))
+        as $Value?;
   }
 
   static const __$bytesToString = $Function(_$bytesToString);

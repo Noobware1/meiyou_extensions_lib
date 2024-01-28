@@ -7,7 +7,7 @@ import 'package:okhttp/okhttp.dart' show Headers, HeadersBuilder;
 /// dart_eval bimodal wrapper for [Headers]
 class $Headers implements $Instance {
   /// Configure the [$Headers] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -402,7 +402,7 @@ class $Headers implements $Instance {
 /// dart_eval bimodal wrapper for [HeadersBuilder]
 class $HeadersBuilder implements $Instance {
   /// Configure the [$HeadersBuilder] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

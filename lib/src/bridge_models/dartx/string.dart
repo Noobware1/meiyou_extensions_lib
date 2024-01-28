@@ -115,7 +115,7 @@ class StringUtils {
 /// dart_eval bimodal wrapper for [StringUtils]
 class $StringUtils implements StringUtils, $Instance {
   /// Configure the [$StringUtils] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

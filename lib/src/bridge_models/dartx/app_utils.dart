@@ -167,32 +167,37 @@ class AppUtils {
 /// dart_eval bimodal wrapper for [AppUtils]
 class $AppUtils implements AppUtils, $Instance {
   /// Configure the [$AppUtils] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.', __$AppUtils$new.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'AppUtils.', __$AppUtils$new.call);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'AppUtils.encode', __$static$method$encode.call);
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'AppUtils.toDateTime', __$static$method$toDateTime.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.toDateTime',
+        __$static$method$toDateTime.call);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'AppUtils.httpify', __$static$method$httpify.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.getBackgroundImage',
+    runtime.registerBridgeFunc(
+        $type.spec!.library,
+        'AppUtils.getBackgroundImage',
         __$static$method$getBackgroundImage.call);
     runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.getMonthByName',
         __$static$method$getMonthByName.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.getSubtitleFormatFromUrl',
-        __$static$method$getSubtitleFormatFromUrl.call);
     runtime.registerBridgeFunc(
-        $type.spec!.library, 'AppUtils.isNotNull', __$static$method$isNotNull.call);
+        $type.spec!.library,
+        'AppUtils.getSubtitleFormatFromUrl',
+        __$static$method$getSubtitleFormatFromUrl.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.isNotNull',
+        __$static$method$isNotNull.call);
     runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.tryParseDuration',
         __$static$method$tryParseDuration.call);
     runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.parseDuration',
         __$static$method$parseDuration.call);
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'AppUtils.unpackJS', __$static$method$unpackJS.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.unpackJS',
+        __$static$method$unpackJS.call);
   }
 
   late final $Instance _superclass = $Object($value);

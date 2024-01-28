@@ -7,7 +7,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
 /// dart_eval bimodal wrapper for [Result]
 class $Result<T> implements Result<T>, $Instance {
   /// Configure the [$Result] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -247,7 +247,7 @@ class $Result<T> implements Result<T>, $Instance {
 /// dart_eval bimodal wrapper for [Failure]
 class $Failure implements $Instance {
   /// Configure the [$Failure] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -372,7 +372,7 @@ class ResultsUtils {
 /// dart_eval bimodal wrapper for [ResultsUtils]
 class $ResultsUtils implements ResultsUtils, $Instance {
   /// Configure the [$ResultsUtils] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

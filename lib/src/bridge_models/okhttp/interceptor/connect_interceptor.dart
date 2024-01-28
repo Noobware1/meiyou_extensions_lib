@@ -9,7 +9,7 @@ import 'package:okhttp/response.dart';
 /// dart_eval bimodal wrapper for [ConnectInterceptor]
 class $ConnectInterceptor implements ConnectInterceptor, $Instance {
   /// Configure the [$ConnectInterceptor] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

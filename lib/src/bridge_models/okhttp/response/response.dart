@@ -13,7 +13,7 @@ import 'package:okhttp/response.dart';
 /// dart_eval bimodal wrapper for [Response]
 class $Response implements Response, $Instance {
   /// Configure the [$Response] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -155,7 +155,7 @@ class $Response implements Response, $Instance {
 /// dart_eval bimodal wrapper for [ResponseBuilder]
 class $ResponseBuilder implements $Instance {
   /// Configure the [$ResponseBuilder] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

@@ -11,7 +11,7 @@ import 'package:okhttp/response.dart';
 /// dart_eval bimodal wrapper for [Logger]
 class $Logger implements Logger, $Instance {
   /// Configure the [$Logger] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -150,7 +150,7 @@ class $Logger implements Logger, $Instance {
 /// dart_eval bimodal wrapper for [LoggingInterceptor]
 class $LoggingInterceptor implements LoggingInterceptor, $Instance {
   /// Configure the [$LoggingInterceptor] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -393,7 +393,7 @@ class $Color implements $Instance {
 
   late final $Instance _superclass;
 
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeEnum($declaration);
   }
 
@@ -457,7 +457,7 @@ class $LogLevel implements $Instance {
 
   late final $Instance _superclass;
 
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeEnum($declaration);
   }
 

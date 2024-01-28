@@ -12,7 +12,7 @@ import 'package:okhttp/response.dart';
 /// dart_eval bimodal wrapper for [Call]
 class $Call implements Call, $Instance {
   /// Configure the [$Call] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

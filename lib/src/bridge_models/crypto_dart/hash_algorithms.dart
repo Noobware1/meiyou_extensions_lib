@@ -8,7 +8,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/types.dart';
 /// dart_eval bimodal wrapper for [HashAlgorithms]
 class $HashAlgorithms implements HashAlgorithms, $Instance {
   /// Configure the [$HashAlgorithms] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -293,4 +293,3 @@ class $HashAlgorithms implements HashAlgorithms, $Instance {
     return $HashAlgorithms.wrap(HashAlgorithms());
   }
 }
-

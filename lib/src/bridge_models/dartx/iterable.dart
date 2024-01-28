@@ -88,7 +88,7 @@ class IterableUtils {
 /// dart_eval bimodal wrapper for [IterableUtils]
 class $IterableUtils implements IterableUtils, $Instance {
   /// Configure the [$IterableUtils] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

@@ -45,7 +45,7 @@ class $Requests {
   static const requests = 'package:meiyou_extensions_lib/src/requests.dart';
 
   /// Configure the [$Requests] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeTopLevelFunction(_GET);
     registry.defineBridgeTopLevelFunction(_POST);
     registry.defineBridgeTopLevelFunction(_PUT);

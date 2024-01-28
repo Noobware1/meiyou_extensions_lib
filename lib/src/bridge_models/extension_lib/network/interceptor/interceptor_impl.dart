@@ -9,7 +9,7 @@ import 'package:okhttp/response.dart';
 
 class $InterceptorImpl extends InterceptorImpl with $Bridge<InterceptorImpl> {
   /// Configure the [$InterceptorImpl] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

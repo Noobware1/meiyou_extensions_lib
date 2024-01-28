@@ -10,7 +10,7 @@ import 'package:meiyou_extensions_lib/src/models/media_item/movie.dart';
 /// dart_eval bimodal wrapper for [Movie]
 class $Movie implements Movie, $Instance {
   /// Configure the [$Movie] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

@@ -13,7 +13,7 @@ import 'package:okhttp/request.dart' show FormBody, FormBodyBuilder;
 /// dart_eval bimodal wrapper for [FormBody]
 class $FormBody implements $Instance {
   /// Configure the [$FormBody] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
@@ -220,7 +220,7 @@ class $FormBody implements $Instance {
 /// dart_eval bimodal wrapper for [FormBodyBuilder]
 class $FormBodyBuilder implements $Instance {
   /// Configure the [$FormBodyBuilder] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

@@ -7,7 +7,7 @@ import 'package:okhttp/okhttp.dart' show MediaType;
 /// dart_eval bimodal wrapper for [MediaType]
 class $MediaType implements MediaType, $Instance {
   /// Configure the [$MediaType] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

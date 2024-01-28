@@ -14,7 +14,7 @@ import 'package:okhttp/response.dart';
 /// dart_eval bimodal wrapper for [ResponseBody]
 class $ResponseBody implements ResponseBody, $Instance {
   /// Configure the [$ResponseBody] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

@@ -13,7 +13,7 @@ import 'package:okhttp/response.dart';
 /// dart_eval bimodal wrapper for [UserAgentInterceptor]
 class $UserAgentInterceptor implements UserAgentInterceptor, $Instance {
   /// Configure the [$UserAgentInterceptor] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 

@@ -10,7 +10,7 @@ import 'package:meiyou_extensions_lib/src/preference/perference_store.dart';
 /// dart_eval bimodal wrapper for [PreferenceStore]
 class $PreferenceStore implements PreferenceStore, $Instance {
   /// Configure the [$PreferenceStore] wrapper for use in a [Runtime]
-  static void configureForCompileTime(BridgeDeclarationRegistry registry) {
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
