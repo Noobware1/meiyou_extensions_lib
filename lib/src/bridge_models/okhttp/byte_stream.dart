@@ -52,7 +52,7 @@ class $ByteStream implements $Instance {
         ),
         isFactory: false,
       ),
-      'ByteStream.fromBytes': BridgeConstructorDef(
+      'fromBytes': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [

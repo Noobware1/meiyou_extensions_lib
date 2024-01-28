@@ -30,7 +30,7 @@ class $MediaType implements MediaType, $Instance {
       isAbstract: false,
     ),
     constructors: {
-      'MediaType.parse': BridgeConstructorDef(
+      'parse': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [

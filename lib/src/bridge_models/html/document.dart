@@ -15,8 +15,10 @@ class $Document implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc($type.spec!.library, 'Document.', __$Document$new.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'Document.html', __$Document$html.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Document.', __$Document$new.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Document.html', __$Document$html.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -38,7 +40,7 @@ class $Document implements $Instance {
         ),
         isFactory: false,
       ),
-      'Document.html': BridgeConstructorDef(
+      'html': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [
@@ -51,7 +53,7 @@ class $Document implements $Instance {
           namedParams: [],
         ),
         isFactory: true,
-      )
+      ),
     },
     fields: {},
     methods: {
@@ -332,7 +334,7 @@ class $Document implements $Instance {
   static const __$Document$html = $Function(_$Document$html);
   static $Value? _$Document$html(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final html = args[0]?.$reified as String;
+    final html = args[0]?.$value as String;
     return $Document.wrap(Document.html(html));
   }
 }

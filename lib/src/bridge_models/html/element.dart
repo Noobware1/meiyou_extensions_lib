@@ -48,7 +48,7 @@ class $Element implements $Instance {
         ),
         isFactory: false,
       ),
-      'Element.html': BridgeConstructorDef(
+      'html': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [

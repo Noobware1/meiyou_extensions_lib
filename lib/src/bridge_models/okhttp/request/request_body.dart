@@ -46,7 +46,7 @@ class $RequestBody implements RequestBody, $Instance {
         ),
         isFactory: false,
       ),
-      'RequestBody.fromString': BridgeConstructorDef(
+      'fromString': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [
@@ -65,7 +65,7 @@ class $RequestBody implements RequestBody, $Instance {
         ),
         isFactory: true,
       ),
-      'RequestBody.fromMap': BridgeConstructorDef(
+      'fromMap': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [
@@ -88,7 +88,7 @@ class $RequestBody implements RequestBody, $Instance {
         ),
         isFactory: true,
       ),
-      'RequestBody.fromBytes': BridgeConstructorDef(
+      'fromBytes': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [
