@@ -37,10 +37,14 @@ class ExtensionLibTypes {
       'package:meiyou_extensions_lib/src/network/interceptor/user_agent_interceptor.dart',
       'UserAgentInterceptor');
 
+  /// Bridge type spec for [$InterceptorImpl]
+  static const interceptorImpl = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/network/interceptor/interceptor_impl.dart',
+      'InterceptorImpl');
+
   //////////////////////////////////////////////////////////////////////////////
 
   //////////////////////////////// Interfaces //////////////////////////////////
-
 
   static const extractorApi = BridgeTypeSpec(
       'package:meiyou_extensions_lib/src/models/interfaces/extractor_api.dart',

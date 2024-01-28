@@ -2,8 +2,14 @@ import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:html/dom.dart';
 import 'package:meiyou_extensions_lib/extensions_lib.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/okhttp_client.dart';
 import 'package:meiyou_extensions_lib/src/compiler.dart';
+import 'package:meiyou_extensions_lib/src/network/interceptor/interceptor_impl.dart';
 import 'package:test/test.dart';
+import 'package:meiyou_extensions_lib/models.dart';
+import 'package:okhttp/interceptor.dart';
+import 'package:okhttp/okhttp.dart';
+import 'package:okhttp/src/response.dart';
 
 void main() {
   group('POST', () {
@@ -11,6 +17,41 @@ void main() {
 
     setUp(() {
       compiler = ExtensionComplier();
+    });
+    test('InterceptorImpl', () async {
+      final program = compiler.compile({
+        'example': {
+          'main.dart': '''
+import 'package:okhttp/interceptor.dart';
+import 'package:okhttp/okhttp.dart';
+import 'package:okhttp/request.dart';
+import 'package:html/dom.dart';
+import 'package:okhttp/response.dart';
+import 'package:meiyou_extensions_lib/network.dart';
+
+
+class AccessTokenInterceptor extends InterceptorImpl {
+  @override
+  Future<Response> intercept(Chain chain) {
+    // TODO: implement intercept
+    throw UnimplementedError();
+  }
+}
+
+OkHttpClient main() {
+  final OkHttpClient a =
+      OkHttpClient.Builder().addInterceptor(AccessTokenInterceptor()).build();
+  return a;
+}
+
+          '''
+        }
+      });
+
+      final runtime = ExtensionLoader.fromProgram(program).runtime;
+      final value = runtime.executeLib('package:example/main.dart', 'main');
+      expect((value as $Value).$value, isA<OkHttpClient>());
+      expect((value as $OkHttpClient).$value.interceptors, isNotEmpty);
     });
 
     test('idk', () async {

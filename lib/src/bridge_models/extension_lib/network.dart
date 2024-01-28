@@ -23,6 +23,7 @@ String _source() {
     'export \'src/network/network_helper.dart\';',
     'export \'src/network/interceptor/unhandled_exception_interceptor.dart\';',
     'export \'src/network/interceptor/user_agent_interceptor.dart\';',
+    'export \'src/network/interceptor/interceptor_impl.dart\';',
   ].forEach((element) {
     buffer.writeln(element);
   });

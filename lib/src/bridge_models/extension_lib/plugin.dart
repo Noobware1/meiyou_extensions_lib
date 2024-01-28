@@ -36,6 +36,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/sea
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/season_data.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/show_status.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/show_type.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/interceptor/interceptor_impl.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/interceptor/unhandled_exception_interceptor.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/interceptor/user_agent_interceptor.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/network_helper.dart';
@@ -134,6 +135,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     $NetworkPreferences.configureForCompileTime(registry);
     $UnHandledExceptionInterceptor.configureForCompileTime(registry);
     $UserAgentInterceptor.configureForCompileTime(registry);
+    $InterceptorImpl.configureForCompileTime(registry);
     registry.addSource(networkSource);
 
     // Preference
@@ -216,6 +218,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     $NetworkPreferences.configureForRuntime(runtime);
     $UnHandledExceptionInterceptor.configureForRuntime(runtime);
     $UserAgentInterceptor.configureForRuntime(runtime);
+    $InterceptorImpl.configureForRuntime(runtime);
   }
 
   @override

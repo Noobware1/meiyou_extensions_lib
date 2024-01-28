@@ -8,7 +8,7 @@ import 'package:okhttp/interceptor.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
 
-/// dart_eval bimodal wrapper for [Interceptor]
+/// dart_eval biomadial wrapper for [Interceptor]
 class $Interceptor implements Interceptor, $Instance {
   /// Configure the [$Interceptor] wrapper for use in a [Runtime]
   static void configureForCompileTime(BridgeDeclarationRegistry registry) {
@@ -104,9 +104,7 @@ class $Interceptor implements Interceptor, $Instance {
   final Interceptor $value;
 
   @override
-  Future<Response> intercept(Chain chain) => $value.intercept(
-        chain,
-      );
+  Future<Response> intercept(Chain chain) => $value.intercept(chain);
   static const __$intercept = $Function(_$intercept);
   static $Value? _$intercept(
       Runtime runtime, $Value? target, List<$Value?> args) {
