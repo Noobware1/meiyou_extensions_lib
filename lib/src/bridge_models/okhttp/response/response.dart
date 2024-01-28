@@ -75,6 +75,20 @@ class $Response implements Response, $Instance {
             namedParams: [],
           ),
           isStatic: false),
+      'header': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                nullable: true),
+            params: [
+              BridgeParameter(
+                  'name',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -98,7 +112,8 @@ class $Response implements Response, $Instance {
         return $Headers.wrap($value.headers);
       case 'body':
         return $ResponseBody.wrap($value.body);
-
+      case 'header':
+        return __$header;
       case 'newBuilder':
         return __$newBuilder;
       default:
@@ -133,6 +148,16 @@ class $Response implements Response, $Instance {
   Headers get headers => $value.headers;
   @override
   ResponseBody get body => $value.body;
+
+  @override
+  String? header(String name) => $value.header(name);
+  static const __$header = $Function(_$header);
+  static $Value? _$header(Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as Response;
+    final String name = args[0]?.$value as String;
+    final $result = obj.header(name);
+    return $result == null ? $null() : $String($result);
+  }
 
   @override
   ResponseBuilder newBuilder() => $value.newBuilder();

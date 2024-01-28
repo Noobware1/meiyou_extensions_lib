@@ -14,6 +14,8 @@ class $Headers implements $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
         $type.spec!.library, 'Headers.Builder', __$static$method$Builder.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Headers.fromMap', __$fromMap.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -27,7 +29,25 @@ class $Headers implements $Instance {
       $implements: [],
       isAbstract: false,
     ),
-    constructors: {},
+    constructors: {
+      'fromMap': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type, nullable: false),
+          params: [
+            BridgeParameter(
+              'map',
+              BridgeTypeAnnotation(
+                  BridgeTypeRef(CoreTypes.map, [
+                    BridgeTypeRef(CoreTypes.string),
+                    BridgeTypeRef(CoreTypes.string)
+                  ]),
+                  nullable: false),
+              false,
+            )
+          ],
+        ),
+      ),
+    },
     fields: {},
     methods: {
       'Builder': BridgeMethodDef(
@@ -396,6 +416,14 @@ class $Headers implements $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $result = Headers.Builder();
     return $HeadersBuilder.wrap($result);
+  }
+
+  static const __$fromMap = $Function(_$fromMap);
+  static $Value? _$fromMap(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final map = (args[0]?.$reified as Map).cast<String, String>();
+    final $result = Headers.fromMap(map);
+    return $Headers.wrap($result);
   }
 }
 
