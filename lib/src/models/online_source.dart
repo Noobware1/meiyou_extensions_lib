@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:meiyou_extensions_lib/src/models/source.dart';
+import 'package:meiyou_extensions_lib/src/models/plugin.dart';
 
 /// `OnlineSource` represents an online source mainly used by index.json present in a repository.
 ///

@@ -331,12 +331,6 @@ class UnBaser {
     return out.toInt();
   }
 
-  ///convert [num] in base[base]
-  ///exemple
-  ///'''dart
-  ///var un = UnBaser(16);
-  ///print(un.unBase(384648));//output 5de88
-  ///'''
   String unBase(int num) {
     String? toBase;
     if (2 <= base && base < 62) {
@@ -350,12 +344,6 @@ class UnBaser {
     return _convert(num, toBase, "");
   }
 
-  ///convert [string] in base 10
-  ///exemple
-  ///'''dart
-  ///var un = UnBaser(16);
-  ///print(un.toBase10("5de88"));//output 384648
-  ///'''
   int toBase10(String string) {
     var allIn = true;
     var base = alphabet[62]!;

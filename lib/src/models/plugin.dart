@@ -27,9 +27,7 @@ class Source {
     required this.baseUrl,
     required this.version,
     required this.downloadUrl,
-  }) {
-    this.id = id ?? _generateId(name, lang, version);
-  }
+  });
 
   /// ID of the source. This will be used to uniquely identify the source.
   late final int id;
@@ -38,22 +36,22 @@ class Source {
   final String name;
 
   /// Type of the source. This will be used to identify the type of the source.
-  final String type;
+  final String? type;
 
   /// Author of the source. This will be used to display the author of the source.
-  final String author;
+  final String? author;
 
   /// Description of the source. This will be used to display the description about the source.
-  final String description;
+  final String? description;
 
   /// Language of the source. This will be used to show supported language for source.
-  final String lang;
+  final String? lang;
 
   /// Base URL of the source. This will be used to identify url of the site used source.
-  final String baseUrl;
+  final String? baseUrl;
 
   /// Version of the source. This will be used to identify the version of the source.
-  final int version;
+  final int? version;
 
   /// Download URL of the source. This will be used to download the source.
   final String downloadUrl;
@@ -115,15 +113,6 @@ class Source {
       baseUrl: baseUrl ?? this.baseUrl,
       version: version ?? this.version,
     );
-  }
-
-  int _generateId(String name, String lang, int versionId) {
-    final key = "${name.toLowerCase()}/$lang/$versionId";
-    final bytes = MD5(key.codeUnits).bytes;
-    return List.generate(
-                8, (index) => (bytes[index] & 0xFF) << (8 * (7 - index)))
-            .reduce((value, element) => value | element) &
-        0x7FFFFFFFFFFFFFFF;
   }
 
   @override

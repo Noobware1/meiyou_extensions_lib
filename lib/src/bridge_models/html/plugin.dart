@@ -4,6 +4,10 @@ import 'package:meiyou_extensions_lib/src/bridge_models/html/document.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/element.dart';
 
 class HTMLPlugin extends EvalPlugin {
+  void addAllExports(StringBuffer buffer) {
+    buffer.writeln('import \'package:html/dom.dart\';');
+  }
+
   @override
   void configureForCompile(BridgeDeclarationRegistry registry) {
     $Document.configureForCompile(registry);

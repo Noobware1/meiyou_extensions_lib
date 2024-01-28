@@ -1,12 +1,7 @@
-// abstract class  ConfigurableSource extends Source {
+import 'package:meiyou_extensions_lib/models.dart';
 
-//     /**
-//      * Gets instance of [SharedPreferences] scoped to the specific source.
-//      *
-//      * @since extensions-lib 1.5
-//      */
-//     fun getSourcePreferences(): SharedPreferences =
-//         Injekt.get<Application>().getSharedPreferences(preferenceKey(), Context.MODE_PRIVATE)
+abstract class ConfigurableSource extends Source {
+  getSourcePreferences();
 
-//     fun setupPreferenceScreen(screen: PreferenceScreen)
-// }
+  setupPreferenceScreen(screen);
+}

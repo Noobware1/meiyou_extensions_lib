@@ -8,8 +8,6 @@ import 'package:meiyou_extensions_lib/src/utils/js_unpacker.dart';
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-// import 'package:ok_http_dart/dom.dart';
-// import 'package:ok_http_dart/ok_http_dart.dart';
 
 /// A utility class for performing common tasks.
 ///
