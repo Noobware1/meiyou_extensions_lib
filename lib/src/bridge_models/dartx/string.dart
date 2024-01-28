@@ -1362,7 +1362,7 @@ class $StringUtils implements StringUtils, $Instance {
       $Function(_$static$method$toNumOrNull);
   static $Value? _$static$method$toNumOrNull(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final str = args[0]?.$reified as String;
+    final str = args[0]?.$reified as String?;
     final $result = StringUtils.toNumOrNull(str);
     return $result == null ? $null() : $num($result);
   }
@@ -1371,7 +1371,7 @@ class $StringUtils implements StringUtils, $Instance {
       $Function(_$static$method$toIntOrNull);
   static $Value? _$static$method$toIntOrNull(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final str = args[0]?.$reified as String;
+    final str = args[0]?.$reified as String?;
     final $result = StringUtils.toIntOrNull(str);
     return $result == null ? $null() : $int($result);
   }
@@ -1380,7 +1380,7 @@ class $StringUtils implements StringUtils, $Instance {
       $Function(_$static$method$toDoubleOrNull);
   static $Value? _$static$method$toDoubleOrNull(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final str = args[0]?.$reified as String;
+    final str = args[0]?.$reified as String?;
     final $result = StringUtils.toDoubleOrNull(str);
     return $result == null ? $null() : $double($result);
   }
@@ -1389,7 +1389,7 @@ class $StringUtils implements StringUtils, $Instance {
       $Function(_$static$method$valueToString);
   static $Value? _$static$method$valueToString(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final value = args[0]?.$reified as String;
+    final value = args[0]?.$reified;
     final $result = StringUtils.valueToString(value);
     return $String($result);
   }

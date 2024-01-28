@@ -129,7 +129,7 @@ class AppUtils {
   /// This function checks if the value is a list. If it is, it returns whether the list is not empty. Otherwise, it returns whether the value is not null.
   static bool isNotNull(dynamic value) {
     if (value is List) return value.isNotEmpty;
-    return value.isNotNull;
+    return value != null && value != $null();
   }
 
   /// Attempts to parse a duration from a string using the specified format.
