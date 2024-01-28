@@ -17,8 +17,10 @@ class $Element implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(htmlLib, 'Element.tag', __$Element$tag.call);
-    runtime.registerBridgeFunc(htmlLib, 'Element.html', __$Element$html.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Element.tag', __$Element$tag.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Element.html', __$Element$html.call);
   }
 
   late final $Instance _superclass = $Object($value);

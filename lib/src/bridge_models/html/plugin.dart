@@ -12,6 +12,7 @@ class HTMLPlugin extends EvalPlugin {
   void configureForCompile(BridgeDeclarationRegistry registry) {
     $Document.configureForCompile(registry);
     $Element.configureForCompile(registry);
+    registry.addSource(_domSource);
   }
 
   @override
@@ -21,15 +22,18 @@ class HTMLPlugin extends EvalPlugin {
   }
 
   @override
-  String get identifier => htmlLib;
+  String get identifier => 'package:html';
 }
 
-const htmlLib = 'package:html/dom.dart';
+final _domSource = DartSource('package:html/dom.dart', '''
+export 'src/dom.dart';
+''');
 
 class HTMLTypes {
   /// Bridge type spec for [$Document]
-  static const document = BridgeTypeSpec(htmlLib, 'Document');
+  static const document =
+      BridgeTypeSpec('package:html/src/dom.dart', 'Document');
 
   /// Bridge type spec for [$Element]
-  static const element = BridgeTypeSpec(htmlLib, 'Element');
+  static const element = BridgeTypeSpec('package:html/src/dom.dart', 'Element');
 }

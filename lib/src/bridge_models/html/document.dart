@@ -15,8 +15,8 @@ class $Document implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(htmlLib, 'Document.', __$Document$new.call);
-    runtime.registerBridgeFunc(htmlLib, 'Document.html', __$Document$html.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'Document.', __$Document$new.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'Document.html', __$Document$html.call);
   }
 
   late final $Instance _superclass = $Object($value);
