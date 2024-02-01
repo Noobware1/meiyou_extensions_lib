@@ -18,7 +18,6 @@ class DartxPlugin extends EvalPlugin {
     $ListUtils.configureForCompile(registry);
     $BuildersUtils.configureForCompile(registry);
     $Result.configureForCompile(registry);
-    $ResultsUtils.configureForCompile(registry);
     $Failure.configureForCompile(registry);
   }
 
@@ -30,7 +29,6 @@ class DartxPlugin extends EvalPlugin {
     $ListUtils.configureForRuntime(runtime);
     $BuildersUtils.configuresForRuntime(runtime);
     $Result.configureForRuntime(runtime);
-    $ResultsUtils.configureForRuntime(runtime);
     $StringUtils.configureForRuntime(runtime);
   }
 

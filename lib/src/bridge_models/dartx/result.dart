@@ -9,6 +9,30 @@ class $Result<T> implements Result<T>, $Instance {
   /// Configure the [$Result] wrapper for use in a [Runtime]
   static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
+    registry.defineBridgeTopLevelFunction(
+      BridgeFunctionDeclaration(
+        $type.spec!.library,
+        'runCatching',
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(
+              BridgeTypeRef(DartXTypes.result, [
+                BridgeTypeRef.ref('R', []),
+              ]),
+              nullable: false),
+          params: [
+            BridgeParameter(
+                'block',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                    nullable: false),
+                false)
+          ],
+          namedParams: [],
+          generics: {
+            'R': BridgeGenericParam(),
+          },
+        ),
+      ),
+    );
   }
 
   static void configureForRuntime(Runtime runtime) {
@@ -18,21 +42,22 @@ class $Result<T> implements Result<T>, $Instance {
         $type.spec!.library, 'Result.success', __$static$method$success.call);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'Result.failure', __$static$method$failure.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'runCatching', __$runCatching.call);
   }
 
   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(DartXTypes.result, [
-    BridgeTypeRef.ref('T', []),
-  ]);
+  static const $type = BridgeTypeRef(DartXTypes.result);
 
   static const $declaration = BridgeClassDef(
-    BridgeClassType(
-      $type,
-      $extends: null,
-      $implements: [],
-      isAbstract: false,
-    ),
+    BridgeClassType($type,
+        $extends: null,
+        $implements: [],
+        isAbstract: false,
+        generics: {
+          'E': BridgeGenericParam(),
+        }),
     constructors: {
       '': BridgeConstructorDef(
         BridgeFunctionDef(
@@ -107,6 +132,153 @@ class $Result<T> implements Result<T>, $Instance {
             namedParams: [],
           ),
           isStatic: false),
+      'getOrThrow': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
+                nullable: false),
+            params: [],
+            namedParams: [],
+            generics: {
+              'T': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
+      'getOrElse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'onFailure',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+            generics: {
+              'T': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
+      'getOrDefault': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'defaultValue',
+                  BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+            generics: {
+              'T': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
+      'fold': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef.ref('R', []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'onSuccess',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'onFailure',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+            generics: {
+              'R': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
+      'map': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(DartXTypes.result, [
+                  BridgeTypeRef.ref('R', []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'transform',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+            generics: {
+              'R': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
+      'mapCatching': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(DartXTypes.result, [
+                  BridgeTypeRef.ref('R', []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'transform',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+            generics: {
+              'R': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
+      'recover': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(DartXTypes.result, [
+                  BridgeTypeRef.ref('R', []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'transform',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+            generics: {
+              'R': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
+      'recoverCatching': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(DartXTypes.result, [
+                  BridgeTypeRef.ref('R', []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'transform',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+            generics: {
+              'R': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
       'toString': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
@@ -157,6 +329,22 @@ class $Result<T> implements Result<T>, $Instance {
         return __$exceptionOrNull;
       case 'toString':
         return __$toString;
+      case 'getOrThrow':
+        return __$getOrThrow;
+      case 'getOrElse':
+        return __$getOrElse;
+      case 'getOrDefault':
+        return __$getOrDefault;
+      case 'fold':
+        return __$fold;
+      case 'map':
+        return __$map;
+      case 'mapCatching':
+        return __$mapCatching;
+      case 'recover':
+        return __$recover;
+      case 'recoverCatching':
+        return __$recoverCatching;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -210,6 +398,100 @@ class $Result<T> implements Result<T>, $Instance {
         : ($result is $Exception ? $result : $Exception.wrap($result));
   }
 
+  static const __$runCatching = $Function(_$runCatching);
+  static $Value? _$runCatching(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final block = args[0] as EvalCallable;
+    return $Result.wrap(runCatching(() => block.call(runtime, null, [])));
+  }
+
+  static const __$getOrThrow = $Function(_$getOrThrow);
+  static $Value? _$getOrThrow(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $instance = target!.$value as Result;
+    final $result = $instance.getOrThrow();
+    return $result;
+  }
+
+  static const __$getOrElse = $Function(_$getOrElse);
+  static $Value? _$getOrElse(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $instance = target!.$value as Result;
+    final onFailure = args[0] as EvalCallable;
+    final $result = $instance.getOrElse(
+      (exception) =>
+          onFailure.call(runtime, null, [$Exception.wrap(exception)]),
+    );
+    return $result;
+  }
+
+  static const __$getOrDefault = $Function(_$getOrDefault);
+  static $Value? _$getOrDefault(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $instance = target!.$value as Result;
+    final defaultValue = args[0];
+    final $result = $instance.getOrDefault(defaultValue);
+    return $result;
+  }
+
+  static const __$fold = $Function(_$fold);
+  static $Value? _$fold(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $instance = target!.$value as Result;
+    final onSuccess = args[0] as EvalCallable;
+    final onFailure = args[1] as EvalCallable;
+    final $result = $instance.fold(
+        (value) => onSuccess.call(runtime, null, [value as $Value?]),
+        (exception) => onFailure.call(runtime, null, [
+              exception is $Exception ? exception : $Exception.wrap(exception)
+            ]));
+    return $result;
+  }
+
+  static const __$map = $Function(_$map);
+  static $Value? _$map(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $instance = target!.$value as Result;
+    final transform = args[0] as EvalCallable;
+    final $result = $instance.map(
+      (value) => transform.call(runtime, null, [value as $Value?]),
+    );
+    return $Result.wrap($result);
+  }
+
+  static const __$mapCatching = $Function(_$mapCatching);
+  static $Value? _$mapCatching(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $instance = target!.$value as Result;
+    final transform = args[0] as EvalCallable;
+    final $result = $instance.mapCatching(
+      (value) => transform.call(runtime, null, [value as $Value]),
+    );
+    return $Result.wrap($result);
+  }
+
+  static const __$recover = $Function(_$recover);
+  static $Value? _$recover(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $instance = target!.$value as Result;
+    final transform = args[0] as EvalCallable;
+    final $result = $instance.recover(
+      (exception) => transform.call(runtime, null,
+          [exception is $Exception ? exception : $Exception.wrap(exception)]),
+    );
+    return $Result.wrap($result);
+  }
+
+  static const __$recoverCatching = $Function(_$recoverCatching);
+  static $Value? _$recoverCatching(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $instance = target!.$value as Result;
+    final transform = args[0] as EvalCallable;
+    final $result = $instance.recoverCatching(
+      (exception) => transform.call(runtime, null,
+          [exception is $Exception ? exception : $Exception.wrap(exception)]),
+    );
+    return $Result.wrap($result);
+  }
+
   @override
   String toString() => $value.toString();
   static const __$toString = $Function(_$toString);
@@ -220,16 +502,16 @@ class $Result<T> implements Result<T>, $Instance {
     return $String($result);
   }
 
-  static const __$static$method$success = $Function(_$static$method$success);
-  static $Value? _$static$method$success(
+  static const __$static$method$success = $Function(_static$method$success);
+  static $Value? _static$method$success(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final value = args[0];
     final $result = Result.success(value);
     return $Result.wrap($result);
   }
 
-  static const __$static$method$failure = $Function(_$static$method$failure);
-  static $Value? _$static$method$failure(
+  static const __$static$method$failure = $Function(_static$method$failure);
+  static $Value? _static$method$failure(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final exception = $Exception.wrap(args[0]?.$value);
     final $result = Result.failure(exception);
@@ -325,480 +607,131 @@ class $Failure implements $Instance {
 
 Result<R> _runCatching<R>(R Function() block) => runCatching(block);
 
-class ResultsUtils {
-  static Result<R> runCatching<R>(R Function() block) {
-    return _runCatching(block);
-  }
+// class ResultsUtils {
+//   static Result<R> runCatching<R>(R Function() block) {
+//     return _runCatching(block);
+//   }
 
-  static T getOrThrow<T>(Result<T> result) {
-    return result.getOrThrow();
-  }
+//   static T getOrThrow<T>(Result<T> result) {
+//     return result.getOrThrow();
+//   }
 
-  static T getOrElse<T>(
-      Result<T> result, T Function(Exception exception) onFailure) {
-    return result.getOrElse(onFailure);
-  }
+//   static T getOrElse<T>(
+//       Result<T> result, T Function(Exception exception) onFailure) {
+//     return result.getOrElse(onFailure);
+//   }
 
-  static T getOrDefault<T>(Result<T> result, T defaultValue) {
-    return result.getOrDefault(defaultValue);
-  }
+//   static T getOrDefault<T>(Result<T> result, T defaultValue) {
+//     return result.getOrDefault(defaultValue);
+//   }
 
-  static R fold<T, R>(Result<T> result,
-      {required R Function(T value) onSuccess,
-      required R Function(Exception exception) onFailure}) {
-    return result.fold(onSuccess, onFailure);
-  }
+//   static R fold<T, R>(Result<T> result,
+//       {required R Function(T value) onSuccess,
+//       required R Function(Exception exception) onFailure}) {
+//     return result.fold(onSuccess, onFailure);
+//   }
 
-  static Result<R> map<T, R>(Result<T> result, R Function(T value) transform) {
-    return result.map(transform);
-  }
+//   static Result<R> map<T, R>(Result<T> result, R Function(T value) transform) {
+//     return result.map(transform);
+//   }
 
-  static Result<R> mapCatching<T, R>(
-      Result<T> result, R Function(T value) transform) {
-    return result.mapCatching(transform);
-  }
+//   static Result<R> mapCatching<T, R>(
+//       Result<T> result, R Function(T value) transform) {
+//     return result.mapCatching(transform);
+//   }
 
-  static Result<R> recover<T, R>(
-      Result<T> result, R Function(Exception exception) transform) {
-    return result.recover(transform);
-  }
+//   static Result<R> recover<T, R>(
+//       Result<T> result, R Function(Exception exception) transform) {
+//     return result.recover(transform);
+//   }
 
-  static Result<R> recoverCatching<T, R>(
-      Result<T> result, R Function(Exception exception) transform) {
-    return result.recoverCatching(transform);
-  }
-}
+//   static Result<R> recoverCatching<T, R>(
+//       Result<T> result, R Function(Exception exception) transform) {
+//     return result.recoverCatching(transform);
+//   }
+// }
 
-/// dart_eval bimodal wrapper for [ResultsUtils]
-class $ResultsUtils implements ResultsUtils, $Instance {
-  /// Configure the [$ResultsUtils] wrapper for use in a [Runtime]
-  static void configureForCompile(BridgeDeclarationRegistry registry) {
-    registry.defineBridgeClass($declaration);
-  }
+// /// dart_eval bimodal wrapper for [ResultsUtils]
+// class $ResultsUtils implements ResultsUtils, $Instance {
+//   /// Configure the [$ResultsUtils] wrapper for use in a [Runtime]
+//   static void configureForCompile(BridgeDeclarationRegistry registry) {
+//     registry.defineBridgeClass($declaration);
+//   }
 
-  static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'ResultsUtils.', __$ResultsUtils$new);
-    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.runCatching',
-        __$static$method$runCatching.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.getOrThrow',
-        __$static$method$getOrThrow.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.getOrElse',
-        __$static$method$getOrElse.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.getOrDefault',
-        __$static$method$getOrDefault.call);
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'ResultsUtils.fold', __$static$method$fold.call);
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'ResultsUtils.map', __$static$method$map.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.mapCatching',
-        __$static$method$mapCatching.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.recover',
-        __$static$method$recover.call);
-    runtime.registerBridgeFunc($type.spec!.library,
-        'ResultsUtils.recoverCatching', __$static$method$recoverCatching.call);
-  }
+//   static void configureForRuntime(Runtime runtime) {
+//     runtime.registerBridgeFunc(
+//         $type.spec!.library, 'ResultsUtils.', __$ResultsUtils$new);
+//     runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.runCatching',
+//         __static$method$runCatching.call);
+//     runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.getOrThrow',
+//         __static$method$getOrThrow.call);
+//     runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.getOrElse',
+//         __$static$method$getOrElse.call);
+//     runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.getOrDefault',
+//         __$static$method$getOrDefault.call);
+//     runtime.registerBridgeFunc(
+//         $type.spec!.library, 'ResultsUtils.fold', __$static$method$fold.call);
+//     runtime.registerBridgeFunc(
+//         $type.spec!.library, 'ResultsUtils.map', __$static$method$map.call);
+//     runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.mapCatching',
+//         __$static$method$mapCatching.call);
+//     runtime.registerBridgeFunc($type.spec!.library, 'ResultsUtils.recover',
+//         __$static$method$recover.call);
+//     runtime.registerBridgeFunc($type.spec!.library,
+//         'ResultsUtils.recoverCatching', __$static$method$recoverCatching.call);
+//   }
 
-  late final $Instance _superclass = $Object($value);
+//   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(DartXTypes.resultsUtils);
+//   static const $type = BridgeTypeRef(DartXTypes.resultsUtils);
 
-  static const $declaration = BridgeClassDef(
-    BridgeClassType(
-      $type,
-      $extends: null,
-      $implements: [],
-      isAbstract: false,
-    ),
-    constructors: {},
-    fields: {},
-    methods: {
-      'runCatching': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
-                  BridgeTypeRef.ref('R', []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'block',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-            generics: {
-              'R': BridgeGenericParam(),
-            },
-          ),
-          isStatic: true),
-      'getOrThrow': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'result',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(DartXTypes.result, [
-                        BridgeTypeRef.ref('T', []),
-                      ]),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-            generics: {
-              'T': BridgeGenericParam(),
-            },
-          ),
-          isStatic: true),
-      'getOrElse': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'result',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(DartXTypes.result, [
-                        BridgeTypeRef.ref('T', []),
-                      ]),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'onFailure',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-            generics: {
-              'T': BridgeGenericParam(),
-            },
-          ),
-          isStatic: true),
-      'getOrDefault': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'result',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(DartXTypes.result, [
-                        BridgeTypeRef.ref('T', []),
-                      ]),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'defaultValue',
-                  BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-            generics: {
-              'T': BridgeGenericParam(),
-            },
-          ),
-          isStatic: true),
-      'fold': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef.ref('R', []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'result',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(DartXTypes.result, [
-                        BridgeTypeRef.ref('T', []),
-                      ]),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [
-              BridgeParameter(
-                  'onSuccess',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'onFailure',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                      nullable: false),
-                  false)
-            ],
-            generics: {
-              'R': BridgeGenericParam(),
-              'T': BridgeGenericParam(),
-            },
-          ),
-          isStatic: true),
-      'map': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
-                  BridgeTypeRef.ref('R', []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'result',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(DartXTypes.result, [
-                        BridgeTypeRef.ref('T', []),
-                      ]),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'transform',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-            generics: {
-              'R': BridgeGenericParam(),
-              'T': BridgeGenericParam(),
-            },
-          ),
-          isStatic: true),
-      'mapCatching': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
-                  BridgeTypeRef.ref('R', []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'result',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(DartXTypes.result, [
-                        BridgeTypeRef.ref('T', []),
-                      ]),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'transform',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-            generics: {
-              'R': BridgeGenericParam(),
-              'T': BridgeGenericParam(),
-            },
-          ),
-          isStatic: true),
-      'recover': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
-                  BridgeTypeRef.ref('R', []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'result',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(DartXTypes.result, [
-                        BridgeTypeRef.ref('T', []),
-                      ]),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'transform',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-            generics: {
-              'R': BridgeGenericParam(),
-              'T': BridgeGenericParam(),
-            },
-          ),
-          isStatic: true),
-      'recoverCatching': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
-                  BridgeTypeRef.ref('R', []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'result',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(DartXTypes.result, [
-                        BridgeTypeRef.ref('T', []),
-                      ]),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'transform',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-            generics: {
-              'R': BridgeGenericParam(),
-              'T': BridgeGenericParam(),
-            },
-          ),
-          isStatic: true),
-    },
-    getters: {},
-    setters: {},
-    bridge: false,
-    wrap: true,
-  );
+//   static const $declaration = BridgeClassDef(
+//     BridgeClassType(
+//       $type,
+//       $extends: null,
+//       $implements: [],
+//       isAbstract: false,
+//     ),
+//     constructors: {},
+//     fields: {},
+//     methods: {},
+//     getters: {},
+//     setters: {},
+//     bridge: false,
+//     wrap: true,
+//   );
 
-  /// Wrap an [ResultsUtils] in an [$ResultsUtils]
-  $ResultsUtils.wrap(this.$value);
+//   /// Wrap an [ResultsUtils] in an [$ResultsUtils]
+//   $ResultsUtils.wrap(this.$value);
 
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
-    switch (identifier) {
-      default:
-        return _superclass.$getProperty(runtime, identifier);
-    }
-  }
+//   @override
+//   $Value? $getProperty(Runtime runtime, String identifier) {
+//     switch (identifier) {
+//       default:
+//         return _superclass.$getProperty(runtime, identifier);
+//     }
+//   }
 
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
+//   @override
+//   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
-  @override
-  ResultsUtils get $reified => $value;
+//   @override
+//   ResultsUtils get $reified => $value;
 
-  @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    switch (identifier) {
-      default:
-        _superclass.$setProperty(runtime, identifier, value);
-    }
-  }
+//   @override
+//   void $setProperty(Runtime runtime, String identifier, $Value value) {
+//     switch (identifier) {
+//       default:
+//         _superclass.$setProperty(runtime, identifier, value);
+//     }
+//   }
 
-  @override
-  final ResultsUtils $value;
+//   @override
+//   final ResultsUtils $value;
 
-  static const __$static$method$runCatching =
-      $Function(_$static$method$runCatching);
-  static $Value? _$static$method$runCatching(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final block = args[0] as EvalCallable;
-    final $result = ResultsUtils.runCatching(
-      () => block.call(runtime, null, []),
-    );
-    return $Result.wrap($result);
-  }
-
-  static const __$static$method$getOrThrow =
-      $Function(_$static$method$getOrThrow);
-  static $Value? _$static$method$getOrThrow(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final result = args[0]?.$value as Result;
-    final $result = ResultsUtils.getOrThrow(result);
-    return $result;
-  }
-
-  static const __$static$method$getOrElse =
-      $Function(_$static$method$getOrElse);
-  static $Value? _$static$method$getOrElse(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final result = args[0]?.$value;
-    final onFailure = args[1] as EvalCallable;
-    final $result = ResultsUtils.getOrElse(
-      result,
-      (exception) =>
-          onFailure.call(runtime, null, [$Exception.wrap(exception)]),
-    );
-    return $result;
-  }
-
-  static const __$static$method$getOrDefault =
-      $Function(_$static$method$getOrDefault);
-  static $Value? _$static$method$getOrDefault(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final result = args[0]?.$value as Result;
-    final defaultValue = args[1];
-    final $result = ResultsUtils.getOrDefault(result, defaultValue);
-    return $result;
-  }
-
-  static const __$static$method$fold = $Function(_$static$method$fold);
-  static $Value? _$static$method$fold(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final result = args[0]?.$value as Result;
-    final onSuccess = args[1] as EvalCallable;
-    final onFailure = args[2] as EvalCallable;
-    final $result = ResultsUtils.fold(result,
-        onSuccess: (value) => onSuccess.call(runtime, null, [value as $Value?]),
-        onFailure: (exception) => onFailure.call(runtime, null, [
-              exception is $Exception ? exception : $Exception.wrap(exception)
-            ]));
-    return $result;
-  }
-
-  static const __$static$method$map = $Function(_$static$method$map);
-  static $Value? _$static$method$map(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final result = args[0]?.$value as Result;
-    final transform = args[1] as EvalCallable;
-    final $result = ResultsUtils.map(
-      result,
-      (value) => transform.call(runtime, null, [value as $Value?]),
-    );
-    return $Result.wrap($result);
-  }
-
-  static const __$static$method$mapCatching =
-      $Function(_$static$method$mapCatching);
-  static $Value? _$static$method$mapCatching(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final result = args[0]?.$value as Result;
-    final transform = args[1] as EvalCallable;
-    final $result = ResultsUtils.mapCatching(
-      result,
-      (value) => transform.call(runtime, null, [value as $Value]),
-    );
-    return $Result.wrap($result);
-  }
-
-  static const __$static$method$recover = $Function(_$static$method$recover);
-  static $Value? _$static$method$recover(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final result = args[0]?.$value as Result;
-    final transform = args[1] as EvalCallable;
-    final $result = ResultsUtils.recover(
-      result,
-      (exception) => transform.call(runtime, null,
-          [exception is $Exception ? exception : $Exception.wrap(exception)]),
-    );
-    return $Result.wrap($result);
-  }
-
-  static const __$static$method$recoverCatching =
-      $Function(_$static$method$recoverCatching);
-  static $Value? _$static$method$recoverCatching(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final result = args[0]?.$value as Result;
-    final transform = args[1] as EvalCallable;
-    final $result = ResultsUtils.recoverCatching(
-      result,
-      (exception) => transform.call(runtime, null,
-          [exception is $Exception ? exception : $Exception.wrap(exception)]),
-    );
-    return $Result.wrap($result);
-  }
-
-  static const __$ResultsUtils$new = $Function(_$ResultsUtils$new);
-  static $Value? _$ResultsUtils$new(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    return $ResultsUtils.wrap(ResultsUtils());
-  }
-}
+//   static const __$ResultsUtils$new = $Function(_$ResultsUtils$new);
+//   static $Value? _$ResultsUtils$new(
+//       Runtime runtime, $Value? target, List<$Value?> args) {
+//     return $ResultsUtils.wrap(ResultsUtils());
+//   }
+// }
