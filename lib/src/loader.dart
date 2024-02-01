@@ -10,6 +10,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/ne
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/shared_prefrences/plugin.dart';
 
 class ExtensionLoader {
   final Runtime runtime;
@@ -36,6 +37,7 @@ class ExtensionLoader {
       ..addPlugin(OkHttpPlugin())
       ..addPlugin(HTMLPlugin())
       ..addPlugin(CryptoDartPlugin())
+      ..addPlugin(SharedPreferencesPlugin())
       ..addPlugin(ExtensionLibPlugin());
   }
 

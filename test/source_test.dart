@@ -456,8 +456,8 @@ class MockPrefrenceStore implements PreferenceStore {
   }
 
   @override
-  Preference<Set<String>> getStringSet(String key,
-      [Set<String> defaultValue = const {}]) {
+  Preference<List<String>> getStringSet(String key,
+      [List<String> defaultValue = const []]) {
     // TODO: implement getStringSet
     throw UnimplementedError();
   }

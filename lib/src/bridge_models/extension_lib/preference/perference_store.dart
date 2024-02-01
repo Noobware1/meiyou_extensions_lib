@@ -286,18 +286,25 @@ class $PreferenceStore implements PreferenceStore, $Instance {
   }
 
   @override
-  Preference<Set<String>> getStringSet(String key,
-          [Set<String> defaultValue = const {}]) =>
+  Preference<List<String>> getStringSet(String key,
+          [List<String> defaultValue = const []]) =>
       $value.getStringSet(key, defaultValue);
   static const __$getStringSet = $Function(_$getStringSet);
   static $Value? _$getStringSet(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as PreferenceStore;
     final key = args[0]?.$value as String;
-    final defaultValue = args[1]?.$reified as Set<String>? ?? const {};
+    final defaultValue = args[1]?.$reified as List<String>? ?? const [];
     final $result = obj.getStringSet(key, defaultValue);
     return $Preference.wrap(
-        (val) => val is $Value ? val : $Iterable.wrap(val), $result);
+        (val) => val is $Value
+            ? val
+            : $Iterable.wrap(
+                (val as Iterable).map(
+                  (e) => $String(e),
+                ),
+              ),
+        $result);
   }
 
   @override

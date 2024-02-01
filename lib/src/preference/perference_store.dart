@@ -9,8 +9,8 @@ abstract interface class PreferenceStore {
 
   Preference<bool> getBool(String key, [bool defaultValue = false]);
 
-  Preference<Set<String>> getStringSet(String key,
-      [Set<String> defaultValue = const {}]);
+  Preference<List<String>> getStringSet(String key,
+      [List<String> defaultValue = const []]);
 
   Preference<T> getObject<T>(
     String key,

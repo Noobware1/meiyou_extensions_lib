@@ -24,6 +24,7 @@ export 'src/models/filter_list.dart';
 export 'src/models/interfaces/extractor_api.dart';
 export 'src/models/interfaces/source.dart';
 export 'src/models/interfaces/catalogue_source.dart';
+export 'src/models/interfaces/configurable_source.dart';
 export 'src/models/interfaces/online/http_source.dart';
 export 'src/models/interfaces/online/parsed_http_source.dart';
 
