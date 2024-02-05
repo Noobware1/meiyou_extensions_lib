@@ -18,8 +18,9 @@ import 'package:dart_eval/stdlib/core.dart';
 /// This class cannot be instantiated. All its methods are static and should be called directly on the class.
 ///
 class AppUtils {
-  static SharedPreferences getSourcePerferences(int id) {
-    final isar = Isar.getInstance()!;
+  static SharedPreferences getSourcePerferences(int id,
+      [String name = 'default']) {
+    final isar = Isar.getInstance(name)!;
 
     final prefs = isar.sourcePreferences.getSync('source_$id'.hashCode) ??
         SourcePreference();
