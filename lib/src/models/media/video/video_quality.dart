@@ -1,4 +1,4 @@
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 
 /// A class that represents the quality of a video.
 ///

@@ -9,7 +9,7 @@ import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/stdlib/typed_data.dart';
 import 'package:crypto_dart/encoders.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/encoders.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/hashers/md2.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/types.dart';

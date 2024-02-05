@@ -1,7 +1,7 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/actor_data.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/external_id.dart';

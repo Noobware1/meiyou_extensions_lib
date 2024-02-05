@@ -1,7 +1,7 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/src/eval/runtime/runtime.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 import 'package:html/dom.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter_list.dart';

@@ -1,6 +1,6 @@
 import 'dart:convert' as convert;
 
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/homepage.dart';
@@ -16,7 +16,8 @@ abstract class CatalogueSource extends Source {
   @override
   abstract final String lang;
 
-  Future<List<SearchResponse>> getSearch(int page, String query, FilterList filters);
+  Future<List<SearchResponse>> getSearch(
+      int page, String query, FilterList filters);
 
   FilterList getFilterList();
 
@@ -99,7 +100,8 @@ class _EncodableCatalogueSource implements CatalogueSource {
   final bool supportsHomePage;
 
   @override
-  Future<List<SearchResponse>> getSearch(int page, String query, FilterList filters) {
+  Future<List<SearchResponse>> getSearch(
+      int page, String query, FilterList filters) {
     // TODO: implement getSearch
     throw UnimplementedError();
   }

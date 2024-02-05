@@ -1,7 +1,7 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/dart_eval_security.dart';
 import 'package:dart_eval/dart_eval.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/html_extensions.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models.dart';
 
@@ -126,7 +126,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     $Selection.configureForCompile(registry);
 
     //Utils
-    DartxPlugin().configureForCompile(registry);
+    NiceDartPlugin().configureForCompile(registry);
     registry.addSource(utilsSource);
 
     // Network
@@ -210,7 +210,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     $ParsedHttpSource.configureForRuntime(runtime);
 
     //Utils
-    DartxPlugin().configureForRuntime(runtime);
+    NiceDartPlugin().configureForRuntime(runtime);
 
     // Network
     $Requests.configureForRuntime(runtime);

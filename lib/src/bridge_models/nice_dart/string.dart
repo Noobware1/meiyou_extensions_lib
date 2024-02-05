@@ -1,11 +1,11 @@
-// import 'package:dartx/src/extensions/iterable.dart';
+// import 'package:nice_dart/src/extensions/iterable.dart';
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/stdlib/io.dart';
-import 'package:dartx/dartx.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+import 'package:nice_dart/nice_dart.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 
 class StringUtils {
   const StringUtils();
@@ -210,7 +210,7 @@ class $StringUtils implements StringUtils, $Instance {
 
   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(DartXTypes.stringUtils);
+  static const $type = BridgeTypeRef(nice_dartTypes.stringUtils);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(

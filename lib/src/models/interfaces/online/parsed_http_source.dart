@@ -1,4 +1,4 @@
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 import 'package:html/dom.dart';
 import 'package:meiyou_extensions_lib/src/html_extensions.dart';
 import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';

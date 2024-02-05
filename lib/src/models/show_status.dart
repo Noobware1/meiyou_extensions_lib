@@ -1,7 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:dartx/dartx.dart';
-
+import 'package:nice_dart/nice_dart.dart';
 
 /// `ShowStatus` is an enumeration that represents the status of a show.
 ///

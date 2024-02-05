@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 
 /// `ShowType` is an enumeration that represents different types of shows.
 ///

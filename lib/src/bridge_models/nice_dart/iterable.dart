@@ -1,8 +1,8 @@
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/object.dart';
 
 class IterableUtils {
@@ -131,7 +131,7 @@ class $IterableUtils implements IterableUtils, $Instance {
 
   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(DartXTypes.iterableUtils);
+  static const $type = BridgeTypeRef(nice_dartTypes.iterableUtils);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(

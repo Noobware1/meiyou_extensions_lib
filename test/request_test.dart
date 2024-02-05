@@ -1,6 +1,6 @@
 // import 'package:dart_eval/dart_eval.dart';
 // import 'package:dart_eval/dart_eval_bridge.dart';
-// import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+// import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 // import 'package:test/test.dart';
 
 import 'package:dart_eval/dart_eval.dart';
@@ -9,7 +9,7 @@ import 'package:meiyou_extensions_lib/extensions_lib.dart';
 import 'package:meiyou_extensions_lib/network.dart';
 
 import 'package:test/test.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 
 void main() {
   group('Requests', () {

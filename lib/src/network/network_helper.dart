@@ -1,4 +1,4 @@
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 import 'package:meiyou_extensions_lib/src/network/interceptor/unhandled_exception_interceptor.dart';
 import 'package:meiyou_extensions_lib/src/network/interceptor/user_agent_interceptor.dart';
 import 'package:meiyou_extensions_lib/src/network/network_preferences.dart';

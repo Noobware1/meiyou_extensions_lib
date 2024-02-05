@@ -1,14 +1,14 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/app_utils.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/builders.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/result.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/scopes.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/string.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/app_utils.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/builders.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/result.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/scopes.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/string.dart';
 import 'iterable.dart';
 import 'list.dart';
 
-class DartxPlugin extends EvalPlugin {
+class NiceDartPlugin extends EvalPlugin {
   @override
   void configureForCompile(BridgeDeclarationRegistry registry) {
     $AppUtils.configureForCompile(registry);
@@ -36,7 +36,7 @@ class DartxPlugin extends EvalPlugin {
   String get identifier => 'package:meiyou_extensions_lib/utils.dart';
 }
 
-class DartXTypes {
+class nice_dartTypes {
   /// Bridge type spec for [$IterableUtils]
   static const iterableUtils = BridgeTypeSpec(
       'package:meiyou_extensions_lib/src/iterable.dart', 'IterableUtils');

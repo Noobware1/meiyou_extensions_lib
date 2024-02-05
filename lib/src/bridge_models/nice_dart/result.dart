@@ -1,8 +1,8 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:dartx/dartx.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+import 'package:nice_dart/nice_dart.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 
 /// dart_eval bimodal wrapper for [Result]
 class $Result<T> implements Result<T>, $Instance {
@@ -15,7 +15,7 @@ class $Result<T> implements Result<T>, $Instance {
         'runCatching',
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation(
-              BridgeTypeRef(DartXTypes.result, [
+              BridgeTypeRef(nice_dartTypes.result, [
                 BridgeTypeRef.ref('R', []),
               ]),
               nullable: false),
@@ -48,7 +48,7 @@ class $Result<T> implements Result<T>, $Instance {
 
   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(DartXTypes.result);
+  static const $type = BridgeTypeRef(nice_dartTypes.result);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType($type,
@@ -84,7 +84,7 @@ class $Result<T> implements Result<T>, $Instance {
       'success': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
+                BridgeTypeRef(nice_dartTypes.result, [
                   BridgeTypeRef.ref('T', []),
                 ]),
                 nullable: false),
@@ -101,7 +101,7 @@ class $Result<T> implements Result<T>, $Instance {
       'failure': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
+                BridgeTypeRef(nice_dartTypes.result, [
                   BridgeTypeRef.ref('T', []),
                 ]),
                 nullable: false),
@@ -202,7 +202,7 @@ class $Result<T> implements Result<T>, $Instance {
       'map': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
+                BridgeTypeRef(nice_dartTypes.result, [
                   BridgeTypeRef.ref('R', []),
                 ]),
                 nullable: false),
@@ -222,7 +222,7 @@ class $Result<T> implements Result<T>, $Instance {
       'mapCatching': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
+                BridgeTypeRef(nice_dartTypes.result, [
                   BridgeTypeRef.ref('R', []),
                 ]),
                 nullable: false),
@@ -242,7 +242,7 @@ class $Result<T> implements Result<T>, $Instance {
       'recover': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
+                BridgeTypeRef(nice_dartTypes.result, [
                   BridgeTypeRef.ref('R', []),
                 ]),
                 nullable: false),
@@ -262,7 +262,7 @@ class $Result<T> implements Result<T>, $Instance {
       'recoverCatching': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(DartXTypes.result, [
+                BridgeTypeRef(nice_dartTypes.result, [
                   BridgeTypeRef.ref('R', []),
                 ]),
                 nullable: false),
@@ -535,7 +535,7 @@ class $Failure implements $Instance {
 
   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(DartXTypes.failure);
+  static const $type = BridgeTypeRef(nice_dartTypes.failure);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(
@@ -683,7 +683,7 @@ Result<R> _runCatching<R>(R Function() block) => runCatching(block);
 
 //   late final $Instance _superclass = $Object($value);
 
-//   static const $type = BridgeTypeRef(DartXTypes.resultsUtils);
+//   static const $type = BridgeTypeRef(nice_dartTypes.resultsUtils);
 
 //   static const $declaration = BridgeClassDef(
 //     BridgeClassType(

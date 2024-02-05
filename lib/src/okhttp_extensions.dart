@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 import 'package:html/dom.dart';
 import 'package:okhttp/response.dart';
 

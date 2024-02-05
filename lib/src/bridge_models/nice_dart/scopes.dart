@@ -1,9 +1,9 @@
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 
 class Scopes {
   static T? apply<T extends Object>(T? instance, void Function(T? it) block) {
@@ -53,7 +53,7 @@ class $Scopes implements Scopes, $Instance {
 
   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(DartXTypes.scopes);
+  static const $type = BridgeTypeRef(nice_dartTypes.scopes);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(

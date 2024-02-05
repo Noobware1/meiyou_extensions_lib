@@ -1,12 +1,12 @@
 // import 'package:dart_eval/dart_eval.dart';
 // import 'package:dart_eval/dart_eval_bridge.dart';
-// import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+// import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 // import 'package:test/test.dart';
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:test/test.dart';
 // Assuming the file name is iterable.dart
 
@@ -14,7 +14,7 @@ void main() {
   group('\$Iterableutils', () {
     late Compiler compiler;
     setUp(() {
-      compiler = Compiler()..addPlugin(DartxPlugin());
+      compiler = Compiler()..addPlugin(NiceDartPlugin());
     });
     test('mapNotNull', () {
       var compiled = compiler.compile({
@@ -31,7 +31,7 @@ Iterable<int> main() {
         },
       });
 
-      var runtime = Runtime.ofProgram(compiled)..addPlugin(DartxPlugin());
+      var runtime = Runtime.ofProgram(compiled)..addPlugin(NiceDartPlugin());
       var value = runtime.executeLib('package:example/main.dart', 'main');
       final unwrapped = (value as $Iterable)
           .$value
@@ -54,7 +54,7 @@ Iterable<int> main() {
         },
       });
 
-      var runtime = Runtime.ofProgram(compiled)..addPlugin(DartxPlugin());
+      var runtime = Runtime.ofProgram(compiled)..addPlugin(NiceDartPlugin());
       var value = runtime.executeLib('package:example/main.dart', 'main');
       expect((value as $Value).$reified, [1, 2, 3]);
       compiled = compiler.compile({
@@ -69,7 +69,7 @@ Iterable<int> main() {
         },
       });
 
-      runtime = Runtime.ofProgram(compiled)..addPlugin(DartxPlugin());
+      runtime = Runtime.ofProgram(compiled)..addPlugin(NiceDartPlugin());
       value = runtime.executeLib('package:example/main.dart', 'main');
       expect((value as $Value).$value, []);
     });

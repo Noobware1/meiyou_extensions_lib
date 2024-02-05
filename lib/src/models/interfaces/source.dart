@@ -1,4 +1,4 @@
-import 'package:dartx/dartx.dart';
+import 'package:nice_dart/nice_dart.dart';
 import 'dart:convert' as convert;
 import 'package:meiyou_extensions_lib/models.dart';
 

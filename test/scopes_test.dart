@@ -1,18 +1,18 @@
 // import 'package:dart_eval/dart_eval.dart';
 // import 'package:dart_eval/dart_eval_bridge.dart';
-// import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+// import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 // import 'package:test/test.dart';
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/dartx/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('\$Scopes', () {
     late Compiler compiler;
     setUp(() {
-      compiler = Compiler()..addPlugin(DartxPlugin());
+      compiler = Compiler()..addPlugin(NiceDartPlugin());
     });
 
     test('apply', () {
@@ -39,7 +39,7 @@ void main() {
         },
       });
 
-      var runtime = Runtime.ofProgram(compiled)..addPlugin(DartxPlugin());
+      var runtime = Runtime.ofProgram(compiled)..addPlugin(NiceDartPlugin());
 
       var value = runtime.executeLib('package:example/main.dart', 'main');
 
@@ -67,7 +67,7 @@ void main() {
         },
       });
 
-      var runtime = Runtime.ofProgram(compiled)..addPlugin(DartxPlugin());
+      var runtime = Runtime.ofProgram(compiled)..addPlugin(NiceDartPlugin());
 
       var value = runtime.executeLib('package:example/main.dart', 'main');
 
@@ -96,7 +96,7 @@ void main() {
         },
       });
 
-      var runtime = Runtime.ofProgram(compiled)..addPlugin(DartxPlugin());
+      var runtime = Runtime.ofProgram(compiled)..addPlugin(NiceDartPlugin());
 
       var value = runtime.executeLib('package:example/main.dart', 'main');
 
@@ -126,7 +126,7 @@ void main() {
         },
       });
 
-      var runtime = Runtime.ofProgram(compiled)..addPlugin(DartxPlugin());
+      var runtime = Runtime.ofProgram(compiled)..addPlugin(NiceDartPlugin());
 
       var value = runtime.executeLib('package:example/main.dart', 'main');
 
@@ -156,7 +156,7 @@ void main() {
         },
       });
 
-      var runtime = Runtime.ofProgram(compiled)..addPlugin(DartxPlugin());
+      var runtime = Runtime.ofProgram(compiled)..addPlugin(NiceDartPlugin());
 
       var value = runtime.executeLib('package:example/main.dart', 'main');
 
