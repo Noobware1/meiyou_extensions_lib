@@ -28,8 +28,10 @@ class SeparatorFilter extends Filter<dynamic> {
   SeparatorFilter() : super("", 0);
 }
 
-class SelectFilter extends Filter<int> {
-  SelectFilter(String name, int state) : super(name, state);
+class SelectFilter<V> extends Filter<int> {
+  SelectFilter(String name, this.values, [int state = 0]) : super(name, state);
+
+  final List<V> values;
 }
 
 class TextFilter extends Filter<String> {

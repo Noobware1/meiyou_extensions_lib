@@ -341,7 +341,7 @@ class $SeparatorFilter implements SeparatorFilter, $Instance {
 }
 
 /// dart_eval bimodal wrapper for [SelectFilter]
-class $SelectFilter implements SelectFilter, $Instance {
+class $SelectFilter<V> implements SelectFilter<V>, $Instance {
   /// Configure the [$SelectFilter] wrapper for use in a [Runtime]
   static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
@@ -357,14 +357,15 @@ class $SelectFilter implements SelectFilter, $Instance {
   static const $type = BridgeTypeRef(ExtensionLibTypes.selectFilter);
 
   static const $declaration = BridgeClassDef(
-    BridgeClassType(
-      $type,
-      $extends: BridgeTypeRef(ExtensionLibTypes.filter, [
-        BridgeTypeRef(CoreTypes.int, []),
-      ]),
-      $implements: [],
-      isAbstract: false,
-    ),
+    BridgeClassType($type,
+        $extends: BridgeTypeRef(ExtensionLibTypes.filter, [
+          BridgeTypeRef(CoreTypes.int, []),
+        ]),
+        $implements: [],
+        isAbstract: false,
+        generics: {
+          'V': BridgeGenericParam(),
+        }),
     constructors: {
       '': BridgeConstructorDef(
         BridgeFunctionDef(
@@ -376,17 +377,29 @@ class $SelectFilter implements SelectFilter, $Instance {
                     nullable: false),
                 false),
             BridgeParameter(
+                'values',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [BridgeTypeRef.ref('V', [])]),
+                    nullable: false),
+                false),
+            BridgeParameter(
                 'state',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
                     nullable: false),
-                false)
+                true)
           ],
           namedParams: [],
         ),
         isFactory: false,
       )
     },
-    fields: {},
+    fields: {
+      'values': BridgeFieldDef(
+          BridgeTypeAnnotation(
+              BridgeTypeRef(CoreTypes.list, [BridgeTypeRef.ref('V', [])]),
+              nullable: false),
+          isStatic: false),
+    },
     methods: {},
     getters: {},
     setters: {},
@@ -402,6 +415,10 @@ class $SelectFilter implements SelectFilter, $Instance {
     switch (identifier) {
       case 'state':
         return $int($value.state);
+      case 'values':
+        return $List.wrap(List.generate(values.length, (index) {
+          return values[index] as $Value;
+        }));
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -411,7 +428,7 @@ class $SelectFilter implements SelectFilter, $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   @override
-  SelectFilter get $reified => $value;
+  SelectFilter<V> get $reified => $value;
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
@@ -422,14 +439,15 @@ class $SelectFilter implements SelectFilter, $Instance {
   }
 
   @override
-  final SelectFilter $value;
+  final SelectFilter<V> $value;
 
   static const __$SelectFilter$new = $Function(_$SelectFilter$new);
   static $Value? _$SelectFilter$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final name = args[0]?.$value as String;
-    final state = args[1]?.$value as int;
-    return $SelectFilter.wrap(SelectFilter(name, state));
+    final values = args[1]?.$value as List;
+    final state = args[2]?.$value as int? ?? 0;
+    return $SelectFilter.wrap(SelectFilter(name, values, state));
   }
 
   @override
@@ -445,6 +463,9 @@ class $SelectFilter implements SelectFilter, $Instance {
 
   @override
   String get name => $value.name;
+
+  @override
+  List<V> get values => $value.values;
 }
 
 /// dart_eval bimodal wrapper for [TextFilter]
