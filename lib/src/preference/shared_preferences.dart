@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:isar/isar.dart';
 import 'package:nice_dart/nice_dart.dart' as nice_dart;
 part 'shared_preferences.g.dart';
@@ -35,7 +37,16 @@ abstract class SharedPreferences {
 class SharedPreferencesImpl implements SharedPreferences {
   final SourcePreference _preference;
   final Isar _isar;
-  SharedPreferencesImpl(this._isar, this._preference);
+  SharedPreferencesImpl(this._isar, SourcePreference preference)
+      : _preference = SourcePreference(
+          id: preference.id,
+          keys: [...preference.keys],
+          bools: [...preference.bools],
+          doubles: [...preference.doubles],
+          ints: [...preference.ints],
+          strings: [...preference.strings],
+          stringLists: [...preference.stringLists],
+        );
 
   @override
   void clear() {
@@ -52,15 +63,15 @@ class SharedPreferencesImpl implements SharedPreferences {
 
   @override
   bool containsKey(String key) {
-    final hashcodes = <int>[
-      BoolPerference(key: key).hashCode,
-      DoublePerference(key: key).hashCode,
-      IntPerference(key: key).hashCode,
-      StringPerference(key: key).hashCode,
-      StringListPerference(key: key).hashCode,
+    final prefs = <String>[
+      BoolPerference(key: key).toString(),
+      DoublePerference(key: key).toString(),
+      IntPerference(key: key).toString(),
+      StringPerference(key: key).toString(),
+      StringListPerference(key: key).toString(),
     ];
-    for (var hashcode in hashcodes) {
-      if (_preference.keys.contains(hashcode)) {
+    for (var pref in prefs) {
+      if (_preference.keys.contains(pref)) {
         return true;
       }
     }
@@ -70,7 +81,7 @@ class SharedPreferencesImpl implements SharedPreferences {
   @override
   Set<String> getKeys() {
     return _preference.keys.map((e) {
-      return String.fromCharCode(e).substringAfter('_');
+      return e.substringAfter('_');
     }).toSet();
   }
 
@@ -101,17 +112,17 @@ class SharedPreferencesImpl implements SharedPreferences {
 
   @override
   bool remove(String key) {
-    final hashcodes = <int>[
-      BoolPerference(key: key).hashCode,
-      DoublePerference(key: key).hashCode,
-      IntPerference(key: key).hashCode,
-      StringPerference(key: key).hashCode,
-      StringListPerference(key: key).hashCode,
+    final prefs = <String>[
+      BoolPerference(key: key).toString(),
+      DoublePerference(key: key).toString(),
+      IntPerference(key: key).toString(),
+      StringPerference(key: key).toString(),
+      StringListPerference(key: key).toString(),
     ];
-    for (var hashcode in hashcodes) {
-      if (_preference.keys.contains(hashcode)) {
-        _preference.keys.remove(hashcode);
-        switch (String.fromCharCode(hashcode).substringBefore('_')) {
+    for (var pref in prefs) {
+      if (_preference.keys.contains(pref)) {
+        _preference.keys.remove(pref);
+        switch (pref.substringBefore('_')) {
           case 'bool':
             _preference.bools.removeByBinarySearch(BoolPerference(key: key));
             break;
@@ -144,12 +155,17 @@ class SharedPreferencesImpl implements SharedPreferences {
 
   bool _set<T>(int type, String key, T value) {
     return nice_dart.runCatching(() {
-      _checkKey(key, 0);
-      _preference.setPref(0, key, value);
-      _isar.writeTxnSync(() => _isar.sourcePreferences.putSync(_preference));
-      return true;
+      _checkKey(key, type);
+      _preference.setPref(type, key, value);
+      final id = _isar.writeTxnSync(() {
+        return _isar.sourcePreferences.putSync(_preference);
+      });
+      return id == _preference.id;
     }).getOrElse(
-      (exception) => false,
+      (e) {
+        print(e);
+        return false;
+      },
     );
   }
 
@@ -188,7 +204,7 @@ class SharedPreferencesImpl implements SharedPreferences {
     ]..removeAt(excludeType);
 
     for (var pref in prefs) {
-      if (_preference.keys.contains(pref.hashCode)) {
+      if (_preference.keys.contains(pref.toString())) {
         throw Exception('$key already exists for $pref');
       }
     }
@@ -198,7 +214,7 @@ class SharedPreferencesImpl implements SharedPreferences {
 @collection
 class SourcePreference {
   final Id id;
-  final List<int> keys;
+  final List<String> keys;
   final List<BoolPerference> bools;
   final List<DoublePerference> doubles;
   final List<IntPerference> ints;
@@ -264,9 +280,18 @@ class SourcePreference {
     if (index != -1) {
       prefs[index] = pref;
     } else {
-      keys.add(pref.hashCode);
+      keys.add(pref.toString());
       prefs.add(pref);
     }
+  }
+
+  @override
+  String toString() {
+    List<String> listToString(List<Pref> l) {
+      return l.map((e) => 'Pref(${e.key}: ${e.value})').toList();
+    }
+
+    return 'SourcePreference(id: $id, keys: $keys, bools: ${listToString(bools)}, doubles: ${listToString(doubles)}, ints: ${listToString(ints)}, strings: ${listToString(strings)}, stringLists: ${listToString(stringLists)})';
   }
 }
 
@@ -336,18 +361,8 @@ class BoolPerference extends Pref<bool> {
 
   @override
   String toString() {
-    return 'bool';
+    return 'bool_$key';
   }
-
-  @override
-  int get hashCode => '${toString()}_$key'.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      other is BoolPerference &&
-      other.key == key &&
-      other.value == value &&
-      other.toString() == toString();
 }
 
 @embedded
@@ -359,18 +374,8 @@ class DoublePerference extends Pref<double> {
 
   @override
   String toString() {
-    return 'double';
+    return 'double_$key';
   }
-
-  @override
-  int get hashCode => '${toString()}_$key'.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      other is DoublePerference &&
-      other.key == key &&
-      other.value == value &&
-      other.toString() == toString();
 }
 
 @embedded
@@ -382,18 +387,8 @@ class IntPerference extends Pref<int> {
 
   @override
   String toString() {
-    return 'int';
+    return 'int_$key';
   }
-
-  @override
-  int get hashCode => '${toString()}_$key'.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      other is IntPerference &&
-      other.key == key &&
-      other.value == value &&
-      other.toString() == toString();
 }
 
 @embedded
@@ -405,18 +400,8 @@ class StringPerference extends Pref<String> {
 
   @override
   String toString() {
-    return 'string';
+    return 'string_$key';
   }
-
-  @override
-  int get hashCode => '${toString()}_$key'.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      other is StringPerference &&
-      other.key == key &&
-      other.value == value &&
-      other.toString() == toString();
 }
 
 @embedded
@@ -428,16 +413,6 @@ class StringListPerference extends Pref<List<String>> {
 
   @override
   String toString() {
-    return 'stringList';
+    return 'stringList_$key';
   }
-
-  @override
-  int get hashCode => '${toString()}_$key'.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      other is StringListPerference &&
-      other.key == key &&
-      other.value == value &&
-      other.toString() == toString();
 }

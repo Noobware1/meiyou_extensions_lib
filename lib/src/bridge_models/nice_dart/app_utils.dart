@@ -21,9 +21,8 @@ class AppUtils {
   static SharedPreferences getSourcePerferences(int id,
       [String name = 'default']) {
     final isar = Isar.getInstance(name)!;
-
-    final prefs = isar.sourcePreferences.getSync('source_$id'.hashCode) ??
-        SourcePreference();
+    id = 'source_$id'.hashCode;
+    final prefs = isar.sourcePreferences.getSync(id) ?? SourcePreference(id: id);
 
     return SharedPreferencesImpl(isar, prefs);
   }

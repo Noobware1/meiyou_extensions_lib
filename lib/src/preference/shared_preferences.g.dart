@@ -38,7 +38,7 @@ const SourcePreferenceSchema = CollectionSchema(
     r'keys': PropertySchema(
       id: 3,
       name: r'keys',
-      type: IsarType.longList,
+      type: IsarType.stringList,
     ),
     r'stringLists': PropertySchema(
       id: 4,
@@ -106,7 +106,13 @@ int _sourcePreferenceEstimateSize(
           IntPerferenceSchema.estimateSize(value, offsets, allOffsets);
     }
   }
-  bytesCount += 3 + object.keys.length * 8;
+  bytesCount += 3 + object.keys.length * 3;
+  {
+    for (var i = 0; i < object.keys.length; i++) {
+      final value = object.keys[i];
+      bytesCount += value.length * 3;
+    }
+  }
   bytesCount += 3 + object.stringLists.length * 3;
   {
     final offsets = allOffsets[StringListPerference]!;
@@ -152,7 +158,7 @@ void _sourcePreferenceSerialize(
     IntPerferenceSchema.serialize,
     object.ints,
   );
-  writer.writeLongList(offsets[3], object.keys);
+  writer.writeStringList(offsets[3], object.keys);
   writer.writeObjectList<StringListPerference>(
     offsets[4],
     allOffsets,
@@ -196,7 +202,7 @@ SourcePreference _sourcePreferenceDeserialize(
           IntPerference(),
         ) ??
         const [],
-    keys: reader.readLongList(offsets[3]) ?? const [],
+    keys: reader.readStringList(offsets[3]) ?? const [],
     stringLists: reader.readObjectList<StringListPerference>(
           offsets[4],
           StringListPerferenceSchema.deserialize,
@@ -247,7 +253,7 @@ P _sourcePreferenceDeserializeProp<P>(
           ) ??
           const []) as P;
     case 3:
-      return (reader.readLongList(offset) ?? const []) as P;
+      return (reader.readStringList(offset) ?? const []) as P;
     case 4:
       return (reader.readObjectList<StringListPerference>(
             offset,
@@ -685,49 +691,58 @@ extension SourcePreferenceQueryFilter
   }
 
   QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementEqualTo(int value) {
+      keysElementEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'keys',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
       keysElementGreaterThan(
-    int value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'keys',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
       keysElementLessThan(
-    int value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'keys',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
       keysElementBetween(
-    int lower,
-    int upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -736,6 +751,77 @@ extension SourcePreferenceQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+      keysElementStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'keys',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+      keysElementEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'keys',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+      keysElementContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'keys',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+      keysElementMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'keys',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+      keysElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'keys',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+      keysElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'keys',
+        value: '',
       ));
     });
   }
@@ -1106,7 +1192,8 @@ extension SourcePreferenceQueryProperty
     });
   }
 
-  QueryBuilder<SourcePreference, List<int>, QQueryOperations> keysProperty() {
+  QueryBuilder<SourcePreference, List<String>, QQueryOperations>
+      keysProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'keys');
     });
@@ -1138,18 +1225,13 @@ const BoolPerferenceSchema = Schema(
   name: r'BoolPerference',
   id: 7695858153293704746,
   properties: {
-    r'hashCode': PropertySchema(
-      id: 0,
-      name: r'hashCode',
-      type: IsarType.long,
-    ),
     r'key': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'key',
       type: IsarType.string,
     ),
     r'value': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'value',
       type: IsarType.bool,
     )
@@ -1176,9 +1258,8 @@ void _boolPerferenceSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.hashCode);
-  writer.writeString(offsets[1], object.key);
-  writer.writeBool(offsets[2], object.value);
+  writer.writeString(offsets[0], object.key);
+  writer.writeBool(offsets[1], object.value);
 }
 
 BoolPerference _boolPerferenceDeserialize(
@@ -1188,8 +1269,8 @@ BoolPerference _boolPerferenceDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = BoolPerference(
-    key: reader.readStringOrNull(offsets[1]) ?? '',
-    value: reader.readBoolOrNull(offsets[2]) ?? false,
+    key: reader.readStringOrNull(offsets[0]) ?? '',
+    value: reader.readBoolOrNull(offsets[1]) ?? false,
   );
   return object;
 }
@@ -1202,10 +1283,8 @@ P _boolPerferenceDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
-    case 1:
       return (reader.readStringOrNull(offset) ?? '') as P;
-    case 2:
+    case 1:
       return (reader.readBoolOrNull(offset) ?? false) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1214,62 +1293,6 @@ P _boolPerferenceDeserializeProp<P>(
 
 extension BoolPerferenceQueryFilter
     on QueryBuilder<BoolPerference, BoolPerference, QFilterCondition> {
-  QueryBuilder<BoolPerference, BoolPerference, QAfterFilterCondition>
-      hashCodeEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<BoolPerference, BoolPerference, QAfterFilterCondition>
-      hashCodeGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<BoolPerference, BoolPerference, QAfterFilterCondition>
-      hashCodeLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<BoolPerference, BoolPerference, QAfterFilterCondition>
-      hashCodeBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'hashCode',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
   QueryBuilder<BoolPerference, BoolPerference, QAfterFilterCondition>
       keyEqualTo(
     String value, {
@@ -1427,18 +1450,13 @@ const DoublePerferenceSchema = Schema(
   name: r'DoublePerference',
   id: 848895055293657588,
   properties: {
-    r'hashCode': PropertySchema(
-      id: 0,
-      name: r'hashCode',
-      type: IsarType.long,
-    ),
     r'key': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'key',
       type: IsarType.string,
     ),
     r'value': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'value',
       type: IsarType.double,
     )
@@ -1465,9 +1483,8 @@ void _doublePerferenceSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.hashCode);
-  writer.writeString(offsets[1], object.key);
-  writer.writeDouble(offsets[2], object.value);
+  writer.writeString(offsets[0], object.key);
+  writer.writeDouble(offsets[1], object.value);
 }
 
 DoublePerference _doublePerferenceDeserialize(
@@ -1477,8 +1494,8 @@ DoublePerference _doublePerferenceDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = DoublePerference(
-    key: reader.readStringOrNull(offsets[1]) ?? '',
-    value: reader.readDoubleOrNull(offsets[2]) ?? 0.0,
+    key: reader.readStringOrNull(offsets[0]) ?? '',
+    value: reader.readDoubleOrNull(offsets[1]) ?? 0.0,
   );
   return object;
 }
@@ -1491,10 +1508,8 @@ P _doublePerferenceDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
-    case 1:
       return (reader.readStringOrNull(offset) ?? '') as P;
-    case 2:
+    case 1:
       return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1503,62 +1518,6 @@ P _doublePerferenceDeserializeProp<P>(
 
 extension DoublePerferenceQueryFilter
     on QueryBuilder<DoublePerference, DoublePerference, QFilterCondition> {
-  QueryBuilder<DoublePerference, DoublePerference, QAfterFilterCondition>
-      hashCodeEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<DoublePerference, DoublePerference, QAfterFilterCondition>
-      hashCodeGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<DoublePerference, DoublePerference, QAfterFilterCondition>
-      hashCodeLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<DoublePerference, DoublePerference, QAfterFilterCondition>
-      hashCodeBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'hashCode',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
   QueryBuilder<DoublePerference, DoublePerference, QAfterFilterCondition>
       keyEqualTo(
     String value, {
@@ -1772,18 +1731,13 @@ const IntPerferenceSchema = Schema(
   name: r'IntPerference',
   id: 712316228926912862,
   properties: {
-    r'hashCode': PropertySchema(
-      id: 0,
-      name: r'hashCode',
-      type: IsarType.long,
-    ),
     r'key': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'key',
       type: IsarType.string,
     ),
     r'value': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'value',
       type: IsarType.long,
     )
@@ -1810,9 +1764,8 @@ void _intPerferenceSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.hashCode);
-  writer.writeString(offsets[1], object.key);
-  writer.writeLong(offsets[2], object.value);
+  writer.writeString(offsets[0], object.key);
+  writer.writeLong(offsets[1], object.value);
 }
 
 IntPerference _intPerferenceDeserialize(
@@ -1822,8 +1775,8 @@ IntPerference _intPerferenceDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = IntPerference(
-    key: reader.readStringOrNull(offsets[1]) ?? '',
-    value: reader.readLongOrNull(offsets[2]) ?? 0,
+    key: reader.readStringOrNull(offsets[0]) ?? '',
+    value: reader.readLongOrNull(offsets[1]) ?? 0,
   );
   return object;
 }
@@ -1836,10 +1789,8 @@ P _intPerferenceDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
-    case 1:
       return (reader.readStringOrNull(offset) ?? '') as P;
-    case 2:
+    case 1:
       return (reader.readLongOrNull(offset) ?? 0) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1848,62 +1799,6 @@ P _intPerferenceDeserializeProp<P>(
 
 extension IntPerferenceQueryFilter
     on QueryBuilder<IntPerference, IntPerference, QFilterCondition> {
-  QueryBuilder<IntPerference, IntPerference, QAfterFilterCondition>
-      hashCodeEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<IntPerference, IntPerference, QAfterFilterCondition>
-      hashCodeGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<IntPerference, IntPerference, QAfterFilterCondition>
-      hashCodeLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<IntPerference, IntPerference, QAfterFilterCondition>
-      hashCodeBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'hashCode',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
   QueryBuilder<IntPerference, IntPerference, QAfterFilterCondition> keyEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -2105,18 +2000,13 @@ const StringPerferenceSchema = Schema(
   name: r'StringPerference',
   id: 4376055652792634244,
   properties: {
-    r'hashCode': PropertySchema(
-      id: 0,
-      name: r'hashCode',
-      type: IsarType.long,
-    ),
     r'key': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'key',
       type: IsarType.string,
     ),
     r'value': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'value',
       type: IsarType.string,
     )
@@ -2144,9 +2034,8 @@ void _stringPerferenceSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.hashCode);
-  writer.writeString(offsets[1], object.key);
-  writer.writeString(offsets[2], object.value);
+  writer.writeString(offsets[0], object.key);
+  writer.writeString(offsets[1], object.value);
 }
 
 StringPerference _stringPerferenceDeserialize(
@@ -2156,8 +2045,8 @@ StringPerference _stringPerferenceDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = StringPerference(
-    key: reader.readStringOrNull(offsets[1]) ?? '',
-    value: reader.readStringOrNull(offsets[2]) ?? '',
+    key: reader.readStringOrNull(offsets[0]) ?? '',
+    value: reader.readStringOrNull(offsets[1]) ?? '',
   );
   return object;
 }
@@ -2170,10 +2059,8 @@ P _stringPerferenceDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
-    case 1:
       return (reader.readStringOrNull(offset) ?? '') as P;
-    case 2:
+    case 1:
       return (reader.readStringOrNull(offset) ?? '') as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -2182,62 +2069,6 @@ P _stringPerferenceDeserializeProp<P>(
 
 extension StringPerferenceQueryFilter
     on QueryBuilder<StringPerference, StringPerference, QFilterCondition> {
-  QueryBuilder<StringPerference, StringPerference, QAfterFilterCondition>
-      hashCodeEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<StringPerference, StringPerference, QAfterFilterCondition>
-      hashCodeGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<StringPerference, StringPerference, QAfterFilterCondition>
-      hashCodeLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<StringPerference, StringPerference, QAfterFilterCondition>
-      hashCodeBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'hashCode',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
   QueryBuilder<StringPerference, StringPerference, QAfterFilterCondition>
       keyEqualTo(
     String value, {
@@ -2521,18 +2352,13 @@ const StringListPerferenceSchema = Schema(
   name: r'StringListPerference',
   id: 75353706951126522,
   properties: {
-    r'hashCode': PropertySchema(
-      id: 0,
-      name: r'hashCode',
-      type: IsarType.long,
-    ),
     r'key': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'key',
       type: IsarType.string,
     ),
     r'value': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'value',
       type: IsarType.stringList,
     )
@@ -2566,9 +2392,8 @@ void _stringListPerferenceSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.hashCode);
-  writer.writeString(offsets[1], object.key);
-  writer.writeStringList(offsets[2], object.value);
+  writer.writeString(offsets[0], object.key);
+  writer.writeStringList(offsets[1], object.value);
 }
 
 StringListPerference _stringListPerferenceDeserialize(
@@ -2578,8 +2403,8 @@ StringListPerference _stringListPerferenceDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = StringListPerference(
-    key: reader.readStringOrNull(offsets[1]) ?? '',
-    value: reader.readStringList(offsets[2]) ?? const [],
+    key: reader.readStringOrNull(offsets[0]) ?? '',
+    value: reader.readStringList(offsets[1]) ?? const [],
   );
   return object;
 }
@@ -2592,10 +2417,8 @@ P _stringListPerferenceDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
-    case 1:
       return (reader.readStringOrNull(offset) ?? '') as P;
-    case 2:
+    case 1:
       return (reader.readStringList(offset) ?? const []) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -2604,62 +2427,6 @@ P _stringListPerferenceDeserializeProp<P>(
 
 extension StringListPerferenceQueryFilter on QueryBuilder<StringListPerference,
     StringListPerference, QFilterCondition> {
-  QueryBuilder<StringListPerference, StringListPerference,
-      QAfterFilterCondition> hashCodeEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<StringListPerference, StringListPerference,
-      QAfterFilterCondition> hashCodeGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<StringListPerference, StringListPerference,
-      QAfterFilterCondition> hashCodeLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'hashCode',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<StringListPerference, StringListPerference,
-      QAfterFilterCondition> hashCodeBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'hashCode',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
   QueryBuilder<StringListPerference, StringListPerference,
       QAfterFilterCondition> keyEqualTo(
     String value, {
