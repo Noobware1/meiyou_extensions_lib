@@ -6,20 +6,14 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/auth.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/byte_stream.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/call.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/cookie.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/date_fromatter.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/headers.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/interceptor/bridge_interceptor.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/interceptor/connect_interceptor.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/interceptor/downloading_interceptor.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/interceptor/http_loggin_interceptor.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/interceptor/interceptor.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/interceptor/response_body_interceptor.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/internet_socket_address.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/media_type.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/okhttp_client.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/proxy.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/form_body.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/json_body.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request_body.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/io_stream_response_body.dart';
@@ -53,15 +47,11 @@ class OkHttpPlugin extends EvalPlugin {
     $Cookie.configureForCompile(registry);
     $CookieBuilder.configureForCompile(registry);
     $Call.configureForCompile(registry);
-    $DateFromat.configureForCompile(registry);
-    $DateFormatter.configureForCompile(registry);
     $Request.configureForCompile(registry);
     $RequestBuilder.configureForCompile(registry);
     $RequestBody.configureForCompile(registry);
     $FormBody.configureForCompile(registry);
     $FormBodyBuilder.configureForCompile(registry);
-    $JsonBody.configureForCompile(registry);
-    $JsonBodyBuilder.configureForCompile(registry);
     $Response.configureForCompile(registry);
     $ResponseBuilder.configureForCompile(registry);
     $ResponseBody.configureForCompile(registry);
@@ -70,15 +60,10 @@ class OkHttpPlugin extends EvalPlugin {
     $IOStreamResponseBody.configureForCompile(registry);
     $Interceptor.configureForCompile(registry);
     $Chain.configureForCompile(registry);
-    $BridgeInterceptor.configureForCompile(registry);
     $Logger.configureForCompile(registry);
     $Color.configureForCompile(registry);
     $LogLevel.configureForCompile(registry);
     $LoggingInterceptor.configureForCompile(registry);
-    $ResponseBodyInterceptor.configureForCompile(registry);
-    $DownloadingInterceptor.configureForCompile(registry);
-    $DownloadedBody.configureForCompile(registry);
-    $ConnectInterceptor.configureForCompile(registry);
     $ClientAdapter.configureForCompile(registry);
     $HttpClientAdapter.configureForCompile(registry);
     $Proxy.configureForCompile(registry);
@@ -101,26 +86,18 @@ class OkHttpPlugin extends EvalPlugin {
     $MediaType.configureForRuntime(runtime);
     $ByteStream.configureForRuntime(runtime);
     $Cookie.configureForRuntime(runtime);
-    $DateFromat.configureForRuntime(runtime);
-    $DateFormatter.configureForRuntime(runtime);
     $Request.configureForRuntime(runtime);
     $RequestBody.configureForRuntime(runtime);
     $FormBody.configureForRuntime(runtime);
-    $JsonBody.configureForRuntime(runtime);
     $Response.configureForRuntime(runtime);
     $ResponseBody.configureForRuntime(runtime);
     $RealResponseBody.configureForRuntime(runtime);
     $IOStreamResponseBody.configureForRuntime(runtime);
     $Interceptor.configureForRuntime(runtime);
-    $BridgeInterceptor.configureForRuntime(runtime);
     $Logger.configureForRuntime(runtime);
     $Color.configureForRuntime(runtime);
     $LogLevel.configureForRuntime(runtime);
     $LoggingInterceptor.configureForRuntime(runtime);
-    $ResponseBodyInterceptor.configureForRuntime(runtime);
-    $DownloadingInterceptor.configureForRuntime(runtime);
-    $DownloadedBody.configureForRuntime(runtime);
-    $ConnectInterceptor.configureForRuntime(runtime);
     $HttpClientAdapter.configureForRuntime(runtime);
     $Proxy.configureForRuntime(runtime);
     $ProxyType.configureForRuntime(runtime);
@@ -140,7 +117,6 @@ export 'src/cookie.dart';
 export 'src/call.dart';
 export 'src/okhttp_client.dart';
 export 'src/byte_stream.dart';
-export 'src/date_fromatter.dart';
 export 'src/proxy.dart';
 export 'src/auth.dart';
 export 'src/internet_socket_address.dart';
@@ -162,10 +138,6 @@ import 'package:okhttp/request.dart';
 import 'package:okhttp/adapter.dart';
 export 'src/interceptor.dart';
 export 'src/interceptors/http_logging_interceptor.dart';
-export 'src/interceptors/bridge_interceptor.dart';
-export 'src/interceptors/connect_interceptor.dart';
-export 'src/interceptors/downloading_interceptor.dart';
-export 'src/interceptors/response_body_interceptor.dart';
 
 ''');
 
@@ -186,7 +158,6 @@ import 'package:html/dom.dart';
 export 'src/request.dart';
 export 'src/request_body.dart';
 export 'src/form_body.dart';
-export 'src/json_body.dart';
 ''');
 
 class OkHttpTypes {
@@ -230,14 +201,6 @@ class OkHttpTypes {
   /// Bridge type spec for [$Call]
   static const call = BridgeTypeSpec('package:okhttp/src/call.dart', 'Call');
 
-  /// Bridge type spec for [$DateFromat]
-  static const dateFromat =
-      BridgeTypeSpec('package:okhttp/src/date_fromatter.dart', 'DateFromat');
-
-  /// Bridge type spec for [$DateFormatter]
-  static const dateFormatter =
-      BridgeTypeSpec('package:okhttp/src/date_fromatter.dart', 'DateFormatter');
-
   static const passwordAuthentication =
       BridgeTypeSpec('package:okhttp/src/auth.dart', 'PasswordAuthentication');
 
@@ -253,7 +216,18 @@ class OkHttpTypes {
       'package:okhttp/src/internet_socket_address.dart',
       'InternetSocketAddress');
 
+  /// Bridge type spec for [$CookieJar]
+  static const cookieJar =
+      BridgeTypeSpec('package:okhttp/src/cookie_jar.dart', 'CookieJar');
   //////////////////////////////////////////////////////////////////////////////
+  
+  /////////////////////////////  Dns /////////////////////////////////////////
+  
+  /// Bridge type spec for [$Dns]
+  static const dns = BridgeTypeSpec('package:okhttp/src/dns.dart', 'Dns');
+  
+  //////////////////////////////////////////////////////////////////////////////
+  
 
   ///////////////////////////  Request /////////////////////////////////////////
 
@@ -268,14 +242,6 @@ class OkHttpTypes {
   /// Bridge type spec for [$FormBodyBuilder]
   static const formBodyBuilder =
       BridgeTypeSpec('package:okhttp/src/form_body.dart', 'FormBodyBuilder');
-
-  /// Bridge type spec for [$JsonBody]
-  static const jsonBody =
-      BridgeTypeSpec('package:okhttp/src/json_body.dart', 'JsonBody');
-
-  /// Bridge type spec for [$JsonBodyBuilder]
-  static const jsonBodyBuilder =
-      BridgeTypeSpec('package:okhttp/src/json_body.dart', 'JsonBodyBuilder');
 
   /// Bridge type spec for [$Request]
   static const request =
@@ -328,11 +294,6 @@ class OkHttpTypes {
   static const chain =
       BridgeTypeSpec('package:okhttp/src/interceptor.dart', 'Chain');
 
-  /// Bridge type spec for [$BridgeInterceptor]
-  static const bridgeInterceptor = BridgeTypeSpec(
-      'package:okhttp/src/interceptors/bridge_interceptor.dart',
-      'BridgeInterceptor');
-
   /// Bridge type spec for [$Logger]
   static const logger = BridgeTypeSpec(
       'package:okhttp/src/interceptors/http_logging_interceptor.dart',
@@ -352,25 +313,15 @@ class OkHttpTypes {
       'package:okhttp/src/interceptors/http_logging_interceptor.dart',
       'LogLevel');
 
-  /// Bridge type spec for [$ResponseBodyInterceptor]
-  static const responseBodyInterceptor = BridgeTypeSpec(
-      'package:okhttp/src/interceptors/response_body_interceptor.dart',
-      'ResponseBodyInterceptor');
-
-  /// Bridge type spec for [$DownloadingInterceptor]
-  static const downloadingInterceptor = BridgeTypeSpec(
-      'package:okhttp/src/interceptors/downloading_interceptor.dart',
-      'DownloadingInterceptor');
+  // /// Bridge type spec for [$DownloadingInterceptor]
+  // static const downloadingInterceptor = BridgeTypeSpec(
+  //     'package:okhttp/src/interceptors/downloading_interceptor.dart',
+  //     'DownloadingInterceptor');
 
   /// Bridge type spec for [$DownloadedBody]
   static const downloadedBody = BridgeTypeSpec(
       'package:okhttp/src/interceptors/downloading_interceptor.dart',
       'DownloadedBody');
-
-  /// Bridge type spec for [$ConnectInterceptor]
-  static const connectInterceptor = BridgeTypeSpec(
-      'package:okhttp/src/interceptors/connect_interceptor.dart',
-      'ConnectInterceptor');
 
   //////////////////////////////////////////////////////////////////////////////
 

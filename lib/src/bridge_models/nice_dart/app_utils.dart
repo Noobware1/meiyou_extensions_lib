@@ -22,7 +22,7 @@ class AppUtils {
       [String name = 'default']) {
     final isar = Isar.getInstance(name)!;
     id = 'source_$id'.hashCode;
-    final prefs = isar.sourcePreferences.getSync(id) ?? SourcePreference(id: id);
+    final prefs = isar.sharedPreferences.getSync(id) ?? SharedPreference(id: id);
 
     return SharedPreferencesImpl(isar, prefs);
   }

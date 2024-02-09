@@ -9,13 +9,13 @@ part of 'shared_preferences.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetSourcePreferenceCollection on Isar {
-  IsarCollection<SourcePreference> get sourcePreferences => this.collection();
+extension GetSharedPreferenceCollection on Isar {
+  IsarCollection<SharedPreference> get sharedPreferences => this.collection();
 }
 
-const SourcePreferenceSchema = CollectionSchema(
-  name: r'SourcePreference',
-  id: -8920912234588149378,
+const SharedPreferenceSchema = CollectionSchema(
+  name: r'SharedPreference',
+  id: 3931950292835312162,
   properties: {
     r'bools': PropertySchema(
       id: 0,
@@ -35,28 +35,23 @@ const SourcePreferenceSchema = CollectionSchema(
       type: IsarType.objectList,
       target: r'IntPerference',
     ),
-    r'keys': PropertySchema(
-      id: 3,
-      name: r'keys',
-      type: IsarType.stringList,
-    ),
     r'stringLists': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'stringLists',
       type: IsarType.objectList,
       target: r'StringListPerference',
     ),
     r'strings': PropertySchema(
-      id: 5,
+      id: 4,
       name: r'strings',
       type: IsarType.objectList,
       target: r'StringPerference',
     )
   },
-  estimateSize: _sourcePreferenceEstimateSize,
-  serialize: _sourcePreferenceSerialize,
-  deserialize: _sourcePreferenceDeserialize,
-  deserializeProp: _sourcePreferenceDeserializeProp,
+  estimateSize: _sharedPreferenceEstimateSize,
+  serialize: _sharedPreferenceSerialize,
+  deserialize: _sharedPreferenceDeserialize,
+  deserializeProp: _sharedPreferenceDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
@@ -67,14 +62,14 @@ const SourcePreferenceSchema = CollectionSchema(
     r'StringPerference': StringPerferenceSchema,
     r'StringListPerference': StringListPerferenceSchema
   },
-  getId: _sourcePreferenceGetId,
-  getLinks: _sourcePreferenceGetLinks,
-  attach: _sourcePreferenceAttach,
+  getId: _sharedPreferenceGetId,
+  getLinks: _sharedPreferenceGetLinks,
+  attach: _sharedPreferenceAttach,
   version: '3.1.0+1',
 );
 
-int _sourcePreferenceEstimateSize(
-  SourcePreference object,
+int _sharedPreferenceEstimateSize(
+  SharedPreference object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -106,13 +101,6 @@ int _sourcePreferenceEstimateSize(
           IntPerferenceSchema.estimateSize(value, offsets, allOffsets);
     }
   }
-  bytesCount += 3 + object.keys.length * 3;
-  {
-    for (var i = 0; i < object.keys.length; i++) {
-      final value = object.keys[i];
-      bytesCount += value.length * 3;
-    }
-  }
   bytesCount += 3 + object.stringLists.length * 3;
   {
     final offsets = allOffsets[StringListPerference]!;
@@ -134,8 +122,8 @@ int _sourcePreferenceEstimateSize(
   return bytesCount;
 }
 
-void _sourcePreferenceSerialize(
-  SourcePreference object,
+void _sharedPreferenceSerialize(
+  SharedPreference object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -158,28 +146,27 @@ void _sourcePreferenceSerialize(
     IntPerferenceSchema.serialize,
     object.ints,
   );
-  writer.writeStringList(offsets[3], object.keys);
   writer.writeObjectList<StringListPerference>(
-    offsets[4],
+    offsets[3],
     allOffsets,
     StringListPerferenceSchema.serialize,
     object.stringLists,
   );
   writer.writeObjectList<StringPerference>(
-    offsets[5],
+    offsets[4],
     allOffsets,
     StringPerferenceSchema.serialize,
     object.strings,
   );
 }
 
-SourcePreference _sourcePreferenceDeserialize(
+SharedPreference _sharedPreferenceDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = SourcePreference(
+  final object = SharedPreference(
     bools: reader.readObjectList<BoolPerference>(
           offsets[0],
           BoolPerferenceSchema.deserialize,
@@ -202,16 +189,15 @@ SourcePreference _sourcePreferenceDeserialize(
           IntPerference(),
         ) ??
         const [],
-    keys: reader.readStringList(offsets[3]) ?? const [],
     stringLists: reader.readObjectList<StringListPerference>(
-          offsets[4],
+          offsets[3],
           StringListPerferenceSchema.deserialize,
           allOffsets,
           StringListPerference(),
         ) ??
         const [],
     strings: reader.readObjectList<StringPerference>(
-          offsets[5],
+          offsets[4],
           StringPerferenceSchema.deserialize,
           allOffsets,
           StringPerference(),
@@ -221,7 +207,7 @@ SourcePreference _sourcePreferenceDeserialize(
   return object;
 }
 
-P _sourcePreferenceDeserializeProp<P>(
+P _sharedPreferenceDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -253,8 +239,6 @@ P _sourcePreferenceDeserializeProp<P>(
           ) ??
           const []) as P;
     case 3:
-      return (reader.readStringList(offset) ?? const []) as P;
-    case 4:
       return (reader.readObjectList<StringListPerference>(
             offset,
             StringListPerferenceSchema.deserialize,
@@ -262,7 +246,7 @@ P _sourcePreferenceDeserializeProp<P>(
             StringListPerference(),
           ) ??
           const []) as P;
-    case 5:
+    case 4:
       return (reader.readObjectList<StringPerference>(
             offset,
             StringPerferenceSchema.deserialize,
@@ -275,29 +259,29 @@ P _sourcePreferenceDeserializeProp<P>(
   }
 }
 
-Id _sourcePreferenceGetId(SourcePreference object) {
+Id _sharedPreferenceGetId(SharedPreference object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _sourcePreferenceGetLinks(SourcePreference object) {
+List<IsarLinkBase<dynamic>> _sharedPreferenceGetLinks(SharedPreference object) {
   return [];
 }
 
-void _sourcePreferenceAttach(
-    IsarCollection<dynamic> col, Id id, SourcePreference object) {}
+void _sharedPreferenceAttach(
+    IsarCollection<dynamic> col, Id id, SharedPreference object) {}
 
-extension SourcePreferenceQueryWhereSort
-    on QueryBuilder<SourcePreference, SourcePreference, QWhere> {
-  QueryBuilder<SourcePreference, SourcePreference, QAfterWhere> anyId() {
+extension SharedPreferenceQueryWhereSort
+    on QueryBuilder<SharedPreference, SharedPreference, QWhere> {
+  QueryBuilder<SharedPreference, SharedPreference, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension SourcePreferenceQueryWhere
-    on QueryBuilder<SourcePreference, SourcePreference, QWhereClause> {
-  QueryBuilder<SourcePreference, SourcePreference, QAfterWhereClause> idEqualTo(
+extension SharedPreferenceQueryWhere
+    on QueryBuilder<SharedPreference, SharedPreference, QWhereClause> {
+  QueryBuilder<SharedPreference, SharedPreference, QAfterWhereClause> idEqualTo(
       Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
@@ -307,7 +291,7 @@ extension SourcePreferenceQueryWhere
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterWhereClause>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterWhereClause>
       idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
@@ -330,7 +314,7 @@ extension SourcePreferenceQueryWhere
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterWhereClause>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterWhereClause>
       idGreaterThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -339,7 +323,7 @@ extension SourcePreferenceQueryWhere
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterWhereClause>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterWhereClause>
       idLessThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -348,7 +332,7 @@ extension SourcePreferenceQueryWhere
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterWhereClause> idBetween(
+  QueryBuilder<SharedPreference, SharedPreference, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -365,9 +349,9 @@ extension SourcePreferenceQueryWhere
   }
 }
 
-extension SourcePreferenceQueryFilter
-    on QueryBuilder<SourcePreference, SourcePreference, QFilterCondition> {
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+extension SharedPreferenceQueryFilter
+    on QueryBuilder<SharedPreference, SharedPreference, QFilterCondition> {
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       boolsLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -380,7 +364,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       boolsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -393,7 +377,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       boolsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -406,7 +390,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       boolsLengthLessThan(
     int length, {
     bool include = false,
@@ -422,7 +406,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       boolsLengthGreaterThan(
     int length, {
     bool include = false,
@@ -438,7 +422,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       boolsLengthBetween(
     int lower,
     int upper, {
@@ -456,7 +440,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       doublesLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -469,7 +453,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       doublesIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -482,7 +466,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       doublesIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -495,7 +479,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       doublesLengthLessThan(
     int length, {
     bool include = false,
@@ -511,7 +495,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       doublesLengthGreaterThan(
     int length, {
     bool include = false,
@@ -527,7 +511,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       doublesLengthBetween(
     int lower,
     int upper, {
@@ -545,7 +529,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -555,7 +539,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       idGreaterThan(
     Id value, {
     bool include = false,
@@ -569,7 +553,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       idLessThan(
     Id value, {
     bool include = false,
@@ -583,7 +567,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       idBetween(
     Id lower,
     Id upper, {
@@ -601,7 +585,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       intsLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -614,7 +598,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       intsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -627,7 +611,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       intsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -640,7 +624,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       intsLengthLessThan(
     int length, {
     bool include = false,
@@ -656,7 +640,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       intsLengthGreaterThan(
     int length, {
     bool include = false,
@@ -672,7 +656,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       intsLengthBetween(
     int lower,
     int upper, {
@@ -690,232 +674,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'keys',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'keys',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'keys',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'keys',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'keys',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'keys',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'keys',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'keys',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'keys',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysElementIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'keys',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'keys',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'keys',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'keys',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'keys',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'keys',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
-      keysLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'keys',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
-    });
-  }
-
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringListsLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -928,7 +687,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringListsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -941,7 +700,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringListsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -954,7 +713,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringListsLengthLessThan(
     int length, {
     bool include = false,
@@ -970,7 +729,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringListsLengthGreaterThan(
     int length, {
     bool include = false,
@@ -986,7 +745,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringListsLengthBetween(
     int lower,
     int upper, {
@@ -1004,7 +763,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringsLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -1017,7 +776,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -1030,7 +789,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -1043,7 +802,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringsLengthLessThan(
     int length, {
     bool include = false,
@@ -1059,7 +818,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringsLengthGreaterThan(
     int length, {
     bool include = false,
@@ -1075,7 +834,7 @@ extension SourcePreferenceQueryFilter
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringsLengthBetween(
     int lower,
     int upper, {
@@ -1094,37 +853,37 @@ extension SourcePreferenceQueryFilter
   }
 }
 
-extension SourcePreferenceQueryObject
-    on QueryBuilder<SourcePreference, SourcePreference, QFilterCondition> {
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+extension SharedPreferenceQueryObject
+    on QueryBuilder<SharedPreference, SharedPreference, QFilterCondition> {
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       boolsElement(FilterQuery<BoolPerference> q) {
     return QueryBuilder.apply(this, (query) {
       return query.object(q, r'bools');
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       doublesElement(FilterQuery<DoublePerference> q) {
     return QueryBuilder.apply(this, (query) {
       return query.object(q, r'doubles');
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       intsElement(FilterQuery<IntPerference> q) {
     return QueryBuilder.apply(this, (query) {
       return query.object(q, r'ints');
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringListsElement(FilterQuery<StringListPerference> q) {
     return QueryBuilder.apply(this, (query) {
       return query.object(q, r'stringLists');
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterFilterCondition>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterFilterCondition>
       stringsElement(FilterQuery<StringPerference> q) {
     return QueryBuilder.apply(this, (query) {
       return query.object(q, r'strings');
@@ -1132,21 +891,21 @@ extension SourcePreferenceQueryObject
   }
 }
 
-extension SourcePreferenceQueryLinks
-    on QueryBuilder<SourcePreference, SourcePreference, QFilterCondition> {}
+extension SharedPreferenceQueryLinks
+    on QueryBuilder<SharedPreference, SharedPreference, QFilterCondition> {}
 
-extension SourcePreferenceQuerySortBy
-    on QueryBuilder<SourcePreference, SourcePreference, QSortBy> {}
+extension SharedPreferenceQuerySortBy
+    on QueryBuilder<SharedPreference, SharedPreference, QSortBy> {}
 
-extension SourcePreferenceQuerySortThenBy
-    on QueryBuilder<SourcePreference, SourcePreference, QSortThenBy> {
-  QueryBuilder<SourcePreference, SourcePreference, QAfterSortBy> thenById() {
+extension SharedPreferenceQuerySortThenBy
+    on QueryBuilder<SharedPreference, SharedPreference, QSortThenBy> {
+  QueryBuilder<SharedPreference, SharedPreference, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<SourcePreference, SourcePreference, QAfterSortBy>
+  QueryBuilder<SharedPreference, SharedPreference, QAfterSortBy>
       thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
@@ -1154,59 +913,46 @@ extension SourcePreferenceQuerySortThenBy
   }
 }
 
-extension SourcePreferenceQueryWhereDistinct
-    on QueryBuilder<SourcePreference, SourcePreference, QDistinct> {
-  QueryBuilder<SourcePreference, SourcePreference, QDistinct> distinctByKeys() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'keys');
-    });
-  }
-}
+extension SharedPreferenceQueryWhereDistinct
+    on QueryBuilder<SharedPreference, SharedPreference, QDistinct> {}
 
-extension SourcePreferenceQueryProperty
-    on QueryBuilder<SourcePreference, SourcePreference, QQueryProperty> {
-  QueryBuilder<SourcePreference, int, QQueryOperations> idProperty() {
+extension SharedPreferenceQueryProperty
+    on QueryBuilder<SharedPreference, SharedPreference, QQueryProperty> {
+  QueryBuilder<SharedPreference, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<SourcePreference, List<BoolPerference>, QQueryOperations>
+  QueryBuilder<SharedPreference, List<BoolPerference>, QQueryOperations>
       boolsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'bools');
     });
   }
 
-  QueryBuilder<SourcePreference, List<DoublePerference>, QQueryOperations>
+  QueryBuilder<SharedPreference, List<DoublePerference>, QQueryOperations>
       doublesProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'doubles');
     });
   }
 
-  QueryBuilder<SourcePreference, List<IntPerference>, QQueryOperations>
+  QueryBuilder<SharedPreference, List<IntPerference>, QQueryOperations>
       intsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'ints');
     });
   }
 
-  QueryBuilder<SourcePreference, List<String>, QQueryOperations>
-      keysProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'keys');
-    });
-  }
-
-  QueryBuilder<SourcePreference, List<StringListPerference>, QQueryOperations>
+  QueryBuilder<SharedPreference, List<StringListPerference>, QQueryOperations>
       stringListsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'stringLists');
     });
   }
 
-  QueryBuilder<SourcePreference, List<StringPerference>, QQueryOperations>
+  QueryBuilder<SharedPreference, List<StringPerference>, QQueryOperations>
       stringsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'strings');

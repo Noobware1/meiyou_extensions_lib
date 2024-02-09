@@ -1,11 +1,6 @@
 import 'package:okhttp/interceptor.dart';
 import 'package:okhttp/response.dart';
-
-extension on String? {
-  bool isNullOrEmpty() {
-    return this == null || this!.isEmpty;
-  }
-}
+import 'package:nice_dart/nice_dart.dart';
 
 class UserAgentInterceptor implements Interceptor {
   UserAgentInterceptor(this.defaultUserAgentProvider);
@@ -16,7 +11,7 @@ class UserAgentInterceptor implements Interceptor {
   Future<Response> intercept(Chain chain) {
     final originalRequest = chain.request;
 
-    if (originalRequest.headers.get("User-Agent").isNullOrEmpty()) {
+    if (originalRequest.headers.get("User-Agent").isEmptyOrNull) {
       final newRequest = originalRequest
           .newBuilder()
           .removeHeader("User-Agent")

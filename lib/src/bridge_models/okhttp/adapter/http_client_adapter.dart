@@ -38,23 +38,7 @@ class $HttpClientAdapter implements HttpClientAdapter, $Instance {
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [],
-          namedParams: [
-            BridgeParameter(
-                'followRedirects',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
-                    nullable: false),
-                false),
-            BridgeParameter(
-                'maxRedirects',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                    nullable: false),
-                false),
-            BridgeParameter(
-                'persistentConnection',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
-                    nullable: false),
-                false)
-          ],
+          namedParams: [],
         ),
         isFactory: false,
       )
@@ -69,6 +53,12 @@ class $HttpClientAdapter implements HttpClientAdapter, $Instance {
                 ]),
                 nullable: false),
             params: [
+              BridgeParameter(
+                  'client',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(OkHttpTypes.okHttpClient, []),
+                      nullable: false),
+                  false),
               BridgeParameter(
                   'request',
                   BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.request, []),
@@ -135,18 +125,12 @@ class $HttpClientAdapter implements HttpClientAdapter, $Instance {
   static const __$HttpClientAdapter$new = $Function(_$HttpClientAdapter$new);
   static $Value? _$HttpClientAdapter$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final followRedirects = args[0]?.$reified as bool;
-    final maxRedirects = args[1]?.$reified as int;
-    final persistentConnection = args[2]?.$reified as bool;
-    return $HttpClientAdapter.wrap(HttpClientAdapter(
-      followRedirects: followRedirects,
-      maxRedirects: maxRedirects,
-      persistentConnection: persistentConnection,
-    ));
+    return $HttpClientAdapter.wrap(HttpClientAdapter());
   }
 
   @override
-  Future<Response> newCall(Request request) => $value.newCall(request);
+  Future<Response> newCall(OkHttpClient client, Request request) =>
+      $value.newCall(client, request);
 
   @override
   void addProxy(Proxy proxy) => $value.addProxy(proxy);

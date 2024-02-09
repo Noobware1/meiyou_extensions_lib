@@ -1,7 +1,6 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/date_fromatter.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/interceptor/interceptor.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:okhttp/interceptor.dart';
@@ -42,21 +41,12 @@ class $Logger implements Logger, $Instance {
                 BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.color, []),
                     nullable: false),
                 true),
-            BridgeParameter(
-                'format',
-                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.dateFromat, []),
-                    nullable: false),
-                true)
           ],
         ),
         isFactory: false,
       )
     },
     fields: {
-      'format': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.dateFromat, []),
-              nullable: false),
-          isStatic: false),
       'color': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.color, []),
               nullable: false),
@@ -90,11 +80,8 @@ class $Logger implements Logger, $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
-      case 'format':
-        return $DateFromat.wrap($value.format);
       case 'color':
         return $Color.wrap($value.color);
-
       case 'log':
         return __$log;
       default:
@@ -120,8 +107,6 @@ class $Logger implements Logger, $Instance {
   final Logger $value;
 
   @override
-  DateFromat get format => $value.format;
-  @override
   Color get color => $value.color;
 
   @override
@@ -142,8 +127,7 @@ class $Logger implements Logger, $Instance {
   static $Value? _$Logger$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final color = args[0]?.$value ?? Color.green;
-    final format = args[1]?.$value ?? const DateFromat('yyyy-MM-dd HH:mm:ss a');
-    return $Logger.wrap(Logger(color: color, format: format));
+    return $Logger.wrap(Logger(color: color));
   }
 }
 

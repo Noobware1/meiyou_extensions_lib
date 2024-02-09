@@ -12,9 +12,11 @@ export 'package:nice_dart/nice_dart.dart'
         runCatching,
         Result,
         Failure,
-        GetOrThrowExtensions,
-        GetOrDefaultExtensions,
-        GetOrElseExtensions,
-        FoldExtensions,
-        MappingExtensions,
-        RecoverExtensions;
+        ResultGetOrThrow,
+        ResultGetOrElse,
+        ResultGetOrDefault,
+        ResultFold,
+        ResultMap,
+        ResultMapCatching,
+        ResultRecover,
+        ResultRecoverCatching;

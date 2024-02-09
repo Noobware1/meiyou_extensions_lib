@@ -499,7 +499,7 @@ class $Cookie implements Cookie, $Instance {
       pos,
       limit,
     );
-    return $int($result);
+    return $DateTime.wrap($result);
   }
 
   static const __$static$method$dateCharacterOffset =

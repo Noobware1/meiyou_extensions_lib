@@ -5,6 +5,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response.dart';
 import 'package:okhttp/adapter.dart';
+import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
 
@@ -37,6 +38,12 @@ class $ClientAdapter implements ClientAdapter, $Instance {
                 ]),
                 nullable: false),
             params: [
+              BridgeParameter(
+                  'client',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(OkHttpTypes.okHttpClient, []),
+                      nullable: false),
+                  false),
               BridgeParameter(
                   'request',
                   BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.request, []),
@@ -100,19 +107,16 @@ class $ClientAdapter implements ClientAdapter, $Instance {
   final ClientAdapter $value;
 
   @override
-  Future<Response> newCall(Request request) => $value.newCall(
-        request,
-      );
+  Future<Response> newCall(OkHttpClient client, Request request) =>
+      $value.newCall(client, request);
   static const __$newCall = $Function(_$newCall);
   static $Value? _$newCall(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as ClientAdapter;
-    final request = args[0]?.$reified as Request;
-    final $result = obj.newCall(
-      request,
-    );
-    return $Future.wrap($result.then((value) => $Response.wrap(value)))
-        as $Value?;
+    final client = args[0]?.$value as OkHttpClient;
+    final request = args[0]?.$value as Request;
+    final $result = obj.newCall(client, request);
+    return $Future.wrap($result.then((value) => $Response.wrap(value)));
   }
 
   @override

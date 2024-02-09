@@ -1,4 +1,5 @@
 import 'package:okhttp/interceptor.dart';
+import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/response.dart';
 
 class UnHandledExceptionInterceptor implements Interceptor {
@@ -7,7 +8,11 @@ class UnHandledExceptionInterceptor implements Interceptor {
     try {
       return chain.proceed(chain.request);
     } catch (e) {
-      rethrow;
+      if (e is OkHttpException) {
+        rethrow;
+      } else {
+        throw OkHttpException(e.toString());
+      }
     }
   }
 }

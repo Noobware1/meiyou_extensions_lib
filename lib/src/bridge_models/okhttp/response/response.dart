@@ -102,6 +102,8 @@ class $Response implements Response, $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
+      case 'isSuccessful':
+        return $bool($value.isSuccessful);
       case 'request':
         return $Request.wrap($value.request);
       case 'message':
@@ -148,6 +150,8 @@ class $Response implements Response, $Instance {
   Headers get headers => $value.headers;
   @override
   ResponseBody get body => $value.body;
+  @override
+  bool get isSuccessful => $value.isSuccessful;
 
   @override
   String? header(String name) => $value.header(name);

@@ -11,6 +11,7 @@ import 'package:okhttp/interceptor.dart';
 
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
+import 'package:okhttp/src/dns.dart';
 
 /// dart_eval bimodal wrapper for [OkHttpClient]
 class $OkHttpClient implements OkHttpClient, $Instance {
@@ -260,6 +261,12 @@ class $OkHttpClient implements OkHttpClient, $Instance {
   int get maxRedirects => $value.maxRedirects;
   @override
   ClientAdapter get adapter => $value.adapter;
+  @override
+  Proxy get proxy => $value.proxy;
+  @override
+  CookieJar get cookieJar => $value.cookieJar;
+  @override
+  Dns get dns => $value.dns;
 
   @override
   Call newCall(Request request) => $value.newCall(request);
@@ -304,9 +311,6 @@ class $OkHttpClient implements OkHttpClient, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $OkHttpClient.wrap(OkHttpClient());
   }
-
-  @override
-  Proxy get proxy => $value.proxy;
 }
 
 /// dart_eval bimodal wrapper for [OkHttpClientBuilder]
@@ -576,6 +580,40 @@ class $OkHttpClientBuilder implements $Instance {
             namedParams: [],
           ),
           isStatic: false),
+      'cookieJar': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.okHttpClientBuilder, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'cookieJar',
+                  BridgeTypeAnnotation(
+                    BridgeTypeRef(OkHttpTypes.cookieJar, []),
+                    nullable: true,
+                  ),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'dns': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.okHttpClientBuilder, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'dns',
+                  BridgeTypeAnnotation(
+                    BridgeTypeRef(OkHttpTypes.dns, []),
+                    nullable: true,
+                  ),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
       'build': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -662,6 +700,10 @@ class $OkHttpClientBuilder implements $Instance {
         return __$proxy;
       case 'build':
         return __$build;
+      case 'cookieJar':
+        return __$cookieJar;
+      case 'dns':
+        return __$dns;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -820,6 +862,23 @@ class $OkHttpClientBuilder implements $Instance {
     final obj = target?.$value as OkHttpClientBuilder;
     final proxy = args[0]?.$value as Proxy?;
     final $result = obj.proxy(proxy);
+    return $OkHttpClientBuilder.wrap($result);
+  }
+
+  static const __$cookieJar = $Function(_$cookieJar);
+  static $Value? _$cookieJar(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as OkHttpClientBuilder;
+    final cookieJar = args[0]?.$value as CookieJar;
+    final $result = obj.cookieJar(cookieJar);
+    return $OkHttpClientBuilder.wrap($result);
+  }
+
+  static const __$dns = $Function(_$dns);
+  static $Value? _$dns(Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as OkHttpClientBuilder;
+    final dns = args[0]?.$value as Dns;
+    final $result = obj.dns(dns);
     return $OkHttpClientBuilder.wrap($result);
   }
 
