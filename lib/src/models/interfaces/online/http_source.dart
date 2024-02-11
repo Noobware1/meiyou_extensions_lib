@@ -8,6 +8,7 @@ import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_item/media_item.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
+import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
@@ -32,16 +33,7 @@ abstract class HttpSource extends CatalogueSource {
   // ///
   // /// Note: the generated ID sets the sign bit to `0`.
   @override
-  late final int id = _generateId(name, lang, versionId);
-
-  int _generateId(String name, String lang, int versionId) {
-    final key = "${name.toLowerCase()}/$lang/$versionId";
-    final bytes = MD5(key.codeUnits).bytes;
-    return List.generate(
-                8, (index) => (bytes[index] & 0xFF) << (8 * (7 - index)))
-            .reduce((value, element) => value | element) &
-        0x7FFFFFFFFFFFFFFF;
-  }
+  late final int id = generateId(name, lang, versionId);
 
   /// Headers used for requests.
   late final Headers headers = headersBuilder().build();

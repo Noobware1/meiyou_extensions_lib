@@ -38,3 +38,6 @@ export 'src/models/media/video/video.dart';
 export 'src/models/media/video/video_format.dart';
 export 'src/models/media/video/video_quality.dart';
 export 'src/models/media/video/video_source.dart';
+
+//Extension
+export 'src/models/extension.dart';
