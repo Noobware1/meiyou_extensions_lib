@@ -62,11 +62,6 @@ class ExtensionLibTypes {
       'package:meiyou_extensions_lib/src/network/network_helper.dart',
       'NetworkHelper');
 
-  /// Bridge type spec for [$UnHandledExceptionInterceptor]
-  static const unHandledExceptionInterceptor = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/network/interceptor/unhandled_exception_interceptor.dart',
-      'UnHandledExceptionInterceptor');
-
   /// Bridge type spec for [$UserAgentInterceptor]
   static const userAgentInterceptor = BridgeTypeSpec(
       'package:meiyou_extensions_lib/src/network/interceptor/user_agent_interceptor.dart',

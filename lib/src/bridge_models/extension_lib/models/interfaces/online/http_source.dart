@@ -668,12 +668,13 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   }
 
   @override
-  List<Preference> setupPreferences() => $_invoke('setupPreferences', []);
+  List<Preference> setupPreferences() =>
+      ($_invoke('setupPreferences', []) as List).cast<Preference>();
 
   $Value? get _$setupPreferences => $Function(__$setupPreferences);
 
   $Value? __$setupPreferences(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $List.wrap(super.setupPreferences());
+    return $UnsupportedError.wrap(UnsupportedError('Not Used'));
   }
 }

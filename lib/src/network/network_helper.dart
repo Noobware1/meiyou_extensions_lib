@@ -12,13 +12,14 @@ class NetworkHelper {
   final NetworkPreferences _preferences;
 
   late final OkHttpClient client = run(() {
+    final verboseLogging = _preferences.verboseLogging();
     final builder = OkHttpClient.Builder()
-        .addInterceptor(UnHandledExceptionInterceptor())
+        .addInterceptor(UnHandledExceptionInterceptor(verboseLogging))
         .addInterceptor(UserAgentInterceptor(defaultUserAgentProvider));
     // .addNetworkInterceptor(IgnoreGzipInterceptor())
     // .addNetworkInterceptor(BrotliInterceptor)
 
-    if (_preferences.verboseLogging()) {
+    if (verboseLogging) {
       final httpLoggingInterceptor =
           LoggingInterceptor(level: LogLevel.HEADERS);
       builder.addNetworkInterceptor(httpLoggingInterceptor);

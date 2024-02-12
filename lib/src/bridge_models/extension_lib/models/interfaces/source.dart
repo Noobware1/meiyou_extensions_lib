@@ -44,7 +44,8 @@ class $Source extends Source with $Bridge<Source> {
         BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool)),
       ),
       'preferences': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.sharedPreferences)),
+        BridgeTypeAnnotation(
+            BridgeTypeRef(ExtensionLibTypes.sharedPreferences)),
       ),
     },
     getters: {
@@ -220,13 +221,14 @@ class $Source extends Source with $Bridge<Source> {
   }
 
   @override
-  List<Preference> setupPreferences() => $_invoke('setupPreferences', []);
+  List<Preference> setupPreferences() =>
+      ($_invoke('setupPreferences', []) as List).cast<Preference>();
 
   $Value? get _$setupPreferences => $Function(__$setupPreferences);
 
   $Value? __$setupPreferences(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $List.wrap(super.setupPreferences());
+    return $UnsupportedError.wrap(UnsupportedError('Not Used'));
   }
 
   @override
