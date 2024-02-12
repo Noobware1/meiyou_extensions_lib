@@ -612,7 +612,7 @@ class $MultiSelectListPreference
       'value': BridgeFieldDef(
           BridgeTypeAnnotation(
               BridgeTypeRef(CoreTypes.list, [
-                BridgeTypeRef(CoreTypes.int, []),
+                BridgeTypeRef(CoreTypes.string, []),
               ]),
               nullable: false),
           isStatic: false),
