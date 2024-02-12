@@ -379,12 +379,16 @@ class $ListPreference implements ListPreference, $Instance {
                 true),
             BridgeParameter(
                 'entries',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(
+                        CoreTypes.list, [BridgeTypeRef(CoreTypes.string)]),
                     nullable: false),
                 false),
             BridgeParameter(
                 'entryValues',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(
+                        CoreTypes.list, [BridgeTypeRef(CoreTypes.string)]),
                     nullable: false),
                 false)
           ],
