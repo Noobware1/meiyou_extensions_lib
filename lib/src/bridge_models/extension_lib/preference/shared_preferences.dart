@@ -405,7 +405,7 @@ class $SharedPreferences implements SharedPreferences, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as SharedPreferences;
     final key = args[0]?.$value as String;
-    final defaultValue = args[1]?.$value as bool;
+    final defaultValue = args[1]?.$value as bool?;
     final $result = obj.getBool(
       key,
       defaultValue,
@@ -423,7 +423,7 @@ class $SharedPreferences implements SharedPreferences, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as SharedPreferences;
     final key = args[0]?.$value as String;
-    final defaultValue = args[1]?.$value as double;
+    final defaultValue = args[1]?.$value as double?;
     final $result = obj.getDouble(
       key,
       defaultValue,
@@ -440,7 +440,7 @@ class $SharedPreferences implements SharedPreferences, $Instance {
   static $Value? _$getInt(Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as SharedPreferences;
     final key = args[0]?.$value as String;
-    final defaultValue = args[1]?.$value as int;
+    final defaultValue = args[1]?.$value as int?;
     final $result = obj.getInt(
       key,
       defaultValue,
@@ -458,7 +458,7 @@ class $SharedPreferences implements SharedPreferences, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as SharedPreferences;
     final key = args[0]?.$value as String;
-    final defaultValue = args[1]?.$value as String;
+    final defaultValue = args[1]?.$value as String?;
     final $result = obj.getString(
       key,
       defaultValue,
@@ -477,22 +477,17 @@ class $SharedPreferences implements SharedPreferences, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as SharedPreferences;
     final key = args[0]?.$value as String;
-    final defaultValue = args[1]?.$reified?.cast<String>();
-    final $result = obj.getStringList(
-      key,
-      defaultValue,
-    );
+    final defaultValue = (args[1]?.$reified as List?)?.cast<String>();
+    final $result = obj.getStringList(key, defaultValue);
     return $result == null
         ? $null()
         : $List.wrap(List.generate($result.length, (index) {
             return $String($result[index]);
-          })) as $Value?;
+          }));
   }
 
   @override
-  bool remove(String key) => $value.remove(
-        key,
-      );
+  bool remove(String key) => $value.remove(key);
   static const __$remove = $Function(_$remove);
   static $Value? _$remove(Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as SharedPreferences;
@@ -504,10 +499,7 @@ class $SharedPreferences implements SharedPreferences, $Instance {
   }
 
   @override
-  bool setBool(String key, bool value) => $value.setBool(
-        key,
-        value,
-      );
+  bool setBool(String key, bool value) => $value.setBool(key, value);
   static const __$setBool = $Function(_$setBool);
   static $Value? _$setBool(
       Runtime runtime, $Value? target, List<$Value?> args) {
