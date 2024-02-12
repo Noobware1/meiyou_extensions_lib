@@ -43,6 +43,9 @@ class $Source extends Source with $Bridge<Source> {
       'supportsHomePage': BridgeFieldDef(
         BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool)),
       ),
+      'preferences': BridgeFieldDef(
+        BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.sharedPreferences)),
+      ),
     },
     getters: {
       'homePageList': BridgeMethodDef(
@@ -117,6 +120,22 @@ class $Source extends Source with $Bridge<Source> {
                     BridgeTypeRef(ExtensionLibTypes.searchResponse)),
                 false),
           ],
+        ),
+      ),
+      'getPreferenceId': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          params: [],
+        ),
+      ),
+      'setupPreferences': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(
+            BridgeTypeRef(CoreTypes.list, [
+              BridgeTypeRef(ExtensionLibTypes.preference),
+            ]),
+          ),
+          params: [],
         ),
       ),
     },
