@@ -585,7 +585,7 @@ class $MultiSelectListPreference
                 'defaultSelected',
                 BridgeTypeAnnotation(
                     BridgeTypeRef(CoreTypes.list, [
-                      BridgeTypeRef(CoreTypes.int, []),
+                      BridgeTypeRef(CoreTypes.string, []),
                     ]),
                     nullable: false),
                 true),
@@ -646,7 +646,7 @@ class $MultiSelectListPreference
     switch (identifier) {
       case 'value':
         return $List.wrap(List.generate($value.value.length, (index) {
-          return $int($value.value[index]);
+          return $String($value.value[index]);
         }));
       case 'entries':
         return $List.wrap(List.generate($value.entries.length, (index) {
@@ -694,8 +694,7 @@ class $MultiSelectListPreference
     final dialogTitle = args[3]?.$value as String;
     final dialogMessage = args[4]?.$value as String;
     final onPreferenceChange = args[5] as EvalCallable?;
-    final defaultSelected =
-        (args[6]?.$reified as List?)?.cast<int>() ?? const [];
+    final defaultSelected = (args[6]?.$reified as List).cast<String>();
     final entries = args[7]?.$reified.cast<String>();
     final entryValues = args[8]?.$reified.cast<String>();
     return $MultiSelectListPreference.wrap(MultiSelectListPreference(
@@ -708,8 +707,8 @@ class $MultiSelectListPreference
           ? null
           : (oldValue, newValue) {
               onPreferenceChange.call(runtime, null, [
-                $List.wrap(oldValue.mapList((e) => $int(e))),
-                $List.wrap(newValue.mapList((e) => $int(e)))
+                $List.wrap(oldValue.mapList((e) => $String(e))),
+                $List.wrap(newValue.mapList((e) => $String(e)))
               ]);
             },
       defaultSelected: defaultSelected,
@@ -728,7 +727,7 @@ class $MultiSelectListPreference
   String get key => $value.key;
 
   @override
-  void Function(List<int> oldValue, List<int> newValue)?
+  void Function(List<String> oldValue, List<String> newValue)?
       get onPreferenceChange => $value.onPreferenceChange;
 
   @override
@@ -738,5 +737,5 @@ class $MultiSelectListPreference
   String get title => $value.title;
 
   @override
-  List<int> get value => $value.value;
+  List<String> get value => $value.value;
 }

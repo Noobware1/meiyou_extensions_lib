@@ -44,7 +44,7 @@ class ListPreference extends DilogPreference<int> {
   final List<String> entryValues;
 }
 
-class MultiSelectListPreference extends DilogPreference<List<int>> {
+class MultiSelectListPreference extends DilogPreference<List<String>> {
   MultiSelectListPreference({
     required super.key,
     required super.title,
@@ -52,7 +52,7 @@ class MultiSelectListPreference extends DilogPreference<List<int>> {
     required super.dialogTitle,
     required super.dialogMessage,
     super.onPreferenceChange,
-    List<int> defaultSelected = const [],
+    List<String> defaultSelected = const [],
     required this.entries,
     required this.entryValues,
   }) : super(value: defaultSelected);
