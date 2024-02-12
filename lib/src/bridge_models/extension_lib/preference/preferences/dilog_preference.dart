@@ -26,6 +26,9 @@ class $DilogPreference<T> implements DilogPreference<T>, $Instance {
       ]),
       $implements: [],
       isAbstract: true,
+      generics: {
+        'T': BridgeGenericParam(),
+      },
     ),
     constructors: {
       '': BridgeConstructorDef(

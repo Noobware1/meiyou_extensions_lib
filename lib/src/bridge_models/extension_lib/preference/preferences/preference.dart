@@ -22,6 +22,9 @@ class $Preference<T> implements Preference<T>, $Instance {
       $extends: null,
       $implements: [],
       isAbstract: true,
+      generics: {
+        'T': BridgeGenericParam(),
+      },
     ),
     constructors: {
       '': BridgeConstructorDef(
