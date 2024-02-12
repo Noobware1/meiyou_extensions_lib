@@ -14,7 +14,7 @@ String _source() {
   HTMLPlugin().addAllExports(buffer);
   ExtensionLibPlugin().addAllExports(buffer, 'models');
 
-  [
+  for (var element in [
     'export \'src/models/actor_data.dart\';',
     'export \'src/models/episode.dart\';',
     'export \'src/models/external_id.dart\';',
@@ -54,9 +54,9 @@ String _source() {
     'export \'src/models/media/video/video_format.dart\';',
     'export \'src/models/media/video/video_quality.dart\';',
     'export \'src/models/media/video/video_source.dart\';',
-  ].forEach((element) {
+  ]) {
     buffer.writeln(element);
-  });
+  }
 
   return buffer.toString();
 }

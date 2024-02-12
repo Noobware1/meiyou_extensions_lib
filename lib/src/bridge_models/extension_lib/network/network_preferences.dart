@@ -1,12 +1,9 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/perference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/network/network_preferences.dart';
-import 'package:meiyou_extensions_lib/src/preference/perference.dart';
-
-import 'package:meiyou_extensions_lib/src/preference/perference_store.dart';
+import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 
 /// dart_eval bimodal wrapper for [NetworkPreferences]
 class $NetworkPreferences implements NetworkPreferences, $Instance {
@@ -37,16 +34,11 @@ class $NetworkPreferences implements NetworkPreferences, $Instance {
           returns: BridgeTypeAnnotation($type),
           params: [
             BridgeParameter(
-                'preferenceStore',
+                'preferences',
                 BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.preferenceStore, []),
+                    BridgeTypeRef(ExtensionLibTypes.sharedPreferences, []),
                     nullable: false),
                 false),
-            BridgeParameter(
-                'verboseLogging',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
-                    nullable: false),
-                false)
           ],
           namedParams: [],
         ),
@@ -57,10 +49,7 @@ class $NetworkPreferences implements NetworkPreferences, $Instance {
     methods: {
       'verboseLogging': BridgeMethodDef(
           BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.preference, [
-                  BridgeTypeRef(CoreTypes.bool, []),
-                ]),
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
                 nullable: false),
             params: [],
             namedParams: [],
@@ -68,10 +57,7 @@ class $NetworkPreferences implements NetworkPreferences, $Instance {
           isStatic: false),
       'dohProvider': BridgeMethodDef(
           BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.preference, [
-                  BridgeTypeRef(CoreTypes.int, []),
-                ]),
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
                 nullable: false),
             params: [],
             namedParams: [],
@@ -79,10 +65,7 @@ class $NetworkPreferences implements NetworkPreferences, $Instance {
           isStatic: false),
       'defaultUserAgent': BridgeMethodDef(
           BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.preference, [
-                  BridgeTypeRef(CoreTypes.string, []),
-                ]),
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: false),
             params: [],
             namedParams: [],
@@ -130,42 +113,41 @@ class $NetworkPreferences implements NetworkPreferences, $Instance {
   final NetworkPreferences $value;
 
   @override
-  Preference<bool> verboseLogging() => $value.verboseLogging();
+  bool verboseLogging() => $value.verboseLogging();
   static const __$verboseLogging = $Function(_$verboseLogging);
   static $Value? _$verboseLogging(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as NetworkPreferences;
     final $result = obj.verboseLogging();
-    return $Preference.wrap((val) => val is $Value ? val : $bool(val), $result);
+    return $bool($result);
   }
 
   @override
-  Preference<int> dohProvider() => $value.dohProvider();
+  int dohProvider() => $value.dohProvider();
   static const __$dohProvider = $Function(_$dohProvider);
   static $Value? _$dohProvider(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as NetworkPreferences;
     final $result = obj.dohProvider();
-    return $Preference.wrap((val) => val is $Value ? val : $int(val), $result);
+    return $int($result);
   }
 
   @override
-  Preference<String> defaultUserAgent() => $value.defaultUserAgent();
+  String defaultUserAgent() => $value.defaultUserAgent();
   static const __$defaultUserAgent = $Function(_$defaultUserAgent);
   static $Value? _$defaultUserAgent(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as NetworkPreferences;
     final $result = obj.defaultUserAgent();
-    return $Preference.wrap(
-        (val) => val is $Value ? val : $String(val), $result);
+    return $String($result);
   }
 
   static const __$NetworkPreferences$new = $Function(_$NetworkPreferences$new);
   static $Value? _$NetworkPreferences$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final preferenceStore = args[0]?.$value as PreferenceStore;
+    final preferences = args[0]?.$value as SharedPreferences;
     final verboseLogging = args[1]?.$value as bool;
     return $NetworkPreferences
-        .wrap(NetworkPreferences(preferenceStore, verboseLogging));
+        .wrap(NetworkPreferences(preferences, verboseLogging));
   }
 }

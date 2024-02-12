@@ -1,11 +1,11 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:dart_eval/src/eval/runtime/runtime.dart';
+import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/homepage.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/search_response.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
@@ -15,6 +15,8 @@ import 'package:meiyou_extensions_lib/src/models/interfaces/catalogue_source.dar
 import 'package:meiyou_extensions_lib/src/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
+import 'package:meiyou_extensions_lib/src/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 
 class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
   static const $type = BridgeTypeRef(ExtensionLibTypes.catalogueSource);
@@ -78,6 +80,12 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
         return _$lang;
       case 'supportsHomePage':
         return _$supportsHomePage;
+      case 'preferences':
+        return _$preferences;
+      case 'getPreferenceId':
+        return _$getPreferenceId;
+      case 'setupPreferences':
+        return _$setupPreferences;
       default:
         throw UnimplementedError('Cannot get "$identifier" from "$this"');
     }
@@ -146,5 +154,30 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
   Future<Media?> getMedia(ExtractorLink link) {
     return ($_invoke('getMedia', [$ExtractorLink.wrap(link)]) as Future)
         .then((value) => value as Media?);
+  }
+
+  @override
+  SharedPreferences get preferences => $_get('preferences');
+
+  $Value? get _$preferences => $SharedPreferences.wrap(super.preferences);
+
+  @override
+  int getPreferenceId() => $_invoke('getPreferenceId', []);
+
+  $Value? get _$getPreferenceId => $Function(__$getPreferenceId);
+
+  $Value? __$getPreferenceId(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $int(super.getPreferenceId());
+  }
+
+  @override
+  List<Preference> setupPreferences() => $_invoke('setupPreferences', []);
+
+  $Value? get _$setupPreferences => $Function(__$setupPreferences);
+
+  $Value? __$setupPreferences(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $List.wrap(super.setupPreferences());
   }
 }

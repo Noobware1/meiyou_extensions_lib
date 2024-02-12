@@ -1,4 +1,3 @@
-import 'package:crypto_dart/hashers.dart';
 import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/homepage.dart';

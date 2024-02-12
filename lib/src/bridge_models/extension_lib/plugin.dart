@@ -1,6 +1,10 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/dart_eval_security.dart';
 import 'package:dart_eval/dart_eval.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/dilog_preference.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/two_state_preference.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/html_extensions.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models.dart';
@@ -44,8 +48,6 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/ne
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/okhttp_extensions.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/perference.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/perference.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/perference_store.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/utils.dart';
 import 'package:meiyou_extensions_lib/src/requests.dart';
 
@@ -138,9 +140,16 @@ class ExtensionLibPlugin extends EvalPlugin {
     $InterceptorImpl.configureForCompile(registry);
     registry.addSource(networkSource);
 
-    // Preference
+    $SharedPreferences.configureForCompile(registry);
     $Preference.configureForCompile(registry);
-    $PreferenceStore.configureForCompile(registry);
+    $DilogPreference.configureForCompile(registry);
+    $EditTextPreference.configureForCompile(registry);
+    $ListPreference.configureForCompile(registry);
+    $MultiSelectListPreference.configureForCompile(registry);
+    $TwoStatePreference.configureForCompile(registry);
+    $CheckBoxPreference.configureForCompile(registry);
+    $SwitchPreference.configureForCompile(registry);
+
     registry.addSource(preferenceSource);
 
     registry.addSource(okhttpExtensionsSource);
@@ -219,6 +228,14 @@ class ExtensionLibPlugin extends EvalPlugin {
     $UnHandledExceptionInterceptor.configureForRuntime(runtime);
     $UserAgentInterceptor.configureForRuntime(runtime);
     $InterceptorImpl.configureForRuntime(runtime);
+
+    // Preference
+    $SharedPreferences.configureForRuntime(runtime);
+    $EditTextPreference.configureForRuntime(runtime);
+    $ListPreference.configureForRuntime(runtime);
+    $MultiSelectListPreference.configureForRuntime(runtime);
+    $CheckBoxPreference.configureForRuntime(runtime);
+    $SwitchPreference.configureForRuntime(runtime);
   }
 
   @override

@@ -1,4 +1,3 @@
-import 'package:crypto_dart/crypto_dart.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/plugin.dart';

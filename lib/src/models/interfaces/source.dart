@@ -1,6 +1,6 @@
-import 'package:nice_dart/nice_dart.dart';
-import 'dart:convert' as convert;
 import 'package:meiyou_extensions_lib/models.dart';
+import 'package:meiyou_extensions_lib/src/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 
 abstract class Source {
   Source();
@@ -41,75 +41,14 @@ abstract class Source {
   /// [link] is the `ExtractorLink` object containing the link details.
   Future<Media?> getMedia(ExtractorLink link);
 
-  static Map<String, dynamic> toJson(Source source) {
-    return buildMap((it) {
-      it['id'] = source.id;
-      it['name'] = source.name;
-      it['lang'] = source.lang;
-      it['supportsHomePage'] = source.supportsHomePage;
-    });
+  late final SharedPreferences preferences =
+      SharedPreferences.getInstance(getPreferenceId());
+
+  int getPreferenceId() {
+    return id;
   }
 
-  static String jsonEncode(Source source) => toJson(source).toJson();
-
-  factory Source.fromJson(Map<String, dynamic> json) {
-    return _EncodableSource(
-      id: json['id'] as int,
-      name: json['name'] as String,
-      lang: json['lang'] as String,
-      supportsHomePage: json['supportsHomePage'] as bool,
-    );
+  List<Preference> setupPreferences() {
+    throw UnsupportedError('Not Used');
   }
-
-  static Source jsonDecode(String json) =>
-      Source.fromJson(convert.jsonDecode(json));
-}
-
-class _EncodableSource implements Source {
-  _EncodableSource({
-    required this.name,
-    required this.id,
-    this.lang = "",
-    required this.supportsHomePage,
-  });
-
-  @override
-  final int id;
-
-  @override
-  final String name;
-
-  @override
-  final String lang;
-
-  @override
-  final bool supportsHomePage;
-
-  @override
-  Future<List<ExtractorLink>> getLinks(String url) {
-    // TODO: implement getLinks
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Media?> getMedia(ExtractorLink link) {
-    // TODO: implement getMedia
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<MediaDetails> getMediaDetails(SearchResponse searchResponse) {
-    // TODO: implement getMediaDetails
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<HomePage> getHomePage(int page, HomePageRequest request) {
-    // TODO: implement getHomePage
-    throw UnimplementedError();
-  }
-
-  @override
-  // TODO: implement homePageList
-  Iterable<HomePageData> get homePageList => throw UnimplementedError();
 }

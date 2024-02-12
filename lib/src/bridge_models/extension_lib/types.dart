@@ -2,16 +2,51 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 
 class ExtensionLibTypes {
   //////////////////////////////// Perference //////////////////////////////////
-
-  /// Bridge type spec for [$PreferenceStore]
-  static const preferenceStore = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/preference/perference_store.dart',
-      'PreferenceStore');
-
+  ///
   /// Bridge type spec for [$Preference]
   static const preference = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/preference/perference.dart',
+      'package:meiyou_extensions_lib/src/preference/preferences/preference.dart',
       'Preference');
+
+  /// Bridge type spec for [$DilogPreference]
+  static const dilogPreference = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/preference/preferences/dilog_preference.dart',
+      'DilogPreference');
+
+  /// Bridge type spec for [$EditTextPreference]
+  static const editTextPreference = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/preference/preferences/dilog_preference.dart',
+      'EditTextPreference');
+
+  /// Bridge type spec for [$ListPreference]
+  static const listPreference = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/preference/preferences/dilog_preference.dart',
+      'ListPreference');
+
+  /// Bridge type spec for [$MultiSelectListPreference]
+  static const multiSelectListPreference = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/preference/preferences/dilog_preference.dart',
+      'MultiSelectListPreference');
+
+  /// Bridge type spec for [$TwoStatePreference]
+  static const twoStatePreference = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/preference/preferences/two_state_preference.dart',
+      'TwoStatePreference');
+
+  /// Bridge type spec for [$CheckBoxPreference]
+  static const checkBoxPreference = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/preference/preferences/two_state_preference.dart',
+      'CheckBoxPreference');
+
+  /// Bridge type spec for [$SwitchPreference]
+  static const switchPreference = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/preference/preferences/two_state_preference.dart',
+      'SwitchPreference');
+
+  /// Bridge type spec for [$SharedPreferences]
+  static const sharedPreferences = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/preference/shared_preferences.dart',
+      'SharedPreferences');
 
   //////////////////////////////////////////////////////////////////////////////
 

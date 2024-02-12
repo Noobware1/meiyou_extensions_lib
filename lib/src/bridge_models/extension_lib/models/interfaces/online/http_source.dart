@@ -1,11 +1,13 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/src/eval/runtime/runtime.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
+import 'package:meiyou_extensions_lib/src/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 import 'package:nice_dart/nice_dart.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/homepage.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/search_response.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/network_helper.dart';
@@ -28,7 +30,6 @@ import 'package:meiyou_extensions_lib/src/utils/wrap.dart';
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
-import 'package:okhttp/src/headers.dart';
 
 class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   $HttpSource(super.network);
@@ -356,6 +357,12 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
         return _$lang;
       case 'supportsHomePage':
         return _$supportsHomePage;
+      case 'preferences':
+        return _$preferences;
+      case 'getPreferenceId':
+        return _$getPreferenceId;
+      case 'setupPreferences':
+        return _$setupPreferences;
 
       // ========= overriden ============
       case 'id':
@@ -382,7 +389,6 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
         return _$headersBuilder;
       case 'client':
         return _$client;
-
       default:
         throw UnimplementedError('Cannot get "$identifier" from "$this"');
     }
@@ -642,5 +648,32 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
             (value) => value == null ? const $null() : wrapMedia(value),
           ),
     );
+  }
+
+  // ============================= Preferences =================================
+
+  @override
+  SharedPreferences get preferences => $_get('preferences');
+
+  $Value? get _$preferences => $SharedPreferences.wrap(super.preferences);
+
+  @override
+  int getPreferenceId() => $_invoke('getPreferenceId', []);
+
+  $Value? get _$getPreferenceId => $Function(__$getPreferenceId);
+
+  $Value? __$getPreferenceId(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $int(super.getPreferenceId());
+  }
+
+  @override
+  List<Preference> setupPreferences() => $_invoke('setupPreferences', []);
+
+  $Value? get _$setupPreferences => $Function(__$setupPreferences);
+
+  $Value? __$setupPreferences(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $List.wrap(super.setupPreferences());
   }
 }

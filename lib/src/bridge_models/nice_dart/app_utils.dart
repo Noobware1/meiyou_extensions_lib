@@ -1,5 +1,3 @@
-import 'package:isar/isar.dart';
-import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 import 'package:nice_dart/nice_dart.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media/video/subtitle_format.dart';
@@ -18,15 +16,6 @@ import 'package:dart_eval/stdlib/core.dart';
 /// This class cannot be instantiated. All its methods are static and should be called directly on the class.
 ///
 class AppUtils {
-  static SharedPreferences getSourcePerferences(int id,
-      [String name = 'default']) {
-    final isar = Isar.getInstance(name)!;
-    id = 'source_$id'.hashCode;
-    final prefs = isar.sharedPreferences.getSync(id) ?? SharedPreference(id: id);
-
-    return SharedPreferencesImpl(isar, prefs);
-  }
-
   /// Encodes a query string for use in a URL.
   ///
   /// The `encode` function takes the following parameters:

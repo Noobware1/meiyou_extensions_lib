@@ -1,7 +1,5 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:meiyou_extensions_lib/extensions_lib.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:test/test.dart';
 

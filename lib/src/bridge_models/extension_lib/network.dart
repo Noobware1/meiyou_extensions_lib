@@ -19,16 +19,16 @@ String _source() {
   CryptoDartPlugin().addAllExports(buffer);
   HTMLPlugin().addAllExports(buffer);
   ExtensionLibPlugin().addAllExports(buffer, 'network');
-  [
+  for (var element in [
     'export \'src/requests.dart\';',
     'export \'src/network/network_preferences.dart\';',
     'export \'src/network/network_helper.dart\';',
     'export \'src/network/interceptor/unhandled_exception_interceptor.dart\';',
     'export \'src/network/interceptor/user_agent_interceptor.dart\';',
     'export \'src/network/interceptor/interceptor_impl.dart\';',
-  ].forEach((element) {
+  ]) {
     buffer.writeln(element);
-  });
+  }
 
   return buffer.toString();
 }

@@ -3,13 +3,8 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:html/dom.dart';
 import 'package:meiyou_extensions_lib/extensions_lib.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/okhttp_client.dart';
-import 'package:meiyou_extensions_lib/src/compiler.dart';
-import 'package:meiyou_extensions_lib/src/network/interceptor/interceptor_impl.dart';
 import 'package:test/test.dart';
-import 'package:meiyou_extensions_lib/models.dart';
-import 'package:okhttp/interceptor.dart';
 import 'package:okhttp/okhttp.dart';
-import 'package:okhttp/src/response.dart';
 
 void main() {
   group('POST', () {

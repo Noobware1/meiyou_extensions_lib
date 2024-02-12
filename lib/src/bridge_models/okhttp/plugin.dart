@@ -24,15 +24,15 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/stream_r
 
 class OkHttpPlugin extends EvalPlugin {
   void addAllExport(StringBuffer buffer) {
-    [
+    for (var element in [
       'import \'package:okhttp/okhttp.dart\';',
       'import \'package:okhttp/request.dart\';',
       'import \'package:okhttp/response.dart\';',
       'import \'package:okhttp/adapter.dart\';',
       'import \'package:okhttp/interceptor.dart\';',
-    ].forEach((element) {
+    ]) {
       buffer.writeln(element);
-    });
+    }
   }
 
   @override

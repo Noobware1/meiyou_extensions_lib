@@ -10,7 +10,7 @@ String _source() {
   CryptoDartPlugin().addAllExports(buffer);
   HTMLPlugin().addAllExports(buffer);
   ExtensionLibPlugin().addAllExports(buffer, 'utils');
-  [
+  for (var element in [
     'import \'dart:convert\';',
     'export \'src/iterable.dart\';',
     'export \'src/list.dart\';',
@@ -19,9 +19,9 @@ String _source() {
     'export \'src/result.dart\';',
     'export \'src/app_utils.dart\';',
     'export \'src/builders.dart\';',
-  ].forEach((element) {
+  ]) {
     buffer.writeln(element);
-  });
+  }
 
   return buffer.toString();
 }

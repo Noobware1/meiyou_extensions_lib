@@ -4,7 +4,13 @@ import 'package:nice_dart/nice_dart.dart' as nice_dart;
 part 'shared_preferences.g.dart';
 
 abstract class SharedPreferences {
-  SharedPreferences();
+  factory SharedPreferences.getInstance(int id, [String name = 'meiyou-db']) {
+    final isar = Isar.getInstance(name)!;
+    final prefs =
+        isar.sharedPreferences.getSync(id) ?? SharedPreference(id: id);
+
+    return _SharedPreferencesImpl(isar, prefs);
+  }
 
   void clear();
 
@@ -68,11 +74,11 @@ extension on Map<String, dynamic> {
   }
 }
 
-class SharedPreferencesImpl implements SharedPreferences {
+class _SharedPreferencesImpl implements SharedPreferences {
   final int id;
   final Map<String, dynamic> _prefs;
   final Isar _isar;
-  SharedPreferencesImpl(this._isar, SharedPreference preference)
+  _SharedPreferencesImpl(this._isar, SharedPreference preference)
       : id = preference.id,
         _prefs = preference.toMap();
 

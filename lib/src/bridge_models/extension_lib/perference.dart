@@ -10,12 +10,11 @@ String _source() {
   CryptoDartPlugin().addAllExports(buffer);
   HTMLPlugin().addAllExports(buffer);
   ExtensionLibPlugin().addAllExports(buffer, 'preference');
-  [
-    'export \'src/preference/perference.dart\';',
-    'export \'src/preference/perference_store.dart\';',
-  ].forEach((element) {
+  for (var element in [
+    'export \'src/preference/shared_preferences.dart\';',
+  ]) {
     buffer.writeln(element);
-  });
+  }
 
   return buffer.toString();
 }

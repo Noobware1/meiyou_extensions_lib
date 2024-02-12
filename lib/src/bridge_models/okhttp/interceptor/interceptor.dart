@@ -237,7 +237,6 @@ class $Chain implements Chain, $Instance {
     final $result = obj.proceed(
       request,
     );
-    return $Future.wrap($result.then((value) => $Response.wrap(value)))
-        as $Value?;
+    return $Future.wrap($result.then((value) => $Response.wrap(value)));
   }
 }

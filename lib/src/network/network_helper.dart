@@ -18,7 +18,7 @@ class NetworkHelper {
     // .addNetworkInterceptor(IgnoreGzipInterceptor())
     // .addNetworkInterceptor(BrotliInterceptor)
 
-    if (_preferences.verboseLogging().get()) {
+    if (_preferences.verboseLogging()) {
       final httpLoggingInterceptor =
           LoggingInterceptor(level: LogLevel.HEADERS);
       builder.addNetworkInterceptor(httpLoggingInterceptor);
@@ -26,7 +26,7 @@ class NetworkHelper {
     return builder.build();
   });
 
-  String get defaultUserAgentProvider => _preferences.defaultUserAgent().get();
+  String get defaultUserAgentProvider => _preferences.defaultUserAgent();
 
   // val client: OkHttpClient = run {
   //     val builder = OkHttpClient.Builder()

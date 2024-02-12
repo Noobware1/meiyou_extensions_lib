@@ -37,7 +37,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/tripledes.da
 
 class CryptoDartPlugin extends EvalPlugin {
   void addAllExports(StringBuffer buffer) {
-    [
+    for (var element in [
       'import \'package:crypto_dart/crypto_dart.dart\';',
       'import \'package:crypto_dart/aes.dart\';',
       'import \'package:crypto_dart/pkdf2.dart\';',
@@ -45,9 +45,9 @@ class CryptoDartPlugin extends EvalPlugin {
       'import \'package:crypto_dart/tripledes.dart\';',
       'import \'package:crypto_dart/encoders.dart\';',
       'import \'package:crypto_dart/hashers.dart\';',
-    ].forEach((element) {
+    ]) {
       buffer.writeln(element);
-    });
+    }
   }
 
   @override
