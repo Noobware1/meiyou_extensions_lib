@@ -27,7 +27,7 @@ class $InterceptorImpl extends InterceptorImpl with $Bridge<InterceptorImpl> {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
+      $extends: $Interceptor.$type,
       $implements: [],
       isAbstract: true,
     ),

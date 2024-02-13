@@ -119,7 +119,11 @@ class $Interceptor implements Interceptor, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final intercept = args[0] as EvalCallable;
     return $Interceptor.wrap(Interceptor(
-      (chain) => intercept.call(runtime, null, [$Chain.wrap(chain)])?.$value,
+      (chain) => (intercept.call(runtime, null, [$Chain.wrap(chain)])?.$value
+              as Future)
+          .then(
+        (value) => value as Response,
+      ),
     ));
   }
 }
@@ -226,17 +230,13 @@ class $Chain implements Chain, $Instance {
   Request get request => $value.request;
 
   @override
-  Future<Response> proceed(Request request) => $value.proceed(
-        request,
-      );
+  Future<Response> proceed(Request request) => $value.proceed(request);
   static const __$proceed = $Function(_$proceed);
   static $Value? _$proceed(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as Chain;
     final request = args[0]?.$reified as Request;
-    final $result = obj.proceed(
-      request,
-    );
+    final $result = obj.proceed(request);
     return $Future.wrap($result.then((value) => $Response.wrap(value)));
   }
 }
