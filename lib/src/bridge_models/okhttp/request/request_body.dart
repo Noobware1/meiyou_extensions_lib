@@ -226,32 +226,23 @@ class $RequestBody implements RequestBody, $Instance {
   static $Value? _$RequestBody$fromString(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final content = args[0]?.$reified as String;
-    final contentType = args[1]?.$reified as MediaType;
-    return $RequestBody.wrap(RequestBody.fromString(
-      content,
-      contentType,
-    ));
+    final contentType = args[1]?.$reified as MediaType?;
+    return $RequestBody.wrap(RequestBody.fromString(content, contentType));
   }
 
   static const __$RequestBody$fromMap = $Function(_$RequestBody$fromMap);
   static $Value? _$RequestBody$fromMap(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final map = args[0]?.$reified.cast<String, String>();
-    final contentType = args[1]?.$reified as MediaType;
-    return $RequestBody.wrap(RequestBody.fromMap(
-      map,
-      contentType,
-    ));
+    final contentType = args[1]?.$reified as MediaType?;
+    return $RequestBody.wrap(RequestBody.fromMap(map, contentType));
   }
 
   static const __$RequestBody$fromBytes = $Function(_$RequestBody$fromBytes);
   static $Value? _$RequestBody$fromBytes(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final bytes = args[0]?.$reified.cast<int>();
-    final contentType = args[1]?.$reified as MediaType;
-    return $RequestBody.wrap(RequestBody.fromBytes(
-      bytes,
-      contentType,
-    ));
+    final contentType = args[1]?.$reified as MediaType?;
+    return $RequestBody.wrap(RequestBody.fromBytes(bytes, contentType));
   }
 }

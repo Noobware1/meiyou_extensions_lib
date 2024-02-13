@@ -209,10 +209,8 @@ class $FormBody implements $Instance {
   static const __$static$method$Builder = $Function(_$static$method$Builder);
   static $Value? _$static$method$Builder(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final encoding = args[0]?.$reified as Encoding;
-    final $result = FormBody.Builder(
-      encoding,
-    );
+    final encoding = args[0]?.$value as Encoding?;
+    final $result = FormBody.Builder(encoding);
     return $FormBodyBuilder.wrap($result);
   }
 }
@@ -324,7 +322,6 @@ class $FormBodyBuilder implements $Instance {
         return $value.encoding == null
             ? $null()
             : $Encoding.wrap($value.encoding!);
-
       case 'add':
         return __$add;
       case 'addEncoded':
