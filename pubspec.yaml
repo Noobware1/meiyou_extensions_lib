@@ -16,7 +16,7 @@ dependencies:
   dart_eval:
     git:
       url: https://github.com/Noobware1/dart_eval.git
-      ref: master
+      ref: fixes
   crypto_dart:
     git:
       url: https://github.com/Noobware1/crypto_dart.git
