@@ -11,22 +11,13 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/plugin.dar
 import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 
-class ExtensionLoader {
-  final Runtime runtime;
-
-  ExtensionLoader(this.runtime) {
-    setUpForRuntime(runtime);
+class ExtensionLoader extends Runtime {
+  ExtensionLoader(ByteData evc) : super(evc) {
+    setUpForRuntime(this);
   }
 
-  factory ExtensionLoader.fromProgram(Program program) {
-    final runtime = Runtime.ofProgram(program);
-    return ExtensionLoader(runtime);
-  }
-
-  factory ExtensionLoader.getRuntime(Uint8List byteCode) {
-    final Runtime runtime = Runtime(byteCode.buffer.asByteData());
-
-    return ExtensionLoader(runtime);
+  ExtensionLoader.ofProgram(Program program) : super.ofProgram(program) {
+    setUpForRuntime(this);
   }
 
   static void setUpForRuntime(Runtime runtime) {
@@ -41,26 +32,24 @@ class ExtensionLoader {
 
   ExtractorApi loadExtractorApi(
       String library, String name, ExtractorLink link) {
-    return runtime.executeLib(library, name, [$ExtractorLink.wrap(link)]);
+    return executeLib(library, name, [$ExtractorLink.wrap(link)]);
   }
 
   HttpSource loadHttpSource(
       String library, String name, NetworkHelper networkHelper) {
-    return runtime
-        .executeLib(library, name, [$NetworkHelper.wrap(networkHelper)]);
+    return executeLib(library, name, [$NetworkHelper.wrap(networkHelper)]);
   }
 
   ParsedHttpSource loadParsedHttpSource(
       String library, String name, NetworkHelper networkHelper) {
-    return runtime
-        .executeLib(library, name, [$NetworkHelper.wrap(networkHelper)]);
+    return executeLib(library, name, [$NetworkHelper.wrap(networkHelper)]);
   }
 
   Source loadSource(String library, String name) {
-    return runtime.executeLib(library, name, []);
+    return executeLib(library, name, []);
   }
 
   CatalogueSource loadCatalogueSource(String library, String name) {
-    return runtime.executeLib(library, name, []);
+    return executeLib(library, name, []);
   }
 }
