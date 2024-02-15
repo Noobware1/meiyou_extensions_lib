@@ -1,15 +1,20 @@
+import 'package:isar/isar.dart';
 import 'package:meiyou_extensions_lib/src/models/interfaces/stub_source.dart';
+import 'package:nice_dart/nice_dart.dart';
+part 'extension.g.dart';
 
 abstract class Extension {
   abstract final String name;
   abstract final String pkgName;
   abstract final String versionName;
-  abstract final int versionCode;
+
   abstract final String? lang;
   abstract final bool isNsfw;
 }
 
+@collection
 class InstalledExtension extends Extension {
+  final Id id;
   @override
   final String name;
   @override
@@ -17,25 +22,23 @@ class InstalledExtension extends Extension {
   @override
   final String versionName;
   @override
-  final int versionCode;
-  @override
   final String? lang;
   @override
   final bool isNsfw;
 
   final String? pkgFactory;
   final List<ExtensionSource> sources;
-  final List<int>? icon;
+  final List<byte>? icon;
   final bool hasUpdate;
   final bool isOnline;
   final bool lastUsed;
   final String? repoUrl;
 
   InstalledExtension({
+    this.id = Isar.autoIncrement,
     required this.name,
     required this.pkgName,
     required this.versionName,
-    required this.versionCode,
     required this.lang,
     required this.isNsfw,
     required this.pkgFactory,
@@ -48,6 +51,7 @@ class InstalledExtension extends Extension {
   });
 }
 
+@embedded
 class ExtensionSource {
   final int id;
   final String lang;
@@ -57,12 +61,12 @@ class ExtensionSource {
   final bool isUsedLast;
 
   ExtensionSource({
-    required this.id,
-    required this.lang,
-    required this.name,
-    required this.supportsHomepage,
-    required this.isStub,
-    required this.isUsedLast,
+    this.id = -1,
+    this.lang = "",
+    this.name = "",
+    this.supportsHomepage = false,
+    this.isStub = false,
+    this.isUsedLast = false,
   });
 
   String get visualName =>
@@ -71,7 +75,9 @@ class ExtensionSource {
   String get key => isUsedLast ? "$id-lastused" : "$id";
 }
 
+@collection
 class AvailableExtension extends Extension {
+  final Id id;
   @override
   final String name;
   @override
@@ -79,33 +85,64 @@ class AvailableExtension extends Extension {
   @override
   final String versionName;
   @override
-  final int versionCode;
-  @override
   final String? lang;
   @override
   final bool isNsfw;
 
-  final String? pkgFactory;
   final List<AvailableSource> sources;
   final String pluginName;
   final String iconUrl;
   final String repoUrl;
 
+  String get visualName => name.substringAfter("Meiyou: ");
+
   AvailableExtension({
+    this.id = Isar.autoIncrement,
     required this.name,
     required this.pkgName,
     required this.versionName,
-    required this.versionCode,
     required this.lang,
     required this.isNsfw,
-    required this.pkgFactory,
     required this.sources,
     required this.pluginName,
     required this.iconUrl,
     required this.repoUrl,
-  });
+  }) {
+    assert(name.startsWith("Meiyou: "));
+  }
+
+  factory AvailableExtension.fromJson(dynamic json) {
+    final String repoUrl = json['repoUrl'];
+    final String pkg = json['pkg'];
+    return AvailableExtension(
+      name: json['name'],
+      pkgName: pkg,
+      versionName: json['version'],
+      lang: json['lang'],
+      isNsfw: (json['nsfw'] as int) == 1,
+      iconUrl: '$repoUrl/icon/$pkg.png',
+      pluginName: json['plugin'],
+      repoUrl: repoUrl,
+      sources: ((json['sources'] as List?)?.mapList(AvailableSource.fromJson))
+          .orEmpty(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "pkg": pkgName,
+      "plugin": pluginName,
+      "version": versionName,
+      "lang": lang,
+      "nsfw": isNsfw ? 1 : 0,
+      "repoUrl": repoUrl,
+      "sources": sources.mapList((e) => e.toJson()),
+    };
+  }
 }
 
+@embedded
 class AvailableSource {
   final int id;
   final String lang;
@@ -113,10 +150,10 @@ class AvailableSource {
   final String baseUrl;
 
   AvailableSource({
-    required this.id,
-    required this.lang,
-    required this.name,
-    required this.baseUrl,
+    this.id = -1,
+    this.lang = "",
+    this.name = "",
+    this.baseUrl = "",
   });
 
   StubSource toStubSource() {
@@ -125,5 +162,23 @@ class AvailableSource {
       lang: lang,
       name: name,
     );
+  }
+
+  factory AvailableSource.fromJson(dynamic json) {
+    return AvailableSource(
+      id: json["id"],
+      name: json["name"],
+      lang: json["lang"],
+      baseUrl: (json["baseUrl"] as String?).orEmpty(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "lang": lang,
+      "baseUrl": baseUrl,
+    };
   }
 }
