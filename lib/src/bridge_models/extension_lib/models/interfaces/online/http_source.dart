@@ -547,7 +547,9 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   // ============================== HomePage ===================================
   @override
   Future<HomePage> getHomePage(int page, HomePageRequest request) {
-    return $_invoke('getHomePage', [$int(page), $HomePageRequest.wrap(request)])
+    return ($_invoke(
+                'getHomePage', [$int(page), $HomePageRequest.wrap(request)])
+            as Future)
         .then((value) => value as HomePage);
   }
 

@@ -175,9 +175,7 @@ class $Source extends Source with $Bridge<Source> {
     return ($_invoke(
                 'getHomePage', [$int(page), $HomePageRequest.wrap(request)])
             as Future)
-        .then(
-      (value) => value as HomePage,
-    );
+        .then((value) => value as HomePage);
   }
 
   @override
