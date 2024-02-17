@@ -35,21 +35,16 @@ class ExtensionLoader extends Runtime {
     return executeLib(library, name, [$ExtractorLink.wrap(link)]);
   }
 
-  HttpSource loadHttpSource(
-      String library, String name, NetworkHelper networkHelper) {
+  dynamic getSource(String library, String name, NetworkHelper networkHelper) {
     return executeLib(library, name, [$NetworkHelper.wrap(networkHelper)]);
   }
 
-  ParsedHttpSource loadParsedHttpSource(
-      String library, String name, NetworkHelper networkHelper) {
+  Source loadSource(String library, String name, NetworkHelper networkHelper) {
     return executeLib(library, name, [$NetworkHelper.wrap(networkHelper)]);
   }
 
-  Source loadSource(String library, String name) {
-    return executeLib(library, name, []);
-  }
-
-  CatalogueSource loadCatalogueSource(String library, String name) {
-    return executeLib(library, name, []);
+  CatalogueSource loadCatalogueSource(
+      String library, String name, NetworkHelper networkHelper) {
+    return executeLib(library, name, [$NetworkHelper.wrap(networkHelper)]);
   }
 }

@@ -40,6 +40,7 @@ String _source() {
     //Interfaces
     'export \'src/models/interfaces/extractor_api.dart\';',
     'export \'src/models/interfaces/source.dart\';',
+    'export \'src/models/interfaces/source_factory.dart\';',
     'export \'src/models/interfaces/catalogue_source.dart\';',
     'export \'src/models/interfaces/online/http_source.dart\';',
     'export \'src/models/interfaces/online/parsed_http_source.dart\';',

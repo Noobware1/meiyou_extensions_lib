@@ -84,6 +84,10 @@ class ExtensionLibTypes {
       'package:meiyou_extensions_lib/src/models/interfaces/source.dart',
       'Source');
 
+  static const sourceFactory = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/interfaces/source_factory.dart',
+      'SourceFactory');
+
   static const catalogueSource = BridgeTypeSpec(
       'package:meiyou_extensions_lib/src/models/interfaces/catalogue_source.dart',
       'CatalogueSource');

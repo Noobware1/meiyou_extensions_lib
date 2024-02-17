@@ -7,7 +7,6 @@ abstract class Extension {
   abstract final String name;
   abstract final String pkgName;
   abstract final String versionName;
-
   abstract final String? lang;
   abstract final bool isNsfw;
 }

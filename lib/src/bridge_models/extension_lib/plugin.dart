@@ -1,6 +1,7 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/dart_eval_security.dart';
 import 'package:dart_eval/dart_eval.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/source_factory.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/dilog_preference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/preference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/two_state_preference.dart';
@@ -109,6 +110,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     registry.defineBridgeClass($ExtractorApi.$declaration);
     // registry.defineBridgeClass($BaseSource.$declaration);?
     registry.defineBridgeClass($Source.$declaration);
+    registry.defineBridgeClass($SourceFactory.$declaration);
     registry.defineBridgeClass($CatalogueSource.$declaration);
     registry.defineBridgeClass($HttpSource.$declaration);
     registry.defineBridgeClass($ParsedHttpSource.$declaration);
@@ -213,6 +215,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     $ExtractorApi.configureForRuntime(runtime);
     // $BaseSource.configureForRuntime(runtime);
     $Source.configureForRuntime(runtime);
+    $SourceFactory.configureForRuntime(runtime);
     $CatalogueSource.configureForRuntime(runtime);
     $HttpSource.configureForRuntime(runtime);
     $ParsedHttpSource.configureForRuntime(runtime);
