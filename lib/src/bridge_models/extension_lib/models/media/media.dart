@@ -3,7 +3,10 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media/media_type.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/headers.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/models/media/media.dart';
+import 'package:okhttp/okhttp.dart' hide MediaType;
 
 class $Media implements Media, $Instance {
   $Media.wrap(this.$value);
@@ -27,7 +30,7 @@ class $Media implements Media, $Instance {
               false),
           BridgeParameter(
               'headers',
-              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.map),
+              BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers),
                   nullable: true),
               true),
           BridgeParameter(
@@ -45,7 +48,8 @@ class $Media implements Media, $Instance {
         ),
       ),
       'headers': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.map), nullable: true),
+        BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers),
+            nullable: true),
       ),
       'extra': BridgeFieldDef(
         BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.map), nullable: true),
@@ -66,7 +70,7 @@ class $Media implements Media, $Instance {
   Map<String, dynamic>? get extra => $value.extra;
 
   @override
-  Map<String, String>? get headers => $value.headers;
+  Headers? get headers => $value.headers;
 
   @override
   MediaType? get mediaType => $value.mediaType;
@@ -80,12 +84,11 @@ class $Media implements Media, $Instance {
             : const $null();
       case 'headers':
         return $value.headers != null
-            ? $Map.wrap($value.headers!
-                .map((key, value) => MapEntry($String(key), $String(value))))
+            ? $Headers.wrap($value.headers!)
             : const $null();
       case 'extra':
         return $value.extra != null
-            ? $Map.wrap($value.headers!
+            ? $Map.wrap($value.extra!
                 .map((key, value) => MapEntry($String(key), value)))
             : const $null();
 
@@ -124,7 +127,7 @@ class $Media implements Media, $Instance {
   }
 
   @override
-  set headers(Map<String, String>? headers) {
+  set headers(Headers? headers) {
     // TODO: implement headers
   }
 

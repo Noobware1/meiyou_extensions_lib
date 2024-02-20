@@ -4,10 +4,13 @@ import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media/media_type.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/headers.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/subtitle.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/video.dart';
 import 'package:meiyou_extensions_lib/src/models/media/video/video_source.dart';
+import 'package:okhttp/okhttp.dart' hide MediaType;
 
 class $Video implements Video, $Instance {
   $Video.wrap(this.$value);
@@ -39,7 +42,7 @@ class $Video implements Video, $Instance {
                 true),
             BridgeParameter(
                 'headers',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.map),
+                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers),
                     nullable: true),
                 true),
             BridgeParameter(
@@ -69,7 +72,7 @@ class $Video implements Video, $Instance {
               nullable: true),
         ),
         'headers': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.map), nullable: true),
+          BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers), nullable: true),
         ),
         'extra': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.map), nullable: true),
@@ -81,10 +84,9 @@ class $Video implements Video, $Instance {
     return $Video.wrap(Video(
       videoSources: (args[0]?.$value as List?)?.cast<VideoSource>() ?? [],
       subtitles: (args[1]?.$value as List?)?.cast<Subtitle>(),
-      headers: (args[2]?.$value as Map?)?.map((key, value) => MapEntry(
-          key is $Value ? key.$value : value,
-          value is $Value ? value.$value : value)),
-      extra: args[3]?.$value,
+      headers: args[2]?.$value as Headers?,
+      extra: (args[3]?.$value as Map?)?.map(
+          (key, value) => MapEntry(key is $Value ? key.$value : key, value)),
     ));
   }
 
@@ -92,7 +94,7 @@ class $Video implements Video, $Instance {
   Map<String, dynamic>? get extra => $value.extra;
 
   @override
-  Map<String, String>? get headers => $value.headers;
+  Headers? get headers => $value.headers;
 
   @override
   MediaType? get mediaType => $value.mediaType;
@@ -111,23 +113,16 @@ class $Video implements Video, $Instance {
             ? $MediaType.wrap($value.mediaType!)
             : const $null();
       case 'videoSources':
-        return $List.wrap($value.videoSources);
+        return $List.wrap(videoSources);
       case 'subtitles':
-        return $value.subtitles != null
-            ? $List.wrap($value.subtitles!)
-            : const $null();
-
+        return subtitles != null ? $List.wrap(subtitles!) : const $null();
       case 'headers':
-        return $value.headers != null
-            ? $Map.wrap($value.headers!
-                .map((key, value) => MapEntry($String(key), $String(value))))
-            : const $null();
+        return headers != null ? $Headers.wrap(headers!) : const $null();
       case 'extra':
-        return $value.extra != null
-            ? $Map.wrap($value.headers!
-                .map((key, value) => MapEntry($String(key), value)))
+        return extra != null
+            ? $Map
+                .wrap(extra!.map((key, value) => MapEntry($String(key), value)))
             : const $null();
-
       default:
         return const $null();
     }
@@ -151,7 +146,7 @@ class $Video implements Video, $Instance {
   }
 
   @override
-  set headers(Map<String, String>? headers) {
+  set headers(Headers? headers) {
     // TODO: implement headers
   }
 

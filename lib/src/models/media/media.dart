@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:okhttp/okhttp.dart';
+
 /// An enumeration of the different types of media.
 enum MediaType {
   /// Represents a video.
@@ -25,7 +27,7 @@ class Media {
   MediaType? mediaType;
 
   /// A map of strings representing the headers of the media.
-  Map<String, String>? headers;
+  Headers? headers;
 
   /// A map of dynamic values representing extra data of the media.
   Map<String, dynamic>? extra;
