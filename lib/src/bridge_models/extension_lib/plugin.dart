@@ -49,24 +49,14 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/okhttp_ext
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/perference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/utils.dart';
+import 'package:meiyou_extensions_lib/src/override/lib_overrides.dart';
 import 'package:meiyou_extensions_lib/src/requests.dart';
 
-class ExtensionLibPluginOverrides {
-  final List<PluginOverride> sharedPreferenceOverrides;
-
-  ExtensionLibPluginOverrides({required this.sharedPreferenceOverrides});
-}
-
-//stub
-abstract class PluginOverride {
-  abstract final String name;
-}
-
 class ExtensionLibPlugin extends EvalPlugin {
-  final ExtensionLibPluginOverrides _overrides;
+  final ExtensionLibOverrides _overrides;
   ExtensionLibPlugin(this._overrides);
 
- static void addAllExports(StringBuffer buffer, String exclude) {
+  static void addAllExports(StringBuffer buffer, String exclude) {
     final exports = {
       'utils': 'package:meiyou_extensions_lib/utils.dart',
       'network': 'package:meiyou_extensions_lib/network.dart',
@@ -246,7 +236,7 @@ class ExtensionLibPlugin extends EvalPlugin {
 
     // Preference
     $SharedPreferences.configureForRuntime(
-        runtime, _overrides.sharedPreferenceOverrides);
+        runtime, _overrides.sharedPreferencesOverride);
     $EditTextPreference.configureForRuntime(runtime);
     $ListPreference.configureForRuntime(runtime);
     $MultiSelectListPreference.configureForRuntime(runtime);

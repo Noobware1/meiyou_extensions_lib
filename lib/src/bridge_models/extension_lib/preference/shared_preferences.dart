@@ -1,7 +1,6 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
@@ -14,10 +13,11 @@ class $SharedPreferences implements SharedPreferences, $Instance {
   }
 
   static void configureForRuntime(
-      Runtime runtime, List<PluginOverride> overrides) {
-    final override = overrides.first as $SharedPreferences$new;
+    Runtime runtime,
+    SharedPreferencesOverride override,
+  ) {
     runtime.registerBridgeFunc(
-        $type.spec!.library, override.name, override.call);
+        $type.spec!.library, 'SharedPreferences.', override.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -588,11 +588,7 @@ class $SharedPreferences implements SharedPreferences, $Instance {
   }
 }
 
-abstract class $SharedPreferences$new extends EvalCallable
-    implements PluginOverride {
-  @override
-  final String name = 'SharedPreferences.';
-
+abstract class SharedPreferencesOverride extends EvalCallable {
   @override
   $Value? call(Runtime runtime, $Value? target, List<$Value?> args);
 }
