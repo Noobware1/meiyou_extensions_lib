@@ -589,6 +589,11 @@ class $SharedPreferences implements SharedPreferences, $Instance {
 }
 
 abstract class SharedPreferencesOverride extends EvalCallable {
+  SharedPreferences getInstance(String? name);
   @override
-  $Value? call(Runtime runtime, $Value? target, List<$Value?> args);
+  $Value? call(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $SharedPreferences.wrap(getInstance(
+      args[0]?.$value as String?,
+    ));
+  }
 }
