@@ -9,7 +9,7 @@ String _source() {
   OkHttpPlugin().addAllExport(buffer);
   CryptoDartPlugin().addAllExports(buffer);
   HTMLPlugin().addAllExports(buffer);
-  ExtensionLibPlugin().addAllExports(buffer, 'utils');
+  ExtensionLibPlugin.addAllExports(buffer, 'utils');
   for (var element in [
     'import \'dart:convert\';',
     'export \'src/iterable.dart\';',

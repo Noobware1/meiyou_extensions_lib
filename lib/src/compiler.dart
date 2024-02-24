@@ -5,10 +5,10 @@ import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 
 class ExtensionComplier extends Compiler {
-  ExtensionComplier() {
+  ExtensionComplier(ExtensionLibPluginOverrides overrides) {
     addPlugin(OkHttpPlugin());
     addPlugin(HTMLPlugin());
     addPlugin(CryptoDartPlugin());
-    addPlugin(ExtensionLibPlugin());
+    addPlugin(ExtensionLibPlugin(overrides));
   }
 }

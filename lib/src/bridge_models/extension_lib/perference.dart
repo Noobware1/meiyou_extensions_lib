@@ -9,7 +9,7 @@ String _source() {
   OkHttpPlugin().addAllExport(buffer);
   CryptoDartPlugin().addAllExports(buffer);
   HTMLPlugin().addAllExports(buffer);
-  ExtensionLibPlugin().addAllExports(buffer, 'preference');
+  ExtensionLibPlugin.addAllExports(buffer, 'preference');
   for (var element in [
     'export \'src/preference/preferences/dilog_preference.dart\';',
     'export \'src/preference/preferences/two_state_preference.dart\';',

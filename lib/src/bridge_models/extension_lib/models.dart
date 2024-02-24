@@ -12,7 +12,7 @@ String _source() {
   OkHttpPlugin().addAllExport(buffer);
   CryptoDartPlugin().addAllExports(buffer);
   HTMLPlugin().addAllExports(buffer);
-  ExtensionLibPlugin().addAllExports(buffer, 'models');
+  ExtensionLibPlugin.addAllExports(buffer, 'models');
 
   for (var element in [
     'export \'src/models/actor_data.dart\';',

@@ -278,7 +278,7 @@ class $ParsedHttpSource extends ParsedHttpSource
       case 'preferences':
         return _$preferences;
       case 'getPreferenceId':
-        return _$getPreferenceId;
+        return _$getPreferenceKey;
       case 'setupPreferences':
         return _$setupPreferences;
       // ==================== overriden ====================
@@ -673,13 +673,13 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value? get _$preferences => $SharedPreferences.wrap(super.preferences);
 
   @override
-  int getPreferenceId() => $_invoke('getPreferenceId', []);
+  String getPreferenceKey() => $_invoke('getPreferenceKey', []);
 
-  $Value? get _$getPreferenceId => $Function(__$getPreferenceId);
+  $Value? get _$getPreferenceKey => $Function(__$getPreferenceKey);
 
-  $Value? __$getPreferenceId(
+  $Value? __$getPreferenceKey(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $int(super.getPreferenceId());
+    return $String(super.getPreferenceKey());
   }
 
   @override

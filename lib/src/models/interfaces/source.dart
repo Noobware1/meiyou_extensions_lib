@@ -42,11 +42,9 @@ abstract class Source {
   Future<Media?> getMedia(ExtractorLink link);
 
   late final SharedPreferences preferences =
-      SharedPreferences.getInstance(getPreferenceId());
+      SharedPreferences(getPreferenceKey());
 
-  int getPreferenceId() {
-    return id;
-  }
+  String getPreferenceKey() => 'source_$id';
 
   List<Preference> setupPreferences() {
     throw UnsupportedError('Not Used');

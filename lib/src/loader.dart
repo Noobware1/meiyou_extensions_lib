@@ -12,22 +12,26 @@ import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 
 class ExtensionLoader extends Runtime {
-  ExtensionLoader(ByteData evc) : super(evc) {
-    setUpForRuntime(this);
+  ExtensionLoader(ByteData evc, ExtensionLibPluginOverrides overrides)
+      : super(evc) {
+    setUpForRuntime(this, overrides);
   }
 
-  ExtensionLoader.ofProgram(Program program) : super.ofProgram(program) {
-    setUpForRuntime(this);
+  ExtensionLoader.ofProgram(
+      Program program, ExtensionLibPluginOverrides overrides)
+      : super.ofProgram(program) {
+    setUpForRuntime(this, overrides);
   }
 
-  static void setUpForRuntime(Runtime runtime) {
+  static void setUpForRuntime(
+      Runtime runtime, ExtensionLibPluginOverrides overrides) {
     runtime
       ..grant(NetworkPermission.any)
       ..grant(FilesystemPermission.any)
       ..addPlugin(OkHttpPlugin())
       ..addPlugin(HTMLPlugin())
       ..addPlugin(CryptoDartPlugin())
-      ..addPlugin(ExtensionLibPlugin());
+      ..addPlugin(ExtensionLibPlugin(overrides));
   }
 
   ExtractorApi loadExtractorApi(

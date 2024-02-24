@@ -18,7 +18,7 @@ String _source() {
   OkHttpPlugin().addAllExport(buffer);
   CryptoDartPlugin().addAllExports(buffer);
   HTMLPlugin().addAllExports(buffer);
-  ExtensionLibPlugin().addAllExports(buffer, 'network');
+  ExtensionLibPlugin.addAllExports(buffer, 'network');
   for (var element in [
     'export \'src/requests.dart\';',
     'export \'src/network/network_preferences.dart\';',

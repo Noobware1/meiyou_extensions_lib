@@ -82,8 +82,8 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
         return _$supportsHomePage;
       case 'preferences':
         return _$preferences;
-      case 'getPreferenceId':
-        return _$getPreferenceId;
+      case 'getPreferenceKey':
+        return _$getPreferenceKey;
       case 'setupPreferences':
         return _$setupPreferences;
       default:
@@ -162,13 +162,13 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
   $Value? get _$preferences => $SharedPreferences.wrap(super.preferences);
 
   @override
-  int getPreferenceId() => $_invoke('getPreferenceId', []);
+  String getPreferenceKey() => $_invoke('getPreferenceKey', []);
 
-  $Value? get _$getPreferenceId => $Function(__$getPreferenceId);
+  $Value? get _$getPreferenceKey => $Function(__$getPreferenceKey);
 
-  $Value? __$getPreferenceId(
+  $Value? __$getPreferenceKey(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $int(super.getPreferenceId());
+    return $String(super.getPreferenceKey());
   }
 
   @override

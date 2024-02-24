@@ -1,6 +1,7 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
@@ -12,9 +13,11 @@ class $SharedPreferences implements SharedPreferences, $Instance {
     registry.defineBridgeClass($declaration);
   }
 
-  static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc($type.spec!.library,
-        'SharedPreferences.getInstance', __$SharedPreferences$getInstance.call);
+  static void configureForRuntime(
+      Runtime runtime, List<PluginOverride> overrides) {
+    final override = overrides.first as $SharedPreferences$new;
+    runtime.registerBridgeFunc(
+        $type.spec!.library, override.name, override.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -583,16 +586,13 @@ class $SharedPreferences implements SharedPreferences, $Instance {
     );
     return $bool($result);
   }
+}
 
-  static const __$SharedPreferences$getInstance =
-      $Function(_$SharedPreferences$getInstance);
-  static $Value? _$SharedPreferences$getInstance(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final id = args[0]?.$value as int;
-    final name = args[1]?.$value as String? ?? 'meiyou-db';
-    return $SharedPreferences.wrap(SharedPreferences.getInstance(
-      id,
-      name,
-    ));
-  }
+abstract class $SharedPreferences$new extends EvalCallable
+    implements PluginOverride {
+  @override
+  final String name = 'SharedPreferences.';
+
+  @override
+  $Value? call(Runtime runtime, $Value? target, List<$Value?> args);
 }

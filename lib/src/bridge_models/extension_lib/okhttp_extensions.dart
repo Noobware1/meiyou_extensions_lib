@@ -12,7 +12,7 @@ String _source() {
   CryptoDartPlugin().addAllExports(buffer);
   OkHttpPlugin().addAllExport(buffer);
   HTMLPlugin().addAllExports(buffer);
-  ExtensionLibPlugin().addAllExports(buffer, 'okhttp_extensions');
+  ExtensionLibPlugin.addAllExports(buffer, 'okhttp_extensions');
 
   return buffer.toString();
 }
