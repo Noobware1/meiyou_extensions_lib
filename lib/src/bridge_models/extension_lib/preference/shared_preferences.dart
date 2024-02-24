@@ -32,15 +32,10 @@ class $SharedPreferences implements SharedPreferences, $Instance {
       isAbstract: true,
     ),
     constructors: {
-      'getInstance': BridgeConstructorDef(
+      '': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [
-            BridgeParameter(
-                'id',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                    nullable: false),
-                false),
             BridgeParameter(
                 'name',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
@@ -49,7 +44,6 @@ class $SharedPreferences implements SharedPreferences, $Instance {
           ],
           namedParams: [],
         ),
-        isFactory: true,
       )
     },
     fields: {},
