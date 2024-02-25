@@ -277,7 +277,7 @@ class $ParsedHttpSource extends ParsedHttpSource
         return _$client;
       case 'preferences':
         return _$preferences;
-      case 'getPreferenceId':
+      case 'getPreferenceKey':
         return _$getPreferenceKey;
       case 'setupPreferences':
         return _$setupPreferences;
