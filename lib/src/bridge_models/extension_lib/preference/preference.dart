@@ -18,6 +18,17 @@ class $Preference<T> implements Preference<T>, $Instance {
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.preference);
 
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($type.spec!.library, 'Preference.isPrivate',
+        __$static$method$isPrivate.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'Preference.privateKey',
+        __$static$method$privateKey.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'Preference.isAppState',
+        __$static$method$isAppState.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'Preference.appStateKey',
+        __$static$method$appStateKey.call);
+  }
+
   static const $declaration = BridgeClassDef(
     BridgeClassType($type,
         $extends: null,
@@ -92,6 +103,62 @@ class $Preference<T> implements Preference<T>, $Instance {
             },
           ),
           isStatic: false),
+      'isPrivate': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'key',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
+      'privateKey': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'key',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
+      'isAppState': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'key',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
+      'appStateKey': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'key',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
     },
     getters: {},
     setters: {},
@@ -198,5 +265,49 @@ class $Preference<T> implements Preference<T>, $Instance {
     final obj = target?.$value as Preference;
     final $result = obj.defaultValue();
     return wrapper($result);
+  }
+
+  static const __$static$method$isPrivate =
+      $Function(_$static$method$isPrivate);
+  static $Value? _$static$method$isPrivate(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final key = args[0]?.$value as String;
+    final $result = Preference.isPrivate(
+      key,
+    );
+    return $bool($result);
+  }
+
+  static const __$static$method$privateKey =
+      $Function(_$static$method$privateKey);
+  static $Value? _$static$method$privateKey(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final key = args[0]?.$value as String;
+    final $result = Preference.privateKey(
+      key,
+    );
+    return $String($result);
+  }
+
+  static const __$static$method$isAppState =
+      $Function(_$static$method$isAppState);
+  static $Value? _$static$method$isAppState(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final key = args[0]?.$value as String;
+    final $result = Preference.isAppState(
+      key,
+    );
+    return $bool($result);
+  }
+
+  static const __$static$method$appStateKey =
+      $Function(_$static$method$appStateKey);
+  static $Value? _$static$method$appStateKey(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final key = args[0]?.$value as String;
+    final $result = Preference.appStateKey(
+      key,
+    );
+    return $String($result);
   }
 }

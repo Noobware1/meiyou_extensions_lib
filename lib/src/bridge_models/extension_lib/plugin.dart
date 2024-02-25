@@ -238,6 +238,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     $InterceptorImpl.configureForRuntime(runtime);
 
     // Preference
+    $Preference.configureForRuntime(runtime);
     $SharedPreferences.configureForRuntime(
         runtime, _overrides.$SharedPreferences$new);
     $EditTextPreference.configureForRuntime(runtime);
