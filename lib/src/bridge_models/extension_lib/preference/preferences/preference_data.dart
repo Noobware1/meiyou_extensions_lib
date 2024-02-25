@@ -3,18 +3,18 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
-import 'package:meiyou_extensions_lib/src/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 
-/// dart_eval bimodal wrapper for [Preference]
-class $Preference<T> implements Preference<T>, $Instance {
-  /// Configure the [$Preference] wrapper for use in a [Runtime]
+/// dart_eval bimodal wrapper for [PreferenceData]
+class $PreferenceData<T> implements PreferenceData<T>, $Instance {
+  /// Configure the [$PreferenceData] wrapper for use in a [Runtime]
   static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(ExtensionLibTypes.preference);
+  static const $type = BridgeTypeRef(ExtensionLibTypes.preferenceData);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(
@@ -90,8 +90,8 @@ class $Preference<T> implements Preference<T>, $Instance {
     wrap: true,
   );
 
-  /// Wrap an [Preference] in an [$Preference]
-  $Preference.wrap(this.$value);
+  /// Wrap an [PreferenceData] in an [$PreferenceData]
+  $PreferenceData.wrap(this.$value);
 
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
@@ -115,7 +115,7 @@ class $Preference<T> implements Preference<T>, $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   @override
-  Preference get $reified => $value;
+  PreferenceData get $reified => $value;
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
@@ -128,13 +128,13 @@ class $Preference<T> implements Preference<T>, $Instance {
   static const __$onPreferenceChange = $Function(_$onPreferenceChange);
   static $Value? _$onPreferenceChange(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target!.$value as Preference;
+    final $this = target!.$value as PreferenceData;
     $this.onPreferenceChange!(args[0]?.$reified, args[1]?.$reified);
     return null;
   }
 
   @override
-  final Preference $value;
+  final PreferenceData $value;
 
   @override
   String get key => $value.key;

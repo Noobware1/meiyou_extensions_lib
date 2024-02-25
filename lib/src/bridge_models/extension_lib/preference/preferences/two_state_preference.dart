@@ -1,7 +1,7 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 
 import 'package:meiyou_extensions_lib/src/preference/preferences/two_state_preference.dart';
@@ -13,14 +13,14 @@ class $TwoStatePreference implements TwoStatePreference, $Instance {
     registry.defineBridgeClass($declaration);
   }
 
-  late final $Instance _superclass = $Preference.wrap($value);
+  late final $Instance _superclass = $PreferenceData.wrap($value);
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.twoStatePreference);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: BridgeTypeRef(ExtensionLibTypes.preference, [
+      $extends: BridgeTypeRef(ExtensionLibTypes.preferenceData, [
         BridgeTypeRef(CoreTypes.bool, []),
       ]),
       $implements: [],

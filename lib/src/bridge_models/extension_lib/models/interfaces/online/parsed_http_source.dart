@@ -2,7 +2,7 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/src/eval/runtime/runtime.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
-import 'package:meiyou_extensions_lib/src/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 import 'package:nice_dart/nice_dart.dart';
 import 'package:html/dom.dart';
@@ -683,8 +683,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  List<Preference> setupPreferences() =>
-      ($_invoke('setupPreferences', []) as List).cast<Preference>();
+  List<PreferenceData> setupPreferences() =>
+      ($_invoke('setupPreferences', []) as List).cast<PreferenceData>();
 
   $Value? get _$setupPreferences => $Function(__$setupPreferences);
 

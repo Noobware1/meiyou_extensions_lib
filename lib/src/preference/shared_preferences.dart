@@ -33,4 +33,6 @@ class SharedPreferences {
 
   bool setStringList(String key, List<String> value) =>
       throw UnimplementedError();
+
+      Map<String, dynamic> getAll() => throw UnimplementedError();
 }

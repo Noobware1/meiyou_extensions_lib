@@ -12,7 +12,7 @@ class NetworkHelper {
   final NetworkPreferences _preferences;
 
   late final OkHttpClient client = run(() {
-    final verboseLogging = _preferences.verboseLogging();
+    final verboseLogging = _preferences.verboseLogging().get();
     final builder = OkHttpClient.Builder()
         .addInterceptor(UnHandledExceptionInterceptor(verboseLogging))
         .addInterceptor(UserAgentInterceptor(defaultUserAgentProvider));
@@ -27,7 +27,7 @@ class NetworkHelper {
     return builder.build();
   });
 
-  String get defaultUserAgentProvider => _preferences.defaultUserAgent();
+  String get defaultUserAgentProvider => _preferences.defaultUserAgent().get();
 
   // val client: OkHttpClient = run {
   //     val builder = OkHttpClient.Builder()

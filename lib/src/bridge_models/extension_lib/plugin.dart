@@ -2,10 +2,11 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/dart_eval_security.dart';
 import 'package:dart_eval/dart_eval.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/source_factory.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preference.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preference_store.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/dilog_preference.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/two_state_preference.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/html_extensions.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models.dart';
@@ -146,7 +147,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     registry.addSource(networkSource);
 
     $SharedPreferences.configureForCompile(registry);
-    $Preference.configureForCompile(registry);
+    $PreferenceData.configureForCompile(registry);
     $DilogPreference.configureForCompile(registry);
     $EditTextPreference.configureForCompile(registry);
     $ListPreference.configureForCompile(registry);
@@ -154,6 +155,8 @@ class ExtensionLibPlugin extends EvalPlugin {
     $TwoStatePreference.configureForCompile(registry);
     $CheckBoxPreference.configureForCompile(registry);
     $SwitchPreference.configureForCompile(registry);
+    $Preference.configureForCompile(registry);
+    $PreferenceStore.configureForCompile(registry);
 
     registry.addSource(preferenceSource);
 
@@ -236,7 +239,7 @@ class ExtensionLibPlugin extends EvalPlugin {
 
     // Preference
     $SharedPreferences.configureForRuntime(
-        runtime, _overrides.sharedPreferencesOverride);
+        runtime, _overrides.$SharedPreferences$new);
     $EditTextPreference.configureForRuntime(runtime);
     $ListPreference.configureForRuntime(runtime);
     $MultiSelectListPreference.configureForRuntime(runtime);

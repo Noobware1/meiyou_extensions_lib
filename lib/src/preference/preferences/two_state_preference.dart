@@ -1,6 +1,6 @@
-import 'package:meiyou_extensions_lib/src/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 
-abstract class TwoStatePreference extends Preference<bool> {
+abstract class TwoStatePreference extends PreferenceData<bool> {
   TwoStatePreference({
     required String key,
     required String title,

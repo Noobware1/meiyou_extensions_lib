@@ -1,6 +1,6 @@
-import 'package:meiyou_extensions_lib/src/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 
-abstract class DilogPreference<T> extends Preference<T> {
+abstract class DilogPreference<T> extends PreferenceData<T> {
   final String dialogTitle;
   final String dialogMessage;
 

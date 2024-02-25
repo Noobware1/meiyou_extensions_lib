@@ -133,7 +133,7 @@ class $Source extends Source with $Bridge<Source> {
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation(
             BridgeTypeRef(CoreTypes.list, [
-              BridgeTypeRef(ExtensionLibTypes.preference),
+              BridgeTypeRef(ExtensionLibTypes.preferenceData),
             ]),
           ),
           params: [],
@@ -219,8 +219,8 @@ class $Source extends Source with $Bridge<Source> {
   }
 
   @override
-  List<Preference> setupPreferences() =>
-      ($_invoke('setupPreferences', []) as List).cast<Preference>();
+  List<PreferenceData> setupPreferences() =>
+      ($_invoke('setupPreferences', []) as List).cast<PreferenceData>();
 
   $Value? get _$setupPreferences => $Function(__$setupPreferences);
 

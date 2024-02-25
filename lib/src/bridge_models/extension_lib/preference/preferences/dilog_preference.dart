@@ -5,7 +5,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart
 import 'package:meiyou_extensions_lib/src/preference/preferences/dilog_preference.dart';
 import 'package:nice_dart/nice_dart.dart';
 
-import 'preference.dart';
+import 'preference_data.dart';
 
 /// dart_eval bimodal wrapper for [DilogPreference]
 class $DilogPreference<T> implements DilogPreference<T>, $Instance {
@@ -14,14 +14,14 @@ class $DilogPreference<T> implements DilogPreference<T>, $Instance {
     registry.defineBridgeClass($declaration);
   }
 
-  late final $Instance _superclass = $Preference.wrap($value);
+  late final $Instance _superclass = $PreferenceData.wrap($value);
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.dilogPreference);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: BridgeTypeRef(ExtensionLibTypes.preference, [
+      $extends: BridgeTypeRef(ExtensionLibTypes.preferenceData, [
         BridgeTypeRef.ref('T', []),
       ]),
       $implements: [],

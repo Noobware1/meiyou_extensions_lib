@@ -2,11 +2,21 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 
 class ExtensionLibTypes {
   //////////////////////////////// Perference //////////////////////////////////
-  ///
+
   /// Bridge type spec for [$Preference]
   static const preference = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/preference/preferences/preference.dart',
+      'package:meiyou_extensions_lib/src/preference/preference.dart',
       'Preference');
+
+  /// Bridge type spec for [$PreferenceStore]
+  static const preferenceStore = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/preference/preference_store.dart',
+      'PreferenceStore');
+
+  /// Bridge type spec for [$Preference]
+  static const preferenceData = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart',
+      'PreferenceData');
 
   /// Bridge type spec for [$DilogPreference]
   static const dilogPreference = BridgeTypeSpec(

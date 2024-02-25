@@ -1,25 +1,26 @@
-import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
+import 'package:meiyou_extensions_lib/src/preference/preference.dart';
+import 'package:meiyou_extensions_lib/src/preference/preference_store.dart';
 
 class NetworkPreferences {
-  NetworkPreferences(SharedPreferences preferences, bool verboseLogging)
+  NetworkPreferences(PreferenceStore preferenceStore, bool verboseLogging)
       : _verboseLogging = verboseLogging,
-        _preferences = preferences;
+        _preferenceStore = preferenceStore;
 
   final bool _verboseLogging;
-  final SharedPreferences _preferences;
+  final PreferenceStore _preferenceStore;
 
-  bool verboseLogging() {
-    return _preferences.getBool("verbose_logging", _verboseLogging)!;
+  Preference<bool> verboseLogging() {
+    return _preferenceStore.getBool("verbose_logging", _verboseLogging);
   }
 
-  int dohProvider() {
-    return _preferences.getInt("doh_provider", -1)!;
+  Preference<int> dohProvider() {
+    return _preferenceStore.getInt("doh_provider", -1);
   }
 
-  String defaultUserAgent() {
-    return _preferences.getString(
+  Preference<String> defaultUserAgent() {
+    return _preferenceStore.getString(
       "default_user_agent",
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0",
-    )!;
+    );
   }
 }

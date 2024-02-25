@@ -15,7 +15,7 @@ import 'package:meiyou_extensions_lib/src/models/interfaces/catalogue_source.dar
 import 'package:meiyou_extensions_lib/src/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
-import 'package:meiyou_extensions_lib/src/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 
 class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
@@ -172,8 +172,8 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
   }
 
   @override
-  List<Preference> setupPreferences() =>
-      ($_invoke('setupPreferences', []) as List).cast<Preference>();
+  List<PreferenceData> setupPreferences() =>
+      ($_invoke('setupPreferences', []) as List).cast<PreferenceData>();
 
   $Value? get _$setupPreferences => $Function(__$setupPreferences);
 

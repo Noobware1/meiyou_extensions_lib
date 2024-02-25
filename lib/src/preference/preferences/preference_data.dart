@@ -1,11 +1,11 @@
-abstract class Preference<T> {
+abstract class PreferenceData<T> {
   final String key;
   final String title;
   final String summary;
   final T value;
   final void Function(T oldValue, T newValue)? onPreferenceChange;
 
-  Preference({
+  PreferenceData({
     required this.key,
     required this.title,
     required this.summary,

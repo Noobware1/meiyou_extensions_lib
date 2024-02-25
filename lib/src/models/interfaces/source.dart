@@ -1,5 +1,5 @@
 import 'package:meiyou_extensions_lib/models.dart';
-import 'package:meiyou_extensions_lib/src/preference/preferences/preference.dart';
+import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 
 abstract class Source {
@@ -46,7 +46,7 @@ abstract class Source {
 
   String getPreferenceKey() => 'source_$id';
 
-  List<Preference> setupPreferences() {
+  List<PreferenceData> setupPreferences() {
     throw UnsupportedError('Not Used');
   }
 }

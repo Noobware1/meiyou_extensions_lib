@@ -5,6 +5,8 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart
 
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 
+typedef SharedPreferencesnew = SharedPreferences Function(String? name);
+
 /// dart_eval bimodal wrapper for [SharedPreferences]
 class $SharedPreferences implements SharedPreferences, $Instance {
   /// Configure the [$SharedPreferences] wrapper for use in a [Runtime]
@@ -14,10 +16,10 @@ class $SharedPreferences implements SharedPreferences, $Instance {
 
   static void configureForRuntime(
     Runtime runtime,
-    SharedPreferencesOverride override,
+    SharedPreferencesnew sharedPreferencesnew,
   ) {
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'SharedPreferences.', override.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'SharedPreferences.',
+        $SharedPreferences$new._(sharedPreferencesnew));
   }
 
   late final $Instance _superclass = $Object($value);
@@ -295,6 +297,18 @@ class $SharedPreferences implements SharedPreferences, $Instance {
             namedParams: [],
           ),
           isStatic: false),
+      'getAll': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false)
     },
     getters: {},
     setters: {},
@@ -336,6 +350,8 @@ class $SharedPreferences implements SharedPreferences, $Instance {
         return __$setString;
       case 'setStringList':
         return __$setStringList;
+      case 'getAll':
+        return __$getAll;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -580,13 +596,41 @@ class $SharedPreferences implements SharedPreferences, $Instance {
     );
     return $bool($result);
   }
+
+  @override
+  Map<String, dynamic> getAll() => $value.getAll();
+  static const __$getAll = $Function(_$getAll);
+  static $Value? _$getAll(Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as SharedPreferences;
+    final $result = obj.getAll();
+    return $Map.wrap($result.map((key, value) {
+      final $Value? _value;
+      if (value is bool) {
+        _value = $bool(value);
+      } else if (value is double) {
+        _value = $double(value);
+      } else if (value is int) {
+        _value = $int(value);
+      } else if (value is String) {
+        _value = $String(value);
+      } else if (value is List) {
+        _value = $List.wrap(value.map((e) => $String(e)).toList());
+      } else {
+        _value = null;
+      }
+
+      return MapEntry($String(key), _value);
+    }));
+  }
 }
 
-abstract class SharedPreferencesOverride extends EvalCallable {
-  SharedPreferences getInstance(String? name);
+class $SharedPreferences$new extends EvalCallable {
+  final SharedPreferencesnew _sharedPreferencesnew;
+  $SharedPreferences$new._(this._sharedPreferencesnew);
+
   @override
   $Value? call(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $SharedPreferences.wrap(getInstance(
+    return $SharedPreferences.wrap(_sharedPreferencesnew(
       args[0]?.$value as String?,
     ));
   }
