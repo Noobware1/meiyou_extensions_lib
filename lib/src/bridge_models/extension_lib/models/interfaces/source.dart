@@ -18,7 +18,7 @@ import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 class $Source extends Source with $Bridge<Source> {
   $Source(ExtensionLibOverrides overrides) {
     _$preferences = $SharedPreferences
-        .wrap(overrides.$SharedPreferences$new(getPreferenceKey()));
+        .wrap(overrides.$SharedPreferences$new(super.getPreferenceKey()));
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.source);

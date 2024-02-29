@@ -35,7 +35,7 @@ import 'package:okhttp/response.dart';
 class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   $HttpSource(ExtensionLibOverrides overrides, super.network) {
     _$preferences = $SharedPreferences
-        .wrap(overrides.$SharedPreferences$new(getPreferenceKey()));
+        .wrap(overrides.$SharedPreferences$new(super.getPreferenceKey()));
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.httpSource);

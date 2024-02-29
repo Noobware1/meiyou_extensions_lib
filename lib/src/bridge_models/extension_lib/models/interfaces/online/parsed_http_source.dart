@@ -40,7 +40,7 @@ class $ParsedHttpSource extends ParsedHttpSource
     with $Bridge<ParsedHttpSource> {
   $ParsedHttpSource(ExtensionLibOverrides overrides, super.network) {
     _$preferences = $SharedPreferences
-        .wrap(overrides.$SharedPreferences$new(getPreferenceKey()));
+        .wrap(overrides.$SharedPreferences$new(super.getPreferenceKey()));
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.parsedHttpSource);

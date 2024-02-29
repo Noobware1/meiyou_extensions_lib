@@ -22,7 +22,7 @@ import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
   $CatalogueSource(ExtensionLibOverrides overrides) {
     _$preferences = $SharedPreferences
-        .wrap(overrides.$SharedPreferences$new(getPreferenceKey()));
+        .wrap(overrides.$SharedPreferences$new(super.getPreferenceKey()));
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.catalogueSource);
