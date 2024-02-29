@@ -657,7 +657,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   @override
   SharedPreferences get preferences => $_get('preferences');
 
-  late final $Value? _$preferences;
+    $Value? get _$preferences => $SharedPreferences.wrap(super.preferences);
 
   @override
   String getPreferenceKey() => $_invoke('getPreferenceKey', []);
