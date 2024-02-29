@@ -264,7 +264,7 @@ class $RequestBody implements RequestBody, $Instance {
   static const __$RequestBody$fromMap = $Function(_$RequestBody$fromMap);
   static $Value? _$RequestBody$fromMap(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final map = args[0]?.$reified.cast<String, String>();
+    final map = args[0]?.$reified.cast<String, dynamic>();
     final contentType = args[1]?.$value as MediaType?;
     return $RequestBody.wrap(RequestBody.fromMap(map, contentType));
   }
