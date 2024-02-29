@@ -14,8 +14,10 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/media_type.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/okhttp_client.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/proxy.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/form_body.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/multipart_body.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request_body.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request_body_type.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/io_stream_response_body.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/real_response_body.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response.dart';
@@ -50,8 +52,12 @@ class OkHttpPlugin extends EvalPlugin {
     $Request.configureForCompile(registry);
     $RequestBuilder.configureForCompile(registry);
     $RequestBody.configureForCompile(registry);
+    $RequestBodyType.configureForCompile(registry);
     $FormBody.configureForCompile(registry);
     $FormBodyBuilder.configureForCompile(registry);
+    $MultipartBody.configureForCompile(registry);
+    $Part.configureForCompile(registry);
+    $MultipartBodyBuilder.configureForCompile(registry);
     $Response.configureForCompile(registry);
     $ResponseBuilder.configureForCompile(registry);
     $ResponseBody.configureForCompile(registry);
@@ -86,9 +92,12 @@ class OkHttpPlugin extends EvalPlugin {
     $MediaType.configureForRuntime(runtime);
     $ByteStream.configureForRuntime(runtime);
     $Cookie.configureForRuntime(runtime);
+    $RequestBodyType.configureForRuntime(runtime);
     $Request.configureForRuntime(runtime);
     $RequestBody.configureForRuntime(runtime);
     $FormBody.configureForRuntime(runtime);
+    $MultipartBody.configureForRuntime(runtime);
+    $Part.configureForRuntime(runtime);
     $Response.configureForRuntime(runtime);
     $ResponseBody.configureForRuntime(runtime);
     $RealResponseBody.configureForRuntime(runtime);
@@ -220,14 +229,13 @@ class OkHttpTypes {
   static const cookieJar =
       BridgeTypeSpec('package:okhttp/src/cookie_jar.dart', 'CookieJar');
   //////////////////////////////////////////////////////////////////////////////
-  
+
   /////////////////////////////  Dns /////////////////////////////////////////
-  
+
   /// Bridge type spec for [$Dns]
   static const dns = BridgeTypeSpec('package:okhttp/src/dns.dart', 'Dns');
-  
+
   //////////////////////////////////////////////////////////////////////////////
-  
 
   ///////////////////////////  Request /////////////////////////////////////////
 
@@ -243,9 +251,25 @@ class OkHttpTypes {
   static const formBodyBuilder =
       BridgeTypeSpec('package:okhttp/src/form_body.dart', 'FormBodyBuilder');
 
+  /// Bridge type spec for [$MultipartBody]
+  static const multipartBody =
+      BridgeTypeSpec('package:okhttp/src/multipart_body.dart', 'MultipartBody');
+
+  /// Bridge type spec for [$Part]
+  static const part =
+      BridgeTypeSpec('package:okhttp/src/multipart_body.dart', 'Part');
+
+  /// Bridge type spec for [$MultipartBodyBuilder]
+  static const multipartBodyBuilder = BridgeTypeSpec(
+      'package:okhttp/src/multipart_body.dart', 'MultipartBodyBuilder');
+
   /// Bridge type spec for [$Request]
   static const request =
       BridgeTypeSpec('package:okhttp/src/request.dart', 'Request');
+
+  /// Bridge type spec for [$RequestBodyType]
+  static const requestBodyType =
+      BridgeTypeSpec('package:okhttp/src/request.dart', 'RequestBodyType');
 
   /// Bridge type spec for [$RequestBuilder]
   static const requestBuilder =

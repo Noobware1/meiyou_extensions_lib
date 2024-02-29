@@ -22,6 +22,8 @@ class $RequestBody implements RequestBody, $Instance {
         __$RequestBody$fromMap.call);
     runtime.registerBridgeFunc($type.spec!.library, 'RequestBody.fromBytes',
         __$RequestBody$fromBytes.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'RequestBody.fromStream',
+        __$RequestBody$fromStream.call);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'RequestBody.empty*g', __$static$empty.call);
   }
@@ -103,6 +105,35 @@ class $RequestBody implements RequestBody, $Instance {
             BridgeParameter(
                 'contentType',
                 BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.mediaType, []),
+                    nullable: true),
+                true)
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
+      'fromStream': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'stream',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.stream, [
+                      BridgeTypeRef(CoreTypes.list, [
+                        BridgeTypeRef(CoreTypes.int),
+                      ]),
+                    ]),
+                    nullable: false),
+                false),
+            BridgeParameter(
+                'contentType',
+                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.mediaType, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'contentLength',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
                     nullable: true),
                 true)
           ],
@@ -217,7 +248,7 @@ class $RequestBody implements RequestBody, $Instance {
   static $Value? _$writeTo(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as RequestBody;
-    final sink = args[0]?.$reified as StreamSink<List<int>>;
+    final sink = args[0]?.$value as StreamSink<List<int>>;
     obj.writeTo(sink);
     return null;
   }
@@ -234,7 +265,7 @@ class $RequestBody implements RequestBody, $Instance {
   static $Value? _$RequestBody$fromMap(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final map = args[0]?.$reified.cast<String, String>();
-    final contentType = args[1]?.$reified as MediaType?;
+    final contentType = args[1]?.$value as MediaType?;
     return $RequestBody.wrap(RequestBody.fromMap(map, contentType));
   }
 
@@ -242,7 +273,18 @@ class $RequestBody implements RequestBody, $Instance {
   static $Value? _$RequestBody$fromBytes(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final bytes = args[0]?.$reified.cast<int>();
-    final contentType = args[1]?.$reified as MediaType?;
+    final contentType = args[1]?.$value as MediaType?;
     return $RequestBody.wrap(RequestBody.fromBytes(bytes, contentType));
+  }
+
+  static const __$RequestBody$fromStream = $Function(_$RequestBody$fromStream);
+  static $Value? _$RequestBody$fromStream(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final stream = args[0]?.$reified as Stream<List<int>>;
+    final contentType = args[1]?.$value as MediaType?;
+    final contentLength = args[2]?.$reified as int?;
+    return $RequestBody.wrap(
+      RequestBody.fromStream(stream, contentType, contentLength),
+    );
   }
 }
