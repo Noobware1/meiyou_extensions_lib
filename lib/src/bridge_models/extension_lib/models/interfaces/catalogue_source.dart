@@ -15,15 +15,22 @@ import 'package:meiyou_extensions_lib/src/models/interfaces/catalogue_source.dar
 import 'package:meiyou_extensions_lib/src/models/media/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
+import 'package:meiyou_extensions_lib/src/override/lib_overrides.dart';
 import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 
 class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
+  $CatalogueSource(ExtensionLibOverrides overrides) {
+    _$preferences = $SharedPreferences
+        .wrap(overrides.$SharedPreferences$new(getPreferenceKey()));
+  }
+
   static const $type = BridgeTypeRef(ExtensionLibTypes.catalogueSource);
 
-  static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'CatalogueSource.', $new.call,
+  static void configureForRuntime(
+      Runtime runtime, ExtensionLibOverrides overrides) {
+    runtime.registerBridgeFunc($type.spec!.library, 'CatalogueSource.',
+        (runtime, target, args) => $new.call(runtime, target, args, overrides),
         isBridge: true);
   }
 
@@ -69,8 +76,9 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
     bridge: true,
   );
 
-  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $CatalogueSource();
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args,
+      ExtensionLibOverrides overrides) {
+    return $CatalogueSource(overrides);
   }
 
   @override
@@ -159,7 +167,7 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
   @override
   SharedPreferences get preferences => $_get('preferences');
 
-  $Value? get _$preferences => $SharedPreferences.wrap(super.preferences);
+  late final $Value _$preferences;
 
   @override
   String getPreferenceKey() => $_invoke('getPreferenceKey', []);

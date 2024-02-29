@@ -1,14 +1,14 @@
 import 'package:dart_eval/dart_eval.dart';
 
 import 'package:meiyou_extensions_lib/extensions_lib.dart';
+import 'package:meiyou_extensions_lib/lib_override.dart';
 import 'package:meiyou_extensions_lib/models.dart';
+import 'package:meiyou_extensions_lib/preference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/catalogue_source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/online/http_source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/online/parsed_http_source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/network_helper.dart';
-import 'package:meiyou_extensions_lib/src/preference/perference.dart';
-import 'package:meiyou_extensions_lib/src/preference/perference_store.dart';
 import 'package:test/test.dart';
 
 import 'package:meiyou_extensions_lib/network.dart';
@@ -18,7 +18,7 @@ void main() {
   group('\$Source Test', () {
     late Compiler compiler;
     setUp(() {
-      compiler = ExtensionComplier();
+      compiler = ExtensionComplier(Overrides());
     });
     test('Source', () {
       var compiled = compiler.compile({
@@ -67,7 +67,7 @@ Source main() {
         },
       });
 
-      var runtime = ExtensionLoader.fromProgram(compiled).runtime;
+      var runtime = ExtensionLoader.ofProgram(compiled, Overrides());
       var value =
           runtime.executeLib('package:example/main.dart', 'main') as Source;
       expect(value, isA<$Source>());
@@ -134,7 +134,7 @@ Source main() {
         },
       });
 
-      var runtime = ExtensionLoader.fromProgram(compiled).runtime;
+      var runtime = ExtensionLoader.ofProgram(compiled, Overrides());
       var value = runtime.executeLib('package:example/main.dart', 'main')
           as CatalogueSource;
       expect(value, isA<$CatalogueSource>());
@@ -232,7 +232,7 @@ MockHttpSource main(NetworkHelper network) {
         },
       });
 
-      var runtime = ExtensionLoader.fromProgram(compiled).runtime;
+      var runtime = ExtensionLoader.ofProgram(compiled, Overrides());
       var value = runtime.executeLib(
         'package:example/main.dart',
         'main',
@@ -263,7 +263,6 @@ import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
 import 'package:okhttp/okhttp.dart';
 import 'package:html/dom.dart';
-
 
 class MockParsedHttpSource extends ParsedHttpSource {
   MockParsedHttpSource(NetworkHelper network) : super(network);
@@ -346,11 +345,6 @@ class MockParsedHttpSource extends ParsedHttpSource {
   }
 
   @override
-  MediaItem? mediaItemFromElement(Element element) {
-    return null;
-  }
-
-  @override
   String searchListSelector() {
     return '';
   }
@@ -359,23 +353,36 @@ class MockParsedHttpSource extends ParsedHttpSource {
   SearchResponse searchResponseFromElement(Element element) {
     return SearchResponse(title: '', url: '', poster: '', type: ShowType.Anime);
   }
+  
+  @override
+  MediaItem? mediaItemFromDocument(Document document) {
+    // TODO: implement mediaItemFromDocument
+    throw UnimplementedError();
+  }
+  
+  @override
+  Request? mediaItemRequest(SearchResponse searchResponse, Response response) {
+    // TODO: implement mediaItemRequest
+    throw UnimplementedError();
+  }
 }
 
 MockParsedHttpSource main(NetworkHelper network) {
- return MockParsedHttpSource(network);
+  return MockParsedHttpSource(network);
 }
+
           ''',
         },
       });
 
-      var runtime = ExtensionLoader.fromProgram(compiled).runtime;
-      var value = runtime.executeLib(
+      var runtime = ExtensionLoader.ofProgram(
+        compiled,
+        Overrides(),
+      );
+      var value = runtime.loadSource(
         'package:example/main.dart',
         'main',
-        [
-          $NetworkHelper.wrap(
-              NetworkHelper(NetworkPreferences(MockPrefrenceStore(), false)))
-        ],
+        NetworkHelper(NetworkPreferences(MockPrefrenceStore(), false)),
       ) as ParsedHttpSource;
       expect(value, isA<$ParsedHttpSource>());
       expect(value.homePageList.first.name, 'idk');
@@ -389,6 +396,13 @@ MockParsedHttpSource main(NetworkHelper network) {
       expect(value.client, isA<OkHttpClient>());
     });
   });
+}
+
+class Overrides implements ExtensionLibOverrides {
+  @override
+  SharedPreferences $SharedPreferences$new(String? name) {
+    return SharedPreferences();
+  }
 }
 
 class MockPreference<T> extends Preference<T> {
@@ -459,6 +473,25 @@ class MockPrefrenceStore implements PreferenceStore {
   Preference<List<String>> getStringSet(String key,
       [List<String> defaultValue = const []]) {
     // TODO: implement getStringSet
+    throw UnimplementedError();
+  }
+
+  @override
+  Map<String, dynamic> getAll() {
+    // TODO: implement getAll
+    throw UnimplementedError();
+  }
+
+  @override
+  Iterable<String> getKeys() {
+    // TODO: implement getKeys
+    throw UnimplementedError();
+  }
+
+  @override
+  Preference<List<String>> getStringList(
+      String key, List<String> defaultValue) {
+    // TODO: implement getStringList
     throw UnimplementedError();
   }
 }

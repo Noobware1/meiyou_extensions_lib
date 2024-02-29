@@ -221,11 +221,11 @@ class ExtensionLibPlugin extends EvalPlugin {
     //Interfaces
     $ExtractorApi.configureForRuntime(runtime);
     // $BaseSource.configureForRuntime(runtime);
-    $Source.configureForRuntime(runtime);
+    $Source.configureForRuntime(runtime, _overrides);
     $SourceFactory.configureForRuntime(runtime);
-    $CatalogueSource.configureForRuntime(runtime);
-    $HttpSource.configureForRuntime(runtime);
-    $ParsedHttpSource.configureForRuntime(runtime);
+    $CatalogueSource.configureForRuntime(runtime, _overrides);
+    $HttpSource.configureForRuntime(runtime, _overrides);
+    $ParsedHttpSource.configureForRuntime(runtime, _overrides);
 
     //Utils
     NiceDartPlugin().configureForRuntime(runtime);
