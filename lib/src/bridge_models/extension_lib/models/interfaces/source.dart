@@ -128,7 +128,7 @@ class $Source extends Source with $Bridge<Source> {
       ),
       'getPreferenceKey': BridgeMethodDef(
         BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
           params: [],
         ),
       ),
