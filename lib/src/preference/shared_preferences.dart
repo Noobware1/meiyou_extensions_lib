@@ -1,38 +1,135 @@
-// this is stub for shared_preferences
+import 'dart:io';
+
+import 'dart:convert';
+
+String? _sharedPreferencesDirectory;
+
 class SharedPreferences {
-  SharedPreferences([String name = '']);
+  final String _name;
 
-  void clear() => throw UnimplementedError();
+  final Map<String, dynamic> _preferencesMap = {};
 
-  bool containsKey(String key) => throw UnimplementedError();
+  SharedPreferences([String? name]) : _name = name ?? 'shared_preferences' {
+    _loadPreferences();
+  }
 
-  bool? getBool(String key, [bool? defaultValue]) => throw UnimplementedError();
+  // this will allow more of syncronous usage
+  // must be called before any usage of SharedPreferences
+  static void initialize(String directory) {
+    _sharedPreferencesDirectory = directory;
+    return;
+  }
 
-  double? getDouble(String key, [double? defaultValue]) =>
-      throw UnimplementedError();
+  void clear() {
+    _preferencesMap.clear();
+    _savePreferences();
+  }
 
-  int? getInt(String key, [int? defaultValue]) => throw UnimplementedError();
+  bool containsKey(String key) {
+    return _preferencesMap.containsKey(key);
+  }
 
-  Set<String> getKeys() => throw UnimplementedError();
+  bool? getBool(String key, [bool? defaultValue]) {
+    return _get<bool>(key, defaultValue);
+  }
 
-  String? getString(String key, [String? defaultValue]) =>
-      throw UnimplementedError();
+  double? getDouble(String key, [double? defaultValue]) {
+    return _get<double>(key, defaultValue);
+  }
 
-  List<String>? getStringList(String key, [List<String>? defaultValue]) =>
-      throw UnimplementedError();
+  int? getInt(String key, [int? defaultValue]) {
+    return _get<int>(key, defaultValue);
+  }
 
-  bool remove(String key) => throw UnimplementedError();
+  Set<String> getKeys() {
+    return _preferencesMap.keys.toSet();
+  }
 
-  bool setBool(String key, bool value) => throw UnimplementedError();
+  String? getString(String key, [String? defaultValue]) {
+    return _get<String>(key, defaultValue);
+  }
 
-  bool setDouble(String key, double value) => throw UnimplementedError();
+  List<String>? getStringList(String key, [List<String>? defaultValue]) {
+    return _preferencesMap[key] as List<String>? ?? defaultValue;
+  }
 
-  bool setInt(String key, int value) => throw UnimplementedError();
+  bool remove(String key) {
+    try {
+      _preferencesMap.remove(key);
+      return _savePreferences();
+    } catch (_) {
+      return false;
+    }
+  }
 
-  bool setString(String key, String value) => throw UnimplementedError();
+  bool setBool(String key, bool value) {
+    return _writePreferences(key, value);
+  }
 
-  bool setStringList(String key, List<String> value) =>
-      throw UnimplementedError();
+  bool setDouble(String key, double value) {
+    return _writePreferences(key, value);
+  }
 
-      Map<String, dynamic> getAll() => throw UnimplementedError();
+  bool setInt(String key, int value) {
+    return _writePreferences(key, value);
+  }
+
+  bool setString(String key, String value) {
+    return _writePreferences(key, value);
+  }
+
+  bool setStringList(String key, List<String> value) {
+    return _writePreferences(key, value);
+  }
+
+  File _getPreferencesFile() {
+    if (_sharedPreferencesDirectory == null) {
+      throw Exception('SharedPreferences has not been initialize');
+    }
+    // ignore: prefer_interpolation_to_compose_strings
+    return File((_sharedPreferencesDirectory! +
+        Platform.pathSeparator +
+        '$_name.json'));
+  }
+
+  T? _get<T>(String key, T? defaultValue) {
+    try {
+      return _preferencesMap[key] as T? ?? defaultValue;
+    } catch (_) {
+      return defaultValue;
+    }
+  }
+
+  bool _writePreferences(String key, Object value) {
+    _preferencesMap[key] = value;
+    return _savePreferences();
+  }
+
+  bool _savePreferences() {
+    try {
+      final File localDataFile = _getPreferencesFile();
+      if (!localDataFile.existsSync()) {
+        localDataFile.createSync(recursive: true);
+      }
+      final String stringMap = json.encode(_preferencesMap);
+      localDataFile.writeAsStringSync(stringMap);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  void _loadPreferences() {
+    try {
+      final File localDataFile = _getPreferencesFile();
+      if (localDataFile.existsSync()) {
+        final String stringMap = localDataFile.readAsStringSync();
+        _preferencesMap.addAll(json.decode(stringMap));
+      }
+    } catch (_) {
+      // ignore
+    }
+  }
+
+  Map<String, dynamic> getAll() => _preferencesMap;
 }

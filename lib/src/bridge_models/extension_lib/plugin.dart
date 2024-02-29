@@ -7,6 +7,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/dilog_preference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/two_state_preference.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/html_extensions.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models.dart';
@@ -50,12 +51,10 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/okhttp_ext
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/perference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/utils.dart';
-import 'package:meiyou_extensions_lib/src/override/lib_overrides.dart';
 import 'package:meiyou_extensions_lib/src/requests.dart';
 
 class ExtensionLibPlugin extends EvalPlugin {
-  final ExtensionLibOverrides _overrides;
-  ExtensionLibPlugin(this._overrides);
+  ExtensionLibPlugin();
 
   static void addAllExports(StringBuffer buffer, String exclude) {
     final exports = {
@@ -221,11 +220,11 @@ class ExtensionLibPlugin extends EvalPlugin {
     //Interfaces
     $ExtractorApi.configureForRuntime(runtime);
     // $BaseSource.configureForRuntime(runtime);
-    $Source.configureForRuntime(runtime, _overrides);
+    $Source.configureForRuntime(runtime);
     $SourceFactory.configureForRuntime(runtime);
-    $CatalogueSource.configureForRuntime(runtime, _overrides);
-    $HttpSource.configureForRuntime(runtime, _overrides);
-    $ParsedHttpSource.configureForRuntime(runtime, _overrides);
+    $CatalogueSource.configureForRuntime(runtime);
+    $HttpSource.configureForRuntime(runtime);
+    $ParsedHttpSource.configureForRuntime(runtime);
 
     //Utils
     NiceDartPlugin().configureForRuntime(runtime);
@@ -239,8 +238,7 @@ class ExtensionLibPlugin extends EvalPlugin {
 
     // Preference
     $Preference.configureForRuntime(runtime);
-    $SharedPreferences.configureForRuntime(
-        runtime, _overrides.$SharedPreferences$new);
+    $SharedPreferences.configureForRuntime(runtime);
     $EditTextPreference.configureForRuntime(runtime);
     $ListPreference.configureForRuntime(runtime);
     $MultiSelectListPreference.configureForRuntime(runtime);

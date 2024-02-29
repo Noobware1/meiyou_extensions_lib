@@ -2,7 +2,6 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/src/eval/runtime/runtime.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
-import 'package:meiyou_extensions_lib/src/override/lib_overrides.dart';
 import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 import 'package:nice_dart/nice_dart.dart';
@@ -38,17 +37,13 @@ import 'package:okhttp/response.dart';
 
 class $ParsedHttpSource extends ParsedHttpSource
     with $Bridge<ParsedHttpSource> {
-  $ParsedHttpSource(ExtensionLibOverrides overrides, super.network) {
-    _$preferences = $SharedPreferences
-        .wrap(overrides.$SharedPreferences$new(super.getPreferenceKey()));
-  }
+  $ParsedHttpSource(super.network);
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.parsedHttpSource);
 
-  static void configureForRuntime(
-      Runtime runtime, ExtensionLibOverrides overrides) {
-    runtime.registerBridgeFunc($type.spec!.library, 'HttpSource.',
-        (runtime, target, args) => $new.call(runtime, target, args, overrides),
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'ParsedHttpSource.', $new.call,
         isBridge: true);
   }
 
@@ -242,9 +237,8 @@ class $ParsedHttpSource extends ParsedHttpSource
     wrap: false,
   );
 
-  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args,
-      ExtensionLibOverrides overrides) {
-    return $ParsedHttpSource(overrides, args[0]?.$value);
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $ParsedHttpSource(args[0]?.$value);
   }
 
   // $Value? $headersBuilder(Runtime runtime, $Value? target, List<$Value?> args) {
@@ -676,7 +670,7 @@ class $ParsedHttpSource extends ParsedHttpSource
   @override
   SharedPreferences get preferences => $_get('preferences');
 
-  late final $Value? _$preferences;
+  $Value? get _$preferences => $SharedPreferences.wrap(super.preferences);
 
   @override
   String getPreferenceKey() => $_invoke('getPreferenceKey', []);

@@ -1,7 +1,7 @@
 import 'package:dart_eval/dart_eval.dart';
 
 import 'package:meiyou_extensions_lib/extensions_lib.dart';
-import 'package:meiyou_extensions_lib/lib_override.dart';
+
 import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/preference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/catalogue_source.dart';

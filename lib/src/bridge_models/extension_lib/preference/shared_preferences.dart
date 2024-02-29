@@ -14,12 +14,9 @@ class $SharedPreferences implements SharedPreferences, $Instance {
     registry.defineBridgeClass($declaration);
   }
 
-  static void configureForRuntime(
-    Runtime runtime,
-    SharedPreferencesnew sharedPreferencesnew,
-  ) {
-    runtime.registerBridgeFunc($type.spec!.library, 'SharedPreferences.',
-        $SharedPreferences$new._(sharedPreferencesnew));
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'SharedPreferences.', $new.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -41,7 +38,7 @@ class $SharedPreferences implements SharedPreferences, $Instance {
             BridgeParameter(
                 'name',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
+                    nullable: true),
                 true)
           ],
           namedParams: [],
@@ -318,6 +315,11 @@ class $SharedPreferences implements SharedPreferences, $Instance {
 
   /// Wrap an [SharedPreferences] in an [$SharedPreferences]
   $SharedPreferences.wrap(this.$value);
+
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    final name = args[0]?.$value as String?;
+    return $SharedPreferences.wrap(SharedPreferences(name));
+  }
 
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
@@ -621,17 +623,5 @@ class $SharedPreferences implements SharedPreferences, $Instance {
 
       return MapEntry($String(key), _value);
     }));
-  }
-}
-
-class $SharedPreferences$new extends EvalCallable {
-  final SharedPreferencesnew _sharedPreferencesnew;
-  $SharedPreferences$new._(this._sharedPreferencesnew);
-
-  @override
-  $Value? call(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $SharedPreferences.wrap(_sharedPreferencesnew(
-      args[0]?.$value as String?,
-    ));
   }
 }

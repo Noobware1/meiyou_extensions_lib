@@ -1,11 +1,12 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/lib_override.dart';
+
 import 'package:meiyou_extensions_lib/preference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/homepage.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/search_response.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/models/homepage.dart';
@@ -16,16 +17,12 @@ import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
 
 class $Source extends Source with $Bridge<Source> {
-  $Source(ExtensionLibOverrides overrides) {
-    _$preferences = $SharedPreferences
-        .wrap(overrides.$SharedPreferences$new(super.getPreferenceKey()));
-  }
+  $Source();
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.source);
 
-  static void configureForRuntime(Runtime runtime, ExtensionLibOverrides overrides) {
-    runtime.registerBridgeFunc($type.spec!.library, 'Source.',
-        (runtime, target, args) => $new.call(runtime, target, args, overrides),
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($type.spec!.library, 'Source.', $new.call,
         isBridge: true);
   }
 
@@ -149,9 +146,8 @@ class $Source extends Source with $Bridge<Source> {
     bridge: true,
   );
 
-  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args,
-      ExtensionLibOverrides overrides) {
-    return $Source(overrides);
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $Source();
   }
 
   @override
@@ -213,7 +209,7 @@ class $Source extends Source with $Bridge<Source> {
   @override
   SharedPreferences get preferences => $_get('preferences');
 
-  late final $Value? _$preferences;
+  $Value? get _$preferences => $SharedPreferences.wrap(super.preferences);
 
   @override
   String getPreferenceKey() => $_invoke('getPreferenceKey', []);
