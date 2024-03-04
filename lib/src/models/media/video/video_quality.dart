@@ -30,17 +30,17 @@ class VideoQuality implements Comparable<VideoQuality> {
   /// The method takes the following parameters:
   /// * `str`: A string representing the video quality.
   ///
-  static VideoQuality getFromString(String str) {
+  factory VideoQuality.getFromString(String str) {
     str = str.toLowerCase().trim();
     if (str.endsWith('p')) {
-      final int? value = str.substring(0, str.length - 1).toIntOrNull();
+      final int? value = str.substring(0, str.length - 1).trim().toIntOrNull();
       if (value == null) return unknown;
 
-      VideoQuality((value * 16) ~/ 9, value);
+      return VideoQuality((value * 16) ~/ 9, value);
     } else if (str.contains('x')) {
       final heightAndWidth =
           str.split('x').mapList((it) => it.trim().toIntOrNull());
-      if (heightAndWidth.length != 2 && heightAndWidth.contains(null)) {
+      if (heightAndWidth.length != 2 || heightAndWidth.contains(null)) {
         return unknown;
       }
 
