@@ -19,6 +19,8 @@ class $Video implements Video, $Instance {
     runtime.registerBridgeFunc(ExtensionLibTypes.video.library, 'Video.', $new);
   }
 
+  late final _superclass = $Media.wrap($value);
+
   static const $type = BridgeTypeRef(ExtensionLibTypes.video);
 
   static const $declaration = BridgeClassDef(
@@ -72,7 +74,8 @@ class $Video implements Video, $Instance {
               nullable: true),
         ),
         'headers': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers), nullable: true),
+          BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers),
+              nullable: true),
         ),
         'extra': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.map), nullable: true),
@@ -124,7 +127,7 @@ class $Video implements Video, $Instance {
                 .wrap(extra!.map((key, value) => MapEntry($String(key), value)))
             : const $null();
       default:
-        return const $null();
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -135,34 +138,45 @@ class $Video implements Video, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {}
+  void $setProperty(Runtime runtime, String identifier, $Value value) {
+    switch (identifier) {
+      case 'videoSources':
+        $value.videoSources = value.$reified;
+        break;
+      case 'subtitles':
+        $value.subtitles = value.$reified;
+        break;
+      default:
+        return _superclass.$setProperty(runtime, identifier, value);
+    }
+  }
 
   @override
   final Video $value;
 
   @override
   set extra(Map<String, dynamic>? extra) {
-    // TODO: implement extra
+    $value.extra = extra;
   }
 
   @override
   set headers(Headers? headers) {
-    // TODO: implement headers
+    $value.headers = headers;
   }
 
   @override
   set mediaType(MediaType? mediaType) {
-    // TODO: implement mediaType
+    $value.mediaType = mediaType;
   }
 
   @override
   set subtitles(List<Subtitle>? subtitles) {
-    // TODO: implement subtitles
+    $value.subtitles = subtitles;
   }
 
   @override
   set videoSources(List<VideoSource> videoSources) {
-    // TODO: implement videoSources
+    $value.videoSources = videoSources;
   }
 
   @override

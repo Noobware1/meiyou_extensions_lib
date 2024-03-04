@@ -6,15 +6,15 @@
 /// * `role`: An optional string representing the role of the actor in the show.
 ///
 class ActorData {
-  const ActorData({
-    required this.name,
+  ActorData({
+    this.name = '',
     this.image,
     this.role,
   });
 
-  final String name;
-  final String? image;
-  final String? role;
+  String name;
+  String? image;
+  String? role;
 
   @override
   String toString() {

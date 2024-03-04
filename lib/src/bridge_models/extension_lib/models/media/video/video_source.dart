@@ -16,6 +16,8 @@ class $VideoSource implements VideoSource, $Instance {
         'VideoSource.', $VideoSource.$new);
   }
 
+  late final _superclass = $Object($value);
+
   static const $type = BridgeTypeRef(ExtensionLibTypes.videoSource);
 
   static const $declaration = BridgeClassDef(
@@ -83,7 +85,7 @@ class $VideoSource implements VideoSource, $Instance {
         return $value.title != null ? $String($value.title!) : const $null();
 
       default:
-        return const $null();
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -118,6 +120,11 @@ class $VideoSource implements VideoSource, $Instance {
       case 'title':
         $value.title = value.$reified;
         break;
+      case 'isBackup':
+        $value.isBackup = value.$reified;
+        break;
+      default:
+        return _superclass.$setProperty(runtime, identifier, value);
     }
   }
 

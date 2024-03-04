@@ -28,13 +28,13 @@ class $SearchResponse implements SearchResponse, $Instance {
             params: [],
             namedParams: [
               BridgeParameter('title',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), true),
               BridgeParameter('poster',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), true),
               BridgeParameter('url',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), true),
               BridgeParameter(
-                  'type', BridgeTypeAnnotation($ShowType.$type), false),
+                  'type', BridgeTypeAnnotation($ShowType.$type), true),
               BridgeParameter(
                   'description',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),
@@ -121,10 +121,10 @@ class $SearchResponse implements SearchResponse, $Instance {
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
     return $SearchResponse.wrap(SearchResponse(
-      title: args[0]?.$value,
-      poster: args[1]?.$value,
-      url: args[2]?.$value,
-      type: args[3]?.$value,
+      title: args[0]?.$value ?? '',
+      poster: args[1]?.$value ?? '',
+      url: args[2]?.$value ?? '',
+      type: args[3]?.$value ?? ShowType.Others,
       description: args[4]?.$value,
       generes: args[5].unwrapList<String>(),
       rating: args[6]?.$value,
@@ -174,5 +174,50 @@ class $SearchResponse implements SearchResponse, $Instance {
   @override
   String toString() {
     return $value.toString();
+  }
+
+  @override
+  set current(int? current) {
+    $value.current = current;
+  }
+
+  @override
+  set description(String? description) {
+    $value.description = description;
+  }
+
+  @override
+  set generes(List<String>? generes) {
+    $value.generes = generes;
+  }
+
+  @override
+  set poster(String poster) {
+    $value.poster = poster;
+  }
+
+  @override
+  set rating(double? rating) {
+    $value.rating = rating;
+  }
+
+  @override
+  set title(String title) {
+    $value.title = title;
+  }
+
+  @override
+  set total(int? total) {
+    $value.total = total;
+  }
+
+  @override
+  set type(ShowType type) {
+    $value.type = type;
+  }
+
+  @override
+  set url(String url) {
+    $value.url = url;
   }
 }

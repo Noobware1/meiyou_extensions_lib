@@ -40,7 +40,7 @@ class $Movie implements Movie, $Instance {
                 'url',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                     nullable: false),
-                false),
+                true),
             BridgeParameter(
                 'posterImage',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
@@ -102,7 +102,6 @@ class $Movie implements Movie, $Instance {
         return $value.description == null
             ? $null()
             : $String($value.description!);
-
       case 'toString':
         return __$toString;
       default:
@@ -119,6 +118,15 @@ class $Movie implements Movie, $Instance {
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
     switch (identifier) {
+      case 'url':
+        $value.url = value.$reified;
+        break;
+      case 'posterImage':
+        $value.posterImage = value.$reified;
+        break;
+      case 'description':
+        $value.description = value.$reified;
+        break;
       default:
         _superclass.$setProperty(runtime, identifier, value);
     }
@@ -147,11 +155,11 @@ class $Movie implements Movie, $Instance {
   static const __$Movie$new = $Function(_$Movie$new);
   static $Value? _$Movie$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[0]?.$value as String;
+    final url = args[0]?.$value as String?;
     final posterImage = args[1]?.$value as String?;
     final description = args[2]?.$value as String?;
     return $Movie.wrap(Movie(
-      url: url,
+      url: url ?? '',
       posterImage: posterImage,
       description: description,
     ));
@@ -174,4 +182,19 @@ class $Movie implements Movie, $Instance {
 
   @override
   MediaItemType get type => $value.type;
+
+  @override
+  set description(String? description) {
+    $value.description = description;
+  }
+
+  @override
+  set posterImage(String? posterImage) {
+    $value.posterImage = posterImage;
+  }
+
+  @override
+  set url(String url) {
+    $value.url = url;
+  }
 }

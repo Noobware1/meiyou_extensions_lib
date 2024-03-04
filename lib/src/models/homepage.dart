@@ -14,7 +14,7 @@ class HomePageData {
   final String data;
   final bool horizontalImages;
 
-  HomePageData(
+  const HomePageData(
       {required this.name, required this.data, required this.horizontalImages});
 
   static Iterable<HomePageData> fromMap(Map<String, String> map,
@@ -42,7 +42,7 @@ class HomePageRequest {
   final String data;
   final bool horizontalImages;
 
-  HomePageRequest(
+  const HomePageRequest(
       {required this.name, required this.data, required this.horizontalImages});
 
   @override
@@ -56,11 +56,12 @@ class HomePageRequest {
 /// * `page`: An integer representing the page of the home page.
 /// * `hasNextPage`: A boolean indicating whether the home page has a next page.
 class HomePage {
-  final HomePageList data;
-  final int page;
-  final bool? hasNextPage;
+  HomePageList data;
+  int page;
+  bool? hasNextPage;
 
-  HomePage({required this.data, required this.page, this.hasNextPage});
+  HomePage({HomePageList? data, this.page = 1, this.hasNextPage})
+      : data = data ?? HomePageList();
 
   @override
   String toString() {
@@ -74,14 +75,12 @@ class HomePage {
 ///   * `loadMoreData`: A function that loads more data for the home page.
 
 class HomePageList {
-  final String name;
-  final List<SearchResponse> data;
-  // final Future<List<SearchResponse>> Function(int page)? loadMoreData;
+  String name;
+  List<SearchResponse> data;
 
   HomePageList({
-    required this.name,
-    required this.data,
-    //  this.loadMoreData
+    this.name = '',
+    this.data = const [],
   });
 
   @override

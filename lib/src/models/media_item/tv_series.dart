@@ -8,7 +8,7 @@ import 'package:meiyou_extensions_lib/src/models/season_list.dart';
 /// This class has the following properties:
 /// * `data`: A list of `SeasonList` objects representing the seasons of the TV series.
 class TvSeries extends MediaItem {
-  TvSeries({required this.data}) : super(type: MediaItemType.TvSeries);
+  TvSeries({this.data = const []}) : super(type: MediaItemType.TvSeries);
 
   /// A list of `SeasonList` objects representing the seasons of the TV series.
   final List<SeasonList> data;

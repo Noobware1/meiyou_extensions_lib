@@ -27,11 +27,11 @@ class SearchResponse {
   /// [current] is the optional number representing the current episode or season of the show.
   /// [total] is the optional number representing the total number of episodes or seasons of the show.
 
-  const SearchResponse({
-    required this.title,
-    required this.url,
-    required this.poster,
-    required this.type,
+  SearchResponse({
+    this.title = '',
+    this.url = '',
+    this.poster = '',
+    this.type = ShowType.Others,
     this.description,
     this.generes,
     this.rating,
@@ -39,15 +39,15 @@ class SearchResponse {
     this.total,
   });
 
-  final String title;
-  final String url;
-  final String poster;
-  final ShowType type;
-  final String? description;
-  final List<String>? generes;
-  final double? rating;
-  final int? current;
-  final int? total;
+  String title;
+  String url;
+  String poster;
+  ShowType type;
+  String? description;
+  List<String>? generes;
+  double? rating;
+  int? current;
+  int? total;
 
   @override
   String toString() {

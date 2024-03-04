@@ -9,8 +9,8 @@
 ///
 class ExtractorLink {
   ExtractorLink({
-    required this.name,
-    required this.url,
+    this.name = '',
+    this.url = '',
     this.headers,
     this.referer,
     this.extra,

@@ -7,6 +7,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/sea
 import 'package:meiyou_extensions_lib/src/extenstions/value.dart';
 import 'package:meiyou_extensions_lib/src/models/homepage.dart';
 import 'package:meiyou_extensions_lib/src/models/search_response.dart';
+import 'package:nice_dart/nice_dart.dart';
 
 class $HomePageData implements HomePageData, $Instance {
   static const $type = BridgeTypeRef(ExtensionLibTypes.homePageData);
@@ -214,7 +215,9 @@ class $HomePage implements HomePage, $Instance {
         '': BridgeConstructorDef(
           BridgeFunctionDef(returns: BridgeTypeAnnotation($type), namedParams: [
             BridgeParameter(
-                'data', BridgeTypeAnnotation($HomePageList.$type), false),
+                'data',
+                BridgeTypeAnnotation($HomePageList.$type, nullable: true),
+                true),
             BridgeParameter('page',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)), true),
             BridgeParameter(
@@ -239,9 +242,10 @@ class $HomePage implements HomePage, $Instance {
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
     return $HomePage.wrap(HomePage(
-        data: args[0]!.$value,
-        page: args[1]?.$value ?? 1,
-        hasNextPage: args[2]?.$value));
+      data: args[0]?.$value,
+      page: args[1]?.$value ?? 1,
+      hasNextPage: args[2]?.$value,
+    ));
   }
 
   @override
@@ -255,7 +259,6 @@ class $HomePage implements HomePage, $Instance {
         return $value.hasNextPage != null
             ? $bool($value.hasNextPage!)
             : const $null();
-
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -271,7 +274,19 @@ class $HomePage implements HomePage, $Instance {
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
-    _superclass.$setProperty(runtime, identifier, value);
+    switch (identifier) {
+      case 'data':
+        $value.data = value.$reified;
+        break;
+      case 'page':
+        $value.page = value.$reified;
+        break;
+      case 'hasNextPage':
+        $value.hasNextPage = value.$reified;
+        break;
+      default:
+        _superclass.$setProperty(runtime, identifier, value);
+    }
   }
 
   @override
@@ -290,6 +305,21 @@ class $HomePage implements HomePage, $Instance {
   String toString() {
     return $value.toString();
   }
+
+  @override
+  set data(HomePageList data) {
+    $value.data = data;
+  }
+
+  @override
+  set hasNextPage(bool? hasNextPage) {
+    $value.hasNextPage = hasNextPage;
+  }
+
+  @override
+  set page(int page) {
+    $value.page = page;
+  }
 }
 
 class $HomePageList implements HomePageList, $Instance {
@@ -306,17 +336,12 @@ class $HomePageList implements HomePageList, $Instance {
             returns: BridgeTypeAnnotation($type),
             namedParams: [
               BridgeParameter('name',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), true),
               BridgeParameter(
                   'data',
                   BridgeTypeAnnotation(
                       BridgeTypeRef(CoreTypes.list, [$SearchResponse.$type])),
-                  false),
-              // BridgeParameter(
-              //     'loadMoreData',
-              //     BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function),
-              //         nullable: true),
-              //     true),
+                  true),
             ],
             params: []))
       },
@@ -327,9 +352,6 @@ class $HomePageList implements HomePageList, $Instance {
           BridgeTypeAnnotation(
               BridgeTypeRef(CoreTypes.list, [$SearchResponse.$type])),
         ),
-        // 'loadMoreData': BridgeFieldDef(BridgeTypeAnnotation(
-        //     BridgeTypeRef(CoreTypes.function),
-        //     nullable: true)),
       },
       wrap: true);
 
@@ -337,10 +359,8 @@ class $HomePageList implements HomePageList, $Instance {
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
     return $HomePageList.wrap(HomePageList(
-      name: args[0]?.$value,
-      data: args[1].unwrapList<SearchResponse>()!,
-      // loadMoreData:
-      //     args[2]?.$value as Future<List<SearchResponse>> Function(int page)?,
+      name: args[0]?.$value ?? '',
+      data: args[1].unwrapList<SearchResponse>() ?? const [],
     ));
   }
 
@@ -350,27 +370,13 @@ class $HomePageList implements HomePageList, $Instance {
       case 'name':
         return $String($value.name);
       case 'data':
-        return $List.wrap($value.data);
-
-      // case 'loadMoreData':
-      //   return const $Function($loadMoreData);
-
+        return $List.wrap($value.data.mapList($SearchResponse.wrap));
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
   }
 
   late final $Instance _superclass = $Object($value);
-
-  // static $Value? $loadMoreData(
-  //     Runtime runtime, $Value? target, List<$Value?> args) {
-  //   final fun = (target as HomePageList).loadMoreData;
-  //   if (fun != null) {
-  //     return $Future.wrap(fun.call(args[0]?.$value).then((value) =>
-  //         $List.wrap(value.mapAsList((it) => $SearchResponse.wrap(it)))));
-  //   }
-  //   return const $null();
-  // }
 
   @override
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
@@ -380,7 +386,16 @@ class $HomePageList implements HomePageList, $Instance {
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
-    _superclass.$setProperty(runtime, identifier, value);
+    switch (identifier) {
+      case 'name':
+        $value.name = value.$reified;
+        break;
+      case 'data':
+        $value.data = value.unwrapList<SearchResponse>()!;
+        break;
+      default:
+        _superclass.$setProperty(runtime, identifier, value);
+    }
   }
 
   @override
@@ -392,12 +407,18 @@ class $HomePageList implements HomePageList, $Instance {
   @override
   String get name => $value.name;
 
-  // @override
-  // Future<List<SearchResponse>> Function(int page)? get loadMoreData =>
-  //     $value.loadMoreData;
-
   @override
   String toString() {
     return $value.toString();
+  }
+
+  @override
+  set data(List<SearchResponse> data) {
+    $value.data = data;
+  }
+
+  @override
+  set name(String name) {
+    $value.name = name;
   }
 }

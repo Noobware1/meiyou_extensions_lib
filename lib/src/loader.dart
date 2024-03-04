@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_security.dart';
-import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/extractor_link.dart';
@@ -10,6 +9,11 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/ne
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
+import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
+import 'package:meiyou_extensions_lib/src/models/interfaces/catalogue_source.dart';
+import 'package:meiyou_extensions_lib/src/models/interfaces/extractor_api.dart';
+import 'package:meiyou_extensions_lib/src/models/interfaces/source.dart';
+import 'package:meiyou_extensions_lib/src/models/interfaces/source_factory.dart';
 
 class ExtensionLoader extends Runtime {
   ExtensionLoader(ByteData evc) : super(evc) {
@@ -35,16 +39,21 @@ class ExtensionLoader extends Runtime {
     return executeLib(library, name, [$ExtractorLink.wrap(link)]);
   }
 
-  dynamic getSource(String library, String name, NetworkHelper networkHelper) {
-    return executeLib(library, name, [$NetworkHelper.wrap(networkHelper)]);
+  dynamic getSource(String library, NetworkHelper networkHelper) {
+    return executeLib(
+        library, 'getSource', [$NetworkHelper.wrap(networkHelper)]);
   }
 
-  Source loadSource(String library, String name, NetworkHelper networkHelper) {
-    return executeLib(library, name, [$NetworkHelper.wrap(networkHelper)]);
+  SourceFactory getSourceFactory(String library, NetworkHelper networkHelper) {
+    return getSource(library, networkHelper);
+  }
+
+  Source loadSource(String library, NetworkHelper networkHelper) {
+    return getSource(library, networkHelper);
   }
 
   CatalogueSource loadCatalogueSource(
-      String library, String name, NetworkHelper networkHelper) {
-    return executeLib(library, name, [$NetworkHelper.wrap(networkHelper)]);
+      String library, NetworkHelper networkHelper) {
+    return getSource(library, networkHelper);
   }
 }

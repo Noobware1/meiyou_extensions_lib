@@ -24,13 +24,13 @@ class $ExternalId implements ExternalId, $Instance {
             params: [],
             namedParams: [
               BridgeParameter('name',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), true),
               BridgeParameter(
                   'id',
                   BridgeTypeAnnotation(
                     BridgeTypeRef(CoreTypes.string),
                   ),
-                  false),
+                  true),
             ],
           ),
         )
@@ -62,8 +62,8 @@ class $ExternalId implements ExternalId, $Instance {
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
     return $ExternalId.wrap(ExternalId(
-      name: args[0]?.$value,
-      id: args[1]?.$value,
+      name: args[0]?.$value ?? '',
+      id: args[1]?.$value ?? '',
     ));
   }
 
@@ -71,8 +71,18 @@ class $ExternalId implements ExternalId, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) =>
-      _superclass.$setProperty(runtime, identifier, value);
+  void $setProperty(Runtime runtime, String identifier, $Value value) {
+    switch (identifier) {
+      case 'id':
+        id = value.$reified;
+        break;
+      case 'name':
+        name = value.$reified;
+        break;
+      default:
+        _superclass.$setProperty(runtime, identifier, value);
+    }
+  }
 
   @override
   final ExternalId $value;
@@ -86,5 +96,15 @@ class $ExternalId implements ExternalId, $Instance {
   @override
   String toString() {
     return $value.toString();
+  }
+
+  @override
+  set id(String id) {
+    $value.id = id;
+  }
+
+  @override
+  set name(String name) {
+    $value.name = name;
   }
 }

@@ -15,7 +15,7 @@
 /// It also includes a method for getting a string representation of the `Episode` object (`toString`).
 class Episode {
   Episode({
-    required this.data,
+    this.data = '',
     this.name,
     this.season,
     this.episode,

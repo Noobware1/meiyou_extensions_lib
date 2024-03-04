@@ -24,7 +24,7 @@ class $Episode implements Episode, $Instance {
             params: [],
             namedParams: [
               BridgeParameter('data',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false),
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), true),
               BridgeParameter(
                   'name',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string),

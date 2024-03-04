@@ -74,7 +74,7 @@ class $ActorData implements ActorData, $Instance {
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
     return $ActorData.wrap(ActorData(
-      name: args[0]?.$value,
+      name: args[0]?.$value ?? '',
       image: args[1]?.$value,
       role: args[2]?.$value,
     ));
@@ -84,8 +84,21 @@ class $ActorData implements ActorData, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) =>
-      _superclass.$setProperty(runtime, identifier, value);
+  void $setProperty(Runtime runtime, String identifier, $Value value) {
+    switch (identifier) {
+      case 'name':
+        $value.name = value.$reified;
+        break;
+      case 'image':
+        $value.image = value.$reified;
+        break;
+      case 'role':
+        $value.role = value.$reified;
+        break;
+      default:
+        _superclass.$setProperty(runtime, identifier, value);
+    }
+  }
 
   @override
   final ActorData $value;
@@ -102,5 +115,20 @@ class $ActorData implements ActorData, $Instance {
   @override
   String toString() {
     return $value.toString();
+  }
+
+  @override
+  set image(String? image) {
+    $value.image = image;
+  }
+
+  @override
+  set name(String name) {
+    $value.name = name;
+  }
+
+  @override
+  set role(String? role) {
+    $value.role = role;
   }
 }

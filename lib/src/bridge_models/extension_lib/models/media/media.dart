@@ -15,6 +15,8 @@ class $Media implements Media, $Instance {
     runtime.registerBridgeFunc(ExtensionLibTypes.media.library, 'Media.', $new);
   }
 
+  late final _superclass = $Object($value);
+
   static const $type = BridgeTypeRef(ExtensionLibTypes.media);
 
   static const $declaration = BridgeClassDef(
@@ -93,7 +95,7 @@ class $Media implements Media, $Instance {
             : const $null();
 
       default:
-        return const $null();
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -115,6 +117,8 @@ class $Media implements Media, $Instance {
       case 'extra':
         $value.extra = value.$reified;
         break;
+      default:
+        return _superclass.$setProperty(runtime, identifier, value);
     }
   }
 

@@ -14,6 +14,8 @@ class $Subtitle implements Subtitle, $Instance {
         ExtensionLibTypes.subtitle.library, 'Subtitle.', $Subtitle.$new);
   }
 
+  late final _superclass = $Object($value);
+
   static const $type = BridgeTypeRef(ExtensionLibTypes.subtitle);
 
   static const $declaration = BridgeClassDef(
@@ -26,7 +28,7 @@ class $Subtitle implements Subtitle, $Instance {
               BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.string),
               ),
-              false),
+              true),
           BridgeParameter(
               'format',
               BridgeTypeAnnotation($SubtitleFormat.$type, nullable: true),
@@ -72,7 +74,6 @@ class $Subtitle implements Subtitle, $Instance {
         return $value.format != null
             ? $SubtitleFormat.wrap($value.format!)
             : $null();
-
       case 'language':
         return $value.language != null ? $String($value.language!) : $null();
       case 'headers':
@@ -80,9 +81,8 @@ class $Subtitle implements Subtitle, $Instance {
             ? $Map.wrap($value.headers!
                 .map((key, value) => MapEntry($String(key), $String(value))))
             : $null();
-
       default:
-        return $null();
+        return _superclass.$getProperty(runtime, identifier);
     }
   }
 
@@ -104,7 +104,24 @@ class $Subtitle implements Subtitle, $Instance {
   get $reified => $value;
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {}
+  void $setProperty(Runtime runtime, String identifier, $Value value) {
+    switch (identifier) {
+      case 'url':
+        $value.url = value.$reified;
+        break;
+      case 'format':
+        $value.format = value.$reified;
+        break;
+      case 'language':
+        $value.language = value.$reified;
+        break;
+      case 'headers':
+        $value.headers = value.$reified;
+        break;
+      default:
+        return _superclass.$setProperty(runtime, identifier, value);
+    }
+  }
 
   @override
   final Subtitle $value;
@@ -124,5 +141,25 @@ class $Subtitle implements Subtitle, $Instance {
   @override
   String toString() {
     return $value.toString();
+  }
+
+  @override
+  set format(SubtitleFormat? format) {
+    $value.format = format;
+  }
+
+  @override
+  set headers(Map<String, String>? headers) {
+    $value.headers = headers;
+  }
+
+  @override
+  set language(String? language) {
+    $value.language = language;
+  }
+
+  @override
+  set url(String url) {
+    $value.url = url;
   }
 }

@@ -64,13 +64,13 @@ class $DilogPreference<T> implements DilogPreference<T>, $Instance {
             BridgeParameter(
                 'dialogTitle',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                false),
+                    nullable: true),
+                true),
             BridgeParameter(
                 'dialogMessage',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                false)
+                    nullable: true),
+                true)
           ],
         ),
         isFactory: false,
@@ -100,9 +100,9 @@ class $DilogPreference<T> implements DilogPreference<T>, $Instance {
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
       case 'dialogTitle':
-        return $String($value.dialogTitle);
+        return dialogTitle == null ? const $null() : $String(dialogTitle!);
       case 'dialogMessage':
-        return $String($value.dialogMessage);
+        return dialogMessage == null ? const $null() : $String(dialogMessage!);
 
       default:
         return _superclass.$getProperty(runtime, identifier);
@@ -127,9 +127,10 @@ class $DilogPreference<T> implements DilogPreference<T>, $Instance {
   final DilogPreference $value;
 
   @override
-  String get dialogTitle => $value.dialogTitle;
+  String? get dialogTitle => $value.dialogTitle;
+
   @override
-  String get dialogMessage => $value.dialogMessage;
+  String? get dialogMessage => $value.dialogMessage;
 
   @override
   String get key => $value.key;
@@ -202,13 +203,13 @@ class $EditTextPreference implements EditTextPreference, $Instance {
             BridgeParameter(
                 'dialogTitle',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                false),
+                    nullable: true),
+                true),
             BridgeParameter(
                 'dialogMessage',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                false),
+                    nullable: true),
+                true),
             BridgeParameter(
                 'onPreferenceChange',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
@@ -289,10 +290,10 @@ class $EditTextPreference implements EditTextPreference, $Instance {
   }
 
   @override
-  String get dialogMessage => $value.dialogMessage;
+  String? get dialogMessage => $value.dialogMessage;
 
   @override
-  String get dialogTitle => $value.dialogTitle;
+  String? get dialogTitle => $value.dialogTitle;
 
   @override
   String get key => $value.key;
@@ -360,13 +361,13 @@ class $ListPreference implements ListPreference, $Instance {
             BridgeParameter(
                 'dialogTitle',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                false),
+                    nullable: true),
+                true),
             BridgeParameter(
                 'dialogMessage',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                false),
+                    nullable: true),
+                true),
             BridgeParameter(
                 'onPreferenceChange',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
@@ -473,8 +474,8 @@ class $ListPreference implements ListPreference, $Instance {
     final key = args[0]?.$value as String;
     final title = args[1]?.$value as String;
     final summary = args[2]?.$value as String;
-    final dialogTitle = args[3]?.$value as String;
-    final dialogMessage = args[4]?.$value as String;
+    final dialogTitle = args[3]?.$value as String?;
+    final dialogMessage = args[4]?.$value as String?;
     final onPreferenceChange = args[5] as EvalCallable?;
     final defaultIndex = args[6]?.$value as int? ?? 0;
     final entries = (args[7]!.$reified as List).cast<String>();
@@ -498,10 +499,10 @@ class $ListPreference implements ListPreference, $Instance {
   }
 
   @override
-  String get dialogMessage => $value.dialogMessage;
+  String? get dialogMessage => $value.dialogMessage;
 
   @override
-  String get dialogTitle => $value.dialogTitle;
+  String? get dialogTitle => $value.dialogTitle;
 
   @override
   String get key => $value.key;
@@ -568,13 +569,13 @@ class $MultiSelectListPreference
             BridgeParameter(
                 'summary',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                false),
+                    nullable: true),
+                true),
             BridgeParameter(
                 'dialogTitle',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                false),
+                    nullable: true),
+                true),
             BridgeParameter(
                 'dialogMessage',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
@@ -695,8 +696,8 @@ class $MultiSelectListPreference
     final key = args[0]?.$value as String;
     final title = args[1]?.$value as String;
     final summary = args[2]?.$value as String;
-    final dialogTitle = args[3]?.$value as String;
-    final dialogMessage = args[4]?.$value as String;
+    final dialogTitle = args[3]?.$value as String?;
+    final dialogMessage = args[4]?.$value as String?;
     final onPreferenceChange = args[5] as EvalCallable?;
     final defaultSelected = (args[6]?.$reified as List).cast<String>();
     final entries = args[7]?.$reified.cast<String>();
@@ -722,10 +723,10 @@ class $MultiSelectListPreference
   }
 
   @override
-  String get dialogMessage => $value.dialogMessage;
+  String? get dialogMessage => $value.dialogMessage;
 
   @override
-  String get dialogTitle => $value.dialogTitle;
+  String? get dialogTitle => $value.dialogTitle;
 
   @override
   String get key => $value.key;

@@ -8,27 +8,27 @@ import 'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dar
 /// * `language`: An optional string representing the language of the subtitle.
 /// * `headers`: An optional map of strings representing the headers of the subtitle.
 class Subtitle {
-  const Subtitle({
-    required this.url,
+  Subtitle({
+    this.url = '',
     this.format,
     this.language,
     this.headers,
   });
 
   /// A string representing the URL of the subtitle.
-  final String url;
+  String url;
 
   /// A `SubtitleFormat` value representing the format of the subtitle.
-  final SubtitleFormat? format;
+  SubtitleFormat? format;
 
   /// An optional string representing the language of the subtitle.
-  final String? language;
+  String? language;
 
   /// An optional map of strings representing the headers of the subtitle.
-  final Map<String, String>? headers;
+  Map<String, String>? headers;
 
-  /// A constant `Subtitle` object representing no subtitle.
-  static const noSubtitle =
+  /// A `Subtitle` object representing no subtitle.
+  static final noSubtitle =
       Subtitle(url: '', format: null, language: 'No Subtitle', headers: null);
 
   @override
