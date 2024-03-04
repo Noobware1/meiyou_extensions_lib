@@ -5,7 +5,7 @@ import 'package:nice_dart/nice_dart.dart';
 /// The `VideoQuality` class has the following properties:
 /// * `width`: An integer representing the width of the video.
 /// * `height`: An integer representing the height of the video.
-class VideoQuality {
+class VideoQuality implements Comparable<VideoQuality> {
   /// Creates a new `VideoQuality` object.
   ///
   /// The constructor takes the following parameters:
@@ -55,5 +55,12 @@ class VideoQuality {
   @override
   String toString() {
     return 'VideoQuality(width: $width, height: $height)';
+  }
+
+  @override
+  int compareTo(VideoQuality other) {
+    return (width == other.width)
+        ? height.compareTo(other.height)
+        : width.compareTo(other.width);
   }
 }

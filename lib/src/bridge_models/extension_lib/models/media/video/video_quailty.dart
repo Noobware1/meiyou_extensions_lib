@@ -10,7 +10,6 @@ class $VideoQuality implements VideoQuality, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(ExtensionLibTypes.videoQuality.library,
         'VideoQuality.', $VideoQuality.$new);
-
     runtime.registerBridgeFunc(ExtensionLibTypes.videoQuality.library,
         'VideoQuality.unknown*g', $VideoQuality.$unknown);
     runtime.registerBridgeFunc(ExtensionLibTypes.videoQuality.library,
@@ -71,6 +70,14 @@ class $VideoQuality implements VideoQuality, $Instance {
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)), false)
           ]),
           isStatic: true),
+      'compareTo': BridgeMethodDef(
+        BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+            params: [
+              BridgeParameter('other', BridgeTypeAnnotation($type), false)
+            ]),
+        isStatic: false,
+      ),
     },
     wrap: true,
   );
@@ -82,7 +89,8 @@ class $VideoQuality implements VideoQuality, $Instance {
         return $int($value.height);
       case 'width':
         return $int($value.width);
-
+      case 'compareTo':
+        return __$compareTo;
       default:
         return $null();
     }
@@ -127,5 +135,15 @@ class $VideoQuality implements VideoQuality, $Instance {
   @override
   String toString() {
     return $value.toString();
+  }
+
+  @override
+  int compareTo(VideoQuality other) => $value.compareTo(other);
+
+  static const __$compareTo = $Function(_$compareTo);
+  static $Value? _$compareTo(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final other = args[0]?.$value as VideoQuality;
+    return $int((target as $VideoQuality).compareTo(other));
   }
 }
