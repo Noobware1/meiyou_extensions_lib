@@ -27,9 +27,9 @@ class InstalledExtension extends Extension {
 
   final List<ExtensionSource> sources;
   final List<byte>? icon;
+  final List<byte>? evc;
   final bool hasUpdate;
   final bool isOnline;
-  final bool lastUsed;
   final String? repoUrl;
 
   InstalledExtension({
@@ -41,11 +41,72 @@ class InstalledExtension extends Extension {
     required this.isNsfw,
     required this.sources,
     required this.icon,
+    required this.evc,
     required this.hasUpdate,
     required this.isOnline,
-    required this.lastUsed,
     required this.repoUrl,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "pkg": pkgName,
+      "version": versionName,
+      "lang": lang,
+      "nsfw": isNsfw ? 1 : 0,
+      "sources": sources.mapList((e) => e.toJson()),
+      "icon": icon,
+      "hasUpdate": hasUpdate ? 1 : 0,
+      "isOnline": isOnline ? 1 : 0,
+      "repoUrl": repoUrl,
+    };
+  }
+
+  factory InstalledExtension.fromJson(dynamic json) {
+    return InstalledExtension(
+      name: json['name'],
+      pkgName: json['pkg'],
+      versionName: json['version'],
+      lang: json['lang'],
+      isNsfw: (json['nsfw'] as int) == 1,
+      icon: json['icon'],
+      hasUpdate: (json['hasUpdate'] as int) == 1,
+      isOnline: (json['isOnline'] as int) == 1,
+      repoUrl: json['repoUrl'],
+      sources: ((json['sources'] as List?)?.mapList(ExtensionSource.fromJson))
+          .orEmpty(),
+      evc: const [],
+    );
+  }
+
+  InstalledExtension copyWith({
+    String? name,
+    String? pkgName,
+    String? versionName,
+    String? lang,
+    bool? isNsfw,
+    List<ExtensionSource>? sources,
+    List<byte>? icon,
+    List<byte>? evc,
+    bool? hasUpdate,
+    bool? isOnline,
+    String? repoUrl,
+  }) {
+    return InstalledExtension(
+      id: id,
+      name: name ?? this.name,
+      pkgName: pkgName ?? this.pkgName,
+      versionName: versionName ?? this.versionName,
+      lang: lang ?? this.lang,
+      isNsfw: isNsfw ?? this.isNsfw,
+      sources: sources ?? this.sources,
+      icon: icon ?? this.icon,
+      evc: evc ?? this.evc,
+      hasUpdate: hasUpdate ?? this.hasUpdate,
+      isOnline: isOnline ?? this.isOnline,
+      repoUrl: repoUrl ?? this.repoUrl,
+    );
+  }
 }
 
 @embedded
@@ -54,22 +115,38 @@ class ExtensionSource {
   final String lang;
   final String name;
   final bool supportsHomepage;
-  final bool isStub;
   final bool isUsedLast;
-  final List<byte> evc;
 
   ExtensionSource({
     this.id = -1,
     this.lang = "",
     this.name = "",
     this.supportsHomepage = false,
-    this.isStub = false,
     this.isUsedLast = false,
-    this.evc = const [],
   });
 
   String get visualName =>
       lang.isEmpty ? name : "$name (${lang.toUpperCase()})";
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "lang": lang,
+      "supportsHomepage": supportsHomepage ? 1 : 0,
+      "isUsedLast": isUsedLast ? 1 : 0,
+    };
+  }
+
+  factory ExtensionSource.fromJson(dynamic json) {
+    return ExtensionSource(
+      id: json["id"],
+      name: json["name"],
+      lang: json["lang"],
+      supportsHomepage: (json["supportsHomepage"] as int) == 1,
+      isUsedLast: (json["isUsedLast"] as int) == 1,
+    );
+  }
 }
 
 @collection

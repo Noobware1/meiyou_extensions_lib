@@ -18,35 +18,35 @@ const InstalledExtensionSchema = CollectionSchema(
   name: r'InstalledExtension',
   id: -4939851513220011972,
   properties: {
-    r'hasUpdate': PropertySchema(
+    r'evc': PropertySchema(
       id: 0,
+      name: r'evc',
+      type: IsarType.byteList,
+    ),
+    r'hasUpdate': PropertySchema(
+      id: 1,
       name: r'hasUpdate',
       type: IsarType.bool,
     ),
     r'icon': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'icon',
       type: IsarType.byteList,
     ),
     r'isNsfw': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'isNsfw',
       type: IsarType.bool,
     ),
     r'isOnline': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'isOnline',
       type: IsarType.bool,
     ),
     r'lang': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'lang',
       type: IsarType.string,
-    ),
-    r'lastUsed': PropertySchema(
-      id: 5,
-      name: r'lastUsed',
-      type: IsarType.bool,
     ),
     r'name': PropertySchema(
       id: 6,
@@ -96,6 +96,12 @@ int _installedExtensionEstimateSize(
 ) {
   var bytesCount = offsets.last;
   {
+    final value = object.evc;
+    if (value != null) {
+      bytesCount += 3 + value.length;
+    }
+  }
+  {
     final value = object.icon;
     if (value != null) {
       bytesCount += 3 + value.length;
@@ -134,12 +140,12 @@ void _installedExtensionSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeBool(offsets[0], object.hasUpdate);
-  writer.writeByteList(offsets[1], object.icon);
-  writer.writeBool(offsets[2], object.isNsfw);
-  writer.writeBool(offsets[3], object.isOnline);
-  writer.writeString(offsets[4], object.lang);
-  writer.writeBool(offsets[5], object.lastUsed);
+  writer.writeByteList(offsets[0], object.evc);
+  writer.writeBool(offsets[1], object.hasUpdate);
+  writer.writeByteList(offsets[2], object.icon);
+  writer.writeBool(offsets[3], object.isNsfw);
+  writer.writeBool(offsets[4], object.isOnline);
+  writer.writeString(offsets[5], object.lang);
   writer.writeString(offsets[6], object.name);
   writer.writeString(offsets[7], object.pkgName);
   writer.writeString(offsets[8], object.repoUrl);
@@ -159,13 +165,13 @@ InstalledExtension _installedExtensionDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = InstalledExtension(
-    hasUpdate: reader.readBool(offsets[0]),
-    icon: reader.readByteList(offsets[1]),
+    evc: reader.readByteList(offsets[0]),
+    hasUpdate: reader.readBool(offsets[1]),
+    icon: reader.readByteList(offsets[2]),
     id: id,
-    isNsfw: reader.readBool(offsets[2]),
-    isOnline: reader.readBool(offsets[3]),
-    lang: reader.readStringOrNull(offsets[4]),
-    lastUsed: reader.readBool(offsets[5]),
+    isNsfw: reader.readBool(offsets[3]),
+    isOnline: reader.readBool(offsets[4]),
+    lang: reader.readStringOrNull(offsets[5]),
     name: reader.readString(offsets[6]),
     pkgName: reader.readString(offsets[7]),
     repoUrl: reader.readStringOrNull(offsets[8]),
@@ -189,17 +195,17 @@ P _installedExtensionDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readBool(offset)) as P;
-    case 1:
       return (reader.readByteList(offset)) as P;
-    case 2:
+    case 1:
       return (reader.readBool(offset)) as P;
+    case 2:
+      return (reader.readByteList(offset)) as P;
     case 3:
       return (reader.readBool(offset)) as P;
     case 4:
-      return (reader.readStringOrNull(offset)) as P;
-    case 5:
       return (reader.readBool(offset)) as P;
+    case 5:
+      return (reader.readStringOrNull(offset)) as P;
     case 6:
       return (reader.readString(offset)) as P;
     case 7:
@@ -315,6 +321,169 @@ extension InstalledExtensionQueryWhere
 
 extension InstalledExtensionQueryFilter
     on QueryBuilder<InstalledExtension, InstalledExtension, QFilterCondition> {
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'evc',
+      ));
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'evc',
+      ));
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'evc',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcElementGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'evc',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcElementLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'evc',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'evc',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
+      evcLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
   QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
       hasUpdateEqualTo(bool value) {
     return QueryBuilder.apply(this, (query) {
@@ -714,16 +883,6 @@ extension InstalledExtensionQueryFilter
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'lang',
         value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      lastUsedEqualTo(bool value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'lastUsed',
-        value: value,
       ));
     });
   }
@@ -1452,20 +1611,6 @@ extension InstalledExtensionQuerySortBy
   }
 
   QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
-      sortByLastUsed() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'lastUsed', Sort.asc);
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
-      sortByLastUsedDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'lastUsed', Sort.desc);
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
       sortByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
@@ -1595,20 +1740,6 @@ extension InstalledExtensionQuerySortThenBy
   }
 
   QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
-      thenByLastUsed() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'lastUsed', Sort.asc);
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
-      thenByLastUsedDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'lastUsed', Sort.desc);
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
       thenByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
@@ -1668,6 +1799,13 @@ extension InstalledExtensionQuerySortThenBy
 extension InstalledExtensionQueryWhereDistinct
     on QueryBuilder<InstalledExtension, InstalledExtension, QDistinct> {
   QueryBuilder<InstalledExtension, InstalledExtension, QDistinct>
+      distinctByEvc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'evc');
+    });
+  }
+
+  QueryBuilder<InstalledExtension, InstalledExtension, QDistinct>
       distinctByHasUpdate() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'hasUpdate');
@@ -1699,13 +1837,6 @@ extension InstalledExtensionQueryWhereDistinct
       distinctByLang({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'lang', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QDistinct>
-      distinctByLastUsed() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'lastUsed');
     });
   }
 
@@ -1746,6 +1877,12 @@ extension InstalledExtensionQueryProperty
     });
   }
 
+  QueryBuilder<InstalledExtension, List<int>?, QQueryOperations> evcProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'evc');
+    });
+  }
+
   QueryBuilder<InstalledExtension, bool, QQueryOperations> hasUpdateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'hasUpdate');
@@ -1774,12 +1911,6 @@ extension InstalledExtensionQueryProperty
   QueryBuilder<InstalledExtension, String?, QQueryOperations> langProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'lang');
-    });
-  }
-
-  QueryBuilder<InstalledExtension, bool, QQueryOperations> lastUsedProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'lastUsed');
     });
   }
 
@@ -3805,43 +3936,33 @@ const ExtensionSourceSchema = Schema(
   name: r'ExtensionSource',
   id: -4149751665871021609,
   properties: {
-    r'evc': PropertySchema(
-      id: 0,
-      name: r'evc',
-      type: IsarType.byteList,
-    ),
     r'id': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'id',
       type: IsarType.long,
     ),
-    r'isStub': PropertySchema(
-      id: 2,
-      name: r'isStub',
-      type: IsarType.bool,
-    ),
     r'isUsedLast': PropertySchema(
-      id: 3,
+      id: 1,
       name: r'isUsedLast',
       type: IsarType.bool,
     ),
     r'lang': PropertySchema(
-      id: 4,
+      id: 2,
       name: r'lang',
       type: IsarType.string,
     ),
     r'name': PropertySchema(
-      id: 5,
+      id: 3,
       name: r'name',
       type: IsarType.string,
     ),
     r'supportsHomepage': PropertySchema(
-      id: 6,
+      id: 4,
       name: r'supportsHomepage',
       type: IsarType.bool,
     ),
     r'visualName': PropertySchema(
-      id: 7,
+      id: 5,
       name: r'visualName',
       type: IsarType.string,
     )
@@ -3858,7 +3979,6 @@ int _extensionSourceEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.evc.length;
   bytesCount += 3 + object.lang.length * 3;
   bytesCount += 3 + object.name.length * 3;
   bytesCount += 3 + object.visualName.length * 3;
@@ -3871,14 +3991,12 @@ void _extensionSourceSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeByteList(offsets[0], object.evc);
-  writer.writeLong(offsets[1], object.id);
-  writer.writeBool(offsets[2], object.isStub);
-  writer.writeBool(offsets[3], object.isUsedLast);
-  writer.writeString(offsets[4], object.lang);
-  writer.writeString(offsets[5], object.name);
-  writer.writeBool(offsets[6], object.supportsHomepage);
-  writer.writeString(offsets[7], object.visualName);
+  writer.writeLong(offsets[0], object.id);
+  writer.writeBool(offsets[1], object.isUsedLast);
+  writer.writeString(offsets[2], object.lang);
+  writer.writeString(offsets[3], object.name);
+  writer.writeBool(offsets[4], object.supportsHomepage);
+  writer.writeString(offsets[5], object.visualName);
 }
 
 ExtensionSource _extensionSourceDeserialize(
@@ -3888,13 +4006,11 @@ ExtensionSource _extensionSourceDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = ExtensionSource(
-    evc: reader.readByteList(offsets[0]) ?? const [],
-    id: reader.readLongOrNull(offsets[1]) ?? -1,
-    isStub: reader.readBoolOrNull(offsets[2]) ?? false,
-    isUsedLast: reader.readBoolOrNull(offsets[3]) ?? false,
-    lang: reader.readStringOrNull(offsets[4]) ?? "",
-    name: reader.readStringOrNull(offsets[5]) ?? "",
-    supportsHomepage: reader.readBoolOrNull(offsets[6]) ?? false,
+    id: reader.readLongOrNull(offsets[0]) ?? -1,
+    isUsedLast: reader.readBoolOrNull(offsets[1]) ?? false,
+    lang: reader.readStringOrNull(offsets[2]) ?? "",
+    name: reader.readStringOrNull(offsets[3]) ?? "",
+    supportsHomepage: reader.readBoolOrNull(offsets[4]) ?? false,
   );
   return object;
 }
@@ -3907,20 +4023,16 @@ P _extensionSourceDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readByteList(offset) ?? const []) as P;
-    case 1:
       return (reader.readLongOrNull(offset) ?? -1) as P;
+    case 1:
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 2:
-      return (reader.readBoolOrNull(offset) ?? false) as P;
+      return (reader.readStringOrNull(offset) ?? "") as P;
     case 3:
-      return (reader.readBoolOrNull(offset) ?? false) as P;
+      return (reader.readStringOrNull(offset) ?? "") as P;
     case 4:
-      return (reader.readStringOrNull(offset) ?? "") as P;
-    case 5:
-      return (reader.readStringOrNull(offset) ?? "") as P;
-    case 6:
       return (reader.readBoolOrNull(offset) ?? false) as P;
-    case 7:
+    case 5:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -3929,151 +4041,6 @@ P _extensionSourceDeserializeProp<P>(
 
 extension ExtensionSourceQueryFilter
     on QueryBuilder<ExtensionSource, ExtensionSource, QFilterCondition> {
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      evcElementEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'evc',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      evcElementGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'evc',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      evcElementLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'evc',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      evcElementBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'evc',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      evcLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evc',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      evcIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evc',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      evcIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evc',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      evcLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evc',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      evcLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evc',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      evcLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evc',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
-    });
-  }
-
   QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
       idEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
@@ -4126,16 +4093,6 @@ extension ExtensionSourceQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      isStubEqualTo(bool value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'isStub',
-        value: value,
       ));
     });
   }
