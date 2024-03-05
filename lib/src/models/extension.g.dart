@@ -53,29 +53,24 @@ const InstalledExtensionSchema = CollectionSchema(
       name: r'name',
       type: IsarType.string,
     ),
-    r'pkgFactory': PropertySchema(
-      id: 7,
-      name: r'pkgFactory',
-      type: IsarType.string,
-    ),
     r'pkgName': PropertySchema(
-      id: 8,
+      id: 7,
       name: r'pkgName',
       type: IsarType.string,
     ),
     r'repoUrl': PropertySchema(
-      id: 9,
+      id: 8,
       name: r'repoUrl',
       type: IsarType.string,
     ),
     r'sources': PropertySchema(
-      id: 10,
+      id: 9,
       name: r'sources',
       type: IsarType.objectList,
       target: r'ExtensionSource',
     ),
     r'versionName': PropertySchema(
-      id: 11,
+      id: 10,
       name: r'versionName',
       type: IsarType.string,
     )
@@ -113,12 +108,6 @@ int _installedExtensionEstimateSize(
     }
   }
   bytesCount += 3 + object.name.length * 3;
-  {
-    final value = object.pkgFactory;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
   bytesCount += 3 + object.pkgName.length * 3;
   {
     final value = object.repoUrl;
@@ -152,16 +141,15 @@ void _installedExtensionSerialize(
   writer.writeString(offsets[4], object.lang);
   writer.writeBool(offsets[5], object.lastUsed);
   writer.writeString(offsets[6], object.name);
-  writer.writeString(offsets[7], object.pkgFactory);
-  writer.writeString(offsets[8], object.pkgName);
-  writer.writeString(offsets[9], object.repoUrl);
+  writer.writeString(offsets[7], object.pkgName);
+  writer.writeString(offsets[8], object.repoUrl);
   writer.writeObjectList<ExtensionSource>(
-    offsets[10],
+    offsets[9],
     allOffsets,
     ExtensionSourceSchema.serialize,
     object.sources,
   );
-  writer.writeString(offsets[11], object.versionName);
+  writer.writeString(offsets[10], object.versionName);
 }
 
 InstalledExtension _installedExtensionDeserialize(
@@ -179,17 +167,16 @@ InstalledExtension _installedExtensionDeserialize(
     lang: reader.readStringOrNull(offsets[4]),
     lastUsed: reader.readBool(offsets[5]),
     name: reader.readString(offsets[6]),
-    pkgFactory: reader.readStringOrNull(offsets[7]),
-    pkgName: reader.readString(offsets[8]),
-    repoUrl: reader.readStringOrNull(offsets[9]),
+    pkgName: reader.readString(offsets[7]),
+    repoUrl: reader.readStringOrNull(offsets[8]),
     sources: reader.readObjectList<ExtensionSource>(
-          offsets[10],
+          offsets[9],
           ExtensionSourceSchema.deserialize,
           allOffsets,
           ExtensionSource(),
         ) ??
         [],
-    versionName: reader.readString(offsets[11]),
+    versionName: reader.readString(offsets[10]),
   );
   return object;
 }
@@ -216,12 +203,10 @@ P _installedExtensionDeserializeProp<P>(
     case 6:
       return (reader.readString(offset)) as P;
     case 7:
-      return (reader.readStringOrNull(offset)) as P;
-    case 8:
       return (reader.readString(offset)) as P;
-    case 9:
+    case 8:
       return (reader.readStringOrNull(offset)) as P;
-    case 10:
+    case 9:
       return (reader.readObjectList<ExtensionSource>(
             offset,
             ExtensionSourceSchema.deserialize,
@@ -229,7 +214,7 @@ P _installedExtensionDeserializeProp<P>(
             ExtensionSource(),
           ) ??
           []) as P;
-    case 11:
+    case 10:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -880,160 +865,6 @@ extension InstalledExtensionQueryFilter
   }
 
   QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pkgFactory',
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pkgFactory',
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pkgFactory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pkgFactory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pkgFactory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pkgFactory',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'pkgFactory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'pkgFactory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'pkgFactory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'pkgFactory',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pkgFactory',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
-      pkgFactoryIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'pkgFactory',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterFilterCondition>
       pkgNameEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -1649,20 +1480,6 @@ extension InstalledExtensionQuerySortBy
   }
 
   QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
-      sortByPkgFactory() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pkgFactory', Sort.asc);
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
-      sortByPkgFactoryDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pkgFactory', Sort.desc);
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
       sortByPkgName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'pkgName', Sort.asc);
@@ -1806,20 +1623,6 @@ extension InstalledExtensionQuerySortThenBy
   }
 
   QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
-      thenByPkgFactory() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pkgFactory', Sort.asc);
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
-      thenByPkgFactoryDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pkgFactory', Sort.desc);
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QAfterSortBy>
       thenByPkgName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'pkgName', Sort.asc);
@@ -1914,13 +1717,6 @@ extension InstalledExtensionQueryWhereDistinct
   }
 
   QueryBuilder<InstalledExtension, InstalledExtension, QDistinct>
-      distinctByPkgFactory({bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pkgFactory', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<InstalledExtension, InstalledExtension, QDistinct>
       distinctByPkgName({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'pkgName', caseSensitive: caseSensitive);
@@ -1990,13 +1786,6 @@ extension InstalledExtensionQueryProperty
   QueryBuilder<InstalledExtension, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
-    });
-  }
-
-  QueryBuilder<InstalledExtension, String?, QQueryOperations>
-      pkgFactoryProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pkgFactory');
     });
   }
 
@@ -4016,25 +3805,25 @@ const ExtensionSourceSchema = Schema(
   name: r'ExtensionSource',
   id: -4149751665871021609,
   properties: {
-    r'id': PropertySchema(
+    r'evc': PropertySchema(
       id: 0,
+      name: r'evc',
+      type: IsarType.byteList,
+    ),
+    r'id': PropertySchema(
+      id: 1,
       name: r'id',
       type: IsarType.long,
     ),
     r'isStub': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'isStub',
       type: IsarType.bool,
     ),
     r'isUsedLast': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'isUsedLast',
       type: IsarType.bool,
-    ),
-    r'key': PropertySchema(
-      id: 3,
-      name: r'key',
-      type: IsarType.string,
     ),
     r'lang': PropertySchema(
       id: 4,
@@ -4069,7 +3858,7 @@ int _extensionSourceEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.key.length * 3;
+  bytesCount += 3 + object.evc.length;
   bytesCount += 3 + object.lang.length * 3;
   bytesCount += 3 + object.name.length * 3;
   bytesCount += 3 + object.visualName.length * 3;
@@ -4082,10 +3871,10 @@ void _extensionSourceSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.id);
-  writer.writeBool(offsets[1], object.isStub);
-  writer.writeBool(offsets[2], object.isUsedLast);
-  writer.writeString(offsets[3], object.key);
+  writer.writeByteList(offsets[0], object.evc);
+  writer.writeLong(offsets[1], object.id);
+  writer.writeBool(offsets[2], object.isStub);
+  writer.writeBool(offsets[3], object.isUsedLast);
   writer.writeString(offsets[4], object.lang);
   writer.writeString(offsets[5], object.name);
   writer.writeBool(offsets[6], object.supportsHomepage);
@@ -4099,9 +3888,10 @@ ExtensionSource _extensionSourceDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = ExtensionSource(
-    id: reader.readLongOrNull(offsets[0]) ?? -1,
-    isStub: reader.readBoolOrNull(offsets[1]) ?? false,
-    isUsedLast: reader.readBoolOrNull(offsets[2]) ?? false,
+    evc: reader.readByteList(offsets[0]) ?? const [],
+    id: reader.readLongOrNull(offsets[1]) ?? -1,
+    isStub: reader.readBoolOrNull(offsets[2]) ?? false,
+    isUsedLast: reader.readBoolOrNull(offsets[3]) ?? false,
     lang: reader.readStringOrNull(offsets[4]) ?? "",
     name: reader.readStringOrNull(offsets[5]) ?? "",
     supportsHomepage: reader.readBoolOrNull(offsets[6]) ?? false,
@@ -4117,13 +3907,13 @@ P _extensionSourceDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLongOrNull(offset) ?? -1) as P;
+      return (reader.readByteList(offset) ?? const []) as P;
     case 1:
-      return (reader.readBoolOrNull(offset) ?? false) as P;
+      return (reader.readLongOrNull(offset) ?? -1) as P;
     case 2:
       return (reader.readBoolOrNull(offset) ?? false) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 4:
       return (reader.readStringOrNull(offset) ?? "") as P;
     case 5:
@@ -4139,6 +3929,151 @@ P _extensionSourceDeserializeProp<P>(
 
 extension ExtensionSourceQueryFilter
     on QueryBuilder<ExtensionSource, ExtensionSource, QFilterCondition> {
+  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
+      evcElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'evc',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
+      evcElementGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'evc',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
+      evcElementLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'evc',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
+      evcElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'evc',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
+      evcLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
+      evcIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
+      evcIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
+      evcLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
+      evcLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
+      evcLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'evc',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
   QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
       idEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
@@ -4211,142 +4146,6 @@ extension ExtensionSourceQueryFilter
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isUsedLast',
         value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      keyEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'key',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      keyGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'key',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      keyLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'key',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      keyBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'key',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      keyStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'key',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      keyEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'key',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      keyContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'key',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      keyMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'key',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      keyIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'key',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<ExtensionSource, ExtensionSource, QAfterFilterCondition>
-      keyIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'key',
-        value: '',
       ));
     });
   }

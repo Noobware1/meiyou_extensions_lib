@@ -25,7 +25,6 @@ class InstalledExtension extends Extension {
   @override
   final bool isNsfw;
 
-  final String? pkgFactory;
   final List<ExtensionSource> sources;
   final List<byte>? icon;
   final bool hasUpdate;
@@ -40,7 +39,6 @@ class InstalledExtension extends Extension {
     required this.versionName,
     required this.lang,
     required this.isNsfw,
-    required this.pkgFactory,
     required this.sources,
     required this.icon,
     required this.hasUpdate,
@@ -58,6 +56,7 @@ class ExtensionSource {
   final bool supportsHomepage;
   final bool isStub;
   final bool isUsedLast;
+  final List<byte> evc;
 
   ExtensionSource({
     this.id = -1,
@@ -66,12 +65,11 @@ class ExtensionSource {
     this.supportsHomepage = false,
     this.isStub = false,
     this.isUsedLast = false,
+    this.evc = const [],
   });
 
   String get visualName =>
       lang.isEmpty ? name : "$name (${lang.toUpperCase()})";
-
-  String get key => isUsedLast ? "$id-lastused" : "$id";
 }
 
 @collection
