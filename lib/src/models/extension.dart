@@ -55,8 +55,6 @@ class InstalledExtension extends Extension {
       "lang": lang,
       "nsfw": isNsfw ? 1 : 0,
       "sources": sources.mapList((e) => e.toJson()),
-      "icon": icon,
-      "hasUpdate": hasUpdate ? 1 : 0,
       "isOnline": isOnline ? 1 : 0,
       "repoUrl": repoUrl,
     };
@@ -69,12 +67,12 @@ class InstalledExtension extends Extension {
       versionName: json['version'],
       lang: json['lang'],
       isNsfw: (json['nsfw'] as int) == 1,
-      icon: json['icon'],
-      hasUpdate: (json['hasUpdate'] as int) == 1,
       isOnline: (json['isOnline'] as int) == 1,
       repoUrl: json['repoUrl'],
       sources: ((json['sources'] as List?)?.mapList(ExtensionSource.fromJson))
           .orEmpty(),
+      hasUpdate: false,
+      icon: const [],
       evc: const [],
     );
   }
@@ -221,7 +219,7 @@ class AvailableSource {
   final int id;
   final String lang;
   final String name;
-  final String baseUrl;
+  final String? baseUrl;
 
   AvailableSource({
     this.id = -1,
@@ -243,7 +241,7 @@ class AvailableSource {
       id: json["id"],
       name: json["name"],
       lang: json["lang"],
-      baseUrl: (json["baseUrl"] as String?).orEmpty(),
+      baseUrl: json["baseUrl"],
     );
   }
 

@@ -4569,7 +4569,12 @@ int _availableSourceEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.baseUrl.length * 3;
+  {
+    final value = object.baseUrl;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   bytesCount += 3 + object.lang.length * 3;
   bytesCount += 3 + object.name.length * 3;
   return bytesCount;
@@ -4594,7 +4599,7 @@ AvailableSource _availableSourceDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = AvailableSource(
-    baseUrl: reader.readStringOrNull(offsets[0]) ?? "",
+    baseUrl: reader.readStringOrNull(offsets[0]),
     id: reader.readLongOrNull(offsets[1]) ?? -1,
     lang: reader.readStringOrNull(offsets[2]) ?? "",
     name: reader.readStringOrNull(offsets[3]) ?? "",
@@ -4610,7 +4615,7 @@ P _availableSourceDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readStringOrNull(offset) ?? "") as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 1:
       return (reader.readLongOrNull(offset) ?? -1) as P;
     case 2:
@@ -4625,8 +4630,26 @@ P _availableSourceDeserializeProp<P>(
 extension AvailableSourceQueryFilter
     on QueryBuilder<AvailableSource, AvailableSource, QFilterCondition> {
   QueryBuilder<AvailableSource, AvailableSource, QAfterFilterCondition>
+      baseUrlIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'baseUrl',
+      ));
+    });
+  }
+
+  QueryBuilder<AvailableSource, AvailableSource, QAfterFilterCondition>
+      baseUrlIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'baseUrl',
+      ));
+    });
+  }
+
+  QueryBuilder<AvailableSource, AvailableSource, QAfterFilterCondition>
       baseUrlEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4640,7 +4663,7 @@ extension AvailableSourceQueryFilter
 
   QueryBuilder<AvailableSource, AvailableSource, QAfterFilterCondition>
       baseUrlGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4656,7 +4679,7 @@ extension AvailableSourceQueryFilter
 
   QueryBuilder<AvailableSource, AvailableSource, QAfterFilterCondition>
       baseUrlLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4672,8 +4695,8 @@ extension AvailableSourceQueryFilter
 
   QueryBuilder<AvailableSource, AvailableSource, QAfterFilterCondition>
       baseUrlBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
