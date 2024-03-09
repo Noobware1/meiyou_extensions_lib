@@ -6,14 +6,13 @@ String? _sharedPreferencesDirectory;
 
 class SharedPreferences {
   final String _name;
-
   final Map<String, dynamic> _preferencesMap = {};
 
   SharedPreferences([String? name]) : _name = name ?? 'shared_preferences' {
     _loadPreferences();
   }
 
-  // this will allow more of syncronous usage
+  // this will allow more of a syncronous usage
   // must be called before any usage of SharedPreferences
   static void initialize(String directory) {
     _sharedPreferencesDirectory = directory;
@@ -132,4 +131,13 @@ class SharedPreferences {
   }
 
   Map<String, dynamic> getAll() => _preferencesMap;
+
+  bool delete() {
+    final File localDataFile = _getPreferencesFile();
+    if (localDataFile.existsSync()) {
+      localDataFile.deleteSync();
+      return true;
+    }
+    return false;
+  }
 }

@@ -305,7 +305,15 @@ class $SharedPreferences implements SharedPreferences, $Instance {
             params: [],
             namedParams: [],
           ),
-          isStatic: false)
+          isStatic: false),
+      'delete': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -354,6 +362,8 @@ class $SharedPreferences implements SharedPreferences, $Instance {
         return __$setStringList;
       case 'getAll':
         return __$getAll;
+      case 'delete':
+        return __$delete;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -623,5 +633,14 @@ class $SharedPreferences implements SharedPreferences, $Instance {
 
       return MapEntry($String(key), _value);
     }));
+  }
+
+  @override
+  bool delete() => $value.delete();
+  static const __$delete = $Function(_$delete);
+  static $Value? _$delete(Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as SharedPreferences;
+    final $result = obj.delete();
+    return $bool($result);
   }
 }
