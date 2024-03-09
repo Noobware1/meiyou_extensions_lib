@@ -1,7 +1,7 @@
 import 'package:isar/isar.dart';
+import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/src/models/interfaces/stub_source.dart';
 import 'package:nice_dart/nice_dart.dart';
-part 'extension.g.dart';
 
 abstract class Extension {
   abstract final String name;
@@ -11,9 +11,7 @@ abstract class Extension {
   abstract final bool isNsfw;
 }
 
-@collection
 class InstalledExtension extends Extension {
-  final Id id;
   @override
   final String name;
   @override
@@ -27,24 +25,22 @@ class InstalledExtension extends Extension {
 
   final List<ExtensionSource> sources;
   final List<byte>? icon;
-  final List<byte>? evc;
+
   final bool hasUpdate;
   final bool isOnline;
   final String? repoUrl;
 
   InstalledExtension({
-    this.id = Isar.autoIncrement,
     required this.name,
     required this.pkgName,
     required this.versionName,
-    required this.lang,
-    required this.isNsfw,
+    this.lang,
+    this.isNsfw = false,
     required this.sources,
-    required this.icon,
-    required this.evc,
-    required this.hasUpdate,
+    this.icon,
+    this.hasUpdate = false,
     required this.isOnline,
-    required this.repoUrl,
+    this.repoUrl,
   });
 
   Map<String, dynamic> toJson() {
@@ -71,9 +67,6 @@ class InstalledExtension extends Extension {
       repoUrl: json['repoUrl'],
       sources: ((json['sources'] as List?)?.mapList(ExtensionSource.fromJson))
           .orEmpty(),
-      hasUpdate: false,
-      icon: const [],
-      evc: const [],
     );
   }
 
@@ -91,7 +84,6 @@ class InstalledExtension extends Extension {
     String? repoUrl,
   }) {
     return InstalledExtension(
-      id: id,
       name: name ?? this.name,
       pkgName: pkgName ?? this.pkgName,
       versionName: versionName ?? this.versionName,
@@ -99,7 +91,6 @@ class InstalledExtension extends Extension {
       isNsfw: isNsfw ?? this.isNsfw,
       sources: sources ?? this.sources,
       icon: icon ?? this.icon,
-      evc: evc ?? this.evc,
       hasUpdate: hasUpdate ?? this.hasUpdate,
       isOnline: isOnline ?? this.isOnline,
       repoUrl: repoUrl ?? this.repoUrl,
@@ -107,49 +98,36 @@ class InstalledExtension extends Extension {
   }
 }
 
-@embedded
 class ExtensionSource {
-  final int id;
-  final String lang;
-  final String name;
-  final bool supportsHomepage;
+  final Source source;
   final bool isUsedLast;
 
   ExtensionSource({
-    this.id = -1,
-    this.lang = "",
-    this.name = "",
-    this.supportsHomepage = false,
+    required this.source,
     this.isUsedLast = false,
   });
 
-  String get visualName =>
-      lang.isEmpty ? name : "$name (${lang.toUpperCase()})";
+  String get visualName => source.lang.isEmpty
+      ? source.name
+      : "${source.name} (${source.lang.toUpperCase()})";
 
   Map<String, dynamic> toJson() {
     return {
-      "id": id,
-      "name": name,
-      "lang": lang,
-      "supportsHomepage": supportsHomepage ? 1 : 0,
+      "id": source.id,
       "isUsedLast": isUsedLast ? 1 : 0,
     };
   }
 
   factory ExtensionSource.fromJson(dynamic json) {
     return ExtensionSource(
-      id: json["id"],
-      name: json["name"],
-      lang: json["lang"],
-      supportsHomepage: (json["supportsHomepage"] as int) == 1,
-      isUsedLast: (json["isUsedLast"] as int) == 1,
+      source:
+          StubSource(id: json['id'], lang: json['lang'], name: json['name']),
+      isUsedLast: (json['isUsedLast'] as int) == 1,
     );
   }
 }
 
-@collection
 class AvailableExtension extends Extension {
-  final Id id;
   @override
   final String name;
   @override
@@ -169,7 +147,6 @@ class AvailableExtension extends Extension {
   String get visualName => name.substringAfter("Meiyou: ");
 
   AvailableExtension({
-    this.id = Isar.autoIncrement,
     required this.name,
     required this.pkgName,
     required this.versionName,
