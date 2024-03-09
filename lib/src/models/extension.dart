@@ -1,4 +1,5 @@
-import 'package:isar/isar.dart';
+import 'dart:typed_data';
+
 import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/src/models/interfaces/stub_source.dart';
 import 'package:nice_dart/nice_dart.dart';
@@ -24,7 +25,7 @@ class InstalledExtension extends Extension {
   final bool isNsfw;
 
   final List<ExtensionSource> sources;
-  final List<byte>? icon;
+  final Uint8List? icon;
 
   final bool hasUpdate;
   final bool isOnline;
@@ -77,8 +78,7 @@ class InstalledExtension extends Extension {
     String? lang,
     bool? isNsfw,
     List<ExtensionSource>? sources,
-    List<byte>? icon,
-    List<byte>? evc,
+    Uint8List? icon,
     bool? hasUpdate,
     bool? isOnline,
     String? repoUrl,
@@ -163,6 +163,7 @@ class AvailableExtension extends Extension {
   factory AvailableExtension.fromJson(dynamic json) {
     final String repoUrl = json['repoUrl'];
     final String pkg = json['pkg'];
+    
     return AvailableExtension(
       name: json['name'],
       pkgName: pkg,
@@ -191,7 +192,6 @@ class AvailableExtension extends Extension {
   }
 }
 
-@embedded
 class AvailableSource {
   final int id;
   final String lang;
@@ -227,7 +227,10 @@ class AvailableSource {
       "id": id,
       "name": name,
       "lang": lang,
-      "baseUrl": baseUrl,
-    };
+    }.apply((it) {
+      if (baseUrl != null) {
+        it["baseUrl"] = baseUrl!;
+      }
+    });
   }
 }

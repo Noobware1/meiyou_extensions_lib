@@ -39,21 +39,21 @@ class ExtensionLoader extends Runtime {
     return executeLib(library, name, [$ExtractorLink.wrap(link)]);
   }
 
-  dynamic getSource(String library, NetworkHelper networkHelper) {
-    return executeLib(
-        library, 'getSource', [$NetworkHelper.wrap(networkHelper)]);
+  dynamic getSource(String pkgName, NetworkHelper networkHelper) {
+    return executeLib('package:$pkgName/main.dart', 'getSource',
+        [$NetworkHelper.wrap(networkHelper)]);
   }
 
-  SourceFactory getSourceFactory(String library, NetworkHelper networkHelper) {
-    return getSource(library, networkHelper);
+  SourceFactory getSourceFactory(String pkgName, NetworkHelper networkHelper) {
+    return getSource(pkgName, networkHelper);
   }
 
-  Source loadSource(String library, NetworkHelper networkHelper) {
-    return getSource(library, networkHelper);
+  Source loadSource(String pkgName, NetworkHelper networkHelper) {
+    return getSource(pkgName, networkHelper);
   }
 
   CatalogueSource loadCatalogueSource(
-      String library, NetworkHelper networkHelper) {
-    return getSource(library, networkHelper);
+      String pkgName, NetworkHelper networkHelper) {
+    return getSource(pkgName, networkHelper);
   }
 }
