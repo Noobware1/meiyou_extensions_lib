@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'dart:typed_data';
+import 'package:archive/archive.dart';
+import 'package:nice_dart/nice_dart.dart';
 
 class Plugin {
   final ExtensionIcon? icon;
@@ -7,7 +10,34 @@ class Plugin {
 
   Plugin({this.icon, required this.code, required this.metadata});
 
-  
+  Uint8List encode() {
+    final archive = Archive().apply((it) {
+      if (icon != null) {
+        it.addFile(ArchiveFile('icon.png', icon!.length, icon!));
+      }
+      it.addFile(ArchiveFile('code.evc', code.length, code));
+      it.addFile(ArchiveFile.string('metadata.json', metadata.encode()));
+    });
+    return Uint8List.fromList(
+        ZipEncoder().encode(archive) ?? (throw Exception('Failed to encode')));
+  }
+
+  factory Plugin.decode(Uint8List encoded) {
+    final archive = ZipDecoder().decodeBytes(encoded);
+
+    Uint8List? getFile(String name) {
+      return (archive.findFile(name)?.content as List?)
+          ?.cast<int>()
+          .let(Uint8List.fromList);
+    }
+
+    final icon = getFile('icon.png');
+    final code = getFile('code.evc')!;
+    final metaData =
+        PluginMetaData.decode(utf8.decode(getFile('metadata.json')!));
+
+    return Plugin(icon: icon, code: code, metadata: metaData);
+  }
 }
 
 class PluginMetaData {
@@ -28,6 +58,13 @@ class PluginMetaData {
     required this.isOnline,
     this.repoUrl,
   });
+
+  factory PluginMetaData.decode(String json) =>
+      PluginMetaData.fromJson(jsonDecode(json));
+
+  String encode() {
+    return jsonEncode(toJson());
+  }
 
   Map<String, dynamic> toJson() {
     return {
