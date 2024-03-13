@@ -7,7 +7,7 @@ abstract class Filter<T> {
   T state;
 
   @override
-  bool operator ==(Object? other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is Filter && other.name == name && other.state == state;
   }

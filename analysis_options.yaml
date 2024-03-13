@@ -18,7 +18,7 @@ include: package:lints/recommended.yaml
 linter:
   rules:
     unnecessary_this: true
-
+    prefer_interpolation_to_compose_strings: false
 # analyzer:
 #   exclude:
 #     - path/to/excluded/files/**

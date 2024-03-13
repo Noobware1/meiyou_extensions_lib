@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'dart:convert';
 
 String? _sharedPreferencesDirectory;
@@ -85,10 +84,9 @@ class SharedPreferences {
     if (_sharedPreferencesDirectory == null) {
       throw Exception('SharedPreferences has not been initialize');
     }
-    // ignore: prefer_interpolation_to_compose_strings
-    return File((_sharedPreferencesDirectory! +
-        Platform.pathSeparator +
-        '$_name.json'));
+    return File(
+      _sharedPreferencesDirectory! + Platform.pathSeparator + '$_name.json',
+    );
   }
 
   T? _get<T>(String key, T? defaultValue) {

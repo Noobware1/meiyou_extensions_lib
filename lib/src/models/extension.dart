@@ -24,24 +24,23 @@ class InstalledExtension extends Extension {
   @override
   final bool isNsfw;
 
-  final List<ExtensionSource> sources;
+  final List<Source> sources;
   final Uint8List? icon;
-
+  final String? repoUrl;
   final bool hasUpdate;
   final bool isOnline;
-  final String? repoUrl;
 
   InstalledExtension({
     required this.name,
     required this.pkgName,
     required this.versionName,
-    this.lang,
-    this.isNsfw = false,
     required this.sources,
-    this.icon,
-    this.hasUpdate = false,
     required this.isOnline,
+    this.lang,
+    this.icon,
     this.repoUrl,
+    this.isNsfw = false,
+    this.hasUpdate = false,
   });
 
   Map<String, dynamic> toJson() {
@@ -51,7 +50,6 @@ class InstalledExtension extends Extension {
       "version": versionName,
       "lang": lang,
       "nsfw": isNsfw ? 1 : 0,
-      "sources": sources.mapList((e) => e.toJson()),
       "isOnline": isOnline ? 1 : 0,
       "repoUrl": repoUrl,
     };
@@ -66,8 +64,7 @@ class InstalledExtension extends Extension {
       isNsfw: (json['nsfw'] as int) == 1,
       isOnline: (json['isOnline'] as int) == 1,
       repoUrl: json['repoUrl'],
-      sources: ((json['sources'] as List?)?.mapList(ExtensionSource.fromJson))
-          .orEmpty(),
+      sources: [],
     );
   }
 
@@ -77,7 +74,7 @@ class InstalledExtension extends Extension {
     String? versionName,
     String? lang,
     bool? isNsfw,
-    List<ExtensionSource>? sources,
+    List<Source>? sources,
     Uint8List? icon,
     bool? hasUpdate,
     bool? isOnline,
@@ -94,35 +91,6 @@ class InstalledExtension extends Extension {
       hasUpdate: hasUpdate ?? this.hasUpdate,
       isOnline: isOnline ?? this.isOnline,
       repoUrl: repoUrl ?? this.repoUrl,
-    );
-  }
-}
-
-class ExtensionSource {
-  final Source source;
-  final bool isUsedLast;
-
-  ExtensionSource({
-    required this.source,
-    this.isUsedLast = false,
-  });
-
-  String get visualName => source.lang.isEmpty
-      ? source.name
-      : "${source.name} (${source.lang.toUpperCase()})";
-
-  Map<String, dynamic> toJson() {
-    return {
-      "id": source.id,
-      "isUsedLast": isUsedLast ? 1 : 0,
-    };
-  }
-
-  factory ExtensionSource.fromJson(dynamic json) {
-    return ExtensionSource(
-      source:
-          StubSource(id: json['id'], lang: json['lang'], name: json['name']),
-      isUsedLast: (json['isUsedLast'] as int) == 1,
     );
   }
 }
@@ -144,8 +112,6 @@ class AvailableExtension extends Extension {
   final String iconUrl;
   final String repoUrl;
 
-  String get visualName => name.substringAfter("Meiyou: ");
-
   AvailableExtension({
     required this.name,
     required this.pkgName,
@@ -156,25 +122,20 @@ class AvailableExtension extends Extension {
     required this.pluginName,
     required this.iconUrl,
     required this.repoUrl,
-  }) {
-    assert(name.startsWith("Meiyou: "));
-  }
+  });
 
-  factory AvailableExtension.fromJson(dynamic json) {
-    final String repoUrl = json['repoUrl'];
-    final String pkg = json['pkg'];
-    
+  factory AvailableExtension.fromJson(dynamic json, {required String repoUrl}) {
     return AvailableExtension(
       name: json['name'],
-      pkgName: pkg,
+      pkgName: json['pkg'],
       versionName: json['version'],
       lang: json['lang'],
       isNsfw: (json['nsfw'] as int) == 1,
-      iconUrl: '$repoUrl/icon/$pkg.png',
       pluginName: json['plugin'],
-      repoUrl: repoUrl,
+      iconUrl: '$repoUrl/icon/${json['pkg']}.png',
       sources: ((json['sources'] as List?)?.mapList(AvailableSource.fromJson))
           .orEmpty(),
+      repoUrl: repoUrl,
     );
   }
 
@@ -186,7 +147,6 @@ class AvailableExtension extends Extension {
       "version": versionName,
       "lang": lang,
       "nsfw": isNsfw ? 1 : 0,
-      "repoUrl": repoUrl,
       "sources": sources.mapList((e) => e.toJson()),
     };
   }
