@@ -1,3 +1,5 @@
+import 'dart:async';
+
 abstract class Preference<T> {
   String key();
 
@@ -10,6 +12,8 @@ abstract class Preference<T> {
   void delete();
 
   T defaultValue();
+
+  Stream<T> changes();
 
   /// A preference that should not be exposed in places like backups without user consent.
   static bool isPrivate(String key) {

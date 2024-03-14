@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:dart_eval/stdlib/async.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 
@@ -188,6 +191,9 @@ class $Preference<T> implements Preference<T>, $Instance {
       case 'defaultValue':
         return $Function((runtime, target, args) =>
             _$defaultValue(runtime, target, args, _wrapper));
+      case 'changes':
+        return $Function((runtime, target, args) =>
+            _$changes(runtime, target, args, (value) => _wrapper(value)));
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -310,4 +316,22 @@ class $Preference<T> implements Preference<T>, $Instance {
     );
     return $String($result);
   }
+
+  @override
+  Stream<T> changes() => $value.changes();
+  static $Value? _$changes(Runtime runtime, $Value? target, List<$Value?> args,
+      _Wrapper<dynamic> wrapper) {
+    final obj = target?.$value as Preference;
+    final $result = obj.changes().transform(_$StreamTransformer(wrapper));
+    return $Stream.wrap($result);
+  }
+}
+
+class _$StreamTransformer extends StreamTransformerBase<dynamic, $Value?> {
+  final $Value? Function(dynamic) _wrapper;
+
+  _$StreamTransformer(this._wrapper);
+
+  @override
+  Stream<$Value?> bind(Stream stream) => stream.map((event) => _wrapper(event));
 }

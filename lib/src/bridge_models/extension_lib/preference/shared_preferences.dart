@@ -5,8 +5,6 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart
 
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 
-typedef SharedPreferencesnew = SharedPreferences Function(String? name);
-
 /// dart_eval bimodal wrapper for [SharedPreferences]
 class $SharedPreferences implements SharedPreferences, $Instance {
   /// Configure the [$SharedPreferences] wrapper for use in a [Runtime]
@@ -314,6 +312,34 @@ class $SharedPreferences implements SharedPreferences, $Instance {
             namedParams: [],
           ),
           isStatic: false),
+      'addListener': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.voidType, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'listener',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'removeListener': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.voidType, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'listener',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false)
     },
     getters: {},
     setters: {},
@@ -364,6 +390,10 @@ class $SharedPreferences implements SharedPreferences, $Instance {
         return __$getAll;
       case 'delete':
         return __$delete;
+      case 'addListener':
+        return __$addListener;
+      case 'removeListener':
+        return __$removeListener;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -642,5 +672,35 @@ class $SharedPreferences implements SharedPreferences, $Instance {
     final obj = target?.$value as SharedPreferences;
     final $result = obj.delete();
     return $bool($result);
+  }
+
+  @override
+  void addListener(OnSharedPreferenceChangeListener listener) =>
+      $value.addListener(
+        listener,
+      );
+  static const __$addListener = $Function(_$addListener);
+  static $Value? _$addListener(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as SharedPreferences;
+    final listener = args[0] as EvalCallable;
+    obj.addListener((preferences, key) => listener.call(
+        runtime, target, [$SharedPreferences.wrap(preferences), $String(key)]));
+    return null;
+  }
+
+  @override
+  void removeListener(OnSharedPreferenceChangeListener listener) =>
+      $value.removeListener(
+        listener,
+      );
+  static const __$removeListener = $Function(_$removeListener);
+  static $Value? _$removeListener(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as SharedPreferences;
+    final listener = args[0] as EvalCallable;
+    obj.removeListener((preferences, key) => listener.call(
+        runtime, target, [$SharedPreferences.wrap(preferences), $String(key)]));
+    return null;
   }
 }
