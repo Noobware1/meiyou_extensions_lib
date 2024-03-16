@@ -51,64 +51,11 @@ extension ElementExtensions on Element {
     }
   }
 
-  String? get getSrc {
-    try {
-      return regSrcMatcher(outerHtml);
-    } catch (e) {
-      return null;
-    }
-  }
+  String? get getSrc => attr('src');
 
-  String? get getImg {
-    try {
-      return regImgMatcher(outerHtml);
-    } catch (e) {
-      return null;
-    }
-  }
+  String? get getImg => selectFirst('img')?.attr('src');
 
-  String? get getHref {
-    try {
-      return regHrefMatcher(outerHtml);
-    } catch (e) {
-      return null;
-    }
-  }
+  String? get getHref => attr('href');
 
-  String? get getDataSrc {
-    try {
-      return regDataSrcMatcher(outerHtml);
-    } catch (e) {
-      return null;
-    }
-  }
-}
-
-/// Shamelessly copied from https://github.com/kodjodevf/mangayomi/blob/main/lib/utils/reg_exp_matcher.dart
-String regHrefMatcher(String input) {
-  RegExp exp = RegExp(r'href="([^"]+)"');
-  Iterable<Match> matches = exp.allMatches(input);
-  String? firstMatch = matches.first.group(1);
-  return firstMatch!;
-}
-
-String regDataSrcMatcher(String input) {
-  RegExp exp = RegExp(r'data-src="([^"]+)"');
-  Iterable<Match> matches = exp.allMatches(input);
-  String? firstMatch = matches.first.group(1);
-  return firstMatch!;
-}
-
-String regSrcMatcher(String input) {
-  RegExp exp = RegExp(r'src="([^"]+)"');
-  Iterable<Match> matches = exp.allMatches(input);
-  String? firstMatch = matches.first.group(1);
-  return firstMatch!;
-}
-
-String regImgMatcher(String input) {
-  RegExp exp = RegExp(r'img="([^"]+)"');
-  Iterable<Match> matches = exp.allMatches(input);
-  String? firstMatch = matches.first.group(1);
-  return firstMatch!;
+  String? get getDataSrc => attr('data-src');
 }

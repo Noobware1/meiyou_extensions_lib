@@ -10,14 +10,14 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 
 final Headers _DEFAULT_HEADERS = Headers.Builder().build();
 
-Request GET(dynamic url, [Headers? headers]) {
+Request GET(dynamic url, {Headers? headers}) {
   return Request.Builder()
       .url(url)
       .headers(headers ?? _DEFAULT_HEADERS)
       .build();
 }
 
-Request POST(dynamic url, [Headers? headers, RequestBody? body]) {
+Request POST(dynamic url, {Headers? headers, RequestBody? body}) {
   return Request.Builder()
       .url(url)
       .post(body)
@@ -25,7 +25,7 @@ Request POST(dynamic url, [Headers? headers, RequestBody? body]) {
       .build();
 }
 
-Request PUT(dynamic url, [Headers? headers, RequestBody? body]) {
+Request PUT(dynamic url, {Headers? headers, RequestBody? body}) {
   return Request.Builder()
       .url(url)
       .put(body)
@@ -33,7 +33,7 @@ Request PUT(dynamic url, [Headers? headers, RequestBody? body]) {
       .build();
 }
 
-Request DELETE(dynamic url, [Headers? headers, RequestBody? body]) {
+Request DELETE(dynamic url, {Headers? headers, RequestBody? body}) {
   return Request.Builder()
       .url(url)
       .delete(body)
@@ -71,13 +71,14 @@ class $Requests {
             BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic, []),
                 nullable: false),
             false),
+      ],
+      namedParams: [
         BridgeParameter(
             'headers',
             BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
                 nullable: true),
             true)
       ],
-      namedParams: [],
     ),
   );
 
@@ -93,6 +94,8 @@ class $Requests {
             BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic, []),
                 nullable: false),
             false),
+      ],
+      namedParams: [
         BridgeParameter(
             'headers',
             BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
@@ -104,7 +107,6 @@ class $Requests {
                 nullable: true),
             true)
       ],
-      namedParams: [],
     ),
   );
 
@@ -120,6 +122,8 @@ class $Requests {
             BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic, []),
                 nullable: false),
             false),
+      ],
+      namedParams: [
         BridgeParameter(
             'headers',
             BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
@@ -131,7 +135,6 @@ class $Requests {
                 nullable: true),
             true)
       ],
-      namedParams: [],
     ),
   );
 
@@ -147,6 +150,8 @@ class $Requests {
             BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic, []),
                 nullable: false),
             false),
+      ],
+      namedParams: [
         BridgeParameter(
             'headers',
             BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
@@ -158,7 +163,6 @@ class $Requests {
                 nullable: true),
             true)
       ],
-      namedParams: [],
     ),
   );
 
@@ -166,7 +170,7 @@ class $Requests {
   static $Value? _$GET(Runtime runtime, $Value? target, List<$Value?> args) {
     final url = args[0]?.$reified;
     final headers = args[1]?.$value as Headers?;
-    final $result = GET(url, headers);
+    final $result = GET(url, headers: headers);
     return $Request.wrap($result);
   }
 
@@ -175,7 +179,7 @@ class $Requests {
     final url = args[0]?.$reified;
     final headers = args[1]?.$value as Headers?;
     final body = args[2]?.$value as RequestBody?;
-    final $result = POST(url, headers, body);
+    final $result = POST(url, headers: headers, body: body);
     return $Request.wrap($result);
   }
 
@@ -184,7 +188,7 @@ class $Requests {
     final url = args[0]?.$reified;
     final headers = args[1]?.$value as Headers?;
     final body = args[2]?.$value as RequestBody?;
-    final $result = PUT(url, headers, body);
+    final $result = PUT(url, headers: headers, body: body);
     return $Request.wrap($result);
   }
 
@@ -193,7 +197,7 @@ class $Requests {
     final url = args[0]?.$reified;
     final headers = args[1]?.$value as Headers?;
     final body = args[2]?.$value as RequestBody?;
-    final $result = DELETE(url, headers, body);
+    final $result = DELETE(url, headers: headers, body: body);
     return $Request.wrap($result);
   }
 }
