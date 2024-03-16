@@ -191,6 +191,39 @@ class $PreferenceStore implements PreferenceStore, $Instance {
             },
           ),
           isStatic: false),
+      'getEnum': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.preference, [
+                  BridgeTypeRef.ref('T', []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'key',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'defaultValue',
+                  BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'values',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(CoreTypes.list, [
+                        BridgeTypeRef.ref('T', []),
+                      ]),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+            generics: {
+              'T': BridgeGenericParam(),
+            },
+          ),
+          isStatic: false),
       'getAll': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -230,6 +263,8 @@ class $PreferenceStore implements PreferenceStore, $Instance {
         return __$getStringList;
       case 'getObject':
         return __$getObject;
+      case 'getEnum':
+        return __$getEnum;
       case 'getAll':
         return __$getAll;
       default:
@@ -409,5 +444,25 @@ class $PreferenceStore implements PreferenceStore, $Instance {
 
       return $MapEntry.wrap(MapEntry($String(key), _value));
     }));
+  }
+
+  @override
+  Preference<T> getEnum<T extends Enum>(
+          String key, T defaultValue, List<T> values) =>
+      $value.getEnum(key, defaultValue, values);
+
+  static const __$getEnum = $Function(_$getEnum);
+  static $Value? _$getEnum(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as PreferenceStore;
+    final key = args[0]?.$value as String;
+    final Enum defaultValue = args[1]?.$value;
+    final values = (args[2]?.$reified as List).cast<Enum>();
+    final $result = obj.getEnum(
+      key,
+      defaultValue,
+      values,
+    );
+    return $Preference.wrap($result, (val) => runtime.wrap(val));
   }
 }

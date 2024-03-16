@@ -23,5 +23,11 @@ abstract class PreferenceStore {
     Deserializer<T> deserializer,
   );
 
+  Preference<T> getEnum<T extends Enum>(
+    String key,
+    T defaultValue,
+    List<T> values,
+  );
+
   Map<String, dynamic> getAll();
 }
