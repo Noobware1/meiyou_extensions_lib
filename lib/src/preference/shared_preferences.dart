@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'dart:convert';
 
-String? _sharedPreferencesDirectory;
+import 'package:meiyou_extensions_lib/src/lib_overrides.dart';
 
 typedef OnSharedPreferenceChangeListener = void Function(
     SharedPreferences sharedPreferences, String key);
 
 class SharedPreferences {
+  final String _dir;
   final String _name;
   final Map<String, dynamic> _preferencesMap = {};
 
@@ -26,15 +27,10 @@ class SharedPreferences {
   int _notificationCallStackDepth = 0;
   int _reentrantlyRemovedListeners = 0;
 
-  SharedPreferences([String? name]) : _name = name ?? 'shared_preferences' {
+  SharedPreferences([String? name])
+      : _name = name ?? 'shared_preferences',
+        _dir = ExtensionlibOverrides.sharedPreferencesDir {
     _loadPreferences();
-  }
-
-  // this will allow more of a syncronous usage
-  // must be called before any usage of SharedPreferences
-  static void initialize(String directory) {
-    _sharedPreferencesDirectory = directory;
-    return;
   }
 
   void clear() {
@@ -103,11 +99,8 @@ class SharedPreferences {
   }
 
   File _getPreferencesFile() {
-    if (_sharedPreferencesDirectory == null) {
-      throw Exception('SharedPreferences has not been initialize');
-    }
     return File(
-      _sharedPreferencesDirectory! + Platform.pathSeparator + '$_name.json',
+      _dir + Platform.pathSeparator + '$_name.json',
     );
   }
 

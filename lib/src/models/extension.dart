@@ -1,7 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:meiyou_extensions_lib/models.dart';
-import 'package:meiyou_extensions_lib/src/models/interfaces/stub_source.dart';
+import 'package:meiyou_extensions_lib/src/models/source/source.dart';
+import 'package:meiyou_extensions_lib/src/models/source/stub_source.dart';
 import 'package:nice_dart/nice_dart.dart';
 
 abstract class Extension {

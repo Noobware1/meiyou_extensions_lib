@@ -4,16 +4,13 @@ import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_security.dart';
 import 'package:meiyou_extensions_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/plugin.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/extractor_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/network_helper.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
-import 'package:meiyou_extensions_lib/src/models/extractor_link.dart';
-import 'package:meiyou_extensions_lib/src/models/interfaces/catalogue_source.dart';
-import 'package:meiyou_extensions_lib/src/models/interfaces/extractor_api.dart';
-import 'package:meiyou_extensions_lib/src/models/interfaces/source.dart';
-import 'package:meiyou_extensions_lib/src/models/interfaces/source_factory.dart';
+import 'package:meiyou_extensions_lib/src/models/source/catalogue_source.dart';
+import 'package:meiyou_extensions_lib/src/models/source/source.dart';
+import 'package:meiyou_extensions_lib/src/models/source/source_factory.dart';
 
 class ExtensionLoader extends Runtime {
   ExtensionLoader(ByteData evc) : super(evc) {
@@ -34,14 +31,8 @@ class ExtensionLoader extends Runtime {
       ..addPlugin(ExtensionLibPlugin());
   }
 
-  ExtractorApi loadExtractorApi(
-      String library, String name, ExtractorLink link) {
-    return executeLib(library, name, [$ExtractorLink.wrap(link)]);
-  }
-
   dynamic getSource(String pkgName, NetworkHelper networkHelper) {
-    return executeLib('package:$pkgName/main.dart', 'getSource',
-        [$NetworkHelper.wrap(networkHelper)]);
+    return executeLib('package:$pkgName/main.dart', 'getSource', []);
   }
 
   SourceFactory getSourceFactory(String pkgName, NetworkHelper networkHelper) {

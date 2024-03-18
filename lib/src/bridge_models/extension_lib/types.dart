@@ -86,162 +86,145 @@ class ExtensionLibTypes {
 
   //////////////////////////////// Interfaces //////////////////////////////////
 
-  static const extractorApi = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/interfaces/extractor_api.dart',
-      'ExtractorApi');
-
   static const source = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/interfaces/source.dart',
-      'Source');
+      'package:meiyou_extensions_lib/src/models/source/source.dart', 'Source');
 
   static const sourceFactory = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/interfaces/source_factory.dart',
+      'package:meiyou_extensions_lib/src/models/source/source_factory.dart',
       'SourceFactory');
 
   static const catalogueSource = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/interfaces/catalogue_source.dart',
+      'package:meiyou_extensions_lib/src/models/source/catalogue_source.dart',
       'CatalogueSource');
 
   static const httpSource = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/interfaces/online/http_source.dart',
+      'package:meiyou_extensions_lib/src/models/source/online/http_source.dart',
       'HttpSource');
 
   static const parsedHttpSource = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/interfaces/online/parsed_http_source.dart',
+      'package:meiyou_extensions_lib/src/models/source/online/parsed_http_source.dart',
       'ParsedHttpSource');
 
   //////////////////////////////////////////////////////////////////////////////
 
-  //////////////////////////////// Media ///////////////////////////////////////
+  /// Bridge type spec for [$Quality]
+  static const quality = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/quality.dart', 'Quality');
 
-  static const mediaType = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media/media.dart', 'MediaType');
+  /// Bridge type spec for [$ContentCategory]
+  static const contentCategory = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_category.dart',
+      'ContentCategory');
 
-  static const media = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media/media.dart', 'Media');
+  /// Bridge type spec for [$ContentItem]
+  static const contentItem = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_item.dart',
+      'ContentItem');
 
-  //////////////////////////////////////////////////////////////////////////////
+  /// Bridge type spec for [$ContentDataLink]
+  static const contentDataLink = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_data_link.dart',
+      'ContentDataLink');
 
-  //////////////////////////////// Video ///////////////////////////////////////
+  /// Bridge type spec for [$ContentData]
+  static const contentData = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_data.dart',
+      'ContentData');
 
-  static const subtitleFormat = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media/video/subtitle_format.dart',
-      'SubtitleFormat');
+  /// Bridge type spec for [$Video]
+  static const video = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_data.dart', 'Video');
 
-  static const subtitle = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media/video/subtitle.dart',
-      'Subtitle');
-
-  static const videoFormat = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media/video/video_format.dart',
-      'VideoFormat');
-
-  static const videoQuality = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media/video/video_quality.dart',
-      'VideoQuality');
-
+  /// Bridge type spec for [$VideoSource]
   static const videoSource = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media/video/video_source.dart',
+      'package:meiyou_extensions_lib/src/models/content_data.dart',
       'VideoSource');
 
-  static const video = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media/video/video.dart',
-      'Video');
+  /// Bridge type spec for [$Subtitle]
+  static const subtitle = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_data.dart', 'Subtitle');
 
-  //////////////////////////////////////////////////////////////////////////////
+  /// Bridge type spec for [$ContentDataType]
+  static const contentDataType = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_data.dart',
+      'ContentDataType');
 
-  //////////////////////////////// MediaItem ///////////////////////////////////
+  /// Bridge type spec for [$VideoFormat]
+  static const videoFormat = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_data.dart',
+      'VideoFormat');
 
-  /// Bridge type spec for [$Anime]
-  static const anime = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media_item/anime.dart',
-      'Anime');
+  /// Bridge type spec for [$SubtitleFormat]
+  static const subtitleFormat = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_data.dart',
+      'SubtitleFormat');
+
+  /// Bridge type spec for [$Content]
+  static const content = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content.dart', 'Content');
+
+  /// Bridge type spec for [$LazyContent]
+  static const lazyContent = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content.dart', 'LazyContent');
 
   /// Bridge type spec for [$Movie]
   static const movie = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media_item/movie.dart',
-      'Movie');
+      'package:meiyou_extensions_lib/src/models/content.dart', 'Movie');
 
-  /// Bridge type spec for [$TvSeries]
-  static const tvSeries = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media_item/tv_series.dart',
-      'TvSeries');
+  /// Bridge type spec for [$Series]
+  static const series = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content.dart', 'Series');
 
-  /// Bridge type spec for [$MediaItem]
-  static const mediaItem = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media_item/media_item.dart',
-      'MediaItem');
-
-  /// Bridge type spec for [$MediaItemType]
-  static const mediaItemType = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media_item/media_item.dart',
-      'MediaItemType');
-
-  //////////////////////////////////////////////////////////////////////////////
-
-  /// Bridge type spec for [$ActorData]
-  static const actorData = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/actor_data.dart', 'ActorData');
-
-  /// Bridge type spec for [$Episode]
-  static const episode = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/episode.dart', 'Episode');
-
-  /// Bridge type spec for [$ExternalId]
-  static const externalId = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/external_id.dart',
-      'ExternalId');
-
-  /// Bridge type spec for [$SearchResponse]
-  static const searchResponse = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/search_response.dart',
-      'SearchResponse');
-
-  /// Bridge type spec for [$ExtractorLink]
-  static const extractorLink = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/extractor_link.dart',
-      'ExtractorLink');
-
-  /// Bridge type spec for [$HomePageData]
-  static const homePageData = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/homepage.dart', 'HomePageData');
-
-  /// Bridge type spec for [$HomePageRequest]
-  static const homePageRequest = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/homepage.dart',
-      'HomePageRequest');
-
-  /// Bridge type spec for [$HomePage]
-  static const homePage = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/homepage.dart', 'HomePage');
-
-  /// Bridge type spec for [$HomePageList]
-  static const homePageList = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/homepage.dart', 'HomePageList');
-
-  /// Bridge type spec for [$MediaDetails]
-  static const mediaDetails = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/media_details.dart',
-      'MediaDetails');
-
-  /// Bridge type spec for [$SeasonData]
-  static const seasonData = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/season_data.dart',
-      'SeasonData');
+  /// Bridge type spec for [$Anime]
+  static const anime = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content.dart', 'Anime');
 
   /// Bridge type spec for [$SeasonList]
   static const seasonList = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/season_list.dart',
-      'SeasonList');
+      'package:meiyou_extensions_lib/src/models/content.dart', 'SeasonList');
 
-  /// Bridge type spec for [$ShowStatus]
-  static const showStatus = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/show_status.dart',
-      'ShowStatus');
+  /// Bridge type spec for [$Season]
+  static const season = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content.dart', 'Season');
 
-  /// Bridge type spec for [$ShowType]
-  static const showType = BridgeTypeSpec(
-      'package:meiyou_extensions_lib/src/models/show_type.dart', 'ShowType');
+  /// Bridge type spec for [$Episode]
+  static const episode = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content.dart', 'Episode');
+
+  /// Bridge type spec for [$HomePage]
+  static const homePage = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/home_page.dart', 'HomePage');
+
+  /// Bridge type spec for [$HomePageData]
+  static const homePageData = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/home_page.dart',
+      'HomePageData');
+
+  /// Bridge type spec for [$HomePageRequest]
+  static const homePageRequest = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/home_page.dart',
+      'HomePageRequest');
+
+  /// Bridge type spec for [$SearchPage]
+  static const searchPage = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/search_page.dart',
+      'SearchPage');
+
+  /// Bridge type spec for [$InfoPage]
+  static const infoPage = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/info_page.dart', 'InfoPage');
+
+  /// Bridge type spec for [$ExternalId]
+  static const externalId = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/info_page.dart', 'ExternalId');
+
+  /// Bridge type spec for [$Character]
+  static const character = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/info_page.dart', 'Character');
+
+  /// Bridge type spec for [$Status]
+  static const status = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/info_page.dart', 'Status');
 
   ///////////////////////////// Filter /////////////////////////////////////////
   static const _filterSrc =
