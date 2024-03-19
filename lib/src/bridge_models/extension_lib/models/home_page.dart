@@ -572,7 +572,7 @@ class $HomePageRequest implements HomePageRequest, $Instance {
                 'horizontalImages',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
                     nullable: false),
-                false)
+                true)
           ],
         ),
         isFactory: false,
@@ -717,7 +717,7 @@ class $HomePageRequest implements HomePageRequest, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final name = args[0]?.$value as String;
     final data = args[1]?.$value as String;
-    final horizontalImages = args[2]?.$value as bool;
+    final horizontalImages = args[2]?.$value as bool? ?? false;
     return $HomePageRequest.wrap(HomePageRequest(
       name: name,
       data: data,

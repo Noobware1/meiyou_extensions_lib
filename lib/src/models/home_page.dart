@@ -127,7 +127,7 @@ class HomePageRequest {
   const HomePageRequest({
     required this.name,
     required this.data,
-    required this.horizontalImages,
+    this.horizontalImages = false,
   });
 
   HomePageRequest copyWith({
