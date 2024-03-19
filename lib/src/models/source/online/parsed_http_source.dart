@@ -44,7 +44,7 @@ abstract class ParsedHttpSource extends HttpSource {
   SearchPage searchPageParse(
       int page, String query, FilterList filters, Response response) {
     final document = response.body.document;
-    final entries = document
+    final items = document
         .select(searchPageItemSelector(page, query, filters))
         .mapList((element) =>
             searchPageItemFromElement(page, query, filters, element));
@@ -55,7 +55,7 @@ abstract class ParsedHttpSource extends HttpSource {
         null;
 
     return SearchPage(
-      entries: entries,
+      items: items,
       hasNextPage: hasNextPage,
     );
   }
@@ -74,10 +74,11 @@ abstract class ParsedHttpSource extends HttpSource {
 
   @override
   Future<InfoPage> infoPageParse(ContentItem contentItem, Response response) {
-    return infoPageFromDocument(response.body.document);
+    return infoPageFromDocument(contentItem, response.body.document);
   }
 
-  Future<InfoPage> infoPageFromDocument(Document document);
+  Future<InfoPage> infoPageFromDocument(
+      ContentItem contentItem, Document document);
 
   @override
   List<ContentDataLink> contentDataLinksParse(String url, Response response) {

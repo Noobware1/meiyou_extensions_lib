@@ -149,16 +149,115 @@ class $InfoPage implements InfoPage, $Instance {
           returns: BridgeTypeAnnotation($type),
           params: [
             BridgeParameter(
-                'entry',
+                'item',
                 BridgeTypeAnnotation(
                     BridgeTypeRef(ExtensionLibTypes.contentItem, []),
                     nullable: false),
                 false)
           ],
-          namedParams: [],
+          namedParams: [
+            BridgeParameter(
+                'category',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(ExtensionLibTypes.contentCategory, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'name',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'url',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'otherTitles',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                    ]),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'status',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(ExtensionLibTypes.status, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'bannerImage',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'posterImage',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'rating',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'description',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'startDate',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dateTime, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'duration',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'genres',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                    ]),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'recommendations',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [
+                      BridgeTypeRef(ExtensionLibTypes.contentItem, []),
+                    ]),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'externalIds',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [
+                      BridgeTypeRef(ExtensionLibTypes.externalId, []),
+                    ]),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'characters',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [
+                      BridgeTypeRef(ExtensionLibTypes.character, []),
+                    ]),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'content',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(ExtensionLibTypes.content, []),
+                    nullable: true),
+                true)
+          ],
         ),
         isFactory: true,
-      )
+      ),
     },
     fields: {
       'category': BridgeFieldDef(
@@ -622,9 +721,41 @@ class $InfoPage implements InfoPage, $Instance {
   static const __$InfoPage$withItem = $Function(_$InfoPage$withItem);
   static $Value? _$InfoPage$withItem(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final entry = args[0]?.$reified as ContentItem;
+    final item = args[0]?.$value as ContentItem;
+    final category = args[1]?.$value as ContentCategory?;
+    final name = args[2]?.$value as String?;
+    final url = args[3]?.$value as String?;
+    final otherTitles = (args[4]?.$reified as List?)?.cast<String>();
+    final status = args[5]?.$value as Status?;
+    final bannerImage = args[6]?.$value as String?;
+    final posterImage = args[7]?.$value as String?;
+    final rating = args[8]?.$value as double?;
+    final description = args[9]?.$value as String?;
+    final startDate = args[10]?.$value as DateTime?;
+    final duration = args[11]?.$value as Duration?;
+    final genres = (args[12]?.$reified as List?)?.cast<String>();
+    final recommendations = (args[13]?.$reified as List?)?.cast<ContentItem>();
+    final externalIds = (args[14]?.$reified as List?)?.cast<ExternalId>();
+    final characters = (args[15]?.$reified as List?)?.cast<Character>();
+    final content = args[16]?.$reified as Content?;
     return $InfoPage.wrap(InfoPage.withItem(
-      entry,
+      item,
+      category: category,
+      name: name,
+      url: url,
+      otherTitles: otherTitles,
+      status: status,
+      bannerImage: bannerImage,
+      posterImage: posterImage,
+      rating: rating,
+      description: description,
+      startDate: startDate,
+      duration: duration,
+      genres: genres,
+      recommendations: recommendations,
+      externalIds: externalIds,
+      characters: characters,
+      content: content,
     ));
   }
 
@@ -1012,7 +1143,8 @@ class $Status implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeEnumValues($type.spec!.library, 'Status', $Status.$values);
+    runtime.registerBridgeEnumValues(
+        $type.spec!.library, 'Status', $Status.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.status);

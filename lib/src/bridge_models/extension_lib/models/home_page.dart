@@ -72,7 +72,7 @@ class $HomePage implements HomePage, $Instance {
                     nullable: false),
                 false),
             BridgeParameter(
-                'entries',
+                'items',
                 BridgeTypeAnnotation(
                     BridgeTypeRef(CoreTypes.list, [
                       BridgeTypeRef(ExtensionLibTypes.contentItem, []),
@@ -105,7 +105,7 @@ class $HomePage implements HomePage, $Instance {
                     nullable: false),
                 false),
             BridgeParameter(
-                'entries',
+                'items',
                 BridgeTypeAnnotation(
                     BridgeTypeRef(CoreTypes.list, [
                       BridgeTypeRef(ExtensionLibTypes.contentItem, []),
@@ -284,12 +284,12 @@ class $HomePage implements HomePage, $Instance {
   static $Value? _$HomePage$of(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final name = args[0]?.$value as String;
-    final entries = (args[1]?.$reified as List).cast<ContentItem>();
+    final items = (args[1]?.$reified as List).cast<ContentItem>();
     final horizontalImages = args[2]?.$value as bool? ?? false;
     final hasNextPage = args[3]?.$value as bool?;
     return $HomePage.wrap(HomePage.of(
       name: name,
-      entries: entries,
+      items: items,
       horizontalImages: horizontalImages,
       hasNextPage: hasNextPage,
     ));
@@ -299,11 +299,11 @@ class $HomePage implements HomePage, $Instance {
   static $Value? _$HomePage$fromRequest(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final reqeust = args[0]?.$reified as HomePageRequest;
-    final entries = (args[1]?.$reified as List).cast<ContentItem>();
+    final items = (args[1]?.$reified as List).cast<ContentItem>();
     final hasNextPage = args[2]?.$value as bool?;
     return $HomePage.wrap(HomePage.fromRequest(
       reqeust: reqeust,
-      entries: entries,
+      items: items,
       hasNextPage: hasNextPage,
     ));
   }
@@ -344,6 +344,8 @@ class $HomePageData implements HomePageData, $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($type.spec!.library, 'HomePageData.withRequest',
+        __$HomePageData$withRequest.call);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'HomePageData.', __$HomePageData$new.call);
   }
@@ -371,7 +373,7 @@ class $HomePageData implements HomePageData, $Instance {
                     nullable: false),
                 false),
             BridgeParameter(
-                'entries',
+                'items',
                 BridgeTypeAnnotation(
                     BridgeTypeRef(CoreTypes.list, [
                       BridgeTypeRef(ExtensionLibTypes.contentItem, []),
@@ -386,14 +388,37 @@ class $HomePageData implements HomePageData, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'withRequest': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [],
+          namedParams: [
+            BridgeParameter(
+                'request',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
+                    nullable: false),
+                false),
+            BridgeParameter(
+                'items',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [
+                      BridgeTypeRef(ExtensionLibTypes.contentItem, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+        ),
+        isFactory: false,
+      ),
     },
     fields: {
       'name': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
               nullable: false),
           isStatic: false),
-      'entries': BridgeFieldDef(
+      'items': BridgeFieldDef(
           BridgeTypeAnnotation(
               BridgeTypeRef(CoreTypes.list, [
                 BridgeTypeRef(ExtensionLibTypes.contentItem, []),
@@ -419,7 +444,7 @@ class $HomePageData implements HomePageData, $Instance {
                       nullable: true),
                   true),
               BridgeParameter(
-                  'entries',
+                  'items',
                   BridgeTypeAnnotation(
                       BridgeTypeRef(CoreTypes.list, [
                         BridgeTypeRef(ExtensionLibTypes.contentItem, []),
@@ -449,9 +474,9 @@ class $HomePageData implements HomePageData, $Instance {
     switch (identifier) {
       case 'name':
         return $String($value.name);
-      case 'entries':
-        return $List.wrap(List.generate($value.entries.length, (index) {
-          return $ContentItem.wrap($value.entries[index]);
+      case 'items':
+        return $List.wrap(List.generate($value.items.length, (index) {
+          return $ContentItem.wrap($value.items[index]);
         })) as $Value?;
       case 'horizontalImages':
         return $bool($value.horizontalImages);
@@ -483,16 +508,16 @@ class $HomePageData implements HomePageData, $Instance {
   @override
   String get name => $value.name;
   @override
-  List<ContentItem> get entries => $value.entries;
+  List<ContentItem> get items => $value.items;
   @override
   bool get horizontalImages => $value.horizontalImages;
 
   @override
   HomePageData copyWith(
-          {String? name, List<ContentItem>? entries, bool? horizontalImages}) =>
+          {String? name, List<ContentItem>? items, bool? horizontalImages}) =>
       $value.copyWith(
         name: name,
-        entries: entries,
+        items: items,
         horizontalImages: horizontalImages,
       );
   static const __$copyWith = $Function(_$copyWith);
@@ -500,32 +525,44 @@ class $HomePageData implements HomePageData, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as HomePageData;
     final name = args[0]?.$value as String?;
-    final entries = (args[1]?.$reified as List?)?.cast<ContentItem>();
+    final items = (args[1]?.$reified as List?)?.cast<ContentItem>();
     final horizontalImages = args[2]?.$value as bool?;
     final $result = obj.copyWith(
       name: name,
-      entries: entries,
+      items: items,
       horizontalImages: horizontalImages,
     );
     return $HomePageData.wrap($result);
+  }
+
+  static const __$HomePageData$withRequest =
+      $Function(_$HomePageData$withRequest);
+  static $Value? _$HomePageData$withRequest(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final request = args[0]?.$value as HomePageRequest;
+    final items = (args[1]?.$reified as List).cast<ContentItem>();
+    return $HomePageData.wrap(HomePageData.withRequest(
+      reqeust: request,
+      items: items,
+    ));
   }
 
   static const __$HomePageData$new = $Function(_$HomePageData$new);
   static $Value? _$HomePageData$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final name = args[0]?.$value as String;
-    final entries = (args[1]?.$reified as List).cast<ContentItem>();
+    final items = (args[1]?.$reified as List).cast<ContentItem>();
     final horizontalImages = args[2]?.$value as bool;
     return $HomePageData.wrap(HomePageData(
       name: name,
-      entries: entries,
+      items: items,
       horizontalImages: horizontalImages,
     ));
   }
 
   @override
   String toString() {
-    return 'HomePageData(name: $name, entries: $entries, horizontalImages: $horizontalImages)';
+    return 'HomePageData(name: $name, items: $items, horizontalImages: $horizontalImages)';
   }
 }
 

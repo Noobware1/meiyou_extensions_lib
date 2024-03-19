@@ -1,6 +1,5 @@
 // ignore_for_file: overridden_fields
 
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:html/dom.dart';
@@ -44,7 +43,8 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        $type.spec!.library, 'ParsedHttpSource.', __$ParsedHttpSource$new.call,isBridge: true);
+        $type.spec!.library, 'ParsedHttpSource.', __$ParsedHttpSource$new.call,
+        isBridge: true);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.parsedHttpSource);
@@ -223,6 +223,12 @@ class $ParsedHttpSource extends ParsedHttpSource
                 ]),
                 nullable: false),
             params: [
+              BridgeParameter(
+                  'contentItem',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.contentItem, []),
+                      nullable: false),
+                  false),
               BridgeParameter(
                   'document',
                   BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.document, []),
@@ -586,9 +592,12 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  Future<InfoPage> infoPageFromDocument(Document document) {
-    return ($_invoke('infoPageFromDocument', [$Document.wrap(document)])
-            as Future)
+  Future<InfoPage> infoPageFromDocument(
+      ContentItem contentItem, Document document) {
+    return ($_invoke('infoPageFromDocument', [
+      $ContentItem.wrap(contentItem),
+      $Document.wrap(document)
+    ]) as Future)
         .then((value) => value as InfoPage);
   }
 

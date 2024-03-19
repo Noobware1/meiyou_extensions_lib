@@ -1,3 +1,4 @@
+import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';
 
 class HomePage {
@@ -11,7 +12,7 @@ class HomePage {
 
   factory HomePage.of({
     required String name,
-    required List<ContentItem> entries,
+    required List<ContentItem> items,
     bool horizontalImages = false,
     bool? hasNextPage,
   }) {
@@ -19,28 +20,28 @@ class HomePage {
       data: [
         HomePageData(
           name: name,
-          entries: entries,
+          items: items,
           horizontalImages: horizontalImages,
         )
       ],
-      hasNextPage: hasNextPage ?? entries.isNotEmpty,
+      hasNextPage: hasNextPage ?? items.isNotEmpty,
     );
   }
 
   factory HomePage.fromRequest({
     required HomePageRequest reqeust,
-    required List<ContentItem> entries,
+    required List<ContentItem> items,
     bool? hasNextPage,
   }) {
     return HomePage(
       data: [
         HomePageData(
           name: reqeust.name,
-          entries: entries,
+          items: items,
           horizontalImages: reqeust.horizontalImages,
         )
       ],
-      hasNextPage: hasNextPage ?? entries.isNotEmpty,
+      hasNextPage: hasNextPage ?? items.isNotEmpty,
     );
   }
 
@@ -50,7 +51,7 @@ class HomePage {
   }) {
     return HomePage(
       data: [data],
-      hasNextPage: hasNextPage ?? data.entries.isNotEmpty,
+      hasNextPage: hasNextPage ?? data.items.isNotEmpty,
     );
   }
 
@@ -61,7 +62,7 @@ class HomePage {
     return HomePage(
       data: data,
       hasNextPage:
-          hasNextPage ?? data.any((element) => element.entries.isNotEmpty),
+          hasNextPage ?? data.any((element) => element.items.isNotEmpty),
     );
   }
 
@@ -83,30 +84,41 @@ class HomePage {
 
 class HomePageData {
   final String name;
-  final List<ContentItem> entries;
+  final List<ContentItem> items;
   final bool horizontalImages;
 
   const HomePageData({
     required this.name,
-    required this.entries,
+    required this.items,
     required this.horizontalImages,
   });
 
+  factory HomePageData.withRequest({
+    required HomePageRequest reqeust,
+    required List<ContentItem> items,
+  }) {
+    return HomePageData(
+      name: reqeust.name,
+      items: items,
+      horizontalImages: reqeust.horizontalImages,
+    );
+  }
+
   HomePageData copyWith({
     String? name,
-    List<ContentItem>? entries,
+    List<ContentItem>? items,
     bool? horizontalImages,
   }) {
     return HomePageData(
       name: name ?? this.name,
-      entries: entries ?? this.entries,
+      items: items ?? this.items,
       horizontalImages: horizontalImages ?? this.horizontalImages,
     );
   }
 
   @override
   String toString() {
-    return 'HomePageData(name: $name, entries: $entries, horizontalImages: $horizontalImages)';
+    return 'HomePageData(name: $name, items: $items, horizontalImages: $horizontalImages)';
   }
 }
 

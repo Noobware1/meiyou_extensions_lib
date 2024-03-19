@@ -42,7 +42,7 @@ class $SearchPage implements SearchPage, $Instance {
                     nullable: false),
                 false),
             BridgeParameter(
-                'entries',
+                'items',
                 BridgeTypeAnnotation(
                     BridgeTypeRef(CoreTypes.list, [
                       BridgeTypeRef(ExtensionLibTypes.contentItem, []),
@@ -55,7 +55,7 @@ class $SearchPage implements SearchPage, $Instance {
       )
     },
     fields: {
-      'entries': BridgeFieldDef(
+      'items': BridgeFieldDef(
           BridgeTypeAnnotation(
               BridgeTypeRef(CoreTypes.list, [
                 BridgeTypeRef(ExtensionLibTypes.contentItem, []),
@@ -76,7 +76,7 @@ class $SearchPage implements SearchPage, $Instance {
             params: [],
             namedParams: [
               BridgeParameter(
-                  'entries',
+                  'items',
                   BridgeTypeAnnotation(
                       BridgeTypeRef(CoreTypes.list, [
                         BridgeTypeRef(ExtensionLibTypes.contentItem, []),
@@ -104,9 +104,9 @@ class $SearchPage implements SearchPage, $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
-      case 'entries':
-        return $List.wrap(List.generate($value.entries.length, (index) {
-          return $ContentItem.wrap($value.entries[index]);
+      case 'items':
+        return $List.wrap(List.generate($value.items.length, (index) {
+          return $ContentItem.wrap($value.items[index]);
         })) as $Value?;
       case 'hasNextPage':
         return $bool($value.hasNextPage);
@@ -136,24 +136,24 @@ class $SearchPage implements SearchPage, $Instance {
   final SearchPage $value;
 
   @override
-  List<ContentItem> get entries => $value.entries;
+  List<ContentItem> get items => $value.items;
   @override
   bool get hasNextPage => $value.hasNextPage;
 
   @override
-  SearchPage copyWith({List<ContentItem>? entries, bool? hasNextPage}) =>
+  SearchPage copyWith({List<ContentItem>? items, bool? hasNextPage}) =>
       $value.copyWith(
-        entries: entries,
+        items: items,
         hasNextPage: hasNextPage,
       );
   static const __$copyWith = $Function(_$copyWith);
   static $Value? _$copyWith(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as SearchPage;
-    final entries = (args[0]?.$reified as List?)?.cast<ContentItem>();
+    final items = (args[0]?.$reified as List?)?.cast<ContentItem>();
     final hasNextPage = args[1]?.$value as bool?;
     final $result = obj.copyWith(
-      entries: entries,
+      items: items,
       hasNextPage: hasNextPage,
     );
     return $SearchPage.wrap($result);
@@ -163,10 +163,10 @@ class $SearchPage implements SearchPage, $Instance {
   static $Value? _$SearchPage$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final hasNextPage = args[0]?.$value as bool;
-    final entries = (args[1]?.$reified as List).cast<ContentItem>();
+    final items = (args[1]?.$reified as List).cast<ContentItem>();
     return $SearchPage.wrap(SearchPage(
       hasNextPage: hasNextPage,
-      entries: entries,
+      items: items,
     ));
   }
 

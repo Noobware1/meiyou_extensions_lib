@@ -77,15 +77,42 @@ class InfoPage {
 
   final Content? content;
 
-  factory InfoPage.withItem(ContentItem entry) {
+  factory InfoPage.withItem(
+    ContentItem item, {
+    ContentCategory? category,
+    String? name,
+    String? url,
+    List<String>? otherTitles,
+    Status? status,
+    String? bannerImage,
+    String? posterImage,
+    double? rating,
+    String? description,
+    DateTime? startDate,
+    Duration? duration,
+    List<String>? genres,
+    List<ContentItem>? recommendations,
+    List<ExternalId>? externalIds,
+    List<Character>? characters,
+    Content? content,
+  }) {
     return InfoPage(
-      name: entry.title,
-      url: entry.url,
-      posterImage: entry.poster,
-      category: entry.category,
-      description: entry.description,
-      genres: entry.generes,
-      rating: entry.rating,
+      name: name ?? item.title,
+      url: url ?? item.url,
+      posterImage: posterImage ?? item.poster,
+      category: category ?? item.category,
+      description: description ?? item.description,
+      genres: genres ?? item.generes,
+      rating: rating ?? item.rating,
+      status: status,
+      bannerImage: bannerImage,
+      startDate: startDate,
+      duration: duration,
+      otherTitles: otherTitles,
+      recommendations: recommendations,
+      externalIds: externalIds,
+      characters: characters,
+      content: content,
     );
   }
 
