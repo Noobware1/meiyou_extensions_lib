@@ -81,6 +81,9 @@ class ExtensionLibPlugin extends EvalPlugin {
     $Movie.configureForCompile(registry);
     $Series.configureForCompile(registry);
     $Anime.configureForCompile(registry);
+    $SeasonList.configureForCompile(registry);
+    $Season.configureForCompile(registry);
+    $Episode.configureForCompile(registry);
 
     // content_category.dart
     $ContentCategory.configureForCompile(registry);
@@ -188,6 +191,9 @@ class ExtensionLibPlugin extends EvalPlugin {
     $Movie.configureForRuntime(runtime);
     $Series.configureForRuntime(runtime);
     $Anime.configureForRuntime(runtime);
+    $SeasonList.configureForRuntime(runtime);
+    $Season.configureForRuntime(runtime);
+    $Episode.configureForRuntime(runtime);
 
     // content_category.dart
     $ContentCategory.configureForRuntime(runtime);
