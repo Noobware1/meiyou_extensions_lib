@@ -335,7 +335,7 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value $getHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(super
-        .getHomePage(args[0]!.$value, args[1]!.$value)
+        .getHomePage(args[1]!.$value, args[2]!.$value)
         .then((value) => $HomePage.wrap(value)));
   }
 
@@ -360,7 +360,7 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value $getSearchPage(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(super
-        .getSearchPage(args[0]!.$value, args[1]!.$value, args[2]!.$value)
+        .getSearchPage(args[1]!.$value, args[2]!.$value, args[3]!.$value)
         .then((value) => $SearchPage.wrap(value)));
   }
 
@@ -395,7 +395,7 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value $getInfoPage(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(super
-        .getInfoPage(args[0]!.$value)
+        .getInfoPage(args[1]!.$value)
         .then((value) => $InfoPage.wrap(value)));
   }
 
@@ -422,7 +422,7 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value $getContentDataLinks(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(super
-        .getContentDataLinks(args[0]!.$value)
+        .getContentDataLinks(args[1]!.$value)
         .then((value) => $List.wrap(value.mapList($ContentDataLink.wrap))));
   }
 
@@ -445,7 +445,8 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value $contentDataRequest(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    throw super.contentDataRequest(args[0]!.$value);
+    throw super.contentDataRequest(args[1]!.$value);
+    ;
   }
 
   @override
@@ -458,7 +459,7 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value $contentDataParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    throw super.contentDataParse(args[0]!.$value, args[1]!.$value);
+    throw super.contentDataParse(args[1]!.$value, args[2]!.$value);
   }
 
   @override
@@ -469,7 +470,7 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value $getContentData(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future
-        .wrap(super.getContentData(args[0]!.$value).then($ContentData.tryWrap));
+        .wrap(super.getContentData(args[1]!.$value).then($ContentData.tryWrap));
   }
 
   @override
@@ -627,25 +628,25 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value? $homePageParse(Runtime runtime, $Value? target, List<$Value?> args) {
     return $HomePage.wrap(
-        super.homePageParse(args[0]!.$value, args[1]!.$value, args[2]!.$value));
+        super.homePageParse(args[1]!.$value, args[2]!.$value, args[3]!.$value));
   }
 
   $Value? $searchPageParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $SearchPage.wrap(super.searchPageParse(
-        args[0]!.$value, args[1]!.$value, args[2]!.$value, args[3]!.$value));
+        args[1]!.$value, args[2]!.$value, args[3]!.$value, args[3]!.$value));
   }
 
   $Value? $infoPageParse(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(super
-        .infoPageParse(args[0]!.$value, args[1]!.$value)
+        .infoPageParse(args[1]!.$value, args[2]!.$value)
         .then((value) => $InfoPage.wrap(value)));
   }
 
   $Value? $contentDataLinksParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $List.wrap(super
-        .contentDataLinksParse(args[0]!.$value, args[1]!.$value as Response)
+        .contentDataLinksParse(args[1]!.$value, args[2]!.$value as Response)
         .mapList($ContentDataLink.wrap));
   }
 
@@ -660,7 +661,7 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value? $contentDataFromDocument(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return throw super
-        .contentDataFromDocument(args[0]!.$value, args[1]!.$value);
+        .contentDataFromDocument(args[1]!.$value, args[2]!.$value);
   }
 
   static const __$ParsedHttpSource$new = $Function(_$ParsedHttpSource$new);

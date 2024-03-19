@@ -361,7 +361,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   $Value $getHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(super
-        .getHomePage(args[0]!.$value, args[1]!.$value)
+        .getHomePage(args[1]!.$value, args[2]!.$value)
         .then((value) => $HomePage.wrap(value)));
   }
 
@@ -386,7 +386,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   $Value $getSearchPage(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(super
-        .getSearchPage(args[0]!.$value, args[1]!.$value, args[2]!.$value)
+        .getSearchPage(args[1]!.$value, args[2]!.$value, args[3]!.$value)
         .then((value) => $SearchPage.wrap(value)));
   }
 
@@ -421,7 +421,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   $Value $getInfoPage(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(super
-        .getInfoPage(args[0]!.$value)
+        .getInfoPage(args[1]!.$value)
         .then((value) => $InfoPage.wrap(value)));
   }
 
@@ -448,7 +448,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   $Value $getContentDataLinks(
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future.wrap(super
-        .getContentDataLinks(args[0]!.$value)
+        .getContentDataLinks(args[1]!.$value)
         .then((value) => $List.wrap(value.mapList($ContentDataLink.wrap))));
   }
 
@@ -471,7 +471,8 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   $Value $contentDataRequest(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    throw super.contentDataRequest(args[0]!.$value);
+    throw super.contentDataRequest(args[1]!.$value);
+    ;
   }
 
   @override
@@ -484,7 +485,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   $Value $contentDataParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    throw super.contentDataParse(args[0]!.$value, args[1]!.$value);
+    throw super.contentDataParse(args[1]!.$value, args[2]!.$value);
   }
 
   @override
@@ -495,7 +496,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
 
   $Value $getContentData(Runtime runtime, $Value? target, List<$Value?> args) {
     return $Future
-        .wrap(super.getContentData(args[0]!.$value).then($ContentData.tryWrap));
+        .wrap(super.getContentData(args[1]!.$value).then($ContentData.tryWrap));
   }
 
   @override

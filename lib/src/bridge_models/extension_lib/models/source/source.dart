@@ -4,6 +4,7 @@ import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_item.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/models/content_data.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';
@@ -188,6 +189,17 @@ class $Source extends Source with $Bridge<Source> {
   @override
   $Value? $bridgeGet(String identifier) {
     switch (identifier) {
+      case 'supportsHomePage':
+        return $bool(super.supportsHomePage);
+      case 'homePageRequestTimeout':
+        return $double(super.homePageRequestTimeout);
+      case 'lang':
+        return $String(super.lang);
+      case 'preferences':
+        return $SharedPreferences.wrap(super.preferences);
+      case 'setupPreferences':
+        return $Function(_$setupPreferences);
+
       default:
         throw UnsupportedError(identifier);
     }
