@@ -92,6 +92,8 @@ class ExtensionLibPlugin extends EvalPlugin {
     $ContentDataLink.configureForCompile(registry);
 
     //content_data.dart
+
+    $ContentData.configureForCompile(registry);
     $ContentDataType.configureForCompile(registry);
     $Video.configureForCompile(registry);
     $VideoFormat.configureForCompile(registry);

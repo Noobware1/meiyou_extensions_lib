@@ -74,6 +74,11 @@ class HomePage {
       hasNextPage: hasNextPage ?? this.hasNextPage,
     );
   }
+
+  @override
+  String toString() {
+    return 'HomePage(data: $data, hasNextPage: $hasNextPage)';
+  }
 }
 
 class HomePageData {
@@ -98,6 +103,11 @@ class HomePageData {
       horizontalImages: horizontalImages ?? this.horizontalImages,
     );
   }
+
+  @override
+  String toString() {
+    return 'HomePageData(name: $name, entries: $entries, horizontalImages: $horizontalImages)';
+  }
 }
 
 /// `HomePageRequest` is a class that represents the data for a home page.
@@ -120,11 +130,6 @@ class HomePageRequest {
     required this.horizontalImages,
   });
 
-  @override
-  String toString() {
-    return 'HomePageRequest(name: $name, data: $data, horizontalImages: $horizontalImages)';
-  }
-
   HomePageRequest copyWith({
     String? name,
     String? data,
@@ -135,5 +140,10 @@ class HomePageRequest {
       data: data ?? this.data,
       horizontalImages: horizontalImages ?? this.horizontalImages,
     );
+  }
+
+  @override
+  String toString() {
+    return 'HomePageRequest(name: $name, data: $data, horizontalImages: $horizontalImages)';
   }
 }

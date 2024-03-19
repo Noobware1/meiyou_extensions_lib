@@ -329,6 +329,11 @@ class $HomePage implements HomePage, $Instance {
       hasNextPage: hasNextPage,
     ));
   }
+
+  @override
+  String toString() {
+    return 'HomePage(data: $data, hasNextPage: $hasNextPage)';
+  }
 }
 
 /// dart_eval bimodal wrapper for [HomePageData]
@@ -516,6 +521,11 @@ class $HomePageData implements HomePageData, $Instance {
       entries: entries,
       horizontalImages: horizontalImages,
     ));
+  }
+
+  @override
+  String toString() {
+    return 'HomePageData(name: $name, entries: $entries, horizontalImages: $horizontalImages)';
   }
 }
 

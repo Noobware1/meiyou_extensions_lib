@@ -408,6 +408,8 @@ class $VideoSource implements VideoSource, $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
+        $type.spec!.library, 'VideoSource.hls', __$VideoSource$hls.call);
+    runtime.registerBridgeFunc(
         $type.spec!.library, 'VideoSource.', __$VideoSource$new.call);
   }
 
@@ -458,7 +460,31 @@ class $VideoSource implements VideoSource, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'hls': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [],
+          namedParams: [
+            BridgeParameter(
+                'url',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: false),
+                true),
+            BridgeParameter(
+                'title',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'isBackup',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+                    nullable: false),
+                true)
+          ],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'url': BridgeFieldDef(
@@ -632,6 +658,19 @@ class $VideoSource implements VideoSource, $Instance {
     final obj = target?.$value as VideoSource;
     final $result = obj.toString();
     return $String($result);
+  }
+
+  static const __$VideoSource$hls = $Function(_$VideoSource$hls);
+  static $Value? _$VideoSource$hls(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final url = args[0]?.$value as String? ?? '';
+    final title = args[3]?.$value as String?;
+    final isBackup = args[4]?.$value as bool? ?? false;
+    return $VideoSource.wrap(VideoSource.hls(
+      url: url,
+      title: title,
+      isBackup: isBackup,
+    ));
   }
 
   static const __$VideoSource$new = $Function(_$VideoSource$new);
@@ -906,7 +945,7 @@ class $ContentDataType implements $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeEnumValues(
-        '', 'ContentDataType', $ContentDataType.$values);
+        $type.spec!.library, 'ContentDataType', $ContentDataType.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.contentDataType);
@@ -958,7 +997,8 @@ class $VideoFormat implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeEnumValues('', 'VideoFormat', $VideoFormat.$values);
+    runtime.registerBridgeEnumValues(
+        $type.spec!.library, 'VideoFormat', $VideoFormat.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.videoFormat);
@@ -1013,7 +1053,7 @@ class $SubtitleFormat implements $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeEnumValues(
-        '', 'SubtitleFormat', $SubtitleFormat.$values);
+        $type.spec!.library, 'SubtitleFormat', $SubtitleFormat.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.subtitleFormat);

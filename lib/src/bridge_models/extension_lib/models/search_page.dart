@@ -169,4 +169,9 @@ class $SearchPage implements SearchPage, $Instance {
       entries: entries,
     ));
   }
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }

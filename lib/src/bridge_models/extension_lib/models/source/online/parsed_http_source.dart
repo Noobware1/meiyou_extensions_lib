@@ -20,7 +20,6 @@ import 'package:meiyou_extensions_lib/src/bridge_models/html/element.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/headers.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/okhttp_client.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response.dart';
 import 'package:meiyou_extensions_lib/src/models/content_data.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';

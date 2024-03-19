@@ -23,7 +23,7 @@ enum ContentDataType {
 /// * `sources`: A list of `source` objects representing the sources of the video.
 /// * `subtitles`: An optional list of `Subtitle` objects representing the subtitles of the video.
 class Video extends ContentData {
-const  Video({
+  const Video({
     this.sources = const [],
     this.subtitles,
     super.extra,
@@ -90,6 +90,13 @@ class VideoSource {
     this.title,
     this.isBackup = false,
   });
+
+  const VideoSource.hls({
+    this.url = '',
+    this.title,
+    this.isBackup = false,
+  })  : format = VideoFormat.hls,
+        quality = Quality.hlsMaster;
 
   /// A string representing the URL of the video source.
   final String url;

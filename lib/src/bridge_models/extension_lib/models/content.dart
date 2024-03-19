@@ -90,8 +90,8 @@ class $LazyContent implements LazyContent, $Instance {
           params: [],
           namedParams: [
             BridgeParameter(
-                'lazyLoad',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.future, []),
+                'load',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
                     nullable: false),
                 false)
           ],
@@ -100,11 +100,8 @@ class $LazyContent implements LazyContent, $Instance {
       )
     },
     fields: {
-      'lazyLoad': BridgeFieldDef(
-          BridgeTypeAnnotation(
-              BridgeTypeRef(CoreTypes.future, [
-                BridgeTypeRef(ExtensionLibTypes.content, []),
-              ]),
+      'load': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function),
               nullable: false),
           isStatic: false),
     },
@@ -121,10 +118,8 @@ class $LazyContent implements LazyContent, $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
-      case 'lazyLoad':
-        return $Future.wrap(
-            $value.lazyLoad.then((value) => $Content.wrap(value))) as $Value?;
-
+      case 'load':
+        return $Function(_$load);
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -147,17 +142,37 @@ class $LazyContent implements LazyContent, $Instance {
   @override
   final LazyContent $value;
 
-  @override
-  Future<Content> get lazyLoad => $value.lazyLoad;
-
   static const __$LazyContent$new = $Function(_$LazyContent$new);
   static $Value? _$LazyContent$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final lazyLoad =
-        (args[0]!.$value as Future).then((value) => value?.$reified as Content);
+    final load = args[0] as EvalCallable;
     return $LazyContent.wrap(LazyContent(
-      lazyLoad: lazyLoad,
+      load: () => (load.call(runtime, null, [])?.$value as Future)
+          .then((value) => value as Content),
     ));
+  }
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
+
+  @override
+  Future<Content> Function() get load => $value.load;
+
+  $Value? _$load(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $result = load().then((value) {
+      if (value is Movie) {
+        return $Movie.wrap(value);
+      } else if (value is Series) {
+        return $Series.wrap(value);
+      } else if (value is Anime) {
+        return $Anime.wrap(value);
+      } else {
+        return $Content.wrap(value);
+      }
+    });
+    return $Future.wrap($result);
   }
 }
 
@@ -369,7 +384,7 @@ class $Movie implements Movie, $Instance {
     final builder = args[0] as EvalCallable;
     final $result = Movie.lazy(
       () => (builder.call(runtime, null, [])?.$value as Future)
-          .then((value) => (value as $Value).$value as Movie),
+          .then((value) => value as Movie),
     );
     return $LazyContent.wrap($result);
   }
@@ -562,7 +577,7 @@ class $Series implements Series, $Instance {
     final builder = args[0] as EvalCallable;
     final $result = Series.lazy(
       () => (builder.call(runtime, null, [])?.$value as Future)
-          .then((value) => (value as $Value).$value as Series),
+          .then((value) => value as Series),
     );
     return $LazyContent.wrap($result);
   }
@@ -751,7 +766,7 @@ class $Anime implements Anime, $Instance {
     final builder = args[0] as EvalCallable;
     final $result = Anime.lazy(
       () => (builder.call(runtime, null, [])?.$value as Future)
-          .then((value) => (value as $Value).$value as Anime),
+          .then((value) => value as Anime),
     );
     return $LazyContent.wrap($result);
   }
@@ -1051,7 +1066,6 @@ class $Season implements Season, $Instance {
         return $value.number == null ? $null() : $num($value.number!);
       case 'name':
         return $value.name == null ? $null() : $String($value.name!);
-
       case 'toString':
         return __$toString;
       case 'copyWith':

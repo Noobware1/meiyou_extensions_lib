@@ -15,4 +15,9 @@ class SearchPage {
       hasNextPage: hasNextPage ?? this.hasNextPage,
     );
   }
+
+  @override
+  String toString() {
+    return 'SearchPage(entries: $entries, hasNextPage: $hasNextPage)';
+  }
 }

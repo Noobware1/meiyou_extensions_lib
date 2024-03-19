@@ -126,6 +126,11 @@ class InfoPage {
       content: content ?? this.content,
     );
   }
+
+  @override
+  String toString() {
+    return 'InfoPage(category: $category, name: $name, url: $url, otherTitles: $otherTitles, status: $status, bannerImage: $bannerImage, posterImage: $posterImage, rating: $rating, description: $description, startDate: $startDate, duration: $duration, genres: $genres, recommendations: $recommendations, externalIds: $externalIds, characters: $characters, content: $content)';
+  }
 }
 
 enum Status {

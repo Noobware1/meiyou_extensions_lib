@@ -1,7 +1,6 @@
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:dart_eval/stdlib/async.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_category.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_item.dart';
@@ -9,7 +8,6 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart
 import 'package:meiyou_extensions_lib/src/models/content.dart';
 import 'package:meiyou_extensions_lib/src/models/content_category.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';
-import 'dart:io';
 
 import 'package:meiyou_extensions_lib/src/models/info_page.dart';
 
@@ -629,6 +627,11 @@ class $InfoPage implements InfoPage, $Instance {
       entry,
     ));
   }
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 /// dart_eval bimodal wrapper for [ExternalId]
@@ -1009,7 +1012,7 @@ class $Status implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeEnumValues('', 'Status', $Status.$values);
+    runtime.registerBridgeEnumValues($type.spec!.library, 'Status', $Status.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.status);

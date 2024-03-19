@@ -15,9 +15,14 @@ extension GetContentType on Content {
 }
 
 class LazyContent implements Content {
-  final Future<Content> lazyLoad;
+  final Future<Content> Function() load;
 
-  LazyContent({required this.lazyLoad});
+  LazyContent({required this.load});
+
+  @override
+  String toString() {
+    return 'LazyContent(load: $load)';
+  }
 }
 
 class Movie implements Content {
@@ -32,13 +37,8 @@ class Movie implements Content {
   /// An optional string representing the description of the movie.
   final String? description;
 
-  @override
-  String toString() {
-    return 'Movie(url: $url, image: $image, description: $description)';
-  }
-
   static LazyContent lazy(Future<Movie> Function() builder) {
-    return LazyContent(lazyLoad: builder());
+    return LazyContent(load: builder);
   }
 
   Movie copyWith({
@@ -52,6 +52,11 @@ class Movie implements Content {
       description: description ?? this.description,
     );
   }
+
+  @override
+  String toString() {
+    return 'Movie(url: $url, image: $image, description: $description)';
+  }
 }
 
 class Series implements Content {
@@ -59,13 +64,8 @@ class Series implements Content {
 
   Series(this.data);
 
-  @override
-  String toString() {
-    return 'Series(data: $data)';
-  }
-
   static LazyContent lazy(Future<Series> Function() builder) {
-    return LazyContent(lazyLoad: builder());
+    return LazyContent(load: builder);
   }
 
   Series copyWith({
@@ -75,6 +75,11 @@ class Series implements Content {
       data ?? this.data,
     );
   }
+
+  @override
+  String toString() {
+    return 'Series(data: $data)';
+  }
 }
 
 class Anime implements Content {
@@ -82,13 +87,8 @@ class Anime implements Content {
 
   Anime(this.episodes);
 
-  @override
-  String toString() {
-    return 'Anime(episodes: $episodes)';
-  }
-
   static LazyContent lazy(Future<Anime> Function() builder) {
-    return LazyContent(lazyLoad: builder());
+    return LazyContent(load: builder);
   }
 
   Anime copyWith({
@@ -98,6 +98,11 @@ class Anime implements Content {
       episodes ?? this.episodes,
     );
   }
+
+  @override
+  String toString() {
+    return 'Anime(episodes: $episodes)';
+  }
 }
 
 class SeasonList {
@@ -105,11 +110,6 @@ class SeasonList {
   final List<Episode> episodes;
 
   SeasonList({required this.season, required this.episodes});
-
-  @override
-  String toString() {
-    return 'SeasonList(season: $season, episodes: $episodes)';
-  }
 
   SeasonList copyWith({
     Season? season,
@@ -120,13 +120,18 @@ class SeasonList {
       episodes: episodes ?? this.episodes,
     );
   }
+
+  @override
+  String toString() {
+    return 'SeasonList(season: $season, episodes: $episodes)';
+  }
 }
 
 class Season {
   final num? number;
   final String? name;
 
-  Season({required this.number, required this.name});
+  Season({this.number, this.name});
 
   @override
   String toString() {
@@ -154,19 +159,14 @@ class Episode {
   final DateTime? date;
 
   const Episode({
-    required this.number,
-    required this.name,
+    this.number,
+    this.name,
     required this.data,
     this.image,
     this.isFiller,
     this.description,
     this.date,
   });
-
-  @override
-  String toString() {
-    return 'Episode(data: $data, name: $name, number: $number, image: $image, isFiller: $isFiller, description: $description, date: $date)';
-  }
 
   Episode copyWith({
     String? data,
@@ -186,5 +186,10 @@ class Episode {
       description: description ?? this.description,
       date: date ?? this.date,
     );
+  }
+
+  @override
+  String toString() {
+    return 'Episode(data: $data, name: $name, number: $number, image: $image, isFiller: $isFiller, description: $description, date: $date)';
   }
 }

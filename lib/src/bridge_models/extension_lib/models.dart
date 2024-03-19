@@ -19,7 +19,6 @@ String _source() {
     "export 'src/models/source/source.dart';",
     "export 'src/models/source/catalogue_source.dart';",
     "export 'src/models/source/source_factory.dart';",
-    "export 'src/models/source/stub_source.dart';",
     "export 'src/models/source/online/http_source.dart';",
     "export 'src/models/source/online/parsed_http_source.dart';",
     "export 'src/models/content_data.dart';",
@@ -36,10 +35,6 @@ String _source() {
 
     "export 'src/models/filter.dart';",
     "export 'src/models/filter_list.dart';",
-
-//Extension
-    "export 'src/models/extension.dart';",
-    "export 'src/models/plugin.dart';",
   ]) {
     buffer.writeln(element);
   }

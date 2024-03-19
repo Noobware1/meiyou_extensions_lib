@@ -98,8 +98,6 @@ class $Filter<T> implements Filter<T>, $Instance {
         return $value.state as $Value?;
       case 'hashCode':
         return $int($value.hashCode);
-      case '==':
-        return __$equals;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -133,19 +131,6 @@ class $Filter<T> implements Filter<T>, $Instance {
   @override
   set state(T state) {
     $value.state = state;
-  }
-
-  @override
-  int get hashCode => $value.hashCode;
-
-  @override
-  bool operator ==(Object? other) => $value == other;
-  static const __$equals = $Function(_$equals);
-  static $Value? _$equals(Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Filter;
-    final other = args[0]?.$value as Object;
-    final $result = obj == other;
-    return $bool($result);
   }
 }
 
@@ -238,14 +223,6 @@ class $HeaderFilter implements HeaderFilter, $Instance {
 
   @override
   String get name => $value.state;
-
-  @override
-  operator ==(Object? other) {
-    return $value == other;
-  }
-
-  @override
-  int get hashCode => $value.hashCode;
 }
 
 /// dart_eval bimodal wrapper for [SeparatorFilter]
@@ -324,14 +301,6 @@ class $SeparatorFilter implements SeparatorFilter, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $SeparatorFilter.wrap(SeparatorFilter());
   }
-
-  @override
-  operator ==(Object? other) {
-    return $value == other;
-  }
-
-  @override
-  int get hashCode => $value.hashCode;
 
   @override
   late var state = $value.state;
@@ -451,14 +420,6 @@ class $SelectFilter<V> implements SelectFilter<V>, $Instance {
   }
 
   @override
-  operator ==(Object? other) {
-    return $value == other;
-  }
-
-  @override
-  int get hashCode => $value.hashCode;
-
-  @override
   late int state = $value.state;
 
   @override
@@ -561,14 +522,6 @@ class $TextFilter implements TextFilter, $Instance {
   }
 
   @override
-  operator ==(Object? other) {
-    return $value == other;
-  }
-
-  @override
-  int get hashCode => $value.hashCode;
-
-  @override
   late String state = $value.state;
 
   @override
@@ -666,14 +619,6 @@ class $CheckBoxFilter implements CheckBoxFilter, $Instance {
     final state = args[1]?.$value as bool? ?? false;
     return $CheckBoxFilter.wrap(CheckBoxFilter(name, state));
   }
-
-  @override
-  operator ==(Object? other) {
-    return $value == other;
-  }
-
-  @override
-  int get hashCode => $value.hashCode;
 
   @override
   late bool state = $value.state;
@@ -856,14 +801,6 @@ class $TriStateFilter implements TriStateFilter, $Instance {
   }
 
   @override
-  operator ==(Object? other) {
-    return $value == other;
-  }
-
-  @override
-  int get hashCode => $value.hashCode;
-
-  @override
   late int state = $value.state;
 
   @override
@@ -970,14 +907,6 @@ class $GroupFilter<V> implements GroupFilter<V>, $Instance {
     final state = args[1]?.$value as List;
     return $GroupFilter.wrap(GroupFilter(name, state));
   }
-
-  @override
-  operator ==(Object? other) {
-    return $value == other;
-  }
-
-  @override
-  int get hashCode => $value.hashCode;
 
   @override
   late List<V> state = $value.state;
@@ -1104,14 +1033,6 @@ class $SortFilter implements SortFilter, $Instance {
     final state = args[2]?.$value as Selection;
     return $SortFilter.wrap(SortFilter(name, values, state));
   }
-
-  @override
-  operator ==(Object? other) {
-    return $value == other;
-  }
-
-  @override
-  int get hashCode => $value.hashCode;
 
   @override
   late Selection? state = $value.state;

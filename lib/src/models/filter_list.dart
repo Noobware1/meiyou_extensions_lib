@@ -1,4 +1,4 @@
-import 'package:meiyou_extensions_lib/src/models/filer.dart';
+import 'package:meiyou_extensions_lib/src/models/filter.dart';
 import 'dart:collection';
 
 class FilterList<E> extends ListBase<Filter<E>> {
