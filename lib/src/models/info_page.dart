@@ -165,12 +165,11 @@ enum Status {
   Ongoing,
   Unknown;
 
-  @override
-  String toString() => super.toString().substringAfter('.');
+  String toDisplayString() => super.toString().substringAfter('Status.');
 }
 
 class ExternalId {
-  ExternalId({required this.name, required this.id});
+  const ExternalId({required this.name, required this.id});
 
   final String name;
   final String id;
@@ -192,7 +191,7 @@ class ExternalId {
 }
 
 class Character {
-  Character({
+  const Character({
     this.name = '',
     this.image,
     this.role,

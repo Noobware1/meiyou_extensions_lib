@@ -1,6 +1,5 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/dart_eval_security.dart';
-import 'package:dart_eval/dart_eval.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_category.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data.dart';

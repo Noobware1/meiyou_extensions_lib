@@ -1,4 +1,3 @@
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
@@ -646,22 +645,22 @@ class $SharedPreferences implements SharedPreferences, $Instance {
     final obj = target?.$value as SharedPreferences;
     final $result = obj.getAll();
     return $Map.wrap($result.map((key, value) {
-      final $Value? _value;
+      final $Value? $value;
       if (value is bool) {
-        _value = $bool(value);
+        $value = $bool(value);
       } else if (value is double) {
-        _value = $double(value);
+        $value = $double(value);
       } else if (value is int) {
-        _value = $int(value);
+        $value = $int(value);
       } else if (value is String) {
-        _value = $String(value);
+        $value = $String(value);
       } else if (value is List) {
-        _value = $List.wrap(value.map((e) => $String(e)).toList());
+        $value = $List.wrap(value.map((e) => $String(e)).toList());
       } else {
-        _value = null;
+        $value = null;
       }
 
-      return MapEntry($String(key), _value);
+      return MapEntry($String(key), $value);
     }));
   }
 

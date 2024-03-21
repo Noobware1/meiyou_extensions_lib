@@ -5,7 +5,6 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request.d
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
 
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 
 final Headers _DEFAULT_HEADERS = Headers.Builder().build();

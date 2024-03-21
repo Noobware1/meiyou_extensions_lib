@@ -61,6 +61,6 @@ class ContentItem {
 
   @override
   String toString() {
-    return 'ContentItem(title: $title, url: $url, poster: $poster, type: $category, description: $description, generes: $generes, rating: $rating, currentCount: $currentCount, total: $totalCount)';
+    return 'ContentItem(title: $title, url: $url, poster: $poster, category: $category, description: $description, generes: $generes, rating: $rating, currentCount: $currentCount, totalCount: $totalCount)';
   }
 }

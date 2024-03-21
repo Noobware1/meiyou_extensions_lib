@@ -1,4 +1,3 @@
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/quality.dart';
@@ -290,7 +289,7 @@ class $Video implements Video, $Instance {
     switch (identifier) {
       case 'sources':
         return $List.wrap(List.generate(
-            ($value.sources as List<VideoSource>).length, (index) {
+            ($value.sources).length, (index) {
           return $VideoSource.wrap($value.sources[index]);
         })) as $Value?;
       case 'subtitles':

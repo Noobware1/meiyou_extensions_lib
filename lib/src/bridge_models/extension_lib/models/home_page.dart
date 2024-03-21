@@ -1,4 +1,3 @@
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_item.dart';
@@ -392,8 +391,7 @@ class $HomePageData implements HomePageData, $Instance {
       'withRequest': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
-          params: [],
-          namedParams: [
+          params: [
             BridgeParameter(
                 'request',
                 BridgeTypeAnnotation(
@@ -409,8 +407,9 @@ class $HomePageData implements HomePageData, $Instance {
                     nullable: false),
                 false),
           ],
+          namedParams: [],
         ),
-        isFactory: false,
+        isFactory: true,
       ),
     },
     fields: {
@@ -542,8 +541,8 @@ class $HomePageData implements HomePageData, $Instance {
     final request = args[0]?.$value as HomePageRequest;
     final items = (args[1]?.$reified as List).cast<ContentItem>();
     return $HomePageData.wrap(HomePageData.withRequest(
-      reqeust: request,
-      items: items,
+      request,
+      items,
     ));
   }
 

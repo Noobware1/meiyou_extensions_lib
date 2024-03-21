@@ -1,6 +1,5 @@
 // ignore_for_file: overridden_fields
 
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/preference.dart';
@@ -472,7 +471,6 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   $Value $contentDataRequest(
       Runtime runtime, $Value? target, List<$Value?> args) {
     throw super.contentDataRequest(args[1]!.$value);
-    ;
   }
 
   @override

@@ -1,6 +1,5 @@
 // import 'package:nice_dart/src/extensions/iterable.dart';
 
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/stdlib/io.dart';

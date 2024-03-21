@@ -1,5 +1,4 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:dart_eval/dart_eval.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/models/source/source.dart';
 import 'package:meiyou_extensions_lib/src/models/source/source_factory.dart';

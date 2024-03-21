@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_cast
 
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 

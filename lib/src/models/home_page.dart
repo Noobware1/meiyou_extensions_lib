@@ -93,14 +93,14 @@ class HomePageData {
     required this.horizontalImages,
   });
 
-  factory HomePageData.withRequest({
-    required HomePageRequest reqeust,
-    required List<ContentItem> items,
-  }) {
+  factory HomePageData.withRequest(
+    HomePageRequest request,
+    List<ContentItem> items,
+  ) {
     return HomePageData(
-      name: reqeust.name,
+      name: request.name,
       items: items,
-      horizontalImages: reqeust.horizontalImages,
+      horizontalImages: request.horizontalImages,
     );
   }
 

@@ -19,8 +19,7 @@ enum ContentCategory {
   Comic,
   Others;
 
-  @override
-  String toString() {
+  String toDisplayString() {
     final input = super.toString().substringAfter('ContentCategory.');
     final buffer = StringBuffer();
     for (var i = 0; i < input.length; i++) {

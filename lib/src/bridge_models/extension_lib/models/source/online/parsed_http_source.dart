@@ -446,7 +446,6 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value $contentDataRequest(
       Runtime runtime, $Value? target, List<$Value?> args) {
     throw super.contentDataRequest(args[1]!.$value);
-    ;
   }
 
   @override

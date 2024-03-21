@@ -1,5 +1,4 @@
 import 'package:nice_dart/nice_dart.dart';
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';

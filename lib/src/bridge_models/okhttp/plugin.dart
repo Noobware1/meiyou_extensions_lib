@@ -1,5 +1,4 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'package:dart_eval/dart_eval.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/adapter/client_adapter.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/adapter/http_client_adapter.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/auth.dart';
