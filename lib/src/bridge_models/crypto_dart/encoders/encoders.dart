@@ -28,28 +28,28 @@ class $Encoders implements $Instance {
         ),
       },
       getters: {
-        'BASE64': BridgeMethodDef(
+        'Base64': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
               BridgeTypeRef(CryptoDartTypes.base64),
             ),
           ),
         ),
-        'HEX': BridgeMethodDef(
+        'Hex': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
               BridgeTypeRef(CryptoDartTypes.hex),
             ),
           ),
         ),
-        'UTF8': BridgeMethodDef(
+        'Utf8': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
               BridgeTypeRef(CryptoDartTypes.utf8),
             ),
           ),
         ),
-        'UTF16': BridgeMethodDef(
+        'Utf16': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
               BridgeTypeRef(CryptoDartTypes.utf16),
@@ -63,13 +63,13 @@ class $Encoders implements $Instance {
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
       case 'BASE64':
-        return $Base64.wrap($value.BASE64);
+        return $BASE64.wrap($value.Base64);
       case 'HEX':
-        return $Hex.wrap($value.HEX);
+        return $HEX.wrap($value.Hex);
       case 'UTF8':
-        return $Utf8.wrap($value.UTF8);
+        return $UTF8.wrap($value.Utf8);
       case 'UTF16':
-        return $Utf16.wrap($value.UTF16);
+        return $UTF16.wrap($value.Utf16);
       default:
         return _superclass.$getProperty(runtime, identifier);
     }

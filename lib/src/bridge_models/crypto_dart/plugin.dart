@@ -9,8 +9,8 @@ import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders.dar
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/base64.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/encoder.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/encoders.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/hex.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/utf16.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/hEX.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/uTF16.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/utf8.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/evpkdf.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/hash_algorithms.dart';
@@ -52,10 +52,10 @@ class CryptoDartPlugin extends EvalPlugin {
   @override
   void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($Encoder.$declaration);
-    registry.defineBridgeClass($Base64.$declaration);
-    registry.defineBridgeClass($Hex.$declaration);
-    registry.defineBridgeClass($Utf8.$declaration);
-    registry.defineBridgeClass($Utf16.$declaration);
+    registry.defineBridgeClass($BASE64.$declaration);
+    registry.defineBridgeClass($HEX.$declaration);
+    registry.defineBridgeClass($UTF8.$declaration);
+    registry.defineBridgeClass($UTF16.$declaration);
     registry.defineBridgeClass($Encoders.$declaration);
     registry.defineBridgeEnum($Padding.$declaration);
     registry.defineBridgeEnum($Mode.$declaration);
@@ -78,8 +78,7 @@ class CryptoDartPlugin extends EvalPlugin {
     registry.defineBridgeClass($TIGER.$declaration);
     registry.defineBridgeClass($WHIRLPOOL.$declaration);
     registry.defineBridgeClass($CryptoDart.$declaration);
-    registry.defineBridgeClass($HashAlgorithms.$declaration);
-
+    registry.addSource(hashAlgorithmsSource);
     registry.addSource(pkdf2Source);
     registry.addSource(evpkdfSource);
     registry.addSource(aesSource);
@@ -92,10 +91,10 @@ class CryptoDartPlugin extends EvalPlugin {
 
   @override
   void configureForRuntime(Runtime runtime) {
-    $Base64.configureForRuntime(runtime);
-    $Hex.configureForRuntime(runtime);
-    $Utf8.configureForRuntime(runtime);
-    $Utf16.configureForRuntime(runtime);
+    $BASE64.configureForRuntime(runtime);
+    $HEX.configureForRuntime(runtime);
+    $UTF8.configureForRuntime(runtime);
+    $UTF16.configureForRuntime(runtime);
     $Encoders.configureForRuntime(runtime);
     $Padding.configureForRuntime(runtime);
     $Mode.configureForRuntime(runtime);
@@ -116,7 +115,6 @@ class CryptoDartPlugin extends EvalPlugin {
     $TIGER.configureForRuntime(runtime);
     $WHIRLPOOL.configureForRuntime(runtime);
     $CryptoDart.configureForRuntime(runtime);
-    $HashAlgorithms.configureForRuntime(runtime);
   }
 
   @override

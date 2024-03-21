@@ -77,14 +77,18 @@ class CryptoDartTypes {
       BridgeTypeSpec('package:crypto_dart/src/encoders.dart', 'Encoders');
 
   static const base64 =
-      BridgeTypeSpec('package:crypto_dart/src/encoders/base64.dart', 'Base64');
+      BridgeTypeSpec('package:crypto_dart/src/encoders/base64.dart', 'BASE64');
 
   static const hex =
-      BridgeTypeSpec('package:crypto_dart/src/encoders/hex.dart', 'Hex');
+      BridgeTypeSpec('package:crypto_dart/src/encoders/hex.dart', 'HEX');
 
   static const utf8 =
-      BridgeTypeSpec('package:crypto_dart/src/encoders/utf8.dart', 'Utf8');
+      BridgeTypeSpec('package:crypto_dart/src/encoders/utf8.dart', 'UTF8');
 
   static const utf16 =
-      BridgeTypeSpec('package:crypto_dart/src/encoders/utf16.dart', 'Utf16');
+      BridgeTypeSpec('package:crypto_dart/src/encoders/utf16.dart', 'UTF16');
+
+  /// Bridge type spec for [$EvpKDFResult]
+  static const evpKDFResult = BridgeTypeSpec(
+      'package:crypto_dart/src/crypto_dart.dart', 'EvpKDFResult');
 }

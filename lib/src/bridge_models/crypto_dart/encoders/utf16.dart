@@ -3,13 +3,13 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/encoder.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/types.dart';
 
-class $Utf16 implements $Instance {
-  $Utf16.wrap(this.$value);
+class $UTF16 implements $Instance {
+  $UTF16.wrap(this.$value);
 
   late final $Instance _superclass = $Encoder.wrap($value);
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(CryptoDartTypes.utf16.library, 'Utf16.', $new);
+    runtime.registerBridgeFunc(CryptoDartTypes.utf16.library, 'UTF16.', $new);
   }
 
   static const $type = BridgeTypeRef(CryptoDartTypes.utf16);
@@ -26,7 +26,7 @@ class $Utf16 implements $Instance {
       wrap: true);
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Utf16.wrap(Utf16());
+    return $UTF16.wrap(UTF16());
   }
 
   @override
@@ -38,7 +38,7 @@ class $Utf16 implements $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   @override
-  Utf16 get $reified => $value;
+  UTF16 get $reified => $value;
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
@@ -46,5 +46,5 @@ class $Utf16 implements $Instance {
   }
 
   @override
-  final Utf16 $value;
+  final UTF16 $value;
 }

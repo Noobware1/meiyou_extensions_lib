@@ -3,13 +3,13 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/encoders/encoder.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/types.dart';
 
-class $Hex implements $Instance {
-  $Hex.wrap(this.$value);
+class $HEX implements $Instance {
+  $HEX.wrap(this.$value);
 
   late final $Instance _superclass = $Encoder.wrap($value);
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(CryptoDartTypes.hex.library, 'Hex.', $new);
+    runtime.registerBridgeFunc(CryptoDartTypes.hex.library, 'HEX.', $new);
   }
 
   static const $type = BridgeTypeRef(CryptoDartTypes.hex);
@@ -26,7 +26,7 @@ class $Hex implements $Instance {
       wrap: true);
 
   static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Hex.wrap(Hex());
+    return $HEX.wrap(HEX());
   }
 
   @override
@@ -38,7 +38,7 @@ class $Hex implements $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   @override
-  Hex get $reified => $value;
+  HEX get $reified => $value;
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
@@ -46,5 +46,5 @@ class $Hex implements $Instance {
   }
 
   @override
-  final Hex $value;
+  final HEX $value;
 }
