@@ -43,7 +43,7 @@ OkHttpClient main() {
         }
       });
 
-      final runtime = ExtensionLoader.fromProgram(program).runtime;
+      final runtime = ExtensionLoader.ofProgram(program);
       final value = runtime.executeLib('package:example/main.dart', 'main');
       expect((value as $Value).$value, isA<OkHttpClient>());
       expect((value as $OkHttpClient).$value.interceptors, isNotEmpty);
@@ -82,7 +82,7 @@ Future<Document> main() async {
         }
       });
 
-      final runtime = ExtensionLoader.fromProgram(program).runtime;
+      final runtime = ExtensionLoader.ofProgram(program);
       final value = await (runtime.executeLib(
           'package:example/main.dart', 'main') as Future);
       expect((value as $Value).$value.runtimeType, Document().runtimeType);

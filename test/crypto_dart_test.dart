@@ -14,7 +14,7 @@ void main() {
     test('Encoders', () async {
       final compiled = compiler.compile({
         'example': {
-          'main.dart': '''  
+          'main.dart': '''
 // ignore_for_file: unnecessary_this, unnecessary_cast
 
 import 'dart:convert';
@@ -149,7 +149,7 @@ main() {
           '''
         }
       });
-      final runtime = ExtensionLoader.fromProgram(compiled).runtime;
+      final runtime = ExtensionLoader.ofProgram(compiled);
       final value = runtime.executeLib('package:example/main.dart', 'main');
       expect((value as $Value).$value, 'hello world');
     });
@@ -157,7 +157,7 @@ main() {
     test('AES', () async {
       final compiled = compiler.compile({
         'example': {
-          'main.dart': '''  
+          'main.dart': '''
 import 'package:crypto_dart/aes.dart';
 import 'package:crypto_dart/encoders.dart';
 

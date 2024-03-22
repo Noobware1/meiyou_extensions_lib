@@ -36,7 +36,7 @@ String main() {
         },
       });
 
-      var runtime = ExtensionLoader.fromProgram(compiled).runtime;
+      var runtime = ExtensionLoader.ofProgram(compiled);
       var value = runtime.executeLib('package:example/main.dart', 'main');
       expect((value as $Value).$value, 'hello world');
     });
