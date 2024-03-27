@@ -44,7 +44,7 @@ String main() {
     test('buildList', () {
       var compiled = compiler.compile({
         'example': {
-          'main.dart': '''  
+          'main.dart': '''
 import 'package:meiyou_extensions_lib/utils.dart';
 
 List<int> main() {

@@ -7,4 +7,3 @@ int generateId(String name, String lang, int versionId) {
           .reduce((value, element) => value | element) &
       0x7FFFFFFFFFFFFFFF;
 }
-

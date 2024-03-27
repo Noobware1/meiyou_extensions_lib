@@ -3,8 +3,6 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/types.dart';
 
-
-
 class $Mode implements $Instance {
   $Mode.wrap(this.$value) : _superclass = $Object($value);
 

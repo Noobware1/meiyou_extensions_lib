@@ -1,7 +1,8 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/types.dart';
 
-final hashAlgorithmsSource = DartSource(CryptoDartTypes.hashAlgorithms.library, '''
+final hashAlgorithmsSource =
+    DartSource(CryptoDartTypes.hashAlgorithms.library, '''
 abstract class HashAlgorithms {
   static const String SHA512 = 'SHA-512';
   static const String BLAKE2B = 'Blake2b';

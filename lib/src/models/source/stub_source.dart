@@ -51,7 +51,7 @@ class StubSource extends Source {
   List<HomePageRequest> homePageRequests() {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<HomePage> getHomePage(int page, HomePageRequest request) {
     throw UnimplementedError();

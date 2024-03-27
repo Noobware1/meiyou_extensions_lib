@@ -288,8 +288,7 @@ class $Video implements Video, $Instance {
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
       case 'sources':
-        return $List.wrap(List.generate(
-            ($value.sources).length, (index) {
+        return $List.wrap(List.generate(($value.sources).length, (index) {
           return $VideoSource.wrap($value.sources[index]);
         })) as $Value?;
       case 'subtitles':

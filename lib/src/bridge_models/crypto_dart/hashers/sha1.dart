@@ -21,7 +21,6 @@ class $SHA1 implements $Instance {
   ];
 
   static const $declaration = BridgeClassDef(
-    
     BridgeClassType($type, $extends: BridgeTypeRef(CryptoDartTypes.hasher)),
     constructors: {
       '': BridgeConstructorDef(

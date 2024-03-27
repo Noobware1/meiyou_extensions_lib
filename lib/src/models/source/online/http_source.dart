@@ -147,7 +147,8 @@ abstract class HttpSource extends CatalogueSource {
     return throw UnsupportedError('Not implemented');
   }
 
-  Future<ContentData> contentDataParse(ContentDataLink link, Response response) {
+  Future<ContentData> contentDataParse(
+      ContentDataLink link, Response response) {
     return throw UnsupportedError('Not implemented');
   }
 }

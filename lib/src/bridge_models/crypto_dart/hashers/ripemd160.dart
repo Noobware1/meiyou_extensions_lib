@@ -3,7 +3,6 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/crypto_dart/types.dart';
 import 'hasher.dart';
 
-
 class $RIPEMD160 implements $Instance {
   $RIPEMD160.wrap(this.$value);
 

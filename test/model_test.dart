@@ -29,8 +29,10 @@ SearchResponse main() {
 
       var runtime = ExtensionLoader.ofProgram(compiled);
       var value = runtime.executeLib('package:example/main.dart', 'main');
-      expect((value as $Value).$value,
-          ContentItem(title: '', url: '', poster: '', category: ContentCategory.Anime));
+      expect(
+          (value as $Value).$value,
+          ContentItem(
+              title: '', url: '', poster: '', category: ContentCategory.Anime));
     });
   });
 }

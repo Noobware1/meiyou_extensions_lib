@@ -20,7 +20,7 @@ class $SHA224 implements $Instance {
         'data', BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)), false)
   ];
 
-    // BridgeClassType($type, $extends: BridgeTypeRef(CryptoDartTypes.hasher)),
+  // BridgeClassType($type, $extends: BridgeTypeRef(CryptoDartTypes.hasher)),
   static const $declaration = BridgeClassDef(
     BridgeClassType($type, $extends: BridgeTypeRef(CryptoDartTypes.hasher)),
     constructors: {

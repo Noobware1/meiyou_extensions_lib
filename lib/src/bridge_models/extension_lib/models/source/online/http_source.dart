@@ -1,5 +1,3 @@
-// ignore_for_file: overridden_fields
-
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/preference.dart';
@@ -16,6 +14,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/headers.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/okhttp_client.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response.dart';
 import 'package:meiyou_extensions_lib/src/models/content_data.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';
@@ -26,13 +25,13 @@ import 'package:meiyou_extensions_lib/src/models/info_page.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/models/source/online/http_source.dart';
 import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
-import 'package:nice_dart/nice_dart.dart';
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
 
 class $HttpSource extends HttpSource with $Bridge<HttpSource> {
-  /// Configure the [$HttpSource] wrapper for use in a [Runtime]
+  $HttpSource();
+
   static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
@@ -43,7 +42,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
         isBridge: true);
   }
 
-  static const $type = BridgeTypeRef(ExtensionLibTypes.httpSource);
+  static const $type = BridgeTypeRef(ExtensionLibTypes.catalogueSource);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(
@@ -63,6 +62,10 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
       )
     },
     fields: {
+      'id': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+              nullable: false),
+          isStatic: false),
       'network': BridgeFieldDef(
           BridgeTypeAnnotation(
               BridgeTypeRef(ExtensionLibTypes.networkHelper, []),
@@ -328,252 +331,55 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   );
 
   @override
-  late final NetworkHelper network = $_get('network');
-
-  @override
-  late final String baseUrl = $_get('baseUrl');
-
-  @override
-  late final int versionId = $_get('versionId');
-
-  @override
-  late final int id = $_get('id');
-
-  @override
-  late final Headers headers = $_get('headers');
-
-  @override
-  OkHttpClient get client => $_get('client');
-
-  @override
-  HeadersBuilder headersBuilder() => $_invoke('headersBuilder', []);
-
-  $Value $headersBuilder(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $HeadersBuilder.wrap(super.headersBuilder());
-  }
-
-  @override
-  Future<HomePage> getHomePage(int page, HomePageRequest request) =>
-      ($_invoke('getHomePage', [$int(page), $HomePageRequest.wrap(request)])
-              as Future)
-          .then((value) => value as HomePage);
-
-  $Value $getHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(super
-        .getHomePage(args[1]!.$value, args[2]!.$value)
-        .then((value) => $HomePage.wrap(value)));
-  }
-
-  @override
-  Request homePageRequest(int page, HomePageRequest request) {
-    return $_invoke(
-        'homePageRequest', [$int(page), $HomePageRequest.wrap(request)]);
-  }
-
-  @override
-  HomePage homePageParse(int page, HomePageRequest request, Response response) {
-    return $_invoke('homePageParse',
-        [$int(page), $HomePageRequest.wrap(request), $Response.wrap(response)]);
-  }
-
-  @override
-  Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {
-    return ($_invoke('getSearchPage',
-            [$int(page), $String(query), $FilterList.wrap(filters)]) as Future)
-        .then((value) => value as SearchPage);
-  }
-
-  $Value $getSearchPage(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(super
-        .getSearchPage(args[1]!.$value, args[2]!.$value, args[3]!.$value)
-        .then((value) => $SearchPage.wrap(value)));
-  }
-
-  /// Returns the request for the search manga given the page.
-  ///
-  /// * page the page number to retrieve.
-  @override
-  Request searchPageRequest(int page, String query, FilterList filters) {
-    return $_invoke('searchPageRequest',
-        [$int(page), $String(query), $FilterList.wrap(filters)]);
-  }
-
-  /// Parses the response from the site and returns a [SearchResponse] object.
-  ///
-  /// * response the response from the site.
-  @override
-  SearchPage searchPageParse(
-      int page, String query, FilterList filters, Response response) {
-    return $_invoke('searchPageParse', [
-      $int(page),
-      $String(query),
-      $FilterList.wrap(filters),
-      $Response.wrap(response)
-    ]);
-  }
-
-  @override
-  Future<InfoPage> getInfoPage(ContentItem contentItem) {
-    return ($_invoke('getInfoPage', [$ContentItem.wrap(contentItem)]) as Future)
-        .then((value) => value as InfoPage);
-  }
-
-  $Value $getInfoPage(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(super
-        .getInfoPage(args[1]!.$value)
-        .then((value) => $InfoPage.wrap(value)));
-  }
-
-  @override
-  Request infoPageRequest(ContentItem contentItem) {
-    return $_invoke('infoPageRequest', [$ContentItem.wrap(contentItem)]);
-  }
-
-  @override
-  Future<InfoPage> infoPageParse(ContentItem contentItem, Response response) {
-    return ($_invoke('infoPageParse', [
-      $ContentItem.wrap(contentItem),
-      $Response.wrap(response)
-    ]) as Future)
-        .then((value) => value as InfoPage);
-  }
-
-  @override
-  Future<List<ContentDataLink>> getContentDataLinks(String url) {
-    return ($_invoke('getContentDataLinks', [$String(url)]) as Future)
-        .then((value) => (value as List).cast<ContentDataLink>());
-  }
-
-  $Value $getContentDataLinks(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future.wrap(super
-        .getContentDataLinks(args[1]!.$value)
-        .then((value) => $List.wrap(value.mapList($ContentDataLink.wrap))));
-  }
-
-  @override
-  List<ContentDataLink> contentDataLinksParse(String url, Response response) {
-    return ($_invoke('contentDataLinksParse',
-            [$String(url), $Response.wrap(response)]) as List)
-        .cast<ContentDataLink>();
-  }
-
-  @override
-  Request contentDataLinksRequest(String url) {
-    return $_invoke('contentDataLinksRequest', [$String(url)]);
-  }
-
-  @override
-  Request contentDataRequest(ContentDataLink link) {
-    return $_invoke('contentDataRequest', [$ContentDataLink.wrap(link)]);
-  }
-
-  $Value $contentDataRequest(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    throw super.contentDataRequest(args[1]!.$value);
-  }
-
-  @override
-  Future<ContentData> contentDataParse(
-      ContentDataLink link, Response response) {
-    return ($_invoke('contentDataRequest',
-            [$ContentDataLink.wrap(link), $Response.wrap(response)]) as Future)
-        .then((value) => value as ContentData);
-  }
-
-  $Value $contentDataParse(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    throw super.contentDataParse(args[1]!.$value, args[2]!.$value);
-  }
-
-  @override
-  Future<ContentData?> getContentData(ContentDataLink link) {
-    return ($_invoke('getContentData', [$ContentDataLink.wrap(link)]) as Future)
-        .then((value) => value as ContentData?);
-  }
-
-  $Value $getContentData(Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Future
-        .wrap(super.getContentData(args[1]!.$value).then($ContentData.tryWrap));
-  }
-
-  @override
   $Value? $bridgeGet(String identifier) {
     switch (identifier) {
-      case 'supportsHomePage':
-        return $bool(super.supportsHomePage);
-      case 'homePageRequestTimeout':
-        return $double(super.homePageRequestTimeout);
-      case 'lang':
-        return $String(super.lang);
-      case 'preferences':
-        return $SharedPreferences.wrap(super.preferences);
-      case 'setupPreferences':
-        return $Function(_$setupPreferences);
-      case 'network':
-        return $NetworkHelper.wrap(super.network);
-      case 'versionId':
-        return $int(super.versionId);
       case 'id':
-        return $int(super.id);
+        return _$id;
+      case 'supportsHomePage':
+        return _$supportsHomePage;
+      case 'homePageRequestTimeout':
+        return _$homePageRequestTimeout;
+      case 'lang':
+        return _$lang;
+      case 'network':
+        return _$network;
+      case 'versionId':
+        return _$versionId;
       case 'headers':
-        return $Headers.wrap(super.headers);
+        return _$headers;
       case 'client':
-        return $OkHttpClient.wrap(super.client);
+        return _$client;
+      case 'preferences':
+        return _$preferences;
       case 'headersBuilder':
-        return $Function($headersBuilder);
-      case 'contentDataParse':
-        return $Function($contentDataParse);
-      case 'contentDataRequest':
-        return $Function($contentDataRequest);
-      case 'getContentData':
-        return $Function($getContentData);
-      case 'getContentDataLinks':
-        return $Function($getContentDataLinks);
-      case 'getInfoPage':
-        return $Function($getInfoPage);
-      case 'getSearchPage':
-        return $Function($getSearchPage);
+        return __$headersBuilder;
       case 'getHomePage':
-        return $Function($getHomePage);
+        return __$getHomePage;
+      case 'getSearchPage':
+        return __$getSearchPage;
+      case 'getInfoPage':
+        return __$getInfoPage;
+      case 'getContentDataLinks':
+        return __$getContentDataLinks;
+      case 'getContentData':
+        return __$getContentData;
+      case 'contentDataRequest':
+        return __$contentDataRequest;
+      case 'contentDataParse':
+        return __$contentDataParse;
+      case 'setupPreferences':
+        return __$setupPreferences;
       default:
-        throw UnsupportedError(identifier);
+        throw UnimplementedError('Unknown identifier $identifier');
     }
   }
 
   @override
-  void $bridgeSet(String identifier, $Value value) {}
-
-  @override
-  List<HomePageRequest> homePageRequests() =>
-      ($_invoke('homePageRequests', []) as List).cast<HomePageRequest>();
-
-  @override
-  FilterList getFilterList() => ($_invoke('getFilterList', []) as FilterList);
-
-  @override
-  String get name => $_get('name');
-
-  @override
-  bool get supportsHomePage => $_get('supportsHomePage');
-
-  @override
-  double get homePageRequestTimeout => $_get('homePageRequestTimeout');
-
-  @override
-  String get lang => $_get('lang');
-
-  @override
-  SharedPreferences get preferences => $_get('preferences');
-
-  @override
-  List<PreferenceData> setupPreferences() {
-    return ($_invoke('setupPreferences', []) as List).cast<PreferenceData>();
-  }
-
-  $Value _$setupPreferences(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    return $UnsupportedError.wrap(UnsupportedError('Not implemented'));
+  void $bridgeSet(String identifier, $Value value) {
+    switch (identifier) {
+      default:
+        return $_set(identifier, value);
+    }
   }
 
   static const __$HttpSource$new = $Function(_$HttpSource$new);
@@ -581,4 +387,291 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $HttpSource();
   }
+
+  @override
+  int get id => $_get('id') as int;
+  $Value get _$id => $int(super.id);
+
+  @override
+  String get name => $_get('name') as String;
+
+  @override
+  bool get supportsHomePage => $_get('supportsHomePage') as bool;
+  $Value get _$supportsHomePage => $bool(super.supportsHomePage);
+
+  @override
+  double get homePageRequestTimeout =>
+      $_get('homePageRequestTimeout') as double;
+  $Value get _$homePageRequestTimeout => $double(super.homePageRequestTimeout);
+
+  @override
+  String get lang => $_get('lang') as String;
+  $Value get _$lang => $String(super.lang);
+
+  @override
+  NetworkHelper get network => $_get('network') as NetworkHelper;
+  $Value get _$network => $NetworkHelper.wrap(super.network);
+
+  @override
+  String get baseUrl => $_get('baseUrl') as String;
+
+  @override
+  int get versionId => $_get('versionId') as int;
+  $Value get _$versionId => $int(super.versionId);
+
+  @override
+  Headers get headers => $_get('headers') as Headers;
+  $Value get _$headers => $Headers.wrap(super.headers);
+
+  @override
+  List<HomePageRequest> homePageRequests() {
+    return ($_invoke('homePageRequests', []) as List).cast<HomePageRequest>();
+  }
+
+  @override
+  HeadersBuilder headersBuilder() {
+    return $_invoke('headersBuilder', []) as HeadersBuilder;
+  }
+
+  $Value get __$headersBuilder => $Function(_$headersBuilder);
+  $Value? _$headersBuilder(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $result = super.headersBuilder();
+    return $HeadersBuilder.wrap($result);
+  }
+
+  @override
+  Future<HomePage> getHomePage(int page, HomePageRequest request) {
+    return ($_invoke('getHomePage', [
+      $int(page),
+      $HomePageRequest.wrap(request),
+    ]) as Future)
+        .then((value) => value as HomePage);
+  }
+
+  $Value get __$getHomePage => $Function(_$getHomePage);
+  $Value? _$getHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
+    final page = args[1]?.$value as int;
+    final request = args[2]?.$reified as HomePageRequest;
+    final $result = super.getHomePage(
+      page,
+      request,
+    );
+    return $Future.wrap($result.then((value) => $HomePage.wrap(value)))
+        as $Value?;
+  }
+
+  @override
+  Request homePageRequest(int page, HomePageRequest request) {
+    return $_invoke('homePageRequest', [
+      $int(page),
+      $HomePageRequest.wrap(request),
+    ]) as Request;
+  }
+
+  @override
+  HomePage homePageParse(int page, HomePageRequest request, Response response) {
+    return $_invoke('homePageParse', [
+      $int(page),
+      $HomePageRequest.wrap(request),
+      $Response.wrap(response),
+    ]) as HomePage;
+  }
+
+  @override
+  FilterList getFilterList() {
+    return $_invoke('getFilterList', []) as FilterList;
+  }
+
+  @override
+  Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {
+    return ($_invoke('getSearchPage', [
+      $int(page),
+      $String(query),
+      $FilterList.wrap(filters),
+    ]) as Future)
+        .then((value) => value as SearchPage);
+  }
+
+  $Value get __$getSearchPage => $Function(_$getSearchPage);
+  $Value? _$getSearchPage(Runtime runtime, $Value? target, List<$Value?> args) {
+    final page = args[1]?.$value as int;
+    final query = args[2]?.$value as String;
+    final filters = args[3]?.$reified as FilterList;
+    final $result = super.getSearchPage(
+      page,
+      query,
+      filters,
+    );
+    return $Future.wrap($result.then((value) => $SearchPage.wrap(value)))
+        as $Value?;
+  }
+
+  @override
+  Request searchPageRequest(int page, String query, FilterList filters) {
+    return $_invoke('searchPageRequest', [
+      $int(page),
+      $String(query),
+      $FilterList.wrap(filters),
+    ]) as Request;
+  }
+
+  @override
+  SearchPage searchPageParse(
+      int page, String query, FilterList filters, Response response) {
+    return $_invoke('searchPageParse', [
+      $int(page),
+      $String(query),
+      $FilterList.wrap(filters),
+      $Response.wrap(response),
+    ]) as SearchPage;
+  }
+
+  @override
+  Future<InfoPage> getInfoPage(ContentItem contentItem) {
+    return ($_invoke('getInfoPage', [
+      $ContentItem.wrap(contentItem),
+    ]) as Future)
+        .then((value) => value as InfoPage);
+  }
+
+  $Value get __$getInfoPage => $Function(_$getInfoPage);
+  $Value? _$getInfoPage(Runtime runtime, $Value? target, List<$Value?> args) {
+    final contentItem = args[1]?.$reified as ContentItem;
+    final $result = super.getInfoPage(
+      contentItem,
+    );
+    return $Future.wrap($result.then((value) => $InfoPage.wrap(value)))
+        as $Value?;
+  }
+
+  @override
+  Request infoPageRequest(ContentItem contentItem) {
+    return $_invoke('infoPageRequest', [
+      $ContentItem.wrap(contentItem),
+    ]) as Request;
+  }
+
+  @override
+  Future<InfoPage> infoPageParse(ContentItem contentItem, Response response) {
+    return ($_invoke('infoPageParse', [
+      $ContentItem.wrap(contentItem),
+      $Response.wrap(response),
+    ]) as Future)
+        .then((value) => value as InfoPage);
+  }
+
+  @override
+  Future<List<ContentDataLink>> getContentDataLinks(String url) {
+    return ($_invoke('getContentDataLinks', [
+      $String(url),
+    ]) as Future)
+        .then((value) => (value as List).cast<ContentDataLink>());
+  }
+
+  $Value get __$getContentDataLinks => $Function(_$getContentDataLinks);
+  $Value? _$getContentDataLinks(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final url = args[1]?.$value as String;
+    final $result = super.getContentDataLinks(
+      url,
+    );
+    return $Future.wrap(
+        $result.then((value) => $List.wrap(List.generate(value.length, (index) {
+              return $ContentDataLink.wrap(value[index]);
+            })) as $Value?)) as $Value?;
+  }
+
+  @override
+  Request contentDataLinksRequest(String url) {
+    return $_invoke('contentDataLinksRequest', [
+      $String(url),
+    ]) as Request;
+  }
+
+  @override
+  List<ContentDataLink> contentDataLinksParse(String url, Response response) {
+    return ($_invoke('contentDataLinksParse', [
+      $String(url),
+      $Response.wrap(response),
+    ]) as List)
+        .cast<ContentDataLink>();
+  }
+
+  @override
+  Future<ContentData?> getContentData(ContentDataLink link) {
+    return ($_invoke('getContentData', [
+      $ContentDataLink.wrap(link),
+    ]) as Future)
+        .then((value) => value as ContentData?);
+  }
+
+  $Value get __$getContentData => $Function(_$getContentData);
+  $Value? _$getContentData(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final link = args[1]?.$reified as ContentDataLink;
+    final $result = super.getContentData(
+      link,
+    );
+    return $Future.wrap($result.then(
+            (value) => value == null ? $null() : $ContentData.wrap(value)))
+        as $Value?;
+  }
+
+  @override
+  Request contentDataRequest(ContentDataLink link) {
+    return $_invoke('contentDataRequest', [
+      $ContentDataLink.wrap(link),
+    ]) as Request;
+  }
+
+  $Value get __$contentDataRequest => $Function(_$contentDataRequest);
+  $Value? _$contentDataRequest(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final link = args[1]?.$reified as ContentDataLink;
+    final $result = super.contentDataRequest(
+      link,
+    );
+    return $Request.wrap($result);
+  }
+
+  @override
+  Future<ContentData> contentDataParse(
+      ContentDataLink link, Response response) {
+    return ($_invoke('contentDataParse', [
+      $ContentDataLink.wrap(link),
+      $Response.wrap(response),
+    ]) as Future)
+        .then((value) => value as ContentData);
+  }
+
+  $Value get __$contentDataParse => $Function(_$contentDataParse);
+  $Value? _$contentDataParse(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final link = args[1]?.$reified as ContentDataLink;
+    final response = args[2]?.$reified as Response;
+    final $result = super.contentDataParse(
+      link,
+      response,
+    );
+    return $Future.wrap($result.then((value) => $ContentData.wrap(value)))
+        as $Value?;
+  }
+
+  @override
+  List<PreferenceData> setupPreferences() =>
+      ($_invoke('setupPreferences', []) as List).cast<PreferenceData>();
+  $Value get __$setupPreferences => $Function(_$setupPreferences);
+  $Value? _$setupPreferences(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $UnsupportedError.wrap(UnsupportedError('Not implemented'));
+  }
+
+  @override
+  OkHttpClient get client => $_invoke('client', []) as OkHttpClient;
+  $Value get _$client => $OkHttpClient.wrap(super.client);
+  @override
+  SharedPreferences get preferences =>
+      $_invoke('preferences', []) as SharedPreferences;
+  $Value get _$preferences => $SharedPreferences.wrap(super.preferences);
 }
