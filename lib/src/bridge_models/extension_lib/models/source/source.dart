@@ -282,6 +282,6 @@ class $Source extends Source with $Bridge<Source> {
 
   @override
   SharedPreferences get preferences =>
-      $_invoke('preferences', []) as SharedPreferences;
+      $_get('preferences') as SharedPreferences;
   $Value get _$preferences => $SharedPreferences.wrap(super.preferences);
 }

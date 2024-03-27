@@ -816,13 +816,13 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  OkHttpClient get client => $_invoke('client', []) as OkHttpClient;
+  OkHttpClient get client => $_get('client') as OkHttpClient;
 
   $Value get _$client => $OkHttpClient.wrap(super.client);
 
   @override
   SharedPreferences get preferences =>
-      $_invoke('preferences', []) as SharedPreferences;
+      $_get('preferences') as SharedPreferences;
 
   $Value get _$preferences => $SharedPreferences.wrap(super.preferences);
 }
