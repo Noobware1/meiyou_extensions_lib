@@ -42,7 +42,7 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
         isBridge: true);
   }
 
-  static const $type = BridgeTypeRef(ExtensionLibTypes.catalogueSource);
+  static const $type = BridgeTypeRef(ExtensionLibTypes.httpSource);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(
