@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';
+import 'package:nice_dart/nice_dart.dart';
 
 class HomePage extends Equatable {
   final List<HomePageData> data;
@@ -10,6 +11,24 @@ class HomePage extends Equatable {
     required this.data,
     required this.hasNextPage,
   });
+
+  operator +(HomePage other) {
+    final map = Map.fromEntries(other.data.map((e) => MapEntry(e.name, e)));
+
+    for (var element in data) {
+      map[element.name]?.let((it) {
+        element.items.addAll(it.items);
+        map.remove(element.name);
+      });
+    }
+
+    data.addAll(map.values);
+
+    return HomePage(
+      data: data,
+      hasNextPage: other.hasNextPage,
+    );
+  }
 
   factory HomePage.of({
     required String name,
