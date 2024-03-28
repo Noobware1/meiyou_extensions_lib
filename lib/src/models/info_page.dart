@@ -1,11 +1,12 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/models/content.dart';
 import 'package:meiyou_extensions_lib/src/models/content_category.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';
 import 'package:nice_dart/nice_dart.dart';
 
-class InfoPage {
+class InfoPage extends Equatable {
   ///
   /// It includes the following properties:
   /// * `type`: A `ShowType` object representing the type of the show. Defaults to `ShowType.Others`.
@@ -158,6 +159,28 @@ class InfoPage {
   String toString() {
     return 'InfoPage(category: $category, name: $name, url: $url, otherTitles: $otherTitles, status: $status, bannerImage: $bannerImage, posterImage: $posterImage, rating: $rating, description: $description, startDate: $startDate, duration: $duration, genres: $genres, recommendations: $recommendations, externalIds: $externalIds, characters: $characters, content: $content)';
   }
+
+  @override
+  List<Object?> get props {
+    return [
+      category,
+      name,
+      url,
+      otherTitles,
+      status,
+      bannerImage,
+      posterImage,
+      rating,
+      description,
+      startDate,
+      duration,
+      genres,
+      recommendations,
+      externalIds,
+      characters,
+      content,
+    ];
+  }
 }
 
 enum Status {
@@ -168,7 +191,7 @@ enum Status {
   String toDisplayString() => super.toString().substringAfter('Status.');
 }
 
-class ExternalId {
+class ExternalId extends Equatable {
   const ExternalId({required this.name, required this.id});
 
   final String name;
@@ -188,9 +211,12 @@ class ExternalId {
       id: id ?? this.id,
     );
   }
+
+  @override
+  List<Object?> get props => [name, id];
 }
 
-class Character {
+class Character extends Equatable {
   const Character({
     this.name = '',
     this.image,
@@ -217,4 +243,7 @@ class Character {
       role: role ?? this.role,
     );
   }
+
+  @override
+  List<Object?> get props => [name, image, role];
 }

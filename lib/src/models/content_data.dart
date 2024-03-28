@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/models/quality.dart';
 import 'package:okhttp/okhttp.dart';
 
-abstract class ContentData {
+abstract class ContentData extends Equatable {
   final ContentDataType type;
   final Headers? headers;
   final Map<String, dynamic>? extra;
@@ -54,6 +55,9 @@ class Video extends ContentData {
       headers: headers ?? this.headers,
     );
   }
+
+  @override
+  List<Object?> get props => [type, sources, subtitles, extra, headers];
 }
 
 /// An enumeration of the different video formats.
@@ -82,7 +86,7 @@ enum VideoFormat {
 /// * `quality`: An optional `VideoQuality` object representing the quality of the video source.
 /// * `isBackup`: A boolean indicating whether the video source is a backup.
 /// * `title`: An optional string representing the title of the video source.
-class VideoSource {
+class VideoSource extends Equatable {
   const VideoSource({
     this.url = '',
     this.format = VideoFormat.other,
@@ -133,6 +137,9 @@ class VideoSource {
   String toString() {
     return 'VideoSource(url: $url, format: $format, quality: $quality, isBackup: $isBackup, title: $title)';
   }
+
+  @override
+  List<Object?> get props => [url, format, quality, title, isBackup];
 }
 
 /// A class that represents a subtitle.
@@ -142,7 +149,7 @@ class VideoSource {
 /// * `format`: A `SubtitleFormat` value representing the format of the subtitle.
 /// * `language`: An optional string representing the language of the subtitle.
 /// * `headers`: An optional map of strings representing the headers of the subtitle.
-class Subtitle {
+class Subtitle extends Equatable {
   const Subtitle({
     this.url = '',
     this.format,
@@ -184,6 +191,9 @@ class Subtitle {
   String toString() {
     return 'Subtitle(url: $url, format: $format, language: $language, headers: $headers)';
   }
+
+  @override
+  List<Object?> get props => [url, format, language, headers];
 }
 
 /// An enumeration of the different subtitle formats.

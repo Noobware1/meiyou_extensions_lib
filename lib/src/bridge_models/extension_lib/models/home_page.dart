@@ -330,9 +330,13 @@ class $HomePage implements HomePage, $Instance {
   }
 
   @override
-  String toString() {
-    return 'HomePage(data: $data, hasNextPage: $hasNextPage)';
-  }
+  String toString() => $value.toString();
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [HomePageData]
@@ -560,9 +564,13 @@ class $HomePageData implements HomePageData, $Instance {
   }
 
   @override
-  String toString() {
-    return 'HomePageData(name: $name, items: $items, horizontalImages: $horizontalImages)';
-  }
+  String toString() => $value.toString();
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [HomePageRequest]
@@ -681,7 +689,6 @@ class $HomePageRequest implements HomePageRequest, $Instance {
         return $String($value.data);
       case 'horizontalImages':
         return $bool($value.horizontalImages);
-
       case 'toString':
         return __$toString;
       case 'copyWith':
@@ -760,4 +767,10 @@ class $HomePageRequest implements HomePageRequest, $Instance {
       horizontalImages: horizontalImages,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }

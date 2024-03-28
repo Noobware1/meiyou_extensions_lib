@@ -147,6 +147,12 @@ class $ContentData implements ContentData, $Instance {
   Headers? get headers => $value.headers;
   @override
   Map<String, dynamic>? get extra => $value.extra;
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [Video]
@@ -395,6 +401,12 @@ class $Video implements Video, $Instance {
       headers: headers,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [VideoSource]
@@ -687,6 +699,12 @@ class $VideoSource implements VideoSource, $Instance {
       isBackup: isBackup,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [Subtitle]
@@ -930,6 +948,12 @@ class $Subtitle implements Subtitle, $Instance {
       headers: headers,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 class $ContentDataType implements $Instance {

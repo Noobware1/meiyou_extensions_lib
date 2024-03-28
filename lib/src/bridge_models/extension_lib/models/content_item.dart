@@ -368,4 +368,10 @@ class $ContentItem implements ContentItem, $Instance {
       totalCount: totalCount,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }

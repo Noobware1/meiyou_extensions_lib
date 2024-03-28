@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';
 
-class SearchPage {
+class SearchPage extends Equatable {
   final List<ContentItem> items;
   final bool hasNextPage;
 
@@ -20,4 +21,7 @@ class SearchPage {
   String toString() {
     return 'SearchPage(items: $items, hasNextPage: $hasNextPage)';
   }
+
+  @override
+  List<Object?> get props => [items, hasNextPage];
 }

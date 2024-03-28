@@ -173,6 +173,12 @@ class $LazyContent implements LazyContent, $Instance {
     });
     return $Future.wrap($result);
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [Movie]
@@ -400,6 +406,12 @@ class $Movie implements Movie, $Instance {
       description: description,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [Series]
@@ -589,6 +601,12 @@ class $Series implements Series, $Instance {
       data,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [Anime]
@@ -778,6 +796,12 @@ class $Anime implements Anime, $Instance {
       episodes,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [SeasonList]
@@ -963,6 +987,12 @@ class $SeasonList implements SeasonList, $Instance {
       episodes: episodes,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [Season]
@@ -1134,6 +1164,12 @@ class $Season implements Season, $Instance {
       name: name,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [Episode]
@@ -1431,4 +1467,10 @@ class $Episode implements Episode, $Instance {
       date: date,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }

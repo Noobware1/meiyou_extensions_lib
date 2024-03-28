@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/models/content_category.dart';
 
-class ContentItem {
+class ContentItem extends Equatable {
   /// Creates a new `ContentItem` instance.
   ///
   /// [title] is the string representing the title of the show.
@@ -63,4 +64,17 @@ class ContentItem {
   String toString() {
     return 'ContentItem(title: $title, url: $url, poster: $poster, category: $category, description: $description, generes: $generes, rating: $rating, currentCount: $currentCount, totalCount: $totalCount)';
   }
+
+  @override
+  List<Object?> get props => [
+        title,
+        url,
+        poster,
+        category,
+        description,
+        generes,
+        rating,
+        currentCount,
+        totalCount
+      ];
 }

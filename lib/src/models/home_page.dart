@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';
 
-class HomePage {
+class HomePage extends Equatable {
   final List<HomePageData> data;
   final bool hasNextPage;
 
@@ -80,9 +81,12 @@ class HomePage {
   String toString() {
     return 'HomePage(data: $data, hasNextPage: $hasNextPage)';
   }
+
+  @override
+  List<Object?> get props => [data, hasNextPage];
 }
 
-class HomePageData {
+class HomePageData extends Equatable {
   final String name;
   final List<ContentItem> items;
   final bool horizontalImages;
@@ -120,6 +124,9 @@ class HomePageData {
   String toString() {
     return 'HomePageData(name: $name, items: $items, horizontalImages: $horizontalImages)';
   }
+
+  @override
+  List<Object?> get props => [name, items, horizontalImages];
 }
 
 /// `HomePageRequest` is a class that represents the data for a home page.
@@ -131,7 +138,7 @@ class HomePageData {
 ///
 /// The `HomePageRequest` class has a constructor that takes these properties.
 
-class HomePageRequest {
+class HomePageRequest extends Equatable {
   final String name;
   final String data;
   final bool horizontalImages;
@@ -158,4 +165,7 @@ class HomePageRequest {
   String toString() {
     return 'HomePageRequest(name: $name, data: $data, horizontalImages: $horizontalImages)';
   }
+
+  @override
+  List<Object?> get props => [name, data, horizontalImages];
 }

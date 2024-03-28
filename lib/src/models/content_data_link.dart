@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:okhttp/okhttp.dart';
 
-class ContentDataLink {
+class ContentDataLink extends Equatable {
   final String name;
   final String data;
   final Headers? headers;
@@ -35,4 +36,7 @@ class ContentDataLink {
   String toString() {
     return 'ContentDataLink(name: $name, data: $data, headers: $headers, referer: $referer, extra: $extra)';
   }
+
+  @override
+  List<Object?> get props => [name, data, headers, referer, extra];
 }

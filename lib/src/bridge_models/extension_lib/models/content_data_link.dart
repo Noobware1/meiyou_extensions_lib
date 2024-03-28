@@ -274,4 +274,10 @@ class $ContentDataLink implements ContentDataLink, $Instance {
       extra: extra,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }

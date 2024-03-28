@@ -173,4 +173,10 @@ class $SearchPage implements SearchPage, $Instance {
   String toString() {
     return $value.toString();
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }

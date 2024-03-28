@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 /// A class that represents a media item.
 ///
 /// The `Content` class has the following properties:
@@ -14,7 +16,7 @@ extension GetContentType on Content {
   bool get isLazy => this is LazyContent;
 }
 
-class LazyContent implements Content {
+class LazyContent extends Equatable implements Content {
   final Future<Content> Function() load;
 
   LazyContent({required this.load});
@@ -23,9 +25,12 @@ class LazyContent implements Content {
   String toString() {
     return 'LazyContent(load: $load)';
   }
+
+  @override
+  List<Object?> get props => [load];
 }
 
-class Movie implements Content {
+class Movie extends Equatable implements Content {
   Movie({required this.url, this.image, this.description});
 
   /// A string representing the URL of the movie.
@@ -57,9 +62,12 @@ class Movie implements Content {
   String toString() {
     return 'Movie(url: $url, image: $image, description: $description)';
   }
+
+  @override
+  List<Object?> get props => [url, image, description];
 }
 
-class Series implements Content {
+class Series extends Equatable implements Content {
   final List<SeasonList> data;
 
   Series(this.data);
@@ -80,9 +88,12 @@ class Series implements Content {
   String toString() {
     return 'Series(data: $data)';
   }
+
+  @override
+  List<Object?> get props => [data];
 }
 
-class Anime implements Content {
+class Anime extends Equatable implements Content {
   final List<Episode> episodes;
 
   Anime(this.episodes);
@@ -103,9 +114,12 @@ class Anime implements Content {
   String toString() {
     return 'Anime(episodes: $episodes)';
   }
+
+  @override
+  List<Object?> get props => [episodes];
 }
 
-class SeasonList {
+class SeasonList extends Equatable {
   final Season season;
   final List<Episode> episodes;
 
@@ -125,9 +139,12 @@ class SeasonList {
   String toString() {
     return 'SeasonList(season: $season, episodes: $episodes)';
   }
+
+  @override
+  List<Object?> get props => [season, episodes];
 }
 
-class Season {
+class Season extends Equatable {
   final num? number;
   final String? name;
 
@@ -147,9 +164,12 @@ class Season {
       name: name ?? this.name,
     );
   }
+
+  @override
+  List<Object?> get props => [number, name];
 }
 
-class Episode {
+class Episode extends Equatable {
   final String data;
   final String? name;
   final num? number;
@@ -192,4 +212,8 @@ class Episode {
   String toString() {
     return 'Episode(data: $data, name: $name, number: $number, image: $image, isFiller: $isFiller, description: $description, date: $date)';
   }
+
+  @override
+  List<Object?> get props =>
+      [data, name, number, image, isFiller, description, date];
 }

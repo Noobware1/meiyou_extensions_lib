@@ -762,6 +762,12 @@ class $InfoPage implements InfoPage, $Instance {
   String toString() {
     return $value.toString();
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [ExternalId]
@@ -934,6 +940,12 @@ class $ExternalId implements ExternalId, $Instance {
       id: id,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 /// dart_eval bimodal wrapper for [Character]
@@ -1130,6 +1142,12 @@ class $Character implements Character, $Instance {
       role: role,
     ));
   }
+
+  @override
+  List<Object?> get props => $value.props;
+
+  @override
+  bool? get stringify => $value.stringify;
 }
 
 class $Status implements $Instance {
