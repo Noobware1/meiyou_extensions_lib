@@ -200,6 +200,22 @@ class $HomePage implements HomePage, $Instance {
             ],
           ),
           isStatic: false),
+      '+': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.homePage, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'other',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.homePage, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -219,9 +235,10 @@ class $HomePage implements HomePage, $Instance {
         })) as $Value?;
       case 'hasNextPage':
         return $bool($value.hasNextPage);
-
       case 'copyWith':
         return __$copyWith;
+      case '+':
+        return __$combine;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -265,6 +282,17 @@ class $HomePage implements HomePage, $Instance {
       data: data,
       hasNextPage: hasNextPage,
     );
+    return $HomePage.wrap($result);
+  }
+
+  @override
+  HomePage operator +(HomePage other) => $value + other;
+  static const __$combine = $Function(_$combine);
+  static $Value? _$combine(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as HomePage;
+    final other = args[0]?.$value as HomePage;
+    final $result = $this + other;
     return $HomePage.wrap($result);
   }
 
@@ -483,7 +511,6 @@ class $HomePageData implements HomePageData, $Instance {
         })) as $Value?;
       case 'horizontalImages':
         return $bool($value.horizontalImages);
-
       case 'copyWith':
         return __$copyWith;
       default:

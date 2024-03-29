@@ -12,7 +12,7 @@ class HomePage extends Equatable {
     required this.hasNextPage,
   });
 
-  operator +(HomePage other) {
+  HomePage operator +(HomePage other) {
     final map = Map.fromEntries(other.data.map((e) => MapEntry(e.name, e)));
 
     for (var element in data) {
