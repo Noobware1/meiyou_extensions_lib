@@ -1,10 +1,27 @@
 import 'package:equatable/equatable.dart';
+import 'package:meiyou_extensions_lib/src/utils/utils.dart';
+import 'package:nice_dart/nice_dart.dart';
 
 /// A class that represents a media item.
 ///
 /// The `Content` class has the following properties:
 /// * `type`: A `Content` value representing the type of the media item.
-abstract interface class Content {}
+abstract interface class Content {
+  factory Content.fromJson(Map<String, dynamic> json) {
+    switch (json['type']) {
+      case 'movie':
+        return Movie.fromJson(json);
+      case 'series':
+        return Series.fromJson(json);
+      case 'anime':
+        return Anime.fromJson(json);
+      default:
+        throw UnimplementedError('Unknown content type: ${json['type']}');
+    }
+  }
+
+  Map<String, dynamic> toJson();
+}
 
 extension GetContentType on Content {
   bool get isMovie => this is Movie;
@@ -23,11 +40,18 @@ class LazyContent extends Equatable implements Content {
 
   @override
   String toString() {
-    return 'LazyContent(load: $load)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override
   List<Object?> get props => [load];
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'load': load.toString(),
+    };
+  }
 }
 
 class Movie extends Equatable implements Content {
@@ -41,6 +65,14 @@ class Movie extends Equatable implements Content {
 
   /// An optional string representing the description of the movie.
   final String? description;
+
+  factory Movie.fromJson(Map<String, dynamic> json) {
+    return Movie(
+      url: json['url'],
+      image: json['image'],
+      description: json['description'],
+    );
+  }
 
   static LazyContent lazy(Future<Movie> Function() builder) {
     return LazyContent(load: builder);
@@ -60,17 +92,33 @@ class Movie extends Equatable implements Content {
 
   @override
   String toString() {
-    return 'Movie(url: $url, image: $image, description: $description)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override
   List<Object?> get props => [url, image, description];
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'type': 'movie',
+      'url': url,
+      'image': image,
+      'description': description,
+    };
+  }
 }
 
 class Series extends Equatable implements Content {
   final List<SeasonList> data;
 
-  Series(this.data);
+  const Series(this.data);
+
+  factory Series.fromJson(Map<String, dynamic> json) {
+    return Series(
+      json['data'].mapList((e) => SeasonList.fromJson(e)),
+    );
+  }
 
   static LazyContent lazy(Future<Series> Function() builder) {
     return LazyContent(load: builder);
@@ -85,8 +133,16 @@ class Series extends Equatable implements Content {
   }
 
   @override
+  Map<String, dynamic> toJson() {
+    return {
+      'type': 'series',
+      'data': data.mapList((e) => e.toJson()),
+    };
+  }
+
+  @override
   String toString() {
-    return 'Series(data: $data)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override
@@ -97,6 +153,12 @@ class Anime extends Equatable implements Content {
   final List<Episode> episodes;
 
   Anime(this.episodes);
+
+  factory Anime.fromJson(Map<String, dynamic> json) {
+    return Anime(
+      json['episodes'].mapList((e) => Episode.fromJson(e)),
+    );
+  }
 
   static LazyContent lazy(Future<Anime> Function() builder) {
     return LazyContent(load: builder);
@@ -111,8 +173,16 @@ class Anime extends Equatable implements Content {
   }
 
   @override
+  Map<String, dynamic> toJson() {
+    return {
+      'type': 'anime',
+      'episodes': episodes.mapList((e) => e.toJson()),
+    };
+  }
+
+  @override
   String toString() {
-    return 'Anime(episodes: $episodes)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override
@@ -124,6 +194,20 @@ class SeasonList extends Equatable {
   final List<Episode> episodes;
 
   SeasonList({required this.season, required this.episodes});
+
+  factory SeasonList.fromJson(Map<String, dynamic> json) {
+    return SeasonList(
+      season: Season.fromJson(json['season']),
+      episodes: json['episodes'].mapList((e) => Episode.fromJson(e)),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'season': season.toJson(),
+      'episodes': episodes.mapList((e) => e.toJson()),
+    };
+  }
 
   SeasonList copyWith({
     Season? season,
@@ -137,7 +221,7 @@ class SeasonList extends Equatable {
 
   @override
   String toString() {
-    return 'SeasonList(season: $season, episodes: $episodes)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override
@@ -150,9 +234,23 @@ class Season extends Equatable {
 
   Season({this.number, this.name});
 
+  factory Season.fromJson(Map<String, dynamic> json) {
+    return Season(
+      number: json['number'],
+      name: json['name'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'number': number,
+      'name': name,
+    };
+  }
+
   @override
   String toString() {
-    return 'Season(number: $number, name: $name)';
+    return jsonPrettyEncode(toJson());
   }
 
   Season copyWith({
@@ -188,6 +286,18 @@ class Episode extends Equatable {
     this.date,
   });
 
+  factory Episode.fromJson(Map<String, dynamic> json) {
+    return Episode(
+      data: json['data'],
+      name: json['name'],
+      number: json['number'],
+      image: json['image'],
+      isFiller: json['isFiller'],
+      description: json['description'],
+      date: json['date'],
+    );
+  }
+
   Episode copyWith({
     String? data,
     String? name,
@@ -208,9 +318,21 @@ class Episode extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'data': data,
+      'name': name,
+      'number': number,
+      'image': image,
+      'isFiller': isFiller,
+      'description': description,
+      'date': date,
+    };
+  }
+
   @override
   String toString() {
-    return 'Episode(data: $data, name: $name, number: $number, image: $image, isFiller: $isFiller, description: $description, date: $date)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override

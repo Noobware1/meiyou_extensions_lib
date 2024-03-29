@@ -24,6 +24,8 @@ class $HomePage implements HomePage, $Instance {
         $type.spec!.library, 'HomePage.fromData', __$HomePage$fromData.call);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'HomePage.list', __$HomePage$list.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'HomePage.fromJson', __$HomePage$fromJson.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -161,7 +163,25 @@ class $HomePage implements HomePage, $Instance {
           ],
         ),
         isFactory: true,
-      )
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'data': BridgeFieldDef(
@@ -216,6 +236,18 @@ class $HomePage implements HomePage, $Instance {
             namedParams: [],
           ),
           isStatic: false),
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -239,6 +271,8 @@ class $HomePage implements HomePage, $Instance {
         return __$copyWith;
       case '+':
         return __$combine;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -294,6 +328,15 @@ class $HomePage implements HomePage, $Instance {
     final other = args[0]?.$value as HomePage;
     final $result = $this + other;
     return $HomePage.wrap($result);
+  }
+
+  @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as HomePage;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
   }
 
   static const __$HomePage$new = $Function(_$HomePage$new);
@@ -357,6 +400,13 @@ class $HomePage implements HomePage, $Instance {
     ));
   }
 
+  static const __$HomePage$fromJson = $Function(_$HomePage$fromJson);
+  static $Value? _$HomePage$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    return $HomePage.wrap(HomePage.fromJson(json));
+  }
+
   @override
   String toString() => $value.toString();
 
@@ -377,6 +427,8 @@ class $HomePageData implements HomePageData, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc($type.spec!.library, 'HomePageData.withRequest',
         __$HomePageData$withRequest.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'HomePageData.fromJson',
+        __$HomePageData$fromJson.call);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'HomePageData.', __$HomePageData$new.call);
   }
@@ -443,6 +495,24 @@ class $HomePageData implements HomePageData, $Instance {
         ),
         isFactory: true,
       ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'name': BridgeFieldDef(
@@ -490,6 +560,18 @@ class $HomePageData implements HomePageData, $Instance {
             ],
           ),
           isStatic: false),
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -513,6 +595,8 @@ class $HomePageData implements HomePageData, $Instance {
         return $bool($value.horizontalImages);
       case 'copyWith':
         return __$copyWith;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -565,6 +649,15 @@ class $HomePageData implements HomePageData, $Instance {
     return $HomePageData.wrap($result);
   }
 
+  @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as HomePage;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
+  }
+
   static const __$HomePageData$withRequest =
       $Function(_$HomePageData$withRequest);
   static $Value? _$HomePageData$withRequest(
@@ -575,6 +668,13 @@ class $HomePageData implements HomePageData, $Instance {
       request,
       items,
     ));
+  }
+
+  static const __$HomePageData$fromJson = $Function(_$HomePageData$fromJson);
+  static $Value? _$HomePageData$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    return $HomePageData.wrap(HomePageData.fromJson(json));
   }
 
   static const __$HomePageData$new = $Function(_$HomePageData$new);
@@ -610,6 +710,8 @@ class $HomePageRequest implements HomePageRequest, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
         $type.spec!.library, 'HomePageRequest.', __$HomePageRequest$new.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'HomePageRequest.fromJson',
+        __$HomePageRequest$fromJson.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -647,7 +749,25 @@ class $HomePageRequest implements HomePageRequest, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'name': BridgeFieldDef(
@@ -697,6 +817,18 @@ class $HomePageRequest implements HomePageRequest, $Instance {
             ],
           ),
           isStatic: false),
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -720,6 +852,8 @@ class $HomePageRequest implements HomePageRequest, $Instance {
         return __$toString;
       case 'copyWith':
         return __$copyWith;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -760,6 +894,15 @@ class $HomePageRequest implements HomePageRequest, $Instance {
   }
 
   @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as HomePage;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
+  }
+
+  @override
   HomePageRequest copyWith(
           {String? name, String? data, bool? horizontalImages}) =>
       $value.copyWith(
@@ -779,6 +922,15 @@ class $HomePageRequest implements HomePageRequest, $Instance {
       data: data,
       horizontalImages: horizontalImages,
     );
+    return $HomePageRequest.wrap($result);
+  }
+
+  static const __$HomePageRequest$fromJson =
+      $Function(_$HomePageRequest$fromJson);
+  static $Value? _$HomePageRequest$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = HomePageRequest.fromJson(json);
     return $HomePageRequest.wrap($result);
   }
 

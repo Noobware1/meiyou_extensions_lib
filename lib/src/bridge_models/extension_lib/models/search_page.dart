@@ -16,6 +16,8 @@ class $SearchPage implements SearchPage, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
         $type.spec!.library, 'SearchPage.', __$SearchPage$new.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'SearchPage.fromJson',
+        __$SearchPage$fromJson.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -51,7 +53,25 @@ class $SearchPage implements SearchPage, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'items': BridgeFieldDef(
@@ -67,6 +87,18 @@ class $SearchPage implements SearchPage, $Instance {
           isStatic: false),
     },
     methods: {
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
       'copyWith': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -109,9 +141,10 @@ class $SearchPage implements SearchPage, $Instance {
         })) as $Value?;
       case 'hasNextPage':
         return $bool($value.hasNextPage);
-
       case 'copyWith':
         return __$copyWith;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -158,6 +191,15 @@ class $SearchPage implements SearchPage, $Instance {
     return $SearchPage.wrap($result);
   }
 
+  @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as SearchPage;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
+  }
+
   static const __$SearchPage$new = $Function(_$SearchPage$new);
   static $Value? _$SearchPage$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -167,6 +209,15 @@ class $SearchPage implements SearchPage, $Instance {
       hasNextPage: hasNextPage,
       items: items,
     ));
+  }
+
+  static const __$SearchPage$fromJson =
+      $Function(_$SearchPage$fromJson);
+  static $Value? _$SearchPage$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = SearchPage.fromJson(json);
+    return $SearchPage.wrap($result);
   }
 
   @override

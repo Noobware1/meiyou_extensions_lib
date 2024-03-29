@@ -52,6 +52,17 @@ class Quality implements Comparable<Quality> {
     return unknown;
   }
 
+  factory Quality.fromJson(Map<String, dynamic> json) {
+    return Quality(json['width'], json['height']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'width': width,
+      'height': height,
+    };
+  }
+
   Quality copyWith({
     int? width,
     int? height,

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/models/content_category.dart';
+import 'package:meiyou_extensions_lib/src/utils/utils.dart';
+import 'package:nice_dart/nice_dart.dart';
 
 class ContentItem extends Equatable {
   /// Creates a new `ContentItem` instance.
@@ -62,7 +64,7 @@ class ContentItem extends Equatable {
 
   @override
   String toString() {
-    return 'ContentItem(title: $title, url: $url, poster: $poster, category: $category, description: $description, generes: $generes, rating: $rating, currentCount: $currentCount, totalCount: $totalCount)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override
@@ -77,4 +79,32 @@ class ContentItem extends Equatable {
         currentCount,
         totalCount
       ];
+
+  factory ContentItem.fromJson(Map<String, dynamic> json) {
+    return ContentItem(
+      title: json['title'],
+      url: json['url'],
+      poster: json['poster'],
+      category: ContentCategory.values[json['category']],
+      description: json['description'],
+      generes: (json['generes'] as List).mapList((e) => e.toString()),
+      rating: json['rating'],
+      currentCount: json['currentCount'],
+      totalCount: json['totalCount'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'url': url,
+      'poster': poster,
+      'category': category.index,
+      'description': description,
+      'generes': generes,
+      'rating': rating,
+      'currentCount': currentCount,
+      'totalCount': totalCount,
+    };
+  }
 }

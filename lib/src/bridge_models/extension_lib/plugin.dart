@@ -186,6 +186,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     $SearchPage.configureForRuntime(runtime);
 
     // content.dart
+    $Content.configureForRuntime(runtime);
     $LazyContent.configureForRuntime(runtime);
     $Movie.configureForRuntime(runtime);
     $Series.configureForRuntime(runtime);
@@ -204,6 +205,7 @@ class ExtensionLibPlugin extends EvalPlugin {
     $ContentDataLink.configureForRuntime(runtime);
 
     //content_data.dart
+    $ContentData.configureForRuntime(runtime);
     $ContentDataType.configureForRuntime(runtime);
     $Video.configureForRuntime(runtime);
     $VideoFormat.configureForRuntime(runtime);

@@ -15,6 +15,8 @@ class $ContentItem implements ContentItem, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
         $type.spec!.library, 'ContentItem.', __$ContentItem$new.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'ContentItem.fromJson', __$ContentItem$fromJson);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -86,7 +88,25 @@ class $ContentItem implements ContentItem, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'title': BridgeFieldDef(
@@ -198,6 +218,18 @@ class $ContentItem implements ContentItem, $Instance {
             namedParams: [],
           ),
           isStatic: false),
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -238,11 +270,12 @@ class $ContentItem implements ContentItem, $Instance {
             : $int($value.currentCount!);
       case 'totalCount':
         return $value.totalCount == null ? $null() : $int($value.totalCount!);
-
       case 'copyWith':
         return __$copyWith;
       case 'toString':
         return __$toString;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -334,6 +367,15 @@ class $ContentItem implements ContentItem, $Instance {
   }
 
   @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as ContentItem;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
+  }
+
+  @override
   String toString() => $value.toString();
   static const __$toString = $Function(_$toString);
   static $Value? _$toString(
@@ -341,6 +383,14 @@ class $ContentItem implements ContentItem, $Instance {
     final obj = target?.$value as ContentItem;
     final $result = obj.toString();
     return $String($result);
+  }
+
+  static const __$ContentItem$fromJson = $Function(_$ContentItem$fromJson);
+  static $Value? _$ContentItem$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = ContentItem.fromJson(json);
+    return runtime.wrap($result, recursive: true);
   }
 
   static const __$ContentItem$new = $Function(_$ContentItem$new);

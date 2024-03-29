@@ -16,6 +16,12 @@ class $ContentData implements ContentData, $Instance {
     registry.defineBridgeClass($declaration);
   }
 
+  /// Configure the [$ContentData] wrapper for use in a [Runtime]
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($type.spec!.library, 'ContentData.fromJson',
+        __$ContentData$fromJson.call);
+  }
+
   late final $Instance _superclass = $Object($value);
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.contentData);
@@ -56,7 +62,25 @@ class $ContentData implements ContentData, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'type': BridgeFieldDef(
@@ -77,7 +101,20 @@ class $ContentData implements ContentData, $Instance {
               nullable: true),
           isStatic: false),
     },
-    methods: {},
+    methods: {
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
+    },
     getters: {},
     setters: {},
     bridge: false,
@@ -118,7 +155,8 @@ class $ContentData implements ContentData, $Instance {
                   value is $Value ? value : value,
                 ));
               }) as $Value?;
-
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -149,6 +187,26 @@ class $ContentData implements ContentData, $Instance {
   Map<String, dynamic>? get extra => $value.extra;
 
   @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as ContentData;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
+  }
+
+  static const __$ContentData$fromJson = $Function(_$ContentData$fromJson);
+  static $Value? _$ContentData$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = ContentData.fromJson(json);
+    if ($result is Video) {
+      return $Video.wrap($result);
+    }
+    return $ContentData.wrap($result);
+  }
+
+  @override
   List<Object?> get props => $value.props;
 
   @override
@@ -165,6 +223,8 @@ class $Video implements Video, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
         $type.spec!.library, 'Video.', __$Video$new.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Video.fromJson', __$Video$fromJson.call);
   }
 
   late final $Instance _superclass = $ContentData.wrap($value);
@@ -213,7 +273,25 @@ class $Video implements Video, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'sources': BridgeFieldDef(
@@ -232,14 +310,6 @@ class $Video implements Video, $Instance {
           isStatic: false),
     },
     methods: {
-      'toString': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
       'copyWith': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -280,6 +350,18 @@ class $Video implements Video, $Instance {
             ],
           ),
           isStatic: false),
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -304,11 +386,10 @@ class $Video implements Video, $Instance {
                 ($value.subtitles as List<Subtitle>).length, (index) {
                 return $Subtitle.wrap($value.subtitles![index]);
               })) as $Value?;
-
-      case 'toString':
-        return __$toString;
       case 'copyWith':
         return __$copyWith;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -346,13 +427,12 @@ class $Video implements Video, $Instance {
   List<Subtitle>? get subtitles => $value.subtitles;
 
   @override
-  String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Video;
-    final $result = obj.toString();
-    return $String($result);
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as Video;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
   }
 
   @override
@@ -381,6 +461,14 @@ class $Video implements Video, $Instance {
       extra: extra,
       headers: headers,
     );
+    return $Video.wrap($result);
+  }
+
+  static const __$Video$fromJson = $Function(_$Video$fromJson);
+  static $Value? _$Video$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = Video.fromJson(json);
     return $Video.wrap($result);
   }
 
@@ -419,6 +507,8 @@ class $VideoSource implements VideoSource, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
         $type.spec!.library, 'VideoSource.hls', __$VideoSource$hls.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'VideoSource.fromJson',
+        __$VideoSource$fromJson.call);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'VideoSource.', __$VideoSource$new.call);
   }
@@ -495,6 +585,24 @@ class $VideoSource implements VideoSource, $Instance {
         ),
         isFactory: true,
       ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'url': BridgeFieldDef(
@@ -519,6 +627,18 @@ class $VideoSource implements VideoSource, $Instance {
           isStatic: false),
     },
     methods: {
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
       'copyWith': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -556,14 +676,6 @@ class $VideoSource implements VideoSource, $Instance {
             ],
           ),
           isStatic: false),
-      'toString': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -589,11 +701,10 @@ class $VideoSource implements VideoSource, $Instance {
         return $bool($value.isBackup);
       case 'title':
         return $value.title == null ? $null() : $String($value.title!);
-
       case 'copyWith':
         return __$copyWith;
-      case 'toString':
-        return __$toString;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -661,13 +772,12 @@ class $VideoSource implements VideoSource, $Instance {
   }
 
   @override
-  String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as VideoSource;
-    final $result = obj.toString();
-    return $String($result);
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as VideoSource;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
   }
 
   static const __$VideoSource$hls = $Function(_$VideoSource$hls);
@@ -681,6 +791,14 @@ class $VideoSource implements VideoSource, $Instance {
       title: title,
       isBackup: isBackup,
     ));
+  }
+
+  static const __$VideoSource$fromJson = $Function(_$VideoSource$fromJson);
+  static $Value? _$VideoSource$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = VideoSource.fromJson(json);
+    return $VideoSource.wrap($result);
   }
 
   static const __$VideoSource$new = $Function(_$VideoSource$new);
@@ -719,6 +837,8 @@ class $Subtitle implements Subtitle, $Instance {
         $type.spec!.library, 'Subtitle.', __$Subtitle$new.call);
     runtime.registerBridgeFunc($type.spec!.library, 'Subtitle.noSubtitle*g',
         __$static$noSubtitle.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Subtitle.fromJson', __$Subtitle$fromJson.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -762,7 +882,25 @@ class $Subtitle implements Subtitle, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'noSubtitle': BridgeFieldDef(
@@ -788,6 +926,18 @@ class $Subtitle implements Subtitle, $Instance {
           isStatic: false),
     },
     methods: {
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
       'copyWith': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -819,14 +969,6 @@ class $Subtitle implements Subtitle, $Instance {
             ],
           ),
           isStatic: false),
-      'toString': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -852,11 +994,10 @@ class $Subtitle implements Subtitle, $Instance {
         return $value.headers == null
             ? $null()
             : $Headers.wrap($value.headers!);
-
       case 'copyWith':
         return __$copyWith;
-      case 'toString':
-        return __$toString;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -896,6 +1037,15 @@ class $Subtitle implements Subtitle, $Instance {
   }
 
   @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as Subtitle;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
+  }
+
+  @override
   Subtitle copyWith(
           {String? url,
           SubtitleFormat? format,
@@ -924,14 +1074,12 @@ class $Subtitle implements Subtitle, $Instance {
     return $Subtitle.wrap($result);
   }
 
-  @override
-  String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
+  static const __$Subtitle$fromJson = $Function(_$Subtitle$fromJson);
+  static $Value? _$Subtitle$fromJson(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Subtitle;
-    final $result = obj.toString();
-    return $String($result);
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = Subtitle.fromJson(json);
+    return $Subtitle.wrap($result);
   }
 
   static const __$Subtitle$new = $Function(_$Subtitle$new);

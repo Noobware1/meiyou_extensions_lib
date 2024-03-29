@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/models/quality.dart';
+import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:okhttp/okhttp.dart';
 
 abstract class ContentData extends Equatable {
@@ -8,6 +9,26 @@ abstract class ContentData extends Equatable {
   final Map<String, dynamic>? extra;
 
   const ContentData({required this.type, this.headers, this.extra});
+
+  factory ContentData.fromJson(Map<String, dynamic> json) {
+    switch (ContentDataType.values[json['type']]) {
+      case ContentDataType.Video:
+        return Video.fromJson(json);
+      // case ContentDataType.Manga:
+      //   return Manga.fromJson(json);
+      // case ContentDataType.Novel:
+      //   return Novel.fromJson(json);
+      default:
+        throw Exception('Invalid ContentDataType');
+    }
+  }
+
+  Map<String, dynamic> toJson();
+
+  @override
+  String toString() {
+    return jsonPrettyEncode(toJson());
+  }
 }
 
 enum ContentDataType {
@@ -37,9 +58,18 @@ class Video extends ContentData {
   /// An optional list of `Subtitle` objects representing the subtitles of the video.
   final List<Subtitle>? subtitles;
 
-  @override
-  String toString() {
-    return 'Video(type: $type, sources: $sources, subtitles: $subtitles, extra: $extra, headers: $headers)';
+  factory Video.fromJson(Map<String, dynamic> json) {
+    return Video(
+      sources: (json['sources'] as List)
+          .map((e) => VideoSource.fromJson(e))
+          .toList(),
+      subtitles: (json['subtitles'] as List?)
+          ?.map((e) => Subtitle.fromJson(e))
+          .toList(),
+      extra: (json['extra'] as Map?)?.cast<String, dynamic>(),
+      headers:
+          json['headers'] != null ? headersFromJson(json['headers']) : null,
+    );
   }
 
   Video copyWith({
@@ -54,6 +84,17 @@ class Video extends ContentData {
       extra: extra ?? this.extra,
       headers: headers ?? this.headers,
     );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type.index,
+      'sources': sources.map((e) => e.toJson()).toList(),
+      'subtitles': subtitles?.map((e) => e.toJson()).toList(),
+      'extra': extra,
+      'headers': headers?.toMap(),
+    };
   }
 
   @override
@@ -117,6 +158,17 @@ class VideoSource extends Equatable {
   /// An optional string representing the title of the video source.
   final String? title;
 
+  factory VideoSource.fromJson(Map<String, dynamic> json) {
+    return VideoSource(
+      url: json['url'] as String,
+      format: VideoFormat.values[json['format']],
+      quality:
+          json['quality'] != null ? Quality.fromJson(json['quality']) : null,
+      title: json['title'] as String?,
+      isBackup: json['isBackup'] as bool,
+    );
+  }
+
   VideoSource copyWith({
     String? url,
     VideoFormat? format,
@@ -133,9 +185,19 @@ class VideoSource extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'url': url,
+      'format': format.index,
+      'quality': quality?.toJson(),
+      'title': title,
+      'isBackup': isBackup,
+    };
+  }
+
   @override
   String toString() {
-    return 'VideoSource(url: $url, format: $format, quality: $quality, isBackup: $isBackup, title: $title)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override
@@ -173,6 +235,17 @@ class Subtitle extends Equatable {
   static const Subtitle noSubtitle =
       Subtitle(url: '', format: null, language: 'No Subtitle', headers: null);
 
+  factory Subtitle.fromJson(Map<String, dynamic> json) {
+    return Subtitle(
+      url: json['url'] as String,
+      format:
+          json['format'] != null ? SubtitleFormat.values[json['format']] : null,
+      language: json['language'] as String?,
+      headers:
+          json['headers'] != null ? headersFromJson(json['headers']) : null,
+    );
+  }
+
   Subtitle copyWith({
     String? url,
     SubtitleFormat? format,
@@ -187,9 +260,18 @@ class Subtitle extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'url': url,
+      'format': format?.index,
+      'language': language,
+      'headers': headers?.toMap(),
+    };
+  }
+
   @override
   String toString() {
-    return 'Subtitle(url: $url, format: $format, language: $language, headers: $headers)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override

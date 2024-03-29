@@ -19,6 +19,7 @@ enum ContentCategory {
   Comic,
   Others;
 
+
   String toDisplayString() {
     final input = super.toString().substringAfter('ContentCategory.');
     final buffer = StringBuffer();

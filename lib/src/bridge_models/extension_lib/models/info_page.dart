@@ -22,6 +22,8 @@ class $InfoPage implements InfoPage, $Instance {
         $type.spec!.library, 'InfoPage.', __$InfoPage$new.call);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'InfoPage.withItem', __$InfoPage$withItem.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'InfoPage.fromJson', __$InfoPage$fromJson.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -257,6 +259,24 @@ class $InfoPage implements InfoPage, $Instance {
         ),
         isFactory: true,
       ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'category': BridgeFieldDef(
@@ -341,6 +361,18 @@ class $InfoPage implements InfoPage, $Instance {
           isStatic: false),
     },
     methods: {
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
       'copyWith': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -531,6 +563,8 @@ class $InfoPage implements InfoPage, $Instance {
         return $value.content == null ? $null() : _wrappedContent;
       case 'copyWith':
         return __$copyWith;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -677,6 +711,15 @@ class $InfoPage implements InfoPage, $Instance {
     return $InfoPage.wrap($result);
   }
 
+  @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as InfoPage;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
+  }
+
   static const __$InfoPage$new = $Function(_$InfoPage$new);
   static $Value? _$InfoPage$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -715,6 +758,14 @@ class $InfoPage implements InfoPage, $Instance {
       characters: characters,
       content: content,
     ));
+  }
+
+  static const __$InfoPage$fromJson = $Function(_$InfoPage$fromJson);
+  static $Value? _$InfoPage$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = InfoPage.fromJson(json);
+    return $InfoPage.wrap($result);
   }
 
   static const __$InfoPage$withItem = $Function(_$InfoPage$withItem);
@@ -780,6 +831,8 @@ class $ExternalId implements ExternalId, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
         $type.spec!.library, 'ExternalId.', __$ExternalId$new.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ExternalId.fromJson',
+        __$ExternalId$fromJson.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -812,7 +865,25 @@ class $ExternalId implements ExternalId, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'name': BridgeFieldDef(
@@ -825,9 +896,13 @@ class $ExternalId implements ExternalId, $Instance {
           isStatic: false),
     },
     methods: {
-      'toString': BridgeMethodDef(
+      'toJson': BridgeMethodDef(
           BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
                 nullable: false),
             params: [],
             namedParams: [],
@@ -870,11 +945,10 @@ class $ExternalId implements ExternalId, $Instance {
         return $String($value.name);
       case 'id':
         return $String($value.id);
-
-      case 'toString':
-        return __$toString;
       case 'copyWith':
         return __$copyWith;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -903,16 +977,6 @@ class $ExternalId implements ExternalId, $Instance {
   String get id => $value.id;
 
   @override
-  String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as ExternalId;
-    final $result = obj.toString();
-    return $String($result);
-  }
-
-  @override
   ExternalId copyWith({String? name, String? id}) => $value.copyWith(
         name: name,
         id: id,
@@ -927,6 +991,23 @@ class $ExternalId implements ExternalId, $Instance {
       name: name,
       id: id,
     );
+    return $ExternalId.wrap($result);
+  }
+
+  @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as InfoPage;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
+  }
+
+  static const __$ExternalId$fromJson = $Function(_$ExternalId$fromJson);
+  static $Value? _$ExternalId$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = ExternalId.fromJson(json);
     return $ExternalId.wrap($result);
   }
 
@@ -958,6 +1039,8 @@ class $Character implements Character, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
         $type.spec!.library, 'Character.', __$Character$new.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Character.fromJson', __$Character$fromJson.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -995,7 +1078,25 @@ class $Character implements Character, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'name': BridgeFieldDef(
@@ -1012,9 +1113,13 @@ class $Character implements Character, $Instance {
           isStatic: false),
     },
     methods: {
-      'toString': BridgeMethodDef(
+      'toJson': BridgeMethodDef(
           BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
                 nullable: false),
             params: [],
             namedParams: [],
@@ -1064,11 +1169,10 @@ class $Character implements Character, $Instance {
         return $value.image == null ? $null() : $String($value.image!);
       case 'role':
         return $value.role == null ? $null() : $String($value.role!);
-
-      case 'toString':
-        return __$toString;
       case 'copyWith':
         return __$copyWith;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -1099,13 +1203,12 @@ class $Character implements Character, $Instance {
   String? get role => $value.role;
 
   @override
-  String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Character;
-    final $result = obj.toString();
-    return $String($result);
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as Character;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
   }
 
   @override
@@ -1127,6 +1230,14 @@ class $Character implements Character, $Instance {
       image: image,
       role: role,
     );
+    return $Character.wrap($result);
+  }
+
+  static const __$Character$fromJson = $Function(_$Character$fromJson);
+  static $Value? _$Character$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = Character.fromJson(json);
     return $Character.wrap($result);
   }
 

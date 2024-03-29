@@ -16,6 +16,8 @@ class $ContentDataLink implements ContentDataLink, $Instance {
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
         $type.spec!.library, 'ContentDataLink.', __$ContentDataLink$new.call);
+    runtime.registerBridgeFunc($type.spec!.library, 'ContentDataLink.fromJson',
+        __$ContentDataLink$fromJson.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -67,7 +69,25 @@ class $ContentDataLink implements ContentDataLink, $Instance {
           ],
         ),
         isFactory: false,
-      )
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false),
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      ),
     },
     fields: {
       'name': BridgeFieldDef(
@@ -96,6 +116,18 @@ class $ContentDataLink implements ContentDataLink, $Instance {
           isStatic: false),
     },
     methods: {
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
       'copyWith': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -177,11 +209,10 @@ class $ContentDataLink implements ContentDataLink, $Instance {
                   value is $Value ? value : value,
                 ));
               }) as $Value?;
-
       case 'copyWith':
         return __$copyWith;
-      case 'toString':
-        return __$toString;
+      case 'toJson':
+        return __$toJson;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -249,13 +280,21 @@ class $ContentDataLink implements ContentDataLink, $Instance {
   }
 
   @override
-  String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as ContentDataLink;
+    final $result = $this.toJson();
+    return runtime.wrap($result, recursive: true);
+  }
+
+  static const __$ContentDataLink$fromJson =
+      $Function(_$ContentDataLink$fromJson);
+  static $Value? _$ContentDataLink$fromJson(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as ContentDataLink;
-    final $result = obj.toString();
-    return $String($result);
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    final $result = ContentDataLink.fromJson(json);
+    return $ContentDataLink.wrap($result);
   }
 
   static const __$ContentDataLink$new = $Function(_$ContentDataLink$new);

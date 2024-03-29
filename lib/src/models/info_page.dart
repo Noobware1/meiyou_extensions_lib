@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/models/content.dart';
 import 'package:meiyou_extensions_lib/src/models/content_category.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';
+import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:nice_dart/nice_dart.dart';
 
 class InfoPage extends Equatable {
@@ -77,6 +78,33 @@ class InfoPage extends Equatable {
   final List<Character>? characters;
 
   final Content? content;
+
+  factory InfoPage.fromJson(Map<String, dynamic> json) {
+    return InfoPage(
+      category: ContentCategory.values[json['category']],
+      name: json['name'],
+      url: json['url'],
+      otherTitles: json['otherTitles'],
+      status: json['status'] != null ? Status.values[json['status']] : null,
+      bannerImage: json['bannerImage'],
+      posterImage: json['posterImage'],
+      rating: json['rating'],
+      description: json['description'],
+      startDate:
+          json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+      duration:
+          json['duration'] != null ? Duration(minutes: json['duration']) : null,
+      genres: json['genres'],
+      recommendations: (json['recommendations'] as List?)
+          ?.mapList((e) => ContentItem.fromJson(e)),
+      externalIds: (json['externalIds'] as List?)
+          ?.mapList((e) => ExternalId.fromJson(e)),
+      characters:
+          (json['characters'] as List?)?.mapList((e) => Character.fromJson(e)),
+      content:
+          json['content'] != null ? Content.fromJson(json['content']) : null,
+    );
+  }
 
   factory InfoPage.withItem(
     ContentItem item, {
@@ -157,7 +185,28 @@ class InfoPage extends Equatable {
 
   @override
   String toString() {
-    return 'InfoPage(category: $category, name: $name, url: $url, otherTitles: $otherTitles, status: $status, bannerImage: $bannerImage, posterImage: $posterImage, rating: $rating, description: $description, startDate: $startDate, duration: $duration, genres: $genres, recommendations: $recommendations, externalIds: $externalIds, characters: $characters, content: $content)';
+    return jsonPrettyEncode(toJson());
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'category': category.index,
+      'name': name,
+      'url': url,
+      'otherTitles': otherTitles,
+      'status': status?.index,
+      'bannerImage': bannerImage,
+      'posterImage': posterImage,
+      'rating': rating,
+      'description': description,
+      'startDate': startDate?.toIso8601String(),
+      'duration': duration?.inMinutes,
+      'genres': genres,
+      'recommendations': recommendations?.mapList((e) => e.toJson()),
+      'externalIds': externalIds?.mapList((e) => e.toJson()),
+      'characters': characters?.mapList((e) => e.toJson()),
+      'content': content?.toJson(),
+    };
   }
 
   @override
@@ -197,9 +246,16 @@ class ExternalId extends Equatable {
   final String name;
   final String id;
 
+  factory ExternalId.fromJson(Map<String, dynamic> json) {
+    return ExternalId(
+      name: json['name'],
+      id: json['id'],
+    );
+  }
+
   @override
   String toString() {
-    return 'ExternalId(name: $name, id: $id)';
+    return jsonPrettyEncode(toJson());
   }
 
   ExternalId copyWith({
@@ -210,6 +266,13 @@ class ExternalId extends Equatable {
       name: name ?? this.name,
       id: id ?? this.id,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'id': id,
+    };
   }
 
   @override
@@ -229,7 +292,23 @@ class Character extends Equatable {
 
   @override
   String toString() {
-    return 'Character(name: $name, image: $image, role: $role)';
+    return jsonPrettyEncode(toJson());
+  }
+
+  factory Character.fromJson(Map<String, dynamic> json) {
+    return Character(
+      name: json['name'],
+      image: json['image'],
+      role: json['role'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'image': image,
+      'role': role,
+    };
   }
 
   Character copyWith({

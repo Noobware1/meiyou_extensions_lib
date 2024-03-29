@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:okhttp/okhttp.dart';
 
 class ContentDataLink extends Equatable {
@@ -16,6 +17,17 @@ class ContentDataLink extends Equatable {
     this.extra,
   });
 
+  factory ContentDataLink.fromJson(Map<String, dynamic> json) {
+    return ContentDataLink(
+      name: json['name'] as String,
+      data: json['data'] as String,
+      headers:
+          json['headers'] != null ? headersFromJson(json['headers']) : null,
+      referer: json['referer'] as String?,
+      extra: (json['extra'] as Map?)?.cast<String, dynamic>(),
+    );
+  }
+
   ContentDataLink copyWith({
     String? name,
     String? data,
@@ -32,9 +44,19 @@ class ContentDataLink extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'data': data,
+      'headers': headers?.toMap(),
+      'referer': referer,
+      'extra': extra,
+    };
+  }
+
   @override
   String toString() {
-    return 'ContentDataLink(name: $name, data: $data, headers: $headers, referer: $referer, extra: $extra)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override

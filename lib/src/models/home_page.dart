@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/src/models/content_item.dart';
+import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:nice_dart/nice_dart.dart';
 
 class HomePage extends Equatable {
@@ -96,9 +97,23 @@ class HomePage extends Equatable {
     );
   }
 
+  factory HomePage.fromJson(Map<String, dynamic> json) {
+    return HomePage(
+      data: (json['data'] as List).mapList((e) => HomePageData.fromJson(e)),
+      hasNextPage: json['hasNextPage'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'data': data.mapList((e) => e.toJson()),
+      'hasNextPage': hasNextPage,
+    };
+  }
+
   @override
   String toString() {
-    return 'HomePage(data: $data, hasNextPage: $hasNextPage)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override
@@ -141,11 +156,27 @@ class HomePageData extends Equatable {
 
   @override
   String toString() {
-    return 'HomePageData(name: $name, items: $items, horizontalImages: $horizontalImages)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override
   List<Object?> get props => [name, items, horizontalImages];
+
+  factory HomePageData.fromJson(Map<String, dynamic> json) {
+    return HomePageData(
+      name: json['name'],
+      items: (json['items'] as List).mapList((e) => ContentItem.fromJson(e)),
+      horizontalImages: json['horizontalImages'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'items': items.mapList((e) => e.toJson()),
+      'horizontalImages': horizontalImages,
+    };
+  }
 }
 
 /// `HomePageRequest` is a class that represents the data for a home page.
@@ -182,9 +213,25 @@ class HomePageRequest extends Equatable {
 
   @override
   String toString() {
-    return 'HomePageRequest(name: $name, data: $data, horizontalImages: $horizontalImages)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override
   List<Object?> get props => [name, data, horizontalImages];
+
+  factory HomePageRequest.fromJson(Map<String, dynamic> json) {
+    return HomePageRequest(
+      name: json['name'],
+      data: json['data'],
+      horizontalImages: json['horizontalImages'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'data': data,
+      'horizontalImages': horizontalImages,
+    };
+  }
 }
