@@ -1,3 +1,4 @@
+import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:nice_dart/nice_dart.dart';
 
 /// A class that represents the quality of a video.
@@ -75,7 +76,7 @@ class Quality implements Comparable<Quality> {
 
   @override
   String toString() {
-    return 'Quality(width: $width, height: $height)';
+    return jsonPrettyEncode(toJson());
   }
 
   @override

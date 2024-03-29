@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/models/quality.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
+import 'package:nice_dart/nice_dart.dart';
 import 'package:okhttp/okhttp.dart';
 
 abstract class ContentData extends Equatable {
@@ -60,12 +61,10 @@ class Video extends ContentData {
 
   factory Video.fromJson(Map<String, dynamic> json) {
     return Video(
-      sources: (json['sources'] as List)
-          .map((e) => VideoSource.fromJson(e))
-          .toList(),
-      subtitles: (json['subtitles'] as List?)
-          ?.map((e) => Subtitle.fromJson(e))
-          .toList(),
+      sources:
+          (json['sources'] as List).mapList((e) => VideoSource.fromJson(e)),
+      subtitles:
+          (json['subtitles'] as List?)?.mapList((e) => Subtitle.fromJson(e)),
       extra: (json['extra'] as Map?)?.cast<String, dynamic>(),
       headers:
           json['headers'] != null ? headersFromJson(json['headers']) : null,
@@ -90,8 +89,8 @@ class Video extends ContentData {
   Map<String, dynamic> toJson() {
     return {
       'type': type.index,
-      'sources': sources.map((e) => e.toJson()).toList(),
-      'subtitles': subtitles?.map((e) => e.toJson()).toList(),
+      'sources': sources.mapList((e) => e.toJson()),
+      'subtitles': subtitles?.mapList((e) => e.toJson()),
       'extra': extra,
       'headers': headers?.toMap(),
     };

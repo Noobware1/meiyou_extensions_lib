@@ -94,7 +94,7 @@ class InfoPage extends Equatable {
           json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
       duration:
           json['duration'] != null ? Duration(minutes: json['duration']) : null,
-      genres: json['genres'],
+      genres: (json['genres'] as List?)?.cast<String>(),
       recommendations: (json['recommendations'] as List?)
           ?.mapList((e) => ContentItem.fromJson(e)),
       externalIds: (json['externalIds'] as List?)

@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/models/content_category.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
-import 'package:nice_dart/nice_dart.dart';
 
 class ContentItem extends Equatable {
   /// Creates a new `ContentItem` instance.
@@ -87,7 +86,7 @@ class ContentItem extends Equatable {
       poster: json['poster'],
       category: ContentCategory.values[json['category']],
       description: json['description'],
-      generes: (json['generes'] as List).mapList((e) => e.toString()),
+      generes: (json['generes'] as List?)?.cast<String>(),
       rating: json['rating'],
       currentCount: json['currentCount'],
       totalCount: json['totalCount'],
