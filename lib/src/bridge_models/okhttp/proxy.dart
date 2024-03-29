@@ -186,8 +186,7 @@ class $Proxy implements Proxy, $Instance {
         return $value.userName == null ? $null() : $String($value.userName!);
       case 'password':
         return $value.password == null ? $null() : $String($value.password!);
-      case 'toString':
-        return __$toString;
+
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -231,13 +230,7 @@ class $Proxy implements Proxy, $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Proxy;
-    final $result = obj.toString();
-    return $String($result);
-  }
+  
 
   static const __$Proxy$new = $Function(_$Proxy$new);
   static $Value? _$Proxy$new(

@@ -260,8 +260,7 @@ class $Headers implements $Instance {
         return __$newBuilder;
       case 'forEach':
         return __$forEach;
-      case 'toString':
-        return __$toString;
+
       // case 'toList':
       //   return __$toList;
       case 'toMap':
@@ -377,13 +376,6 @@ class $Headers implements $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Headers;
-    final $result = obj.toString();
-    return $String($result);
-  }
 
   // static const __$toList = $Function(_$toList);
   // static $Value? _$toList(Runtime runtime, $Value? target, List<$Value?> args) {

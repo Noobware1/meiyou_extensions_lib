@@ -317,8 +317,7 @@ class $Element implements $Instance {
         return $String($value.id);
       case 'className':
         return $String($value.className);
-      case 'toString':
-        return __$toString;
+
       case 'clone':
         return __$clone;
       default:
@@ -357,13 +356,7 @@ class $Element implements $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Element;
-    final $result = obj.toString();
-    return $String($result);
-  }
+
 
   static const __$clone = $Function(_$clone);
   static $Value? _$clone(Runtime runtime, $Value? target, List<$Value?> args) {

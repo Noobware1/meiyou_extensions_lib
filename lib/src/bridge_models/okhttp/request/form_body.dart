@@ -146,8 +146,7 @@ class $FormBody implements $Instance {
         return __$value;
       case 'writeTo':
         return __$writeTo;
-      case 'toString':
-        return __$toString;
+
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -197,13 +196,6 @@ class $FormBody implements $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as FormBody;
-    final $result = obj.toString();
-    return $String($result);
-  }
 
   static const __$static$method$Builder = $Function(_$static$method$Builder);
   static $Value? _$static$method$Builder(

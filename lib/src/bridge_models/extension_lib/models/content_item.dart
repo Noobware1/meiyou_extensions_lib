@@ -272,8 +272,6 @@ class $ContentItem implements ContentItem, $Instance {
         return $value.totalCount == null ? $null() : $int($value.totalCount!);
       case 'copyWith':
         return __$copyWith;
-      case 'toString':
-        return __$toString;
       case 'toJson':
         return __$toJson;
       default:
@@ -377,13 +375,6 @@ class $ContentItem implements ContentItem, $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as ContentItem;
-    final $result = obj.toString();
-    return $String($result);
-  }
 
   static const __$ContentItem$fromJson = $Function(_$ContentItem$fromJson);
   static $Value? _$ContentItem$fromJson(

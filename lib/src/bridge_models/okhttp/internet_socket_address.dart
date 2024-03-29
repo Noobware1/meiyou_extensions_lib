@@ -159,8 +159,7 @@ class $InternetSocketAddress implements InternetSocketAddress, $Instance {
         return $int($value.port);
       case 'isUnresolved':
         return $bool($value.isUnresolved);
-      case 'toString':
-        return __$toString;
+
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -197,13 +196,7 @@ class $InternetSocketAddress implements InternetSocketAddress, $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as InternetSocketAddress;
-    final $result = obj.toString();
-    return $String($result);
-  }
+
 
   static const __$static$method$fromHost = $Function(_$static$method$fromHost);
   static $Value? _$static$method$fromHost(

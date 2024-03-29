@@ -196,8 +196,7 @@ class $MultipartBody implements MultipartBody, $Instance {
         return __$part;
       case 'writeTo':
         return __$writeTo;
-      case 'toString':
-        return __$toString;
+
       case 'writeOrCountBytes':
         return __$writeOrCountBytes;
       default:
@@ -267,13 +266,6 @@ class $MultipartBody implements MultipartBody, $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as MultipartBody;
-    final $result = obj.toString();
-    return $String($result);
-  }
 
   @override
   int writeOrCountBytes(StreamSink<List<int>>? sink, bool countBytes) =>
@@ -412,8 +404,6 @@ class $Part implements Part, $Instance {
       case 'body':
         return $RequestBody.wrap($value.body);
 
-      case 'toString':
-        return __$toString;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -443,13 +433,7 @@ class $Part implements Part, $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Part;
-    final $result = obj.toString();
-    return $String($result);
-  }
+ 
 
   static const __$Part$new = $Function(_$Part$new);
   static $Value? _$Part$new(

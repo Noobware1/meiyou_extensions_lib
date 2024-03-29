@@ -247,6 +247,9 @@ class $ContentDataLink implements ContentDataLink, $Instance {
   Map<String, dynamic>? get extra => $value.extra;
 
   @override
+  String toString() => $value.toString();
+
+  @override
   ContentDataLink copyWith(
           {String? name,
           String? data,

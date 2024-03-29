@@ -175,8 +175,7 @@ class $MediaType implements MediaType, $Instance {
         return $String($value.mimeType);
       case 'change':
         return __$change;
-      case 'toString':
-        return __$toString;
+
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -243,13 +242,7 @@ class $MediaType implements MediaType, $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as MediaType;
-    final $result = obj.toString();
-    return $String($result);
-  }
+ 
 
   static const __$MediaType$parse = $Function(_$MediaType$parse);
   static $Value? _$MediaType$parse(

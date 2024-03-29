@@ -848,8 +848,7 @@ class $HomePageRequest implements HomePageRequest, $Instance {
         return $String($value.data);
       case 'horizontalImages':
         return $bool($value.horizontalImages);
-      case 'toString':
-        return __$toString;
+
       case 'copyWith':
         return __$copyWith;
       case 'toJson':
@@ -885,13 +884,6 @@ class $HomePageRequest implements HomePageRequest, $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as HomePageRequest;
-    final $result = obj.toString();
-    return $String($result);
-  }
 
   @override
   Map<String, dynamic> toJson() => $value.toJson();

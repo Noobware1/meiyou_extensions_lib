@@ -326,8 +326,7 @@ class $Result<T> implements Result<T>, $Instance {
         return __$getOrNull;
       case 'exceptionOrNull':
         return __$exceptionOrNull;
-      case 'toString':
-        return __$toString;
+
       case 'getOrThrow':
         return __$getOrThrow;
       case 'getOrElse':
@@ -493,13 +492,6 @@ class $Result<T> implements Result<T>, $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Result;
-    final $result = obj.toString();
-    return $String($result);
-  }
 
   static const __$static$method$success = $Function(_static$method$success);
   static $Value? _static$method$success(

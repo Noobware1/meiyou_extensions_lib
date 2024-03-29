@@ -88,8 +88,7 @@ class $EvpKDFResult implements EvpKDFResult, $Instance {
         return $Uint8List.wrap($value.key);
       case 'iv':
         return $Uint8List.wrap($value.iv);
-      case 'toString':
-        return __$toString;
+
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -119,13 +118,6 @@ class $EvpKDFResult implements EvpKDFResult, $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as EvpKDFResult;
-    final $result = obj.toString();
-    return $String($result);
-  }
 
   static const __$EvpKDFResult$new = $Function(_$EvpKDFResult$new);
   static $Value? _$EvpKDFResult$new(

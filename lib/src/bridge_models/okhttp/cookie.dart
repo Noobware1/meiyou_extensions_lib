@@ -335,8 +335,6 @@ class $Cookie implements Cookie, $Instance {
         return __$newBuilder;
       case '==':
         return __$equals;
-      case 'toString':
-        return __$toString;
       case 'pathMatch':
         return __$pathMatch;
       default:
@@ -424,16 +422,6 @@ class $Cookie implements Cookie, $Instance {
   String toString([bool forObsoleteRfc2965 = false]) => $value.toString(
         forObsoleteRfc2965,
       );
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Cookie;
-    final forObsoleteRfc2965 = args[0]?.$reified as bool? ?? false;
-    final $result = obj.toString(
-      forObsoleteRfc2965,
-    );
-    return $String($result);
-  }
 
   @override
   bool pathMatch(Uri url, String path) => $value.pathMatch(

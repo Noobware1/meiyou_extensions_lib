@@ -224,8 +224,7 @@ class $Document implements $Instance {
         return $value.body == null ? $null() : $Element.wrap($value.body!);
       case 'outerHtml':
         return $String($value.outerHtml);
-      case 'toString':
-        return __$toString;
+
       case 'clone':
         return __$clone;
       case 'createElement':
@@ -256,13 +255,7 @@ class $Document implements $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Document;
-    final $result = obj.toString();
-    return $String($result);
-  }
+
 
   static const __$select = $Function(_$select);
   static $Value? _$select(Runtime runtime, $Value? target, List<$Value?> args) {

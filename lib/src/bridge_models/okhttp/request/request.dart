@@ -99,8 +99,7 @@ class $Request implements Request, $Instance {
 
       case 'newBuilder':
         return __$newBuilder;
-      case 'toString':
-        return __$toString;
+
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -144,13 +143,7 @@ class $Request implements Request, $Instance {
 
   @override
   String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as Request;
-    final $result = obj.toString();
-    return $String($result);
-  }
+ 
 
   static const __$static$method$Builder = $Function(_$static$method$Builder);
   static $Value? _$static$method$Builder(
