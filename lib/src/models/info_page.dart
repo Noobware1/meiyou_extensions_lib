@@ -84,7 +84,7 @@ class InfoPage extends Equatable {
       category: ContentCategory.values[json['category']],
       name: json['name'],
       url: json['url'],
-      otherTitles: json['otherTitles'],
+      otherTitles: (json['otherTitles'] as List?)?.cast<String>(),
       status: json['status'] != null ? Status.values[json['status']] : null,
       bannerImage: json['bannerImage'],
       posterImage: json['posterImage'],
