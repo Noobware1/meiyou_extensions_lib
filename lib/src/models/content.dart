@@ -115,8 +115,8 @@ class Series extends Equatable implements Content {
   const Series(this.data);
 
   factory Series.fromJson(Map<String, dynamic> json) {
-    return Series(
-      json['data'].mapList((e) => SeasonList.fromJson(e)),
+    return Series((
+      json['data'] as List).mapList((e) => SeasonList.fromJson(e)),
     );
   }
 
@@ -155,8 +155,8 @@ class Anime extends Equatable implements Content {
   Anime(this.episodes);
 
   factory Anime.fromJson(Map<String, dynamic> json) {
-    return Anime(
-      json['episodes'].mapList((e) => Episode.fromJson(e)),
+    return Anime((
+      json['episodes'] as List).mapList((e) => Episode.fromJson(e)),
     );
   }
 
