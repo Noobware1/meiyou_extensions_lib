@@ -495,6 +495,11 @@ class $Video implements Video, $Instance {
 
   @override
   bool? get stringify => $value.stringify;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 /// dart_eval bimodal wrapper for [VideoSource]
@@ -823,6 +828,11 @@ class $VideoSource implements VideoSource, $Instance {
 
   @override
   bool? get stringify => $value.stringify;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 /// dart_eval bimodal wrapper for [Subtitle]
@@ -1102,6 +1112,11 @@ class $Subtitle implements Subtitle, $Instance {
 
   @override
   bool? get stringify => $value.stringify;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 class $ContentDataType implements $Instance {

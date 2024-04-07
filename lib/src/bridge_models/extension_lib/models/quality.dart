@@ -142,14 +142,6 @@ class $Quality implements Quality, $Instance {
             ],
           ),
           isStatic: false),
-      'toString': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
       'compareTo': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),

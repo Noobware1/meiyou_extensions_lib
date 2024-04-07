@@ -210,14 +210,6 @@ class $ContentItem implements ContentItem, $Instance {
             ],
           ),
           isStatic: false),
-      'toString': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
       'toJson': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(

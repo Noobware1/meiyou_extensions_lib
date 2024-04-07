@@ -488,6 +488,11 @@ class $Movie implements Movie, $Instance {
 
   @override
   bool? get stringify => $value.stringify;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 /// dart_eval bimodal wrapper for [Series]
@@ -692,6 +697,11 @@ class $Series implements Series, $Instance {
 
   @override
   bool? get stringify => $value.stringify;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 /// dart_eval bimodal wrapper for [Anime]
@@ -896,6 +906,11 @@ class $Anime implements Anime, $Instance {
 
   @override
   bool? get stringify => $value.stringify;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 /// dart_eval bimodal wrapper for [SeasonList]
@@ -1118,6 +1133,11 @@ class $SeasonList implements SeasonList, $Instance {
 
   @override
   bool? get stringify => $value.stringify;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 /// dart_eval bimodal wrapper for [Season]
@@ -1327,6 +1347,11 @@ class $Season implements Season, $Instance {
 
   @override
   bool? get stringify => $value.stringify;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 /// dart_eval bimodal wrapper for [Episode]
@@ -1668,4 +1693,9 @@ class $Episode implements Episode, $Instance {
 
   @override
   bool? get stringify => $value.stringify;
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
