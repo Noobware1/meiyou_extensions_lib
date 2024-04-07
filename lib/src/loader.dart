@@ -30,7 +30,7 @@ class ExtensionLoader extends Runtime {
   }
 
   dynamic getSource(String pkgName) {
-    return executeLib('package:$pkgName/main.dart', 'getSource', []);
+    return executeLib('package:$pkgName/main.dart', 'main', []);
   }
 
   SourceFactory getSourceFactory(String pkgName) {
