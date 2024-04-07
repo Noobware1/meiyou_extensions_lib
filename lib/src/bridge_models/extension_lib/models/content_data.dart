@@ -147,14 +147,7 @@ class $ContentData implements ContentData, $Instance {
       case 'extra':
         return $value.extra == null
             ? $null()
-            : $Map
-                .wrap(($value.extra as Map<String, dynamic>))
-                .map((key, value) {
-                return $MapEntry.wrap(MapEntry(
-                  key is $Value ? key : $String(key),
-                  value is $Value ? value : value,
-                ));
-              }) as $Value?;
+            : runtime.wrap($value.extra, recursive: true) as $Value?;
       case 'toJson':
         return __$toJson;
       default:
