@@ -471,9 +471,7 @@ class $Video implements Video, $Instance {
     final sources =
         (args[0]?.$reified as List?)?.cast<VideoSource>() ?? const [];
     final subtitles = (args[1]?.$reified as List?)?.cast<Subtitle>();
-    final extra = (args[2]?.$value as Map).map(
-      (key, value) => MapEntry((key as $Value).$value as String, value),
-    );
+    final extra = (args[2]?.$reified as Map?)?.cast<String, dynamic>();
     final headers = args[3]?.$value as Headers?;
     return $Video.wrap(Video(
       sources: sources,
