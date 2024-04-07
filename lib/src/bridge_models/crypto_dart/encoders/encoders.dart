@@ -62,13 +62,13 @@ class $Encoders implements $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
-      case 'BASE64':
+      case 'Base64':
         return $BASE64.wrap($value.Base64);
-      case 'HEX':
+      case 'Hex':
         return $HEX.wrap($value.Hex);
-      case 'UTF8':
+      case 'Utf8':
         return $UTF8.wrap($value.Utf8);
-      case 'UTF16':
+      case 'Utf16':
         return $UTF16.wrap($value.Utf16);
       default:
         return _superclass.$getProperty(runtime, identifier);
