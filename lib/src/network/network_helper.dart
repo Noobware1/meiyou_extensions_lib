@@ -16,33 +16,15 @@ class NetworkHelper {
     final builder = OkHttpClient.Builder()
         .addInterceptor(UnHandledExceptionInterceptor(verboseLogging))
         .addInterceptor(UserAgentInterceptor(defaultUserAgentProvider));
-    // .addNetworkInterceptor(IgnoreGzipInterceptor())
-    // .addNetworkInterceptor(BrotliInterceptor)
 
     if (verboseLogging) {
       final httpLoggingInterceptor =
           LoggingInterceptor(level: LogLevel.HEADERS);
       builder.addNetworkInterceptor(httpLoggingInterceptor);
     }
+
     return builder.build();
   });
 
   String get defaultUserAgentProvider => _preferences.defaultUserAgent().get();
-
-  // val client: OkHttpClient = run {
-  //     val builder = OkHttpClient.Builder()
-  //         .cookieJar(cookieJar)
-  //         .connectTimeout(30, TimeUnit.SECONDS)
-  //         .readTimeout(30, TimeUnit.SECONDS)
-  //         .callTimeout(2, TimeUnit.MINUTES)
-  //         .cache(
-  //             Cache(
-  //                 directory = File(context.cacheDir, "network_cache"),
-  //                 maxSize = 5L * 1024 * 1024, // 5 MiB
-  //             ),
-  //         )
-  //         .addInterceptor(UncaughtExceptionInterceptor())
-  //         .addInterceptor(UserAgentInterceptor(::defaultUserAgentProvider))
-  //         .addNetworkInterceptor(IgnoreGzipInterceptor())
-  //         .addNetworkInterceptor(BrotliInterceptor)
 }

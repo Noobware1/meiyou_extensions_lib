@@ -1,6 +1,5 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/adapter/client_adapter.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/adapter/http_client_adapter.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/auth.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/byte_stream.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/call.dart';
@@ -70,7 +69,6 @@ class OkHttpPlugin extends EvalPlugin {
     $LogLevel.configureForCompile(registry);
     $LoggingInterceptor.configureForCompile(registry);
     $ClientAdapter.configureForCompile(registry);
-    $HttpClientAdapter.configureForCompile(registry);
     $Proxy.configureForCompile(registry);
     $ProxyType.configureForCompile(registry);
     $InternetSocketAddress.configureForCompile(registry);
@@ -106,7 +104,6 @@ class OkHttpPlugin extends EvalPlugin {
     $Color.configureForRuntime(runtime);
     $LogLevel.configureForRuntime(runtime);
     $LoggingInterceptor.configureForRuntime(runtime);
-    $HttpClientAdapter.configureForRuntime(runtime);
     $Proxy.configureForRuntime(runtime);
     $ProxyType.configureForRuntime(runtime);
     $InternetSocketAddress.configureForRuntime(runtime);
@@ -136,7 +133,6 @@ import 'package:html/dom.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
 export 'src/client_adapter.dart';
-export 'src/adapters/http_client_adapter.dart';
 ''');
 
 final _interceptorSource = DartSource('package:okhttp/interceptor.dart', '''
