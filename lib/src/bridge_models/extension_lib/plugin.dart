@@ -101,6 +101,8 @@ class ExtensionLibPlugin extends EvalPlugin {
     $VideoFormat.configureForCompile(registry);
     $VideoSource.configureForCompile(registry);
     $Subtitle.configureForCompile(registry);
+    $Intro.configureForCompile(registry);
+    $Outro.configureForCompile(registry);
     $SubtitleFormat.configureForCompile(registry);
 
     //quality.dart
@@ -211,6 +213,8 @@ class ExtensionLibPlugin extends EvalPlugin {
     $VideoFormat.configureForRuntime(runtime);
     $VideoSource.configureForRuntime(runtime);
     $Subtitle.configureForRuntime(runtime);
+    $Intro.configureForRuntime(runtime);
+    $Outro.configureForRuntime(runtime);
     $SubtitleFormat.configureForRuntime(runtime);
 
     //quality.dart

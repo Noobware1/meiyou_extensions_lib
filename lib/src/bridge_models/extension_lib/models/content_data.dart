@@ -1303,12 +1303,12 @@ class $Intro implements Intro, $Instance {
   static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as Intro;
     final $result = $this.toJson();
-    return $Map.wrap(($result as Map<String, dynamic>)).map((key, value) {
+    return $Map.wrap($result.map((key, value) {
       return $MapEntry.wrap(MapEntry(
         key is $Value ? key : $String(key),
         value is $Value ? value : value,
       ));
-    }) as $Value?;
+    }));
   }
 
   static const __$Intro$new = $Function(_$Intro$new);
