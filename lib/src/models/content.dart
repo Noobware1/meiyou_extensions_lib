@@ -23,7 +23,7 @@ abstract interface class Content {
   Map<String, dynamic> toJson();
 }
 
-extension GetContentType on Content {
+extension ContentExtensions on Content {
   bool get isMovie => this is Movie;
 
   bool get isSeries => this is Series;
@@ -31,6 +31,25 @@ extension GetContentType on Content {
   bool get isAnime => this is Anime;
 
   bool get isLazy => this is LazyContent;
+
+  T when<T>({
+    required T Function(Movie) movie,
+    required T Function(Series) series,
+    required T Function(Anime) anime,
+    required T Function(LazyContent) lazy,
+  }) {
+    if (isMovie) {
+      return movie(this as Movie);
+    } else if (isSeries) {
+      return series(this as Series);
+    } else if (isAnime) {
+      return anime(this as Anime);
+    } else if (isLazy) {
+      return lazy(this as LazyContent);
+    } else {
+      throw UnimplementedError('Unknown content type: $this');
+    }
+  }
 }
 
 class LazyContent extends Equatable implements Content {
@@ -115,8 +134,8 @@ class Series extends Equatable implements Content {
   const Series(this.data);
 
   factory Series.fromJson(Map<String, dynamic> json) {
-    return Series((
-      json['data'] as List).mapList((e) => SeasonList.fromJson(e)),
+    return Series(
+      (json['data'] as List).mapList((e) => SeasonList.fromJson(e)),
     );
   }
 
@@ -155,8 +174,8 @@ class Anime extends Equatable implements Content {
   Anime(this.episodes);
 
   factory Anime.fromJson(Map<String, dynamic> json) {
-    return Anime((
-      json['episodes'] as List).mapList((e) => Episode.fromJson(e)),
+    return Anime(
+      (json['episodes'] as List).mapList((e) => Episode.fromJson(e)),
     );
   }
 

@@ -49,6 +49,8 @@ class Video extends ContentData {
   const Video({
     this.sources = const [],
     this.subtitles,
+    this.intro,
+    this.outro,
     super.extra,
     super.headers,
   }) : super(type: ContentDataType.Video);
@@ -59,12 +61,18 @@ class Video extends ContentData {
   /// An optional list of `Subtitle` objects representing the subtitles of the video.
   final List<Subtitle>? subtitles;
 
+  final Intro? intro;
+
+  final Outro? outro;
+
   factory Video.fromJson(Map<String, dynamic> json) {
     return Video(
       sources:
           (json['sources'] as List).mapList((e) => VideoSource.fromJson(e)),
       subtitles:
           (json['subtitles'] as List?)?.mapList((e) => Subtitle.fromJson(e)),
+      intro: json['intro'] != null ? Intro.fromJson(json['intro']) : null,
+      outro: json['outro'] != null ? Outro.fromJson(json['outro']) : null,
       extra: (json['extra'] as Map?)?.cast<String, dynamic>(),
       headers:
           json['headers'] != null ? headersFromJson(json['headers']) : null,
@@ -74,12 +82,16 @@ class Video extends ContentData {
   Video copyWith({
     List<VideoSource>? sources,
     List<Subtitle>? subtitles,
+    Intro? intro,
+    Outro? outro,
     Map<String, dynamic>? extra,
     Headers? headers,
   }) {
     return Video(
       sources: sources ?? this.sources,
       subtitles: subtitles ?? this.subtitles,
+      intro: intro ?? this.intro,
+      outro: outro ?? this.outro,
       extra: extra ?? this.extra,
       headers: headers ?? this.headers,
     );
@@ -91,6 +103,8 @@ class Video extends ContentData {
       'type': type.index,
       'sources': sources.mapList((e) => e.toJson()),
       'subtitles': subtitles?.mapList((e) => e.toJson()),
+      'intro': intro?.toJson(),
+      'outro': outro?.toJson(),
       'extra': extra,
       'headers': headers?.toMap(),
     };
@@ -98,6 +112,58 @@ class Video extends ContentData {
 
   @override
   List<Object?> get props => [type, sources, subtitles, extra, headers];
+}
+
+class Intro {
+  final Duration start;
+  final Duration end;
+
+  Intro({required this.start, required this.end});
+
+  factory Intro.fromJson(Map<String, dynamic> json) {
+    return Intro(
+      start: Duration(milliseconds: json['start']),
+      end: Duration(milliseconds: json['end']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'start': start.inMilliseconds,
+      'end': end.inMilliseconds,
+    };
+  }
+}
+
+class Outro {
+  final Duration start;
+  final Duration end;
+
+  Outro({required this.start, required this.end});
+
+  factory Outro.fromJson(Map<String, dynamic> json) {
+    return Outro(
+      start: Duration(milliseconds: json['start']),
+      end: Duration(milliseconds: json['end']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'start': start.inMilliseconds,
+      'end': end.inMilliseconds,
+    };
+  }
+
+  Outro copyWith({
+    Duration? start,
+    Duration? end,
+  }) {
+    return Outro(
+      start: start ?? this.start,
+      end: end ?? this.end,
+    );
+  }
 }
 
 /// An enumeration of the different video formats.
@@ -140,7 +206,7 @@ class VideoSource extends Equatable {
     this.title,
     this.isBackup = false,
   })  : format = VideoFormat.hls,
-        quality = Quality.hlsMaster;
+        quality = const Quality.auto();
 
   /// A string representing the URL of the video source.
   final String url;

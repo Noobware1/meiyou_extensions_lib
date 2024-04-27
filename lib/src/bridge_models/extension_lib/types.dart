@@ -144,6 +144,14 @@ class ExtensionLibTypes {
   static const subtitle = BridgeTypeSpec(
       'package:meiyou_extensions_lib/src/models/content_data.dart', 'Subtitle');
 
+  /// Bridge type spec for [$Intro]
+  static const intro = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_data.dart', 'Intro');
+
+  /// Bridge type spec for [$Outro]
+  static const outro = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/content_data.dart', 'Outro');
+
   /// Bridge type spec for [$ContentDataType]
   static const contentDataType = BridgeTypeSpec(
       'package:meiyou_extensions_lib/src/models/content_data.dart',

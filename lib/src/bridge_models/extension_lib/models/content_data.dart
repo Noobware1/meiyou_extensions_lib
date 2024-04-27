@@ -254,6 +254,16 @@ class $Video implements Video, $Instance {
                     nullable: true),
                 true),
             BridgeParameter(
+                'intro',
+                BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.intro, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'outro',
+                BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.outro, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
                 'extra',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.map, []),
                     nullable: false),
@@ -301,6 +311,14 @@ class $Video implements Video, $Instance {
               ]),
               nullable: true),
           isStatic: false),
+      'intro': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.intro, []),
+              nullable: true),
+          isStatic: false),
+      'outro': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.outro, []),
+              nullable: true),
+          isStatic: false),
     },
     methods: {
       'copyWith': BridgeMethodDef(
@@ -324,6 +342,18 @@ class $Video implements Video, $Instance {
                       BridgeTypeRef(CoreTypes.list, [
                         BridgeTypeRef(ExtensionLibTypes.subtitle, []),
                       ]),
+                      nullable: true),
+                  true),
+              BridgeParameter(
+                  'intro',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.intro, []),
+                      nullable: true),
+                  true),
+              BridgeParameter(
+                  'outro',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.outro, []),
                       nullable: true),
                   true),
               BridgeParameter(
@@ -369,16 +399,20 @@ class $Video implements Video, $Instance {
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
       case 'sources':
-        return $List.wrap(List.generate(($value.sources).length, (index) {
-          return $VideoSource.wrap($value.sources[index]);
+        return $List.wrap(List.generate((sources).length, (index) {
+          return $VideoSource.wrap(sources[index]);
         })) as $Value?;
       case 'subtitles':
-        return $value.subtitles == null
+        return subtitles == null
             ? $null()
-            : $List.wrap(List.generate(
-                ($value.subtitles as List<Subtitle>).length, (index) {
-                return $Subtitle.wrap($value.subtitles![index]);
+            : $List.wrap(
+                List.generate((subtitles as List<Subtitle>).length, (index) {
+                return $Subtitle.wrap(subtitles![index]);
               })) as $Value?;
+      case 'intro':
+        return intro == null ? $null() : $Intro.wrap(intro!);
+      case 'outro':
+        return outro == null ? $null() : $Outro.wrap(outro!);
       case 'copyWith':
         return __$copyWith;
       case 'toJson':
@@ -420,6 +454,12 @@ class $Video implements Video, $Instance {
   List<Subtitle>? get subtitles => $value.subtitles;
 
   @override
+  Intro? get intro => $value.intro;
+
+  @override
+  Outro? get outro => $value.outro;
+
+  @override
   Map<String, dynamic> toJson() => $value.toJson();
   static const __$toJson = $Function(_$toJson);
   static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
@@ -432,11 +472,15 @@ class $Video implements Video, $Instance {
   Video copyWith(
           {List<VideoSource>? sources,
           List<Subtitle>? subtitles,
+          Intro? intro,
+          Outro? outro,
           Map<String, dynamic>? extra,
           Headers? headers}) =>
       $value.copyWith(
         sources: sources,
         subtitles: subtitles,
+        intro: intro,
+        outro: outro,
         extra: extra,
         headers: headers,
       );
@@ -446,11 +490,15 @@ class $Video implements Video, $Instance {
     final obj = target?.$value as Video;
     final sources = (args[0]?.$reified as List?)?.cast<VideoSource>();
     final subtitles = (args[1]?.$reified as List?)?.cast<Subtitle>();
-    final extra = (args[2]?.$reified as Map?)?.cast<String, dynamic>();
-    final headers = args[3]?.$reified as Headers?;
+    final intro = args[2]?.$value as Intro?;
+    final outro = args[3]?.$value as Outro?;
+    final extra = (args[4]?.$reified as Map?)?.cast<String, dynamic>();
+    final headers = args[5]?.$reified as Headers?;
     final $result = obj.copyWith(
       sources: sources,
       subtitles: subtitles,
+      intro: intro,
+      outro: outro,
       extra: extra,
       headers: headers,
     );
@@ -471,11 +519,15 @@ class $Video implements Video, $Instance {
     final sources =
         (args[0]?.$reified as List?)?.cast<VideoSource>() ?? const [];
     final subtitles = (args[1]?.$reified as List?)?.cast<Subtitle>();
-    final extra = (args[2]?.$reified as Map?)?.cast<String, dynamic>();
-    final headers = args[3]?.$value as Headers?;
+    final intro = args[2]?.$value as Intro?;
+    final outro = args[3]?.$value as Outro?;
+    final extra = (args[4]?.$reified as Map?)?.cast<String, dynamic>();
+    final headers = args[5]?.$value as Headers?;
     return $Video.wrap(Video(
       sources: sources,
       subtitles: subtitles,
+      intro: intro,
+      outro: outro,
       extra: extra,
       headers: headers,
     ));
@@ -1107,6 +1159,386 @@ class $Subtitle implements Subtitle, $Instance {
   @override
   String toString() {
     return $value.toString();
+  }
+}
+
+/// dart_eval bimodal wrapper for [Intro]
+class $Intro implements Intro, $Instance {
+  /// Configure the [$Intro] wrapper for use in a [Runtime]
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
+    registry.defineBridgeClass($declaration);
+  }
+
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($type.spec!.library, 'Intro.', __$Intro$new.call,
+        isBridge: false);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Intro.fromJson', __$Intro$fromJson.call,
+        isBridge: false);
+  }
+
+  late final $Instance _superclass = $Object($value);
+
+  static const $type = BridgeTypeRef(ExtensionLibTypes.intro);
+
+  static const $declaration = BridgeClassDef(
+    BridgeClassType(
+      $type,
+      $extends: null,
+      $implements: [],
+      isAbstract: false,
+    ),
+    constructors: {
+      '': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [],
+          namedParams: [
+            BridgeParameter(
+                'start',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+                    nullable: false),
+                false),
+            BridgeParameter(
+                'end',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+                    nullable: false),
+                false)
+          ],
+        ),
+        isFactory: false,
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false)
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      )
+    },
+    fields: {
+      'start': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+              nullable: false),
+          isStatic: false),
+      'end': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+              nullable: false),
+          isStatic: false),
+    },
+    methods: {
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
+    },
+    getters: {},
+    setters: {},
+    bridge: false,
+    wrap: true,
+  );
+
+  /// Wrap an [Intro] in an [$Intro]
+  $Intro.wrap(this.$value);
+
+  @override
+  $Value? $getProperty(Runtime runtime, String identifier) {
+    switch (identifier) {
+      case 'start':
+        return $Duration.wrap($value.start);
+      case 'end':
+        return $Duration.wrap($value.end);
+
+      case 'toJson':
+        return __$toJson;
+      default:
+        return _superclass.$getProperty(runtime, identifier);
+    }
+  }
+
+  @override
+  int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
+
+  @override
+  Intro get $reified => $value;
+
+  @override
+  void $setProperty(Runtime runtime, String identifier, $Value value) {
+    switch (identifier) {
+      default:
+        _superclass.$setProperty(runtime, identifier, value);
+    }
+  }
+
+  @override
+  final Intro $value;
+
+  @override
+  Duration get start => $value.start;
+  @override
+  Duration get end => $value.end;
+
+  @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as Intro;
+    final $result = $this.toJson();
+    return $Map.wrap(($result as Map<String, dynamic>)).map((key, value) {
+      return $MapEntry.wrap(MapEntry(
+        key is $Value ? key : $String(key),
+        value is $Value ? value : value,
+      ));
+    }) as $Value?;
+  }
+
+  static const __$Intro$new = $Function(_$Intro$new);
+  static $Value? _$Intro$new(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final start = args[0]?.$reified as Duration;
+    final end = args[1]?.$reified as Duration;
+    return $Intro.wrap(Intro(
+      start: start,
+      end: end,
+    ));
+  }
+
+  static const __$Intro$fromJson = $Function(_$Intro$fromJson);
+  static $Value? _$Intro$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    return $Intro.wrap(Intro.fromJson(
+      json,
+    ));
+  }
+}
+
+/// dart_eval bimodal wrapper for [Outro]
+class $Outro implements Outro, $Instance {
+  /// Configure the [$Outro] wrapper for use in a [Runtime]
+  static void configureForCompile(BridgeDeclarationRegistry registry) {
+    registry.defineBridgeClass($declaration);
+  }
+
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($type.spec!.library, 'Outro.', __$Outro$new.call,
+        isBridge: false);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'Outro.fromJson', __$Outro$fromJson.call,
+        isBridge: false);
+  }
+
+  late final $Instance _superclass = $Object($value);
+
+  static const $type = BridgeTypeRef(ExtensionLibTypes.outro);
+
+  static const $declaration = BridgeClassDef(
+    BridgeClassType(
+      $type,
+      $extends: null,
+      $implements: [],
+      isAbstract: false,
+    ),
+    constructors: {
+      '': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [],
+          namedParams: [
+            BridgeParameter(
+                'start',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+                    nullable: false),
+                false),
+            BridgeParameter(
+                'end',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+                    nullable: false),
+                false)
+          ],
+        ),
+        isFactory: false,
+      ),
+      'fromJson': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'json',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.map, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                      BridgeTypeRef(CoreTypes.dynamic, []),
+                    ]),
+                    nullable: false),
+                false)
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
+      )
+    },
+    fields: {
+      'start': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+              nullable: false),
+          isStatic: false),
+      'end': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+              nullable: false),
+          isStatic: false),
+    },
+    methods: {
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'copyWith': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.outro, []),
+                nullable: false),
+            params: [],
+            namedParams: [
+              BridgeParameter(
+                  'start',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+                      nullable: true),
+                  true),
+              BridgeParameter(
+                  'end',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
+                      nullable: true),
+                  true)
+            ],
+          ),
+          isStatic: false),
+    },
+    getters: {},
+    setters: {},
+    bridge: false,
+    wrap: true,
+  );
+
+  /// Wrap an [Outro] in an [$Outro]
+  $Outro.wrap(this.$value);
+
+  @override
+  $Value? $getProperty(Runtime runtime, String identifier) {
+    switch (identifier) {
+      case 'start':
+        return $Duration.wrap($value.start);
+      case 'end':
+        return $Duration.wrap($value.end);
+
+      case 'toJson':
+        return __$toJson;
+      case 'copyWith':
+        return __$copyWith;
+      default:
+        return _superclass.$getProperty(runtime, identifier);
+    }
+  }
+
+  @override
+  int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
+
+  @override
+  Outro get $reified => $value;
+
+  @override
+  void $setProperty(Runtime runtime, String identifier, $Value value) {
+    switch (identifier) {
+      default:
+        _superclass.$setProperty(runtime, identifier, value);
+    }
+  }
+
+  @override
+  final Outro $value;
+
+  @override
+  Duration get start => $value.start;
+  @override
+  Duration get end => $value.end;
+
+  @override
+  Map<String, dynamic> toJson() => $value.toJson();
+  static const __$toJson = $Function(_$toJson);
+  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as Outro;
+    final $result = $this.toJson();
+    return $Map.wrap(($result as Map<String, dynamic>)).map((key, value) {
+      return $MapEntry.wrap(MapEntry(
+        key is $Value ? key : $String(key),
+        value is $Value ? value : value,
+      ));
+    }) as $Value?;
+  }
+
+  @override
+  Outro copyWith({Duration? start, Duration? end}) => $value.copyWith(
+        start: start,
+        end: end,
+      );
+  static const __$copyWith = $Function(_$copyWith);
+  static $Value? _$copyWith(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as Outro;
+    final start = args[0]?.$reified as Duration?;
+    final end = args[1]?.$reified as Duration?;
+    final $result = $this.copyWith(
+      start: start,
+      end: end,
+    );
+    return $Outro.wrap($result);
+  }
+
+  static const __$Outro$new = $Function(_$Outro$new);
+  static $Value? _$Outro$new(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final start = args[0]?.$reified as Duration;
+    final end = args[1]?.$reified as Duration;
+    return $Outro.wrap(Outro(
+      start: start,
+      end: end,
+    ));
+  }
+
+  static const __$Outro$fromJson = $Function(_$Outro$fromJson);
+  static $Value? _$Outro$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    return $Outro.wrap(Outro.fromJson(
+      json,
+    ));
   }
 }
 

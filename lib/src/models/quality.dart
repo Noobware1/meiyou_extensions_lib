@@ -20,11 +20,10 @@ class Quality implements Comparable<Quality> {
   /// An integer representing the height of the video.
   final int height;
 
-  /// A constant `Quality` object representing unknown video quality.
-  static const Quality unknown = Quality(-1, -1);
-
-  /// A constant `Quality` object representing the master quality of an HLS video.
-  static const Quality hlsMaster = Quality(0, 0);
+  /// A `Quality` object representing the default auto quality.
+  const Quality.auto()
+      : height = 0,
+        width = 0;
 
   /// Returns a `Quality` object from a string.
   ///
@@ -35,22 +34,22 @@ class Quality implements Comparable<Quality> {
     str = str.toLowerCase().trim();
     if (str.endsWith('p')) {
       final int? value = str.substring(0, str.length - 1).trim().toIntOrNull();
-      if (value == null) return unknown;
+      if (value == null) return Quality.auto();
 
       return Quality((value * 16) ~/ 9, value);
     } else if (str.contains('x')) {
       final heightAndWidth =
           str.split('x').mapList((it) => it.trim().toIntOrNull());
       if (heightAndWidth.length != 2 || heightAndWidth.contains(null)) {
-        return unknown;
+        return Quality.auto();
       }
 
       return runCatching(() =>
               Quality(heightAndWidth[0]!.toInt(), heightAndWidth[1]!.toInt()))
-          .getOrDefault(unknown);
+          .getOrDefault(Quality.auto());
     }
 
-    return unknown;
+    return Quality.auto();
   }
 
   factory Quality.fromJson(Map<String, dynamic> json) {
