@@ -2,15 +2,17 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/adapter/client_adapter.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/call.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/cookie_jar.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/interceptor/interceptor.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/proxy.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/dns.dart';
 import 'package:okhttp/adapter.dart';
+import 'package:okhttp/dns.dart';
 import 'package:okhttp/interceptor.dart';
 
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
-import 'package:okhttp/src/dns.dart';
 
 /// dart_eval bimodal wrapper for [OkHttpClient]
 class $OkHttpClient implements OkHttpClient, $Instance {
@@ -114,6 +116,18 @@ class $OkHttpClient implements OkHttpClient, $Instance {
           BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.proxy, []),
               nullable: false),
           isStatic: false),
+      'cookieJar': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.cookieJar, []),
+              nullable: false),
+          isStatic: false),
+      'dns': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.dns, []),
+              nullable: false),
+          isStatic: false),
+      'maxRetries': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+              nullable: false),
+          isStatic: false),
     },
     methods: {
       'Builder': BridgeMethodDef(
@@ -204,6 +218,12 @@ class $OkHttpClient implements OkHttpClient, $Instance {
         return $Proxy.wrap($value.proxy);
       case 'adapter':
         return $ClientAdapter.wrap($value.adapter);
+      case 'cookieJar':
+        return $CookieJar.wrap($value.cookieJar);
+      case 'dns':
+        return $Dns.wrap($value.dns);
+      case 'maxRetries':
+        return $int($value.maxRetries);
       case 'newCall':
         return __$newCall;
       case 'newBuilder':
@@ -266,6 +286,8 @@ class $OkHttpClient implements OkHttpClient, $Instance {
   CookieJar get cookieJar => $value.cookieJar;
   @override
   Dns get dns => $value.dns;
+  @override
+  int get maxRetries => $value.maxRetries;
 
   @override
   Call newCall(Request request) => $value.newCall(request);
@@ -613,6 +635,23 @@ class $OkHttpClientBuilder implements $Instance {
             namedParams: [],
           ),
           isStatic: false),
+      'maxRetries': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(
+              BridgeTypeRef(OkHttpTypes.okHttpClientBuilder, []),
+              nullable: false),
+          params: [
+            BridgeParameter(
+                'maxRetries',
+                BridgeTypeAnnotation(
+                  BridgeTypeRef(CoreTypes.int, []),
+                  nullable: false,
+                ),
+                false)
+          ],
+          namedParams: [],
+        ),
+      ),
       'build': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -703,6 +742,8 @@ class $OkHttpClientBuilder implements $Instance {
         return __$cookieJar;
       case 'dns':
         return __$dns;
+      case 'maxRetries':
+        return __$maxRetries;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -878,6 +919,15 @@ class $OkHttpClientBuilder implements $Instance {
     final obj = target?.$value as OkHttpClientBuilder;
     final dns = args[0]?.$value as Dns;
     final $result = obj.dns(dns);
+    return $OkHttpClientBuilder.wrap($result);
+  }
+
+  static const __$maxRetries = $Function(_$maxRetries);
+  static $Value? _$maxRetries(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final obj = target?.$value as OkHttpClientBuilder;
+    final maxRetries = args[0]?.$reified as int;
+    final $result = obj.maxRetries(maxRetries);
     return $OkHttpClientBuilder.wrap($result);
   }
 
