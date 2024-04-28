@@ -390,7 +390,7 @@ class $Headers implements $Instance {
   static $Value? _$toMap(Runtime runtime, $Value? target, List<$Value?> args) {
     final obj = target?.$value as Headers;
     final $result = obj.toMap();
-    return $Map.wrap($result).map((key, value) {
+    return $Map.wrap($result.map((key, value) {
       return $MapEntry.wrap(MapEntry(
         key is $Value ? key : $String(key),
         value is $Value
@@ -399,7 +399,7 @@ class $Headers implements $Instance {
                 return $String(value[index]);
               })) as $Value?,
       ));
-    }) as $Value?;
+    }));
   }
 
   static const __$static$method$Builder = $Function(_$static$method$Builder);

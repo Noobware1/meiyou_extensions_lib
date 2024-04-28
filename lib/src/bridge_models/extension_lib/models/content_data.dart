@@ -832,8 +832,8 @@ class $VideoSource implements VideoSource, $Instance {
   static $Value? _$VideoSource$hls(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final url = args[0]?.$value as String? ?? '';
-    final title = args[3]?.$value as String?;
-    final isBackup = args[4]?.$value as bool? ?? false;
+    final title = args[1]?.$value as String?;
+    final isBackup = args[2]?.$value as bool? ?? false;
     return $VideoSource.wrap(VideoSource.hls(
       url: url,
       title: title,
@@ -1495,12 +1495,12 @@ class $Outro implements Outro, $Instance {
   static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as Outro;
     final $result = $this.toJson();
-    return $Map.wrap(($result as Map<String, dynamic>)).map((key, value) {
+    return $Map.wrap($result.map((key, value) {
       return $MapEntry.wrap(MapEntry(
         key is $Value ? key : $String(key),
         value is $Value ? value : value,
       ));
-    }) as $Value?;
+    }));
   }
 
   @override
