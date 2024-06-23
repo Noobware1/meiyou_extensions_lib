@@ -6,6 +6,7 @@ import 'package:meiyou_extensions_lib/src/extenstions/duration.dart';
 import 'package:meiyou_extensions_lib/src/utils/js_unpacker.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:intl/intl.dart';
 
 /// A utility class for performing common tasks.
 ///
@@ -14,6 +15,11 @@ import 'package:dart_eval/stdlib/core.dart';
 /// This class cannot be instantiated. All its methods are static and should be called directly on the class.
 ///
 class AppUtils {
+  static String formatDate(DateTime date, String format, {String? locale}) {
+    final formatter = DateFormat(format, locale);
+    return formatter.format(date);
+  }
+
   /// Encodes a query string for use in a URL.
   ///
   /// The `encode` function takes the following parameters:
@@ -168,6 +174,8 @@ class $AppUtils implements AppUtils, $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.formatDate',
+        __$static$method$formatDate.call);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'AppUtils.', __$AppUtils$new.call);
     runtime.registerBridgeFunc(
@@ -210,6 +218,31 @@ class $AppUtils implements AppUtils, $Instance {
     constructors: {},
     fields: {},
     methods: {
+      'formatDate': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'date',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dateTime, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'format',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false),
+            ],
+            namedParams: [
+              BridgeParameter(
+                  'locale',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: true),
+                  true)
+            ],
+          ),
+          isStatic: true),
       'encode': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
@@ -469,6 +502,17 @@ class $AppUtils implements AppUtils, $Instance {
 
   @override
   final AppUtils $value;
+
+  static const __$static$method$formatDate =
+      $Function(_$static$method$formatDate);
+  static $Value? _$static$method$formatDate(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final date = args[0]?.$value as DateTime;
+    final format = args[1]?.$value as String;
+    final locale = args[2]?.$value as String?;
+    final $result = AppUtils.formatDate(date, format, locale: locale);
+    return $String($result);
+  }
 
   static const __$static$method$encode = $Function(_$static$method$encode);
   static $Value? _$static$method$encode(
