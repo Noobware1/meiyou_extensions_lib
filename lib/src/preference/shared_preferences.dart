@@ -65,7 +65,7 @@ class SharedPreferences {
   }
 
   List<String>? getStringList(String key, [List<String>? defaultValue]) {
-    return _preferencesMap[key] as List<String>? ?? defaultValue;
+    return (_preferencesMap[key] as List?)?.cast<String>() ?? defaultValue;
   }
 
   bool remove(String key) {
