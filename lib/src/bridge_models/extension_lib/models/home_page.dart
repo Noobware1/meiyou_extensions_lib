@@ -745,6 +745,11 @@ class $HomePageRequest implements HomePageRequest, $Instance {
                 'horizontalImages',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
                     nullable: false),
+                true),
+            BridgeParameter(
+                'hasFullData',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+                    nullable: false),
                 true)
           ],
         ),
@@ -779,6 +784,10 @@ class $HomePageRequest implements HomePageRequest, $Instance {
               nullable: false),
           isStatic: false),
       'horizontalImages': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+              nullable: false),
+          isStatic: false),
+      'hasFullData': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
               nullable: false),
           isStatic: false),
@@ -848,7 +857,8 @@ class $HomePageRequest implements HomePageRequest, $Instance {
         return $String($value.data);
       case 'horizontalImages':
         return $bool($value.horizontalImages);
-
+      case 'hasFullData':
+        return $bool($value.hasFullData);
       case 'copyWith':
         return __$copyWith;
       case 'toJson':
@@ -881,6 +891,8 @@ class $HomePageRequest implements HomePageRequest, $Instance {
   String get data => $value.data;
   @override
   bool get horizontalImages => $value.horizontalImages;
+  @override
+  bool get hasFullData => $value.hasFullData;
 
   @override
   String toString() => $value.toString();
@@ -895,12 +907,17 @@ class $HomePageRequest implements HomePageRequest, $Instance {
   }
 
   @override
-  HomePageRequest copyWith(
-          {String? name, String? data, bool? horizontalImages}) =>
+  HomePageRequest copyWith({
+    String? name,
+    String? data,
+    bool? horizontalImages,
+    bool? hasFullData,
+  }) =>
       $value.copyWith(
         name: name,
         data: data,
         horizontalImages: horizontalImages,
+        hasFullData: hasFullData,
       );
   static const __$copyWith = $Function(_$copyWith);
   static $Value? _$copyWith(
@@ -909,10 +926,12 @@ class $HomePageRequest implements HomePageRequest, $Instance {
     final name = args[0]?.$value as String?;
     final data = args[1]?.$value as String?;
     final horizontalImages = args[2]?.$value as bool?;
+    final hasFullData = args[3]?.$value as bool?;
     final $result = obj.copyWith(
       name: name,
       data: data,
       horizontalImages: horizontalImages,
+      hasFullData: hasFullData,
     );
     return $HomePageRequest.wrap($result);
   }
@@ -932,10 +951,12 @@ class $HomePageRequest implements HomePageRequest, $Instance {
     final name = args[0]?.$value as String;
     final data = args[1]?.$value as String;
     final horizontalImages = args[2]?.$value as bool? ?? false;
+    final hasFullData = args[3]?.$value as bool? ?? false;
     return $HomePageRequest.wrap(HomePageRequest(
       name: name,
       data: data,
       horizontalImages: horizontalImages,
+      hasFullData: hasFullData,
     ));
   }
 

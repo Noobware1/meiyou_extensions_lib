@@ -2,7 +2,6 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/preference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_item.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
@@ -17,7 +16,6 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response.dart';
 import 'package:meiyou_extensions_lib/src/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_item.dart';
 import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
@@ -94,6 +92,29 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
             namedParams: [],
           ),
           isStatic: false),
+      'getHomePage': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.future, [
+                  BridgeTypeRef(ExtensionLibTypes.homePage, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'page',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'request',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
       'homePageRequest': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -122,11 +143,6 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
                 nullable: false),
             params: [
               BridgeParameter(
-                  'page',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
                   'request',
                   BridgeTypeAnnotation(
                       BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
@@ -135,6 +151,34 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
               BridgeParameter(
                   'response',
                   BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'getSearchPage': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.future, [
+                  BridgeTypeRef(ExtensionLibTypes.searchPage, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'page',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'query',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'filters',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.filterList, []),
                       nullable: false),
                   false)
             ],
@@ -174,24 +218,25 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
                 nullable: false),
             params: [
               BridgeParameter(
-                  'page',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'query',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'filters',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.filterList, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
                   'response',
                   BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'getInfoPage': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.future, [
+                  BridgeTypeRef(ExtensionLibTypes.infoPage, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'url',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                       nullable: false),
                   false)
             ],
@@ -205,9 +250,8 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
                 nullable: false),
             params: [
               BridgeParameter(
-                  'contentItem',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.contentItem, []),
+                  'url',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                       nullable: false),
                   false)
             ],
@@ -223,14 +267,27 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
                 nullable: false),
             params: [
               BridgeParameter(
-                  'contentItem',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.contentItem, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
                   'response',
                   BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'getContentDataLinks': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.future, [
+                  BridgeTypeRef(CoreTypes.list, [
+                    BridgeTypeRef(ExtensionLibTypes.contentDataLink, []),
+                  ]),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'url',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                       nullable: false),
                   false)
             ],
@@ -261,13 +318,26 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
                 nullable: false),
             params: [
               BridgeParameter(
-                  'url',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
                   'response',
                   BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'getContentData': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.future, [
+                  BridgeTypeRef(ExtensionLibTypes.contentData, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'link',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.contentDataLink, []),
                       nullable: false),
                   false)
             ],
@@ -298,12 +368,6 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
                 ]),
                 nullable: false),
             params: [
-              BridgeParameter(
-                  'link',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.contentDataLink, []),
-                      nullable: false),
-                  false),
               BridgeParameter(
                   'response',
                   BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
@@ -470,17 +534,11 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   }
 
   @override
-  HomePage homePageParse(int page, HomePageRequest request, Response response) {
+  HomePage homePageParse(HomePageRequest request, Response response) {
     return $_invoke('homePageParse', [
-      $int(page),
       $HomePageRequest.wrap(request),
       $Response.wrap(response),
     ]) as HomePage;
-  }
-
-  @override
-  FilterList getFilterList() {
-    return $_invoke('getFilterList', []) as FilterList;
   }
 
   @override
@@ -517,45 +575,40 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   }
 
   @override
-  SearchPage searchPageParse(
-      int page, String query, FilterList filters, Response response) {
+  SearchPage searchPageParse(Response response) {
     return $_invoke('searchPageParse', [
-      $int(page),
-      $String(query),
-      $FilterList.wrap(filters),
       $Response.wrap(response),
     ]) as SearchPage;
   }
 
   @override
-  Future<InfoPage> getInfoPage(ContentItem contentItem) {
+  Future<InfoPage> getInfoPage(String url) {
     return ($_invoke('getInfoPage', [
-      $ContentItem.wrap(contentItem),
+      $String(url),
     ]) as Future)
         .then((value) => value as InfoPage);
   }
 
   $Value get __$getInfoPage => $Function(_$getInfoPage);
   $Value? _$getInfoPage(Runtime runtime, $Value? target, List<$Value?> args) {
-    final contentItem = args[1]?.$reified as ContentItem;
+    final url = args[1]?.$value as String;
     final $result = super.getInfoPage(
-      contentItem,
+      url,
     );
     return $Future.wrap($result.then((value) => $InfoPage.wrap(value)))
         as $Value?;
   }
 
   @override
-  Request infoPageRequest(ContentItem contentItem) {
+  Request infoPageRequest(String url) {
     return $_invoke('infoPageRequest', [
-      $ContentItem.wrap(contentItem),
+      $String(url),
     ]) as Request;
   }
 
   @override
-  Future<InfoPage> infoPageParse(ContentItem contentItem, Response response) {
+  Future<InfoPage> infoPageParse(Response response) {
     return ($_invoke('infoPageParse', [
-      $ContentItem.wrap(contentItem),
       $Response.wrap(response),
     ]) as Future)
         .then((value) => value as InfoPage);
@@ -576,10 +629,10 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
     final $result = super.getContentDataLinks(
       url,
     );
-    return $Future.wrap(
-        $result.then((value) => $List.wrap(List.generate(value.length, (index) {
-              return $ContentDataLink.wrap(value[index]);
-            })) as $Value?)) as $Value?;
+    return $Future.wrap($result.then((value) => $List.wrap(
+            List.generate((value as List<ContentDataLink>).length, (index) {
+          return $ContentDataLink.wrap(value[index]);
+        })) as $Value?)) as $Value?;
   }
 
   @override
@@ -590,9 +643,8 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   }
 
   @override
-  List<ContentDataLink> contentDataLinksParse(String url, Response response) {
+  List<ContentDataLink> contentDataLinksParse(Response response) {
     return ($_invoke('contentDataLinksParse', [
-      $String(url),
       $Response.wrap(response),
     ]) as List)
         .cast<ContentDataLink>();
@@ -636,10 +688,8 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   }
 
   @override
-  Future<ContentData> contentDataParse(
-      ContentDataLink link, Response response) {
+  Future<ContentData> contentDataParse(Response response) {
     return ($_invoke('contentDataParse', [
-      $ContentDataLink.wrap(link),
       $Response.wrap(response),
     ]) as Future)
         .then((value) => value as ContentData);
@@ -648,12 +698,8 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   $Value get __$contentDataParse => $Function(_$contentDataParse);
   $Value? _$contentDataParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final link = args[1]?.$reified as ContentDataLink;
-    final response = args[2]?.$reified as Response;
-    final $result = super.contentDataParse(
-      link,
-      response,
-    );
+    final response = args[1]?.$reified as Response;
+    final $result = super.contentDataParse(response);
     return $Future.wrap($result.then((value) => $ContentData.wrap(value)))
         as $Value?;
   }
@@ -676,4 +722,9 @@ class $HttpSource extends HttpSource with $Bridge<HttpSource> {
   SharedPreferences get preferences =>
       $_get('preferences') as SharedPreferences;
   $Value get _$preferences => $SharedPreferences.wrap(super.preferences);
+
+  @override
+  FilterList getFilterList() {
+    return $_invoke('getFilterList', []) as FilterList;
+  }
 }

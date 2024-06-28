@@ -70,16 +70,11 @@ class $ParsedHttpSource extends ParsedHttpSource
     },
     fields: {},
     methods: {
-      'homePageDataSelector': BridgeMethodDef(
+      'homePageNextPageSelector': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: false),
+                nullable: true),
             params: [
-              BridgeParameter(
-                  'page',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                      nullable: false),
-                  false),
               BridgeParameter(
                   'request',
                   BridgeTypeAnnotation(
@@ -90,16 +85,11 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'homePageNextPageSelector': BridgeMethodDef(
+      'homePageDataSelector': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: true),
+                nullable: false),
             params: [
-              BridgeParameter(
-                  'page',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                      nullable: false),
-                  false),
               BridgeParameter(
                   'request',
                   BridgeTypeAnnotation(
@@ -117,10 +107,64 @@ class $ParsedHttpSource extends ParsedHttpSource
                 nullable: false),
             params: [
               BridgeParameter(
-                  'page',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+                  'request',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
                       nullable: false),
                   false),
+              BridgeParameter(
+                  'element',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(HTMLTypes.element, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'fullHomePage': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.homePage, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'request',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'document',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(HTMLTypes.document, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'homePageItemSelector': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'request',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'homePageItemFromElement': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.contentItem, []),
+                nullable: false),
+            params: [
               BridgeParameter(
                   'request',
                   BridgeTypeAnnotation(
@@ -129,7 +173,30 @@ class $ParsedHttpSource extends ParsedHttpSource
                   false),
               BridgeParameter(
                   'element',
-                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.element, []),
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(HTMLTypes.element, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'singleHomePage': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.homePage, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'request',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'document',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(HTMLTypes.document, []),
                       nullable: false),
                   false)
             ],
@@ -140,24 +207,7 @@ class $ParsedHttpSource extends ParsedHttpSource
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: false),
-            params: [
-              BridgeParameter(
-                  'page',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'query',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'filters',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.filterList, []),
-                      nullable: false),
-                  false)
-            ],
+            params: [],
             namedParams: [],
           ),
           isStatic: false),
@@ -165,24 +215,7 @@ class $ParsedHttpSource extends ParsedHttpSource
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: true),
-            params: [
-              BridgeParameter(
-                  'page',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'query',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'filters',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.filterList, []),
-                      nullable: false),
-                  false)
-            ],
+            params: [],
             namedParams: [],
           ),
           isStatic: false),
@@ -193,24 +226,9 @@ class $ParsedHttpSource extends ParsedHttpSource
                 nullable: false),
             params: [
               BridgeParameter(
-                  'page',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'query',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'filters',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.filterList, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
                   'element',
-                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.element, []),
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(HTMLTypes.element, []),
                       nullable: false),
                   false)
             ],
@@ -226,14 +244,9 @@ class $ParsedHttpSource extends ParsedHttpSource
                 nullable: false),
             params: [
               BridgeParameter(
-                  'contentItem',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.contentItem, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
                   'document',
-                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.document, []),
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(HTMLTypes.document, []),
                       nullable: false),
                   false)
             ],
@@ -244,13 +257,7 @@ class $ParsedHttpSource extends ParsedHttpSource
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: false),
-            params: [
-              BridgeParameter(
-                  'url',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false)
-            ],
+            params: [],
             namedParams: [],
           ),
           isStatic: false),
@@ -261,13 +268,9 @@ class $ParsedHttpSource extends ParsedHttpSource
                 nullable: false),
             params: [
               BridgeParameter(
-                  'url',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
                   'element',
-                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.element, []),
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(HTMLTypes.element, []),
                       nullable: false),
                   false)
             ],
@@ -283,14 +286,9 @@ class $ParsedHttpSource extends ParsedHttpSource
                 nullable: false),
             params: [
               BridgeParameter(
-                  'link',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.contentDataLink, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
                   'document',
-                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.document, []),
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(HTMLTypes.document, []),
                       nullable: false),
                   false)
             ],
@@ -353,6 +351,18 @@ class $ParsedHttpSource extends ParsedHttpSource
         return __$contentDataFromDocument;
       case 'setupPreferences':
         return __$setupPreferences;
+      case 'homePageDataSelector':
+        return __$homePageDataSelector;
+      case 'homePageDataFromElement':
+        return __$homePageDataFromElement;
+      case 'fullHomePage':
+        return __$fullHomePage;
+      case 'homePageItemSelector':
+        return __$homePageItemSelector;
+      case 'homePageItemFromElement':
+        return __$homePageItemFromElement;
+      case 'singleHomePage':
+        return __$singleHomePage;
       default:
         throw UnimplementedError('Unknown identifier $identifier');
     }
@@ -427,12 +437,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  Future<HomePage> getHomePage(int page, HomePageRequest request) {
-    return ($_invoke('getHomePage', [
-      $int(page),
-      $HomePageRequest.wrap(request),
-    ]) as Future)
-        .then((value) => value as HomePage);
+  FilterList getFilterList() {
+    return $_invoke('getFilterList', []) as FilterList;
   }
 
   $Value get __$getHomePage => $Function(_$getHomePage);
@@ -456,9 +462,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  HomePage homePageParse(int page, HomePageRequest request, Response response) {
+  HomePage homePageParse(HomePageRequest request, Response response) {
     return $_invoke('homePageParse', [
-      $int(page),
       $HomePageRequest.wrap(request),
       $Response.wrap(response),
     ]) as HomePage;
@@ -466,11 +471,9 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value get __$homePageParse => $Function(_$homePageParse);
   $Value? _$homePageParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    final page = args[1]?.$value as int;
-    final request = args[2]?.$reified as HomePageRequest;
-    final response = args[3]?.$reified as Response;
+    final request = args[1]?.$reified as HomePageRequest;
+    final response = args[2]?.$reified as Response;
     final $result = super.homePageParse(
-      page,
       request,
       response,
     );
@@ -478,44 +481,125 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  String homePageDataSelector(int page, HomePageRequest request) {
-    return $_invoke('homePageDataSelector', [
-      $int(page),
-      $HomePageRequest.wrap(request),
-    ]) as String;
-  }
-
-  @override
-  String? homePageNextPageSelector(int page, HomePageRequest request) {
+  String? homePageNextPageSelector(HomePageRequest request) {
     return $_invoke('homePageNextPageSelector', [
-      $int(page),
       $HomePageRequest.wrap(request),
     ]) as String?;
   }
 
   @override
+  String homePageDataSelector(HomePageRequest request) {
+    return $_invoke('homePageDataSelector', [
+      $HomePageRequest.wrap(request),
+    ]) as String;
+  }
+
+  $Value get __$homePageDataSelector => $Function(_$homePageDataSelector);
+  $Value? _$homePageDataSelector(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final request = args[1]?.$reified as HomePageRequest;
+    final $result = super.homePageDataSelector(
+      request,
+    );
+    return $String($result);
+  }
+
+  @override
   HomePageData homePageDataFromElement(
-      int page, HomePageRequest request, Element element) {
+      HomePageRequest request, Element element) {
     return $_invoke('homePageDataFromElement', [
-      $int(page),
       $HomePageRequest.wrap(request),
       $Element.wrap(element),
     ]) as HomePageData;
   }
 
-  @override
-  FilterList getFilterList() {
-    return $_invoke('getFilterList', []) as FilterList;
+  $Value get __$homePageDataFromElement => $Function(_$homePageDataFromElement);
+  $Value? _$homePageDataFromElement(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final request = args[1]?.$reified as HomePageRequest;
+    final element = args[2]?.$reified as Element;
+    final $result = super.homePageDataFromElement(
+      request,
+      element,
+    );
+    return $HomePageData.wrap($result);
   }
 
   @override
-  Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {
-    return ($_invoke('getSearchPage', [
-      $int(page),
-      $String(query),
-      $FilterList.wrap(filters),
-    ]) as Future)
-        .then((value) => value as SearchPage);
+  HomePage fullHomePage(HomePageRequest request, Document document) {
+    return $_invoke('fullHomePage', [
+      $HomePageRequest.wrap(request),
+      $Document.wrap(document),
+    ]) as HomePage;
+  }
+
+  $Value get __$fullHomePage => $Function(_$fullHomePage);
+  $Value? _$fullHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
+    final request = args[1]?.$reified as HomePageRequest;
+    final document = args[2]?.$reified as Document;
+    final $result = super.fullHomePage(
+      request,
+      document,
+    );
+    return $HomePage.wrap($result);
+  }
+
+  @override
+  String homePageItemSelector(HomePageRequest request) {
+    return $_invoke('homePageItemSelector', [
+      $HomePageRequest.wrap(request),
+    ]) as String;
+  }
+
+  $Value get __$homePageItemSelector => $Function(_$homePageItemSelector);
+  $Value? _$homePageItemSelector(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final request = args[1]?.$reified as HomePageRequest;
+    final $result = super.homePageItemSelector(
+      request,
+    );
+    return $String($result);
+  }
+
+  @override
+  ContentItem homePageItemFromElement(
+      HomePageRequest request, Element element) {
+    return $_invoke('homePageItemFromElement', [
+      $HomePageRequest.wrap(request),
+      $Element.wrap(element),
+    ]) as ContentItem;
+  }
+
+  $Value get __$homePageItemFromElement => $Function(_$homePageItemFromElement);
+  $Value? _$homePageItemFromElement(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final request = args[1]?.$reified as HomePageRequest;
+    final element = args[2]?.$reified as Element;
+    final $result = super.homePageItemFromElement(
+      request,
+      element,
+    );
+    return $ContentItem.wrap($result);
+  }
+
+  @override
+  HomePage singleHomePage(HomePageRequest request, Document document) {
+    return $_invoke('singleHomePage', [
+      $HomePageRequest.wrap(request),
+      $Document.wrap(document),
+    ]) as HomePage;
+  }
+
+  $Value get __$singleHomePage => $Function(_$singleHomePage);
+  $Value? _$singleHomePage(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final request = args[1]?.$reified as HomePageRequest;
+    final document = args[2]?.$reified as Document;
+    final $result = super.singleHomePage(
+      request,
+      document,
+    );
+    return $HomePage.wrap($result);
   }
 
   $Value get __$getSearchPage => $Function(_$getSearchPage);
@@ -542,12 +626,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  SearchPage searchPageParse(
-      int page, String query, FilterList filters, Response response) {
+  SearchPage searchPageParse(Response response) {
     return $_invoke('searchPageParse', [
-      $int(page),
-      $String(query),
-      $FilterList.wrap(filters),
       $Response.wrap(response),
     ]) as SearchPage;
   }
@@ -555,78 +635,58 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value get __$searchPageParse => $Function(_$searchPageParse);
   $Value? _$searchPageParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final page = args[1]?.$value as int;
-    final query = args[2]?.$value as String;
-    final filters = args[3]?.$reified as FilterList;
-    final response = args[4]?.$reified as Response;
+    final response = args[1]?.$reified as Response;
     final $result = super.searchPageParse(
-      page,
-      query,
-      filters,
       response,
     );
     return $SearchPage.wrap($result);
   }
 
   @override
-  String searchPageItemSelector(int page, String query, FilterList filters) {
-    return $_invoke('searchPageItemSelector', [
-      $int(page),
-      $String(query),
-      $FilterList.wrap(filters),
-    ]) as String;
+  String searchPageItemSelector() {
+    return $_invoke('searchPageItemSelector', []) as String;
   }
 
   @override
-  String? searchPageNextPageSelector(
-      int page, String query, FilterList filters) {
-    return $_invoke('searchPageNextPageSelector', [
-      $int(page),
-      $String(query),
-      $FilterList.wrap(filters),
-    ]) as String?;
+  String? searchPageNextPageSelector() {
+    return $_invoke('searchPageNextPageSelector', []) as String?;
   }
 
   @override
-  ContentItem searchPageItemFromElement(
-      int page, String query, FilterList filters, Element element) {
+  ContentItem searchPageItemFromElement(Element element) {
     return $_invoke('searchPageItemFromElement', [
-      $int(page),
-      $String(query),
-      $FilterList.wrap(filters),
       $Element.wrap(element),
     ]) as ContentItem;
   }
 
   @override
-  Future<InfoPage> getInfoPage(ContentItem contentItem) {
+  Future<InfoPage> getInfoPage(String url) {
     return ($_invoke('getInfoPage', [
-      $ContentItem.wrap(contentItem),
+      $String(url),
     ]) as Future)
         .then((value) => value as InfoPage);
   }
 
   $Value get __$getInfoPage => $Function(_$getInfoPage);
   $Value? _$getInfoPage(Runtime runtime, $Value? target, List<$Value?> args) {
-    final contentItem = args[1]?.$reified as ContentItem;
+    final url = args[1]?.$value as String;
     final $result = super.getInfoPage(
-      contentItem,
+      url,
     );
     return $Future.wrap($result.then((value) => $InfoPage.wrap(value)))
         as $Value?;
   }
 
   @override
-  Request infoPageRequest(ContentItem contentItem) {
+  Request infoPageRequest(String url) {
     return $_invoke('infoPageRequest', [
-      $ContentItem.wrap(contentItem),
+      $String(url),
     ]) as Request;
   }
 
   @override
-  Future<InfoPage> infoPageParse(ContentItem contentItem, Response response) {
+  Future<InfoPage> infoPageParse(Response response) {
     return ($_invoke('infoPageParse', [
-      $ContentItem.wrap(contentItem),
       $Response.wrap(response),
     ]) as Future)
         .then((value) => value as InfoPage);
@@ -634,10 +694,8 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   $Value get __$infoPageParse => $Function(_$infoPageParse);
   $Value? _$infoPageParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    final contentItem = args[1]?.$reified as ContentItem;
-    final response = args[2]?.$reified as Response;
+    final response = args[1]?.$reified as Response;
     final $result = super.infoPageParse(
-      contentItem,
       response,
     );
     return $Future.wrap($result.then((value) => $InfoPage.wrap(value)))
@@ -645,21 +703,11 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  Future<InfoPage> infoPageFromDocument(
-      ContentItem contentItem, Document document) {
+  Future<InfoPage> infoPageFromDocument(Document document) {
     return ($_invoke('infoPageFromDocument', [
-      $ContentItem.wrap(contentItem),
       $Document.wrap(document),
     ]) as Future)
         .then((value) => value as InfoPage);
-  }
-
-  @override
-  Future<List<ContentDataLink>> getContentDataLinks(String url) {
-    return ($_invoke('getContentDataLinks', [
-      $String(url),
-    ]) as Future)
-        .then((value) => (value as List).cast<ContentDataLink>());
   }
 
   $Value get __$getContentDataLinks => $Function(_$getContentDataLinks);
@@ -683,9 +731,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  List<ContentDataLink> contentDataLinksParse(String url, Response response) {
+  List<ContentDataLink> contentDataLinksParse(Response response) {
     return ($_invoke('contentDataLinksParse', [
-      $String(url),
       $Response.wrap(response),
     ]) as List)
         .cast<ContentDataLink>();
@@ -694,10 +741,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value get __$contentDataLinksParse => $Function(_$contentDataLinksParse);
   $Value? _$contentDataLinksParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[1]?.$value as String;
-    final response = args[2]?.$reified as Response;
+    final response = args[1]?.$reified as Response;
     final $result = super.contentDataLinksParse(
-      url,
       response,
     );
     return $List.wrap(List.generate($result.length, (index) {
@@ -706,26 +751,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  String contentDataLinkSelector(String url) {
-    return $_invoke('contentDataLinkSelector', [
-      $String(url),
-    ]) as String;
-  }
-
-  @override
-  ContentDataLink contentDataLinkFromElement(String url, Element element) {
-    return $_invoke('contentDataLinkFromElement', [
-      $String(url),
-      $Element.wrap(element),
-    ]) as ContentDataLink;
-  }
-
-  @override
-  Future<ContentData?> getContentData(ContentDataLink link) {
-    return ($_invoke('getContentData', [
-      $ContentDataLink.wrap(link),
-    ]) as Future)
-        .then((value) => value as ContentData?);
+  String contentDataLinkSelector() {
+    return $_invoke('contentDataLinkSelector', []) as String;
   }
 
   $Value get __$getContentData => $Function(_$getContentData);
@@ -758,10 +785,15 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  Future<ContentData> contentDataParse(
-      ContentDataLink link, Response response) {
+  ContentDataLink contentDataLinkFromElement(Element element) {
+    return $_invoke('contentDataLinkFromElement', [
+      $Element.wrap(element),
+    ]) as ContentDataLink;
+  }
+
+  @override
+  Future<ContentData> contentDataParse(Response response) {
     return ($_invoke('contentDataParse', [
-      $ContentDataLink.wrap(link),
       $Response.wrap(response),
     ]) as Future)
         .then((value) => value as ContentData);
@@ -770,10 +802,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value get __$contentDataParse => $Function(_$contentDataParse);
   $Value? _$contentDataParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final link = args[1]?.$reified as ContentDataLink;
-    final response = args[2]?.$reified as Response;
+    final response = args[1]?.$reified as Response;
     final $result = super.contentDataParse(
-      link,
       response,
     );
     return $Future.wrap($result.then((value) => $ContentData.wrap(value)))
@@ -781,10 +811,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  Future<ContentData> contentDataFromDocument(
-      ContentDataLink link, Document document) {
+  Future<ContentData> contentDataFromDocument(Document document) {
     return ($_invoke('contentDataFromDocument', [
-      $ContentDataLink.wrap(link),
       $Document.wrap(document),
     ]) as Future)
         .then((value) => value as ContentData);
@@ -793,10 +821,8 @@ class $ParsedHttpSource extends ParsedHttpSource
   $Value get __$contentDataFromDocument => $Function(_$contentDataFromDocument);
   $Value? _$contentDataFromDocument(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final link = args[1]?.$reified as ContentDataLink;
-    final document = args[2]?.$reified as Document;
+    final document = args[1]?.$reified as Document;
     final $result = super.contentDataFromDocument(
-      link,
       document,
     );
     return $Future.wrap($result.then((value) => $ContentData.wrap(value)))

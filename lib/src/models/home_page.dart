@@ -192,22 +192,26 @@ class HomePageRequest extends Equatable {
   final String name;
   final String data;
   final bool horizontalImages;
+  final bool hasFullData;
 
   const HomePageRequest({
     required this.name,
     required this.data,
     this.horizontalImages = false,
+    this.hasFullData = false,
   });
 
   HomePageRequest copyWith({
     String? name,
     String? data,
     bool? horizontalImages,
+    bool? hasFullData,
   }) {
     return HomePageRequest(
       name: name ?? this.name,
       data: data ?? this.data,
       horizontalImages: horizontalImages ?? this.horizontalImages,
+      hasFullData: hasFullData ?? this.hasFullData,
     );
   }
 
@@ -217,13 +221,14 @@ class HomePageRequest extends Equatable {
   }
 
   @override
-  List<Object?> get props => [name, data, horizontalImages];
+  List<Object?> get props => [name, data, horizontalImages, hasFullData];
 
   factory HomePageRequest.fromJson(Map<String, dynamic> json) {
     return HomePageRequest(
       name: json['name'],
       data: json['data'],
       horizontalImages: json['horizontalImages'],
+      hasFullData: json['hasFullData'],
     );
   }
 
@@ -232,6 +237,7 @@ class HomePageRequest extends Equatable {
       'name': name,
       'data': data,
       'horizontalImages': horizontalImages,
+      'hasFullData': hasFullData,
     };
   }
 }

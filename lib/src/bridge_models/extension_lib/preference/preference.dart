@@ -181,6 +181,9 @@ class $Preference<T> implements Preference<T>, $Instance {
       case 'get':
         return $Function(
             (runtime, target, args) => _$get(runtime, target, args, _wrapper));
+      case 'getAndSet':
+        return $Function((runtime, target, args) =>
+            _$getAndSet(runtime, target, args, _wrapper));
       case 'set':
         return __$set;
       case 'isSet':
@@ -230,6 +233,16 @@ class $Preference<T> implements Preference<T>, $Instance {
       _Wrapper<T> wrapper) {
     final obj = target?.$value as Preference;
     final $result = obj.get();
+    return wrapper($result);
+  }
+
+  @override
+  T getAndSet(T value) => $value.getAndSet(value);
+  static $Value? _$getAndSet<T>(Runtime runtime, $Value? target,
+      List<$Value?> args, _Wrapper<T> wrapper) {
+    final obj = target?.$value as Preference;
+    final value = args[0]!.$reified;
+    final $result = obj.getAndSet(value);
     return wrapper($result);
   }
 

@@ -39,6 +39,11 @@ class MockPreference<T> implements Preference<T> {
   T get() => _value;
 
   @override
+  T getAndSet(T value) {
+    return _value;
+  }
+
+  @override
   bool isSet() {
     return false;
   }

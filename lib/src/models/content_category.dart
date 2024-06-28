@@ -1,5 +1,3 @@
-import 'package:nice_dart/nice_dart.dart';
-
 enum ContentCategory {
   Movie,
   AnimeMovie,
@@ -19,9 +17,8 @@ enum ContentCategory {
   Comic,
   Others;
 
-
   String toDisplayString() {
-    final input = super.toString().substringAfter('ContentCategory.');
+    final input = name;
     final buffer = StringBuffer();
     for (var i = 0; i < input.length; i++) {
       if (input[i].toUpperCase() == input[i]) {

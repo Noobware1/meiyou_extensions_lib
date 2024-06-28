@@ -1,13 +1,11 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_item.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_item.dart';
 import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
@@ -159,9 +157,9 @@ class $CatalogueSource extends CatalogueSource with $Bridge<CatalogueSource> {
   }
 
   @override
-  Future<InfoPage> getInfoPage(ContentItem contentItem) {
+  Future<InfoPage> getInfoPage(String url) {
     return ($_invoke('getInfoPage', [
-      $ContentItem.wrap(contentItem),
+      $String(url),
     ]) as Future)
         .then((value) => value as InfoPage);
   }

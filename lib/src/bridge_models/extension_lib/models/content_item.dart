@@ -75,16 +75,6 @@ class $ContentItem implements ContentItem, $Instance {
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double, []),
                     nullable: true),
                 true),
-            BridgeParameter(
-                'currentCount',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                    nullable: true),
-                true),
-            BridgeParameter(
-                'totalCount',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                    nullable: true),
-                true)
           ],
         ),
         isFactory: false,
@@ -141,14 +131,6 @@ class $ContentItem implements ContentItem, $Instance {
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double, []),
               nullable: true),
           isStatic: false),
-      'currentCount': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-              nullable: true),
-          isStatic: false),
-      'totalCount': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-              nullable: true),
-          isStatic: false),
     },
     methods: {
       'copyWith': BridgeMethodDef(
@@ -197,16 +179,6 @@ class $ContentItem implements ContentItem, $Instance {
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double, []),
                       nullable: true),
                   true),
-              BridgeParameter(
-                  'currentCount',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'totalCount',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                      nullable: true),
-                  true)
             ],
           ),
           isStatic: false),
@@ -256,12 +228,6 @@ class $ContentItem implements ContentItem, $Instance {
               })) as $Value?;
       case 'rating':
         return $value.rating == null ? $null() : $double($value.rating!);
-      case 'currentCount':
-        return $value.currentCount == null
-            ? $null()
-            : $int($value.currentCount!);
-      case 'totalCount':
-        return $value.totalCount == null ? $null() : $int($value.totalCount!);
       case 'copyWith':
         return __$copyWith;
       case 'toJson':
@@ -302,10 +268,6 @@ class $ContentItem implements ContentItem, $Instance {
   List<String>? get generes => $value.generes;
   @override
   double? get rating => $value.rating;
-  @override
-  int? get currentCount => $value.currentCount;
-  @override
-  int? get totalCount => $value.totalCount;
 
   @override
   ContentItem copyWith(
@@ -326,8 +288,6 @@ class $ContentItem implements ContentItem, $Instance {
         description: description,
         generes: generes,
         rating: rating,
-        currentCount: currentCount,
-        totalCount: totalCount,
       );
   static const __$copyWith = $Function(_$copyWith);
   static $Value? _$copyWith(
@@ -340,8 +300,6 @@ class $ContentItem implements ContentItem, $Instance {
     final description = args[4]?.$value as String?;
     final generes = (args[5]?.$reified as List?)?.cast<String>();
     final rating = args[6]?.$value as double?;
-    final currentCount = args[7]?.$value as int?;
-    final totalCount = args[8]?.$value as int?;
     final $result = obj.copyWith(
       title: title,
       url: url,
@@ -350,8 +308,6 @@ class $ContentItem implements ContentItem, $Instance {
       description: description,
       generes: generes,
       rating: rating,
-      currentCount: currentCount,
-      totalCount: totalCount,
     );
     return $ContentItem.wrap($result);
   }
@@ -387,8 +343,6 @@ class $ContentItem implements ContentItem, $Instance {
     final description = args[4]?.$value as String?;
     final generes = (args[5]?.$reified as List?)?.cast<String>();
     final rating = args[6]?.$value as double?;
-    final currentCount = args[7]?.$value as int?;
-    final totalCount = args[8]?.$value as int?;
     return $ContentItem.wrap(ContentItem(
       title: title,
       url: url,
@@ -397,8 +351,6 @@ class $ContentItem implements ContentItem, $Instance {
       description: description,
       generes: generes,
       rating: rating,
-      currentCount: currentCount,
-      totalCount: totalCount,
     ));
   }
 

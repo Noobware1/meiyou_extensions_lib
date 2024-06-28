@@ -7,6 +7,8 @@ abstract class Preference<T> {
 
   void set(T value);
 
+  T getAndSet(T value);
+
   bool isSet();
 
   void delete();

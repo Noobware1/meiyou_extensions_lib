@@ -1,5 +1,4 @@
 import 'package:meiyou_extensions_lib/src/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_item.dart';
 import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/models/info_page.dart';
@@ -43,7 +42,7 @@ class StubSource extends Source {
   }
 
   @override
-  Future<InfoPage> getInfoPage(ContentItem contentItem) {
+  Future<InfoPage> getInfoPage(String url) {
     throw UnimplementedError();
   }
 

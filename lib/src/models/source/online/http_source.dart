@@ -1,6 +1,5 @@
 import 'package:meiyou_extensions_lib/src/lib_overrides.dart';
 import 'package:meiyou_extensions_lib/src/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_item.dart';
 import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
@@ -73,7 +72,7 @@ abstract class HttpSource extends CatalogueSource {
     return client
         .newCall(homePageRequest(page, request))
         .execute()
-        .then((response) => homePageParse(page, request, response));
+        .then((response) => homePageParse(request, response));
   }
 
   /// Returns the request for the popular manga given the page.
@@ -84,14 +83,14 @@ abstract class HttpSource extends CatalogueSource {
   /// Parses the response from the site and returns a [MangasPage] object.
   ///
   /// * response the response from the site.
-  HomePage homePageParse(int page, HomePageRequest request, Response response);
+  HomePage homePageParse(HomePageRequest request, Response response);
 
   @override
   Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {
     return client
         .newCall(searchPageRequest(page, query, filters))
         .execute()
-        .then((response) => searchPageParse(page, query, filters, response));
+        .then((response) => searchPageParse(response));
   }
 
   /// Returns the request for the search manga given the page.
@@ -102,32 +101,31 @@ abstract class HttpSource extends CatalogueSource {
   /// Parses the response from the site and returns a [SearchResponse] object.
   ///
   /// * response the response from the site.
-  SearchPage searchPageParse(
-      int page, String query, FilterList filters, Response response);
+  SearchPage searchPageParse(Response response);
 
   @override
-  Future<InfoPage> getInfoPage(ContentItem contentItem) {
+  Future<InfoPage> getInfoPage(String url) {
     return client
-        .newCall(infoPageRequest(contentItem))
+        .newCall(infoPageRequest(url))
         .execute()
-        .then((response) => infoPageParse(contentItem, response));
+        .then((response) => infoPageParse(response));
   }
 
-  Request infoPageRequest(ContentItem contentItem);
+  Request infoPageRequest(String url);
 
-  Future<InfoPage> infoPageParse(ContentItem contentItem, Response response);
+  Future<InfoPage> infoPageParse(Response response);
 
   @override
   Future<List<ContentDataLink>> getContentDataLinks(String url) {
     return client
         .newCall(contentDataLinksRequest(url))
         .execute()
-        .then((response) => contentDataLinksParse(url, response));
+        .then((response) => contentDataLinksParse(response));
   }
 
   Request contentDataLinksRequest(String url);
 
-  List<ContentDataLink> contentDataLinksParse(String url, Response response);
+  List<ContentDataLink> contentDataLinksParse(Response response);
 
   @override
   Future<ContentData?> getContentData(ContentDataLink link) {
@@ -135,7 +133,7 @@ abstract class HttpSource extends CatalogueSource {
       return client
           .newCall(contentDataRequest(link))
           .execute()
-          .then((response) => contentDataParse(link, response));
+          .then((response) => contentDataParse(response));
     } on UnsupportedError {
       return Future.value(null);
     } catch (e) {
@@ -147,8 +145,7 @@ abstract class HttpSource extends CatalogueSource {
     return throw UnsupportedError('Not implemented');
   }
 
-  Future<ContentData> contentDataParse(
-      ContentDataLink link, Response response) {
+  Future<ContentData> contentDataParse(Response response) {
     return throw UnsupportedError('Not implemented');
   }
 }

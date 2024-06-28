@@ -12,8 +12,6 @@ class ContentItem extends Equatable {
   /// [description] is the optional string representing the description of the show.
   /// [generes] is the optional list of strings representing the genres of the show.
   /// [rating] is the optional number representing the rating of the show.
-  /// [current] is the optional number representing the current episode or season of the show.
-  /// [total] is the optional number representing the total number of episodes or seasons of the show.
 
   const ContentItem({
     this.title = '',
@@ -23,8 +21,6 @@ class ContentItem extends Equatable {
     this.description,
     this.generes,
     this.rating,
-    this.currentCount,
-    this.totalCount,
   });
 
   final String title;
@@ -34,8 +30,6 @@ class ContentItem extends Equatable {
   final String? description;
   final List<String>? generes;
   final double? rating;
-  final int? currentCount;
-  final int? totalCount;
 
   ContentItem copyWith({
     String? title,
@@ -45,8 +39,6 @@ class ContentItem extends Equatable {
     String? description,
     List<String>? generes,
     double? rating,
-    int? currentCount,
-    int? totalCount,
   }) {
     return ContentItem(
       title: title ?? this.title,
@@ -56,8 +48,6 @@ class ContentItem extends Equatable {
       description: description ?? this.description,
       generes: generes ?? this.generes,
       rating: rating ?? this.rating,
-      currentCount: currentCount ?? this.currentCount,
-      totalCount: totalCount ?? this.totalCount,
     );
   }
 
@@ -75,8 +65,6 @@ class ContentItem extends Equatable {
         description,
         generes,
         rating,
-        currentCount,
-        totalCount
       ];
 
   factory ContentItem.fromJson(Map<String, dynamic> json) {
@@ -88,8 +76,6 @@ class ContentItem extends Equatable {
       description: json['description'],
       generes: (json['generes'] as List?)?.cast<String>(),
       rating: json['rating'],
-      currentCount: json['currentCount'],
-      totalCount: json['totalCount'],
     );
   }
 
@@ -102,8 +88,6 @@ class ContentItem extends Equatable {
       'description': description,
       'generes': generes,
       'rating': rating,
-      'currentCount': currentCount,
-      'totalCount': totalCount,
     };
   }
 }
