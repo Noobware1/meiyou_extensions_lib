@@ -1,112 +1,110 @@
-import 'package:equatable/equatable.dart';
-import 'package:meiyou_extensions_lib/models.dart';
-import 'package:meiyou_extensions_lib/src/models/content_item.dart';
+import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:nice_dart/nice_dart.dart';
 
-class HomePage extends Equatable {
-  final List<HomePageData> data;
+class HomePage {
+  final List<HomePageData> items;
   final bool hasNextPage;
 
   const HomePage({
-    required this.data,
+    required this.items,
     required this.hasNextPage,
   });
 
   HomePage operator +(HomePage other) {
-    final map = Map.fromEntries(other.data.map((e) => MapEntry(e.name, e)));
+    final map = Map.fromEntries(other.items.map((e) => MapEntry(e.title, e)));
 
-    for (var element in data) {
-      map[element.name]?.let((it) {
-        element.items.addAll(it.items);
-        map.remove(element.name);
+    for (var element in items) {
+      map[element.title]?.let((it) {
+        element.list.addAll(it.list);
+        map.remove(element.title);
       });
     }
 
-    data.addAll(map.values);
+    items.addAll(map.values);
 
     return HomePage(
-      data: data,
+      items: items,
       hasNextPage: other.hasNextPage,
     );
   }
 
   factory HomePage.of({
-    required String name,
-    required List<ContentItem> items,
+    required String title,
+    required List<MediaPreview> list,
     bool horizontalImages = false,
     bool? hasNextPage,
   }) {
     return HomePage(
-      data: [
+      items: [
         HomePageData(
-          name: name,
-          items: items,
+          title: title,
+          list: list,
           horizontalImages: horizontalImages,
         )
       ],
-      hasNextPage: hasNextPage ?? items.isNotEmpty,
+      hasNextPage: hasNextPage ?? list.isNotEmpty,
     );
   }
 
   factory HomePage.fromRequest({
     required HomePageRequest reqeust,
-    required List<ContentItem> items,
+    required List<MediaPreview> list,
     bool? hasNextPage,
   }) {
     return HomePage(
-      data: [
+      items: [
         HomePageData(
-          name: reqeust.name,
-          items: items,
+          title: reqeust.title,
+          list: list,
           horizontalImages: reqeust.horizontalImages,
         )
       ],
-      hasNextPage: hasNextPage ?? items.isNotEmpty,
+      hasNextPage: hasNextPage ?? list.isNotEmpty,
     );
   }
 
   factory HomePage.fromData({
-    required HomePageData data,
+    required HomePageData items,
     bool? hasNextPage,
   }) {
     return HomePage(
-      data: [data],
-      hasNextPage: hasNextPage ?? data.items.isNotEmpty,
+      items: [items],
+      hasNextPage: hasNextPage ?? items.list.isNotEmpty,
     );
   }
 
   factory HomePage.list({
-    required List<HomePageData> data,
+    required List<HomePageData> items,
     bool? hasNextPage,
   }) {
     return HomePage(
-      data: data,
+      items: items,
       hasNextPage:
-          hasNextPage ?? data.any((element) => element.items.isNotEmpty),
+          hasNextPage ?? items.any((element) => element.list.isNotEmpty),
     );
   }
 
   HomePage copyWith({
-    List<HomePageData>? data,
+    List<HomePageData>? items,
     bool? hasNextPage,
   }) {
     return HomePage(
-      data: data ?? this.data,
+      items: items ?? this.items,
       hasNextPage: hasNextPage ?? this.hasNextPage,
     );
   }
 
   factory HomePage.fromJson(Map<String, dynamic> json) {
     return HomePage(
-      data: (json['data'] as List).mapList((e) => HomePageData.fromJson(e)),
+      items: (json['items'] as List).mapList((e) => HomePageData.fromJson(e)),
       hasNextPage: json['hasNextPage'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'data': data.mapList((e) => e.toJson()),
+      'items': items.mapList((e) => e.toJson()),
       'hasNextPage': hasNextPage,
     };
   }
@@ -115,41 +113,38 @@ class HomePage extends Equatable {
   String toString() {
     return jsonPrettyEncode(toJson());
   }
-
-  @override
-  List<Object?> get props => [data, hasNextPage];
 }
 
-class HomePageData extends Equatable {
-  final String name;
-  final List<ContentItem> items;
+class HomePageData {
+  final String title;
+  final List<MediaPreview> list;
   final bool horizontalImages;
 
   const HomePageData({
-    required this.name,
-    required this.items,
+    required this.title,
+    required this.list,
     required this.horizontalImages,
   });
 
   factory HomePageData.withRequest(
     HomePageRequest request,
-    List<ContentItem> items,
+    List<MediaPreview> list,
   ) {
     return HomePageData(
-      name: request.name,
-      items: items,
+      title: request.title,
+      list: list,
       horizontalImages: request.horizontalImages,
     );
   }
 
   HomePageData copyWith({
-    String? name,
-    List<ContentItem>? items,
+    String? title,
+    List<MediaPreview>? list,
     bool? horizontalImages,
   }) {
     return HomePageData(
-      name: name ?? this.name,
-      items: items ?? this.items,
+      title: title ?? this.title,
+      list: list ?? this.list,
       horizontalImages: horizontalImages ?? this.horizontalImages,
     );
   }
@@ -159,56 +154,53 @@ class HomePageData extends Equatable {
     return jsonPrettyEncode(toJson());
   }
 
-  @override
-  List<Object?> get props => [name, items, horizontalImages];
-
   factory HomePageData.fromJson(Map<String, dynamic> json) {
     return HomePageData(
-      name: json['name'],
-      items: (json['items'] as List).mapList((e) => ContentItem.fromJson(e)),
+      title: json['title'],
+      list: (json['list'] as List).mapList((e) => MediaPreview.fromJson(e)),
       horizontalImages: json['horizontalImages'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'items': items.mapList((e) => e.toJson()),
+      'title': title,
+      'list': list.mapList((e) => e.toJson()),
       'horizontalImages': horizontalImages,
     };
   }
 }
 
-/// `HomePageRequest` is a class that represents the data for a home page.
+/// `HomePageRequest` is a class that represents the items for a home page.
 ///
 /// It includes the following properties:
-/// * `name`: A string representing the name of the home page.
-/// * `data`: A string representing the data of the home page.
+/// * `title`: A string representing the title of the home page.
+/// * `data`: A string representing the items of the home page.
 /// * `horizontalImages`: A boolean indicating whether the images on the home page are horizontal.
 ///
 /// The `HomePageRequest` class has a constructor that takes these properties.
 
-class HomePageRequest extends Equatable {
-  final String name;
+class HomePageRequest {
+  final String title;
   final String data;
   final bool horizontalImages;
   final bool hasFullData;
 
   const HomePageRequest({
-    required this.name,
+    required this.title,
     required this.data,
     this.horizontalImages = false,
     this.hasFullData = false,
   });
 
   HomePageRequest copyWith({
-    String? name,
+    String? title,
     String? data,
     bool? horizontalImages,
     bool? hasFullData,
   }) {
     return HomePageRequest(
-      name: name ?? this.name,
+      title: title ?? this.title,
       data: data ?? this.data,
       horizontalImages: horizontalImages ?? this.horizontalImages,
       hasFullData: hasFullData ?? this.hasFullData,
@@ -220,12 +212,9 @@ class HomePageRequest extends Equatable {
     return jsonPrettyEncode(toJson());
   }
 
-  @override
-  List<Object?> get props => [name, data, horizontalImages, hasFullData];
-
   factory HomePageRequest.fromJson(Map<String, dynamic> json) {
     return HomePageRequest(
-      name: json['name'],
+      title: json['title'],
       data: json['data'],
       horizontalImages: json['horizontalImages'],
       hasFullData: json['hasFullData'],
@@ -234,7 +223,7 @@ class HomePageRequest extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
+      'title': title,
       'data': data,
       'horizontalImages': horizontalImages,
       'hasFullData': hasFullData,

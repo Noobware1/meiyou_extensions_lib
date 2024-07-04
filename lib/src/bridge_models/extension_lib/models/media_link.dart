@@ -1,28 +1,34 @@
+import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:dart_eval/stdlib/async.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/headers.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
+import 'package:meiyou_extensions_lib/src/models/media_link.dart';
+import 'dart:io';
+
 import 'package:okhttp/okhttp.dart';
 
-/// dart_eval bimodal wrapper for [ContentDataLink]
-class $ContentDataLink implements ContentDataLink, $Instance {
-  /// Configure the [$ContentDataLink] wrapper for use in a [Runtime]
+/// dart_eval bimodal wrapper for [MediaLink]
+class $MediaLink implements MediaLink, $Instance {
+  /// Configure the [$MediaLink] wrapper for use in a [Runtime]
   static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        $type.spec!.library, 'ContentDataLink.', __$ContentDataLink$new.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'ContentDataLink.fromJson',
-        __$ContentDataLink$fromJson.call);
+        $type.spec!.library, 'MediaLink.', __$MediaLink$new.call,
+        isBridge: false);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'MediaLink.fromJson', __$MediaLink$fromJson.call,
+        isBridge: false);
   }
 
   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(ExtensionLibTypes.contentDataLink);
+  static const $type = BridgeTypeRef(ExtensionLibTypes.mediaLink);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(
@@ -82,12 +88,12 @@ class $ContentDataLink implements ContentDataLink, $Instance {
                       BridgeTypeRef(CoreTypes.dynamic, []),
                     ]),
                     nullable: false),
-                false),
+                false)
           ],
           namedParams: [],
         ),
         isFactory: true,
-      ),
+      )
     },
     fields: {
       'name': BridgeFieldDef(
@@ -116,22 +122,10 @@ class $ContentDataLink implements ContentDataLink, $Instance {
           isStatic: false),
     },
     methods: {
-      'toJson': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.map, [
-                  BridgeTypeRef(CoreTypes.string, []),
-                  BridgeTypeRef(CoreTypes.dynamic, []),
-                ]),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
       'copyWith': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.contentDataLink, []),
+                BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
                 nullable: false),
             params: [],
             namedParams: [
@@ -167,6 +161,18 @@ class $ContentDataLink implements ContentDataLink, $Instance {
             ],
           ),
           isStatic: false),
+      'toJson': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.map, [
+                  BridgeTypeRef(CoreTypes.string, []),
+                  BridgeTypeRef(CoreTypes.dynamic, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
       'toString': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
@@ -182,8 +188,8 @@ class $ContentDataLink implements ContentDataLink, $Instance {
     wrap: true,
   );
 
-  /// Wrap an [ContentDataLink] in an [$ContentDataLink]
-  $ContentDataLink.wrap(this.$value);
+  /// Wrap an [MediaLink] in an [$MediaLink]
+  $MediaLink.wrap(this.$value);
 
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
@@ -201,11 +207,21 @@ class $ContentDataLink implements ContentDataLink, $Instance {
       case 'extra':
         return $value.extra == null
             ? $null()
-            : runtime.wrap($value.extra, recursive: true) as $Value?;
+            : $Map
+                .wrap(($value.extra as Map<String, dynamic>))
+                .map((key, value) {
+                return $MapEntry.wrap(MapEntry(
+                  key is $Value ? key : $String(key),
+                  value is $Value ? value : value,
+                ));
+              }) as $Value?;
+
       case 'copyWith':
         return __$copyWith;
       case 'toJson':
         return __$toJson;
+      case 'toString':
+        return __$toString;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -215,7 +231,7 @@ class $ContentDataLink implements ContentDataLink, $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   @override
-  ContentDataLink get $reified => $value;
+  MediaLink get $reified => $value;
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
@@ -226,7 +242,7 @@ class $ContentDataLink implements ContentDataLink, $Instance {
   }
 
   @override
-  final ContentDataLink $value;
+  final MediaLink $value;
 
   @override
   String get name => $value.name;
@@ -240,10 +256,7 @@ class $ContentDataLink implements ContentDataLink, $Instance {
   Map<String, dynamic>? get extra => $value.extra;
 
   @override
-  String toString() => $value.toString();
-
-  @override
-  ContentDataLink copyWith(
+  MediaLink copyWith(
           {String? name,
           String? data,
           Headers? headers,
@@ -259,49 +272,55 @@ class $ContentDataLink implements ContentDataLink, $Instance {
   static const __$copyWith = $Function(_$copyWith);
   static $Value? _$copyWith(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as ContentDataLink;
+    final $this = target?.$value as MediaLink;
     final name = args[0]?.$value as String?;
     final data = args[1]?.$value as String?;
     final headers = args[2]?.$reified as Headers?;
     final referer = args[3]?.$value as String?;
     final extra = (args[4]?.$reified as Map?)?.cast<String, dynamic>();
-    final $result = obj.copyWith(
+    final $result = $this.copyWith(
       name: name,
       data: data,
       headers: headers,
       referer: referer,
       extra: extra,
     );
-    return $ContentDataLink.wrap($result);
+    return $MediaLink.wrap($result);
   }
 
   @override
   Map<String, dynamic> toJson() => $value.toJson();
   static const __$toJson = $Function(_$toJson);
   static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as ContentDataLink;
+    final $this = target?.$value as MediaLink;
     final $result = $this.toJson();
-    return runtime.wrap($result, recursive: true);
+    return $Map.wrap(($result as Map<String, dynamic>)).map((key, value) {
+      return $MapEntry.wrap(MapEntry(
+        key is $Value ? key : $String(key),
+        value is $Value ? value : value,
+      ));
+    }) as $Value?;
   }
 
-  static const __$ContentDataLink$fromJson =
-      $Function(_$ContentDataLink$fromJson);
-  static $Value? _$ContentDataLink$fromJson(
+  @override
+  String toString() => $value.toString();
+  static const __$toString = $Function(_$toString);
+  static $Value? _$toString(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
-    final $result = ContentDataLink.fromJson(json);
-    return $ContentDataLink.wrap($result);
+    final $this = target?.$value as MediaLink;
+    final $result = $this.toString();
+    return $String($result);
   }
 
-  static const __$ContentDataLink$new = $Function(_$ContentDataLink$new);
-  static $Value? _$ContentDataLink$new(
+  static const __$MediaLink$new = $Function(_$MediaLink$new);
+  static $Value? _$MediaLink$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final name = args[0]?.$value as String;
     final data = args[1]?.$value as String;
-    final headers = args[2]?.$value as Headers?;
+    final headers = args[2]?.$reified as Headers?;
     final referer = args[3]?.$value as String?;
     final extra = (args[4]?.$reified as Map?)?.cast<String, dynamic>();
-    return $ContentDataLink.wrap(ContentDataLink(
+    return $MediaLink.wrap(MediaLink(
       name: name,
       data: data,
       headers: headers,
@@ -310,9 +329,12 @@ class $ContentDataLink implements ContentDataLink, $Instance {
     ));
   }
 
-  @override
-  List<Object?> get props => $value.props;
-
-  @override
-  bool? get stringify => $value.stringify;
+  static const __$MediaLink$fromJson = $Function(_$MediaLink$fromJson);
+  static $Value? _$MediaLink$fromJson(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    return $MediaLink.wrap(MediaLink.fromJson(
+      json,
+    ));
+  }
 }

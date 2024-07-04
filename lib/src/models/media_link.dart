@@ -1,15 +1,14 @@
-import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:okhttp/okhttp.dart';
 
-class ContentDataLink extends Equatable {
+class MediaLink {
   final String name;
   final String data;
   final Headers? headers;
   final String? referer;
   final Map<String, dynamic>? extra;
 
-  const ContentDataLink({
+  const MediaLink({
     required this.name,
     required this.data,
     this.headers,
@@ -17,8 +16,8 @@ class ContentDataLink extends Equatable {
     this.extra,
   });
 
-  factory ContentDataLink.fromJson(Map<String, dynamic> json) {
-    return ContentDataLink(
+  factory MediaLink.fromJson(Map<String, dynamic> json) {
+    return MediaLink(
       name: json['name'] as String,
       data: json['data'] as String,
       headers:
@@ -28,14 +27,14 @@ class ContentDataLink extends Equatable {
     );
   }
 
-  ContentDataLink copyWith({
+  MediaLink copyWith({
     String? name,
     String? data,
     Headers? headers,
     String? referer,
     Map<String, dynamic>? extra,
   }) {
-    return ContentDataLink(
+    return MediaLink(
       name: name ?? this.name,
       data: data ?? this.data,
       headers: headers ?? this.headers,
@@ -58,7 +57,4 @@ class ContentDataLink extends Equatable {
   String toString() {
     return jsonPrettyEncode(toJson());
   }
-
-  @override
-  List<Object?> get props => [name, data, headers, referer, extra];
 }

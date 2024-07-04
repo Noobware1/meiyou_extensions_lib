@@ -1,9 +1,9 @@
 import 'package:meiyou_extensions_lib/src/lib_overrides.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/models/info_page.dart';
+import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/models/source/catalogue_source.dart';
 import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
@@ -70,70 +70,70 @@ abstract class HttpSource extends CatalogueSource {
   @override
   Future<HomePage> getHomePage(int page, HomePageRequest request) {
     return client
-        .newCall(homePageRequest(page, request))
+        .newCall(homeRequest(page, request))
         .execute()
-        .then((response) => homePageParse(request, response));
+        .then((response) => homeParse(request, response));
   }
 
   /// Returns the request for the popular manga given the page.
   ///
   /// * page the page number to retrieve.
-  Request homePageRequest(int page, HomePageRequest request);
+  Request homeRequest(int page, HomePageRequest request);
 
   /// Parses the response from the site and returns a [MangasPage] object.
   ///
   /// * response the response from the site.
-  HomePage homePageParse(HomePageRequest request, Response response);
+  HomePage homeParse(HomePageRequest request, Response response);
 
   @override
   Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {
     return client
-        .newCall(searchPageRequest(page, query, filters))
+        .newCall(searchRequest(page, query, filters))
         .execute()
-        .then((response) => searchPageParse(response));
+        .then((response) => searchParse(response));
   }
 
   /// Returns the request for the search manga given the page.
   ///
   /// * page the page number to retrieve.
-  Request searchPageRequest(int page, String query, FilterList filters);
+  Request searchRequest(int page, String query, FilterList filters);
 
   /// Parses the response from the site and returns a [SearchResponse] object.
   ///
   /// * response the response from the site.
-  SearchPage searchPageParse(Response response);
+  SearchPage searchParse(Response response);
 
   @override
-  Future<InfoPage> getInfoPage(String url) {
+  Future<MediaDetails> getMediaDetails(String url) {
     return client
-        .newCall(infoPageRequest(url))
+        .newCall(mediaDetailsRequest(url))
         .execute()
-        .then((response) => infoPageParse(response));
+        .then((response) => mediaDetailsParse(response));
   }
 
-  Request infoPageRequest(String url);
+  Request mediaDetailsRequest(String url);
 
-  Future<InfoPage> infoPageParse(Response response);
+  Future<MediaDetails> mediaDetailsParse(Response response);
 
   @override
-  Future<List<ContentDataLink>> getContentDataLinks(String url) {
+  Future<List<MediaLink>> getMediaLinks(String url) {
     return client
-        .newCall(contentDataLinksRequest(url))
+        .newCall(mediaLinksRequest(url))
         .execute()
-        .then((response) => contentDataLinksParse(response));
+        .then((response) => medialinksParse(response));
   }
 
-  Request contentDataLinksRequest(String url);
+  Request mediaLinksRequest(String url);
 
-  List<ContentDataLink> contentDataLinksParse(Response response);
+  List<MediaLink> medialinksParse(Response response);
 
   @override
-  Future<ContentData?> getContentData(ContentDataLink link) {
+  Future<Media?> getMedia(MediaLink link) {
     try {
       return client
-          .newCall(contentDataRequest(link))
+          .newCall(mediaRequest(link))
           .execute()
-          .then((response) => contentDataParse(response));
+          .then((response) => mediaParse(response));
     } on UnsupportedError {
       return Future.value(null);
     } catch (e) {
@@ -141,11 +141,11 @@ abstract class HttpSource extends CatalogueSource {
     }
   }
 
-  Request contentDataRequest(ContentDataLink link) {
+  Request mediaRequest(MediaLink link) {
     return throw UnsupportedError('Not implemented');
   }
 
-  Future<ContentData> contentDataParse(Response response) {
+  Future<Media?> mediaParse(Response response) {
     return throw UnsupportedError('Not implemented');
   }
 }

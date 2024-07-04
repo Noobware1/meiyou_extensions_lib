@@ -1,34 +1,33 @@
-import 'package:equatable/equatable.dart';
-import 'package:meiyou_extensions_lib/src/models/content_item.dart';
+import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:nice_dart/nice_dart.dart';
 
-class SearchPage extends Equatable {
-  final List<ContentItem> items;
+class SearchPage {
+  final List<MediaPreview> list;
   final bool hasNextPage;
 
-  const SearchPage({required this.hasNextPage, required this.items});
+  const SearchPage({required this.hasNextPage, required this.list});
 
   factory SearchPage.fromJson(Map<String, dynamic> json) {
     return SearchPage(
-      items: (json['items'] as List).mapList((e) => ContentItem.fromJson(e)),
+      list: (json['list'] as List).mapList((e) => MediaPreview.fromJson(e)),
       hasNextPage: json['hasNextPage'] as bool,
     );
   }
 
   SearchPage copyWith({
-    List<ContentItem>? items,
+    List<MediaPreview>? list,
     bool? hasNextPage,
   }) {
     return SearchPage(
-      items: items ?? this.items,
+      list: list ?? this.list,
       hasNextPage: hasNextPage ?? this.hasNextPage,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'items': items.mapList((e) => e.toJson()),
+      'list': list.mapList((e) => e.toJson()),
       'hasNextPage': hasNextPage,
     };
   }
@@ -37,7 +36,4 @@ class SearchPage extends Equatable {
   String toString() {
     return jsonPrettyEncode(toJson());
   }
-
-  @override
-  List<Object?> get props => [items, hasNextPage];
 }

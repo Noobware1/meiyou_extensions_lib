@@ -51,11 +51,6 @@ class $PreferenceData<T> implements PreferenceData<T>, $Instance {
                 BridgeTypeAnnotation(BridgeTypeRef.ref('T', []),
                     nullable: false),
                 false),
-            BridgeParameter(
-                'onPreferenceChange',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                    nullable: false),
-                true)
           ],
         ),
         isFactory: false,
@@ -76,10 +71,6 @@ class $PreferenceData<T> implements PreferenceData<T>, $Instance {
           isStatic: false),
       'value': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef.ref('T', []), nullable: false),
-          isStatic: false),
-      'onPreferenceChange': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-              nullable: false),
           isStatic: false),
     },
     methods: {},
@@ -103,8 +94,6 @@ class $PreferenceData<T> implements PreferenceData<T>, $Instance {
         return $String($value.summary);
       case 'value':
         return $value as $Value?;
-      case 'onPreferenceChange':
-        return __$onPreferenceChange;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -124,14 +113,6 @@ class $PreferenceData<T> implements PreferenceData<T>, $Instance {
     }
   }
 
-  static const __$onPreferenceChange = $Function(_$onPreferenceChange);
-  static $Value? _$onPreferenceChange(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target!.$value as PreferenceData;
-    $this.onPreferenceChange!(args[0]?.$reified, args[1]?.$reified);
-    return null;
-  }
-
   @override
   final PreferenceData $value;
 
@@ -143,7 +124,4 @@ class $PreferenceData<T> implements PreferenceData<T>, $Instance {
   String get summary => $value.summary;
   @override
   T get value => $value.value;
-  @override
-  void Function(T oldValue, T newValue)? get onPreferenceChange =>
-      $value.onPreferenceChange;
 }

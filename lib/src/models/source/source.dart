@@ -1,7 +1,7 @@
-import 'package:meiyou_extensions_lib/src/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/models/info_page.dart';
+import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 import 'package:meta/meta.dart';
@@ -34,17 +34,17 @@ abstract class Source {
   /// Gets the details of a specific media.
   ///
   /// [searchResponse] is the `SearchResponse` object containing the search response details.
-  Future<InfoPage> getInfoPage(String url);
+  Future<MediaDetails> getMediaDetails(String url);
 
   /// Gets the links for a specific URL.
   ///
   /// [url] is the URL to get the links from.
-  Future<List<ContentDataLink>> getContentDataLinks(String url);
+  Future<List<MediaLink>> getMediaLinks(String url);
 
   /// Gets content's data from a [link].
   ///
   /// [link] is the `ContentDataLink` object containing the link details.
-  Future<ContentData?> getContentData(ContentDataLink link);
+  Future<Media?> getMedia(MediaLink link);
 
   @protected
   SharedPreferences get preferences => _preferences;

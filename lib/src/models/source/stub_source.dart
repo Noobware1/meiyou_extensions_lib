@@ -1,7 +1,7 @@
-import 'package:meiyou_extensions_lib/src/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/models/info_page.dart';
+import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/source/source.dart';
 
 class StubSource extends Source {
@@ -32,27 +32,30 @@ class StubSource extends Source {
   }
 
   @override
-  Future<ContentData?> getContentData(ContentDataLink link) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<ContentDataLink>> getContentDataLinks(String url) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<InfoPage> getInfoPage(String url) {
-    throw UnimplementedError();
-  }
-
-  @override
   List<HomePageRequest> homePageRequests() {
     throw UnimplementedError();
   }
 
   @override
   Future<HomePage> getHomePage(int page, HomePageRequest request) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Media?> getMedia(MediaLink link) {
+    // TODO: implement getMedia
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MediaDetails> getMediaDetails(String url) {
+    // TODO: implement getMediaDetails
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<MediaLink>> getMediaLinks(String url) {
+    // TODO: implement getMediaLinks
     throw UnimplementedError();
   }
 }

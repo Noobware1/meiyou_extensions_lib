@@ -56,11 +56,6 @@ class $DilogPreference<T> implements DilogPreference<T>, $Instance {
                     nullable: false),
                 false),
             BridgeParameter(
-                'onPreferenceChange',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                    nullable: false),
-                true),
-            BridgeParameter(
                 'dialogTitle',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                     nullable: true),
@@ -135,10 +130,6 @@ class $DilogPreference<T> implements DilogPreference<T>, $Instance {
   String get key => $value.key;
 
   @override
-  void Function(T oldValue, T newValue)? get onPreferenceChange =>
-      $value.onPreferenceChange;
-
-  @override
   String get summary => $value.summary;
 
   @override
@@ -209,11 +200,6 @@ class $EditTextPreference implements EditTextPreference, $Instance {
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                     nullable: true),
                 true),
-            BridgeParameter(
-                'onPreferenceChange',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                    nullable: false),
-                true)
           ],
         ),
         isFactory: false,
@@ -271,7 +257,6 @@ class $EditTextPreference implements EditTextPreference, $Instance {
     final value = args[3]?.$value;
     final dialogTitle = args[4]?.$value;
     final dialogMessage = args[5]?.$value;
-    final onPreferenceChange = args[6] as EvalCallable?;
     return $EditTextPreference.wrap(EditTextPreference(
       key: key,
       title: title,
@@ -279,12 +264,6 @@ class $EditTextPreference implements EditTextPreference, $Instance {
       value: value,
       dialogTitle: dialogTitle,
       dialogMessage: dialogMessage,
-      onPreferenceChange: onPreferenceChange == null
-          ? null
-          : (oldValue, newValue) {
-              onPreferenceChange
-                  .call(runtime, null, [$String(oldValue), $String(newValue)]);
-            },
     ));
   }
 
@@ -296,10 +275,6 @@ class $EditTextPreference implements EditTextPreference, $Instance {
 
   @override
   String get key => $value.key;
-
-  @override
-  void Function(String oldValue, String newValue)? get onPreferenceChange =>
-      $value.onPreferenceChange;
 
   @override
   String get summary => $value.summary;
@@ -366,11 +341,6 @@ class $ListPreference implements ListPreference, $Instance {
                 'dialogMessage',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                     nullable: true),
-                true),
-            BridgeParameter(
-                'onPreferenceChange',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                    nullable: false),
                 true),
             BridgeParameter(
                 'defaultIndex',
@@ -475,22 +445,15 @@ class $ListPreference implements ListPreference, $Instance {
     final summary = args[2]?.$value as String;
     final dialogTitle = args[3]?.$value as String?;
     final dialogMessage = args[4]?.$value as String?;
-    final onPreferenceChange = args[5] as EvalCallable?;
-    final defaultIndex = args[6]?.$value as int? ?? 0;
-    final entries = (args[7]!.$reified as List).cast<String>();
-    final entryValues = (args[8]!.$reified as List).cast<String>();
+    final defaultIndex = args[5]?.$value as int? ?? 0;
+    final entries = (args[6]!.$reified as List).cast<String>();
+    final entryValues = (args[7]!.$reified as List).cast<String>();
     return $ListPreference.wrap(ListPreference(
       key: key,
       title: title,
       summary: summary,
       dialogTitle: dialogTitle,
       dialogMessage: dialogMessage,
-      onPreferenceChange: onPreferenceChange == null
-          ? null
-          : (oldValue, newValue) {
-              onPreferenceChange
-                  .call(runtime, null, [$int(oldValue), $int(newValue)]);
-            },
       defaultIndex: defaultIndex,
       entries: entries,
       entryValues: entryValues,
@@ -505,10 +468,6 @@ class $ListPreference implements ListPreference, $Instance {
 
   @override
   String get key => $value.key;
-
-  @override
-  void Function(int oldValue, int newValue)? get onPreferenceChange =>
-      $value.onPreferenceChange;
 
   @override
   String get summary => $value.summary;
@@ -580,11 +539,6 @@ class $MultiSelectListPreference
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                     nullable: false),
                 false),
-            BridgeParameter(
-                'onPreferenceChange',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                    nullable: false),
-                true),
             BridgeParameter(
                 'defaultSelected',
                 BridgeTypeAnnotation(
@@ -697,24 +651,15 @@ class $MultiSelectListPreference
     final summary = args[2]?.$value as String;
     final dialogTitle = args[3]?.$value as String?;
     final dialogMessage = args[4]?.$value as String?;
-    final onPreferenceChange = args[5] as EvalCallable?;
-    final defaultSelected = (args[6]?.$reified as List).cast<String>();
-    final entries = args[7]?.$reified.cast<String>();
-    final entryValues = args[8]?.$reified.cast<String>();
+    final defaultSelected = (args[5]?.$reified as List).cast<String>();
+    final entries = args[6]?.$reified.cast<String>();
+    final entryValues = args[7]?.$reified.cast<String>();
     return $MultiSelectListPreference.wrap(MultiSelectListPreference(
       key: key,
       title: title,
       summary: summary,
       dialogTitle: dialogTitle,
       dialogMessage: dialogMessage,
-      onPreferenceChange: onPreferenceChange == null
-          ? null
-          : (oldValue, newValue) {
-              onPreferenceChange.call(runtime, null, [
-                $List.wrap(oldValue.mapList((e) => $String(e))),
-                $List.wrap(newValue.mapList((e) => $String(e)))
-              ]);
-            },
       defaultSelected: defaultSelected,
       entries: entries,
       entryValues: entryValues,
@@ -729,10 +674,6 @@ class $MultiSelectListPreference
 
   @override
   String get key => $value.key;
-
-  @override
-  void Function(List<String> oldValue, List<String> newValue)?
-      get onPreferenceChange => $value.onPreferenceChange;
 
   @override
   String get summary => $value.summary;

@@ -1,10 +1,10 @@
 import 'package:html/dom.dart';
 import 'package:meiyou_extensions_lib/src/html_extensions.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_item.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/models/info_page.dart';
+import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/models/media_link.dart';
+import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/models/source/online/http_source.dart';
 import 'package:nice_dart/nice_dart.dart';
@@ -15,38 +15,36 @@ abstract class ParsedHttpSource extends HttpSource {
   ParsedHttpSource();
 
   @override
-  HomePage homePageParse(HomePageRequest request, Response response) {
+  HomePage homeParse(HomePageRequest request, Response response) {
     final document = response.body.document;
 
     if (request.hasFullData) {
-      return fullHomePage(request, document);
+      return fullHomePageParse(request, document);
     } else {
-      return singleHomePage(request, document);
+      return singleHomePageParse(request, document);
     }
   }
 
-  String? homePageNextPageSelector(HomePageRequest request);
+  String? homeNextPageSelector(HomePageRequest request);
 
-  String homePageDataSelector(HomePageRequest request) {
+  String homeDataSelector(HomePageRequest request) {
     throw UnsupportedError('Not implemented');
   }
 
-  HomePageData homePageDataFromElement(
-      HomePageRequest request, Element element) {
+  HomePageData homeDataFromElement(HomePageRequest request, Element element) {
     throw UnsupportedError('Not implemented');
   }
 
-  HomePage fullHomePage(HomePageRequest request, Document document) {
-    final data =
-        document.select(homePageDataSelector(request)).mapList((element) {
-      return homePageDataFromElement(request, element);
+  HomePage fullHomePageParse(HomePageRequest request, Document document) {
+    final items = document.select(homeDataSelector(request)).mapList((element) {
+      return homeDataFromElement(request, element);
     });
 
     final hasNextPage =
-        homePageNextPageSelector(request)?.let(document.selectFirst) != null;
+        homeNextPageSelector(request)?.let(document.selectFirst) != null;
 
     return HomePage.list(
-      data: data,
+      items: items,
       hasNextPage: hasNextPage,
     );
   }
@@ -55,75 +53,75 @@ abstract class ParsedHttpSource extends HttpSource {
     throw UnsupportedError('Not implemented');
   }
 
-  ContentItem homePageItemFromElement(
+  MediaPreview homePageItemFromElement(
       HomePageRequest request, Element element) {
     throw UnsupportedError('Not implemented');
   }
 
-  HomePage singleHomePage(HomePageRequest request, Document document) {
-    final items =
+  HomePage singleHomePageParse(HomePageRequest request, Document document) {
+    final list =
         document.select(homePageItemSelector(request)).mapList((element) {
       return homePageItemFromElement(request, element);
     });
 
     final hasNextPage =
-        homePageNextPageSelector(request)?.let(document.selectFirst) != null;
+        homeNextPageSelector(request)?.let(document.selectFirst) != null;
 
     return HomePage.fromRequest(
-      items: items,
+      list: list,
       reqeust: request,
       hasNextPage: hasNextPage,
     );
   }
 
   @override
-  SearchPage searchPageParse(Response response) {
+  SearchPage searchParse(Response response) {
     final document = response.body.document;
-    final items = document
-        .select(searchPageItemSelector())
-        .mapList((element) => searchPageItemFromElement(element));
+    final list = document
+        .select(searchItemSelector())
+        .mapList((element) => searchItemFromElement(element));
 
-    final hasNextPage = searchPageNextPageSelector()?.let(
+    final hasNextPage = searchNextPageSelector()?.let(
           document.selectFirst,
         ) !=
         null;
 
     return SearchPage(
-      items: items,
+      list: list,
       hasNextPage: hasNextPage,
     );
   }
 
-  String searchPageItemSelector();
+  String searchItemSelector();
 
-  String? searchPageNextPageSelector();
+  String? searchNextPageSelector();
 
-  ContentItem searchPageItemFromElement(Element element);
+  MediaPreview searchItemFromElement(Element element);
 
   @override
-  Future<InfoPage> infoPageParse(Response response) {
-    return infoPageFromDocument(response.body.document);
+  Future<MediaDetails> mediaDetailsParse(Response response) {
+    return mediaDetailsFromDocument(response.body.document);
   }
 
-  Future<InfoPage> infoPageFromDocument(Document document);
+  Future<MediaDetails> mediaDetailsFromDocument(Document document);
 
   @override
-  List<ContentDataLink> contentDataLinksParse(Response response) {
+  List<MediaLink> medialinksParse(Response response) {
     return response.body.document
-        .select(contentDataLinkSelector())
-        .mapList((element) => contentDataLinkFromElement(element));
+        .select(mediaLinkSelector())
+        .mapList((element) => mediaLinkFromElement(element));
   }
 
-  String contentDataLinkSelector();
+  String mediaLinkSelector();
 
-  ContentDataLink contentDataLinkFromElement(Element element);
+  MediaLink mediaLinkFromElement(Element element);
 
   @override
-  Future<ContentData> contentDataParse(Response response) {
-    return contentDataFromDocument(response.body.document);
+  Future<Media?> mediaParse(Response response) {
+    return mediaFromDocument(response.body.document);
   }
 
-  Future<ContentData> contentDataFromDocument(Document document) {
+  Future<Media?> mediaFromDocument(Document document) {
     throw UnsupportedError('Not implemented');
   }
 }

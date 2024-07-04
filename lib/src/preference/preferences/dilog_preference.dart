@@ -9,7 +9,6 @@ abstract class DilogPreference<T> extends PreferenceData<T> {
     required super.title,
     required super.summary,
     required super.value,
-    super.onPreferenceChange,
     this.dialogTitle,
     this.dialogMessage,
   });
@@ -23,7 +22,6 @@ class EditTextPreference extends DilogPreference<String> {
     required super.value,
     super.dialogTitle,
     super.dialogMessage,
-    super.onPreferenceChange,
   });
 }
 
@@ -34,7 +32,6 @@ class ListPreference extends DilogPreference<int> {
     required super.summary,
     super.dialogTitle,
     super.dialogMessage,
-    super.onPreferenceChange,
     int defaultIndex = 0,
     required this.entries,
     required this.entryValues,
@@ -51,7 +48,6 @@ class MultiSelectListPreference extends DilogPreference<List<String>> {
     required super.summary,
     super.dialogTitle,
     super.dialogMessage,
-    super.onPreferenceChange,
     List<String> defaultSelected = const [],
     required this.entries,
     required this.entryValues,

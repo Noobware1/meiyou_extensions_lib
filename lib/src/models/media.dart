@@ -1,26 +1,25 @@
-import 'package:equatable/equatable.dart';
 import 'package:meiyou_extensions_lib/src/models/quality.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:nice_dart/nice_dart.dart';
 import 'package:okhttp/okhttp.dart';
 
-abstract class ContentData extends Equatable {
-  final ContentDataType type;
+abstract class Media {
   final Headers? headers;
   final Map<String, dynamic>? extra;
 
-  const ContentData({required this.type, this.headers, this.extra});
+  const Media({this.headers, this.extra});
 
-  factory ContentData.fromJson(Map<String, dynamic> json) {
-    switch (ContentDataType.values[json['type']]) {
-      case ContentDataType.Video:
+  factory Media.fromJson(Map<String, dynamic> json) {
+    final int type = json['type'];
+    switch (type) {
+      case 0:
         return Video.fromJson(json);
       // case ContentDataType.Manga:
       //   return Manga.fromJson(json);
       // case ContentDataType.Novel:
       //   return Novel.fromJson(json);
       default:
-        throw Exception('Invalid ContentDataType');
+        throw Exception('Invalid Media $type');
     }
   }
 
@@ -32,12 +31,6 @@ abstract class ContentData extends Equatable {
   }
 }
 
-enum ContentDataType {
-  Video,
-  Manga,
-  Novel,
-}
-
 /// A class that represents a video.
 ///
 /// The `Video` class extends the `Media` class and adds a list of `source` objects and a list of `Subtitle` objects.
@@ -45,7 +38,7 @@ enum ContentDataType {
 /// This class has the following properties:
 /// * `sources`: A list of `source` objects representing the sources of the video.
 /// * `subtitles`: An optional list of `Subtitle` objects representing the subtitles of the video.
-class Video extends ContentData {
+class Video extends Media {
   const Video({
     this.sources = const [],
     this.subtitles,
@@ -53,7 +46,7 @@ class Video extends ContentData {
     this.outro,
     super.extra,
     super.headers,
-  }) : super(type: ContentDataType.Video);
+  });
 
   /// A list of `VideoSource` objects representing the sources of the video.
   final List<VideoSource> sources;
@@ -100,7 +93,7 @@ class Video extends ContentData {
   @override
   Map<String, dynamic> toJson() {
     return {
-      'type': type.index,
+      'type': 0,
       'sources': sources.mapList((e) => e.toJson()),
       'subtitles': subtitles?.mapList((e) => e.toJson()),
       'intro': intro?.toJson(),
@@ -109,9 +102,6 @@ class Video extends ContentData {
       'headers': headers?.toMap(),
     };
   }
-
-  @override
-  List<Object?> get props => [type, sources, subtitles, extra, headers];
 }
 
 class Intro {
@@ -192,7 +182,7 @@ enum VideoFormat {
 /// * `quality`: An optional `VideoQuality` object representing the quality of the video source.
 /// * `isBackup`: A boolean indicating whether the video source is a backup.
 /// * `title`: An optional string representing the title of the video source.
-class VideoSource extends Equatable {
+class VideoSource {
   const VideoSource({
     this.url = '',
     this.format = VideoFormat.other,
@@ -264,9 +254,6 @@ class VideoSource extends Equatable {
   String toString() {
     return jsonPrettyEncode(toJson());
   }
-
-  @override
-  List<Object?> get props => [url, format, quality, title, isBackup];
 }
 
 /// A class that represents a subtitle.
@@ -276,7 +263,7 @@ class VideoSource extends Equatable {
 /// * `format`: A `SubtitleFormat` value representing the format of the subtitle.
 /// * `language`: An optional string representing the language of the subtitle.
 /// * `headers`: An optional map of strings representing the headers of the subtitle.
-class Subtitle extends Equatable {
+class Subtitle {
   const Subtitle({
     this.url = '',
     this.format,
@@ -338,9 +325,6 @@ class Subtitle extends Equatable {
   String toString() {
     return jsonPrettyEncode(toJson());
   }
-
-  @override
-  List<Object?> get props => [url, format, language, headers];
 }
 
 /// An enumeration of the different subtitle formats.

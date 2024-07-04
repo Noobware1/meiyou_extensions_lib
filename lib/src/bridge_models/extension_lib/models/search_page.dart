@@ -1,9 +1,12 @@
+import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_item.dart';
+import 'package:dart_eval/stdlib/async.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_preview.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
+import 'dart:io';
 
-import 'package:meiyou_extensions_lib/src/models/content_item.dart';
+import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
 
 /// dart_eval bimodal wrapper for [SearchPage]
@@ -15,9 +18,11 @@ class $SearchPage implements SearchPage, $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        $type.spec!.library, 'SearchPage.', __$SearchPage$new.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'SearchPage.fromJson',
-        __$SearchPage$fromJson.call);
+        $type.spec!.library, 'SearchPage.', __$SearchPage$new.call,
+        isBridge: false);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'SearchPage.fromJson', __$SearchPage$fromJson.call,
+        isBridge: false);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -43,10 +48,10 @@ class $SearchPage implements SearchPage, $Instance {
                     nullable: false),
                 false),
             BridgeParameter(
-                'items',
+                'list',
                 BridgeTypeAnnotation(
                     BridgeTypeRef(CoreTypes.list, [
-                      BridgeTypeRef(ExtensionLibTypes.contentItem, []),
+                      BridgeTypeRef(ExtensionLibTypes.mediaPreview, []),
                     ]),
                     nullable: false),
                 false)
@@ -66,18 +71,18 @@ class $SearchPage implements SearchPage, $Instance {
                       BridgeTypeRef(CoreTypes.dynamic, []),
                     ]),
                     nullable: false),
-                false),
+                false)
           ],
           namedParams: [],
         ),
         isFactory: true,
-      ),
+      )
     },
     fields: {
-      'items': BridgeFieldDef(
+      'list': BridgeFieldDef(
           BridgeTypeAnnotation(
               BridgeTypeRef(CoreTypes.list, [
-                BridgeTypeRef(ExtensionLibTypes.contentItem, []),
+                BridgeTypeRef(ExtensionLibTypes.mediaPreview, []),
               ]),
               nullable: false),
           isStatic: false),
@@ -87,6 +92,29 @@ class $SearchPage implements SearchPage, $Instance {
           isStatic: false),
     },
     methods: {
+      'copyWith': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.searchPage, []),
+                nullable: false),
+            params: [],
+            namedParams: [
+              BridgeParameter(
+                  'list',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(CoreTypes.list, [
+                        BridgeTypeRef(ExtensionLibTypes.mediaPreview, []),
+                      ]),
+                      nullable: true),
+                  true),
+              BridgeParameter(
+                  'hasNextPage',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+                      nullable: true),
+                  true)
+            ],
+          ),
+          isStatic: false),
       'toJson': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -99,27 +127,12 @@ class $SearchPage implements SearchPage, $Instance {
             namedParams: [],
           ),
           isStatic: false),
-      'copyWith': BridgeMethodDef(
+      'toString': BridgeMethodDef(
           BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.searchPage, []),
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: false),
             params: [],
-            namedParams: [
-              BridgeParameter(
-                  'items',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(CoreTypes.list, [
-                        BridgeTypeRef(ExtensionLibTypes.contentItem, []),
-                      ]),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'hasNextPage',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
-                      nullable: true),
-                  true)
-            ],
+            namedParams: [],
           ),
           isStatic: false),
     },
@@ -135,16 +148,19 @@ class $SearchPage implements SearchPage, $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
-      case 'items':
-        return $List.wrap(List.generate($value.items.length, (index) {
-          return $ContentItem.wrap($value.items[index]);
-        })) as $Value?;
+      case 'list':
+        return $List.wrap(List.generate($value.list.length, (index) {
+          return $MediaPreview.wrap($value.list[index]);
+        }));
       case 'hasNextPage':
         return $bool($value.hasNextPage);
+
       case 'copyWith':
         return __$copyWith;
       case 'toJson':
         return __$toJson;
+      case 'toString':
+        return __$toString;
       default:
         return _superclass.$getProperty(runtime, identifier);
     }
@@ -168,24 +184,24 @@ class $SearchPage implements SearchPage, $Instance {
   final SearchPage $value;
 
   @override
-  List<ContentItem> get items => $value.items;
+  List<MediaPreview> get list => $value.list;
   @override
   bool get hasNextPage => $value.hasNextPage;
 
   @override
-  SearchPage copyWith({List<ContentItem>? items, bool? hasNextPage}) =>
+  SearchPage copyWith({List<MediaPreview>? list, bool? hasNextPage}) =>
       $value.copyWith(
-        items: items,
+        list: list,
         hasNextPage: hasNextPage,
       );
   static const __$copyWith = $Function(_$copyWith);
   static $Value? _$copyWith(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final obj = target?.$value as SearchPage;
-    final items = (args[0]?.$reified as List?)?.cast<ContentItem>();
+    final $this = target?.$value as SearchPage;
+    final list = (args[0]?.$reified as List?)?.cast<MediaPreview>();
     final hasNextPage = args[1]?.$value as bool?;
-    final $result = obj.copyWith(
-      items: items,
+    final $result = $this.copyWith(
+      list: list,
       hasNextPage: hasNextPage,
     );
     return $SearchPage.wrap($result);
@@ -197,37 +213,41 @@ class $SearchPage implements SearchPage, $Instance {
   static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as SearchPage;
     final $result = $this.toJson();
-    return runtime.wrap($result, recursive: true);
+    return $Map.wrap($result.map((key, value) {
+      return $MapEntry.wrap(MapEntry(
+        key is $Value ? key : $String(key),
+        value is $Value ? value : value,
+      ));
+    }));
+  }
+
+  @override
+  String toString() => $value.toString();
+  static const __$toString = $Function(_$toString);
+  static $Value? _$toString(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as SearchPage;
+    final $result = $this.toString();
+    return $String($result);
   }
 
   static const __$SearchPage$new = $Function(_$SearchPage$new);
   static $Value? _$SearchPage$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final hasNextPage = args[0]?.$value as bool;
-    final items = (args[1]?.$reified as List).cast<ContentItem>();
+    final list = (args[1]?.$reified as List).cast<MediaPreview>();
     return $SearchPage.wrap(SearchPage(
       hasNextPage: hasNextPage,
-      items: items,
+      list: list,
     ));
   }
 
-  static const __$SearchPage$fromJson =
-      $Function(_$SearchPage$fromJson);
+  static const __$SearchPage$fromJson = $Function(_$SearchPage$fromJson);
   static $Value? _$SearchPage$fromJson(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final json = (args[0]?.$reified as Map).cast<String, dynamic>();
-    final $result = SearchPage.fromJson(json);
-    return $SearchPage.wrap($result);
+    return $SearchPage.wrap(SearchPage.fromJson(
+      json,
+    ));
   }
-
-  @override
-  String toString() {
-    return $value.toString();
-  }
-
-  @override
-  List<Object?> get props => $value.props;
-
-  @override
-  bool? get stringify => $value.stringify;
 }

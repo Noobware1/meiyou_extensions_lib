@@ -106,10 +106,6 @@ class $TwoStatePreference implements TwoStatePreference, $Instance {
   String get key => $value.key;
 
   @override
-  void Function(bool oldValue, bool newValue)? get onPreferenceChange =>
-      $value.onPreferenceChange;
-
-  @override
   String get summary => $value.summary;
 
   @override
@@ -168,11 +164,6 @@ class $CheckBoxPreference implements CheckBoxPreference, $Instance {
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
                     nullable: false),
                 true),
-            BridgeParameter(
-                'onPreferenceChange',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                    nullable: false),
-                true)
           ],
         ),
         isFactory: false,
@@ -226,27 +217,16 @@ class $CheckBoxPreference implements CheckBoxPreference, $Instance {
     final title = args[1]?.$value as String;
     final summary = args[2]?.$value as String;
     final value = args[3]?.$value as bool? ?? false;
-    final onPreferenceChange = args[4] as EvalCallable?;
     return $CheckBoxPreference.wrap(CheckBoxPreference(
       key: key,
       title: title,
       summary: summary,
       value: value,
-      onPreferenceChange: onPreferenceChange == null
-          ? null
-          : (oldValue, newValue) {
-              onPreferenceChange
-                  .call(runtime, null, [$bool(oldValue), $bool(newValue)]);
-            },
     ));
   }
 
   @override
   String get key => $value.key;
-
-  @override
-  void Function(bool oldValue, bool newValue)? get onPreferenceChange =>
-      $value.onPreferenceChange;
 
   @override
   String get summary => $value.summary;
@@ -307,11 +287,6 @@ class $SwitchPreference implements SwitchPreference, $Instance {
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
                     nullable: false),
                 true),
-            BridgeParameter(
-                'onPreferenceChange',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.function, []),
-                    nullable: false),
-                true)
           ],
         ),
         isFactory: false,
@@ -365,27 +340,16 @@ class $SwitchPreference implements SwitchPreference, $Instance {
     final title = args[1]?.$value as String;
     final summary = args[2]?.$value as String;
     final value = args[3]?.$value as bool? ?? false;
-    final onPreferenceChange = args[4] as EvalCallable?;
     return $SwitchPreference.wrap(SwitchPreference(
       key: key,
       title: title,
       summary: summary,
       value: value,
-      onPreferenceChange: onPreferenceChange == null
-          ? null
-          : (oldValue, newValue) {
-              onPreferenceChange
-                  .call(runtime, null, [$bool(oldValue), $bool(newValue)]);
-            },
     ));
   }
 
   @override
   String get key => $value.key;
-
-  @override
-  void Function(bool oldValue, bool newValue)? get onPreferenceChange =>
-      $value.onPreferenceChange;
 
   @override
   String get summary => $value.summary;
