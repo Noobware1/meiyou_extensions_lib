@@ -165,12 +165,12 @@ class $MediaType implements MediaType, $Instance {
       case 'subtype':
         return $String($value.subtype);
       case 'parameters':
-        return $Map.wrap($value.parameters).map((key, value) {
+        return $Map.wrap($value.parameters.map((key, value) {
           return $MapEntry.wrap(MapEntry(
             key is $Value ? key : $String(key),
             value is $Value ? value : $String(value),
           ));
-        }) as $Value?;
+        })) as $Value?;
       case 'mimeType':
         return $String($value.mimeType);
       case 'change':
@@ -242,7 +242,6 @@ class $MediaType implements MediaType, $Instance {
 
   @override
   String toString() => $value.toString();
- 
 
   static const __$MediaType$parse = $Function(_$MediaType$parse);
   static $Value? _$MediaType$parse(

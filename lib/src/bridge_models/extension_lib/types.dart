@@ -126,6 +126,10 @@ class ExtensionLibTypes {
       'package:meiyou_extensions_lib/src/models/media_link.dart', 'MediaLink');
 
   /// Bridge type spec for [$Video]
+  static const media = BridgeTypeSpec(
+      'package:meiyou_extensions_lib/src/models/media.dart', 'Media');
+
+  /// Bridge type spec for [$Video]
   static const video = BridgeTypeSpec(
       'package:meiyou_extensions_lib/src/models/media.dart', 'Video');
 

@@ -1,39 +1,40 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:html/dom.dart';
-import 'package:meiyou_extensions_lib/preference.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_item.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data_link.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter_list.dart';
+import 'package:meiyou_extensions_lib/models.dart';
+import 'package:meiyou_extensions_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/info_page.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_link.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_preview.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/search_page.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/network_helper.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/catalogue_source.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/online/http_source.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/document.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/element.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/headers.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/okhttp_client.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_item.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
-import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
-import 'package:meiyou_extensions_lib/src/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/models/info_page.dart';
-import 'package:meiyou_extensions_lib/src/models/search_page.dart';
-import 'package:meiyou_extensions_lib/src/models/source/online/parsed_http_source.dart';
 import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
+import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
+import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
 
+/// dart_eval bimodal wrapper for [ParsedHttpSource]
 class $ParsedHttpSource extends ParsedHttpSource
-    with $Bridge<ParsedHttpSource> {
+    with
+        $SourceMixin,
+        $CatalogueSourceMixin,
+        $HttpSourceMixin,
+        $ParsedHttpSourceMixin,
+        $Bridge<ParsedHttpSource> {
   $ParsedHttpSource();
 
   static void configureForCompile(BridgeDeclarationRegistry registry) {
@@ -42,11 +43,8 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-      $type.spec!.library,
-      'ParsedHttpSource.',
-      __$ParsedHttpSource$new.call,
-      isBridge: true,
-    );
+        $type.spec!.library, 'ParsedHttpSource.', __$ParsedHttpSource$new.call,
+        isBridge: true);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.parsedHttpSource);
@@ -70,7 +68,28 @@ class $ParsedHttpSource extends ParsedHttpSource
     },
     fields: {},
     methods: {
-      'homePageNextPageSelector': BridgeMethodDef(
+      'homePageParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.homePage, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'request',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'homeNextPageSelector': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: true),
@@ -85,7 +104,7 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'homePageDataSelector': BridgeMethodDef(
+      'homeDataSelector': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: false),
@@ -100,7 +119,7 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'homePageDataFromElement': BridgeMethodDef(
+      'homeDataFromElement': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(ExtensionLibTypes.homePageData, []),
@@ -114,15 +133,14 @@ class $ParsedHttpSource extends ParsedHttpSource
                   false),
               BridgeParameter(
                   'element',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(HTMLTypes.element, []),
+                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.element, []),
                       nullable: false),
                   false)
             ],
             namedParams: [],
           ),
           isStatic: false),
-      'fullHomePage': BridgeMethodDef(
+      'fullHomePageParse': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(ExtensionLibTypes.homePage, []),
@@ -136,8 +154,7 @@ class $ParsedHttpSource extends ParsedHttpSource
                   false),
               BridgeParameter(
                   'document',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(HTMLTypes.document, []),
+                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.document, []),
                       nullable: false),
                   false)
             ],
@@ -162,7 +179,7 @@ class $ParsedHttpSource extends ParsedHttpSource
       'homePageItemFromElement': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.contentItem, []),
+                BridgeTypeRef(ExtensionLibTypes.mediaPreview, []),
                 nullable: false),
             params: [
               BridgeParameter(
@@ -173,15 +190,14 @@ class $ParsedHttpSource extends ParsedHttpSource
                   false),
               BridgeParameter(
                   'element',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(HTMLTypes.element, []),
+                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.element, []),
                       nullable: false),
                   false)
             ],
             namedParams: [],
           ),
           isStatic: false),
-      'singleHomePage': BridgeMethodDef(
+      'singleHomePageParse': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(ExtensionLibTypes.homePage, []),
@@ -195,15 +211,29 @@ class $ParsedHttpSource extends ParsedHttpSource
                   false),
               BridgeParameter(
                   'document',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(HTMLTypes.document, []),
+                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.document, []),
                       nullable: false),
                   false)
             ],
             namedParams: [],
           ),
           isStatic: false),
-      'searchPageItemSelector': BridgeMethodDef(
+      'searchPageParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(ExtensionLibTypes.searchPage, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'searchItemSelector': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: false),
@@ -211,7 +241,7 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'searchPageNextPageSelector': BridgeMethodDef(
+      'searchNextPageSelector': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: true),
@@ -219,41 +249,73 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'searchPageItemFromElement': BridgeMethodDef(
+      'searchItemFromElement': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.contentItem, []),
+                BridgeTypeRef(ExtensionLibTypes.mediaPreview, []),
                 nullable: false),
             params: [
               BridgeParameter(
                   'element',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(HTMLTypes.element, []),
+                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.element, []),
                       nullable: false),
                   false)
             ],
             namedParams: [],
           ),
           isStatic: false),
-      'infoPageFromDocument': BridgeMethodDef(
+      'mediaDetailsParse': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.infoPage, []),
+                  BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaDetailsFromDocument': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.future, [
+                  BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
                 ]),
                 nullable: false),
             params: [
               BridgeParameter(
                   'document',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(HTMLTypes.document, []),
+                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.document, []),
                       nullable: false),
                   false)
             ],
             namedParams: [],
           ),
           isStatic: false),
-      'contentDataLinkSelector': BridgeMethodDef(
+      'medialinksParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.list, [
+                  BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaLinkSelector': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: false),
@@ -261,34 +323,49 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'contentDataLinkFromElement': BridgeMethodDef(
+      'mediaLinkFromElement': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.contentDataLink, []),
+                BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
                 nullable: false),
             params: [
               BridgeParameter(
                   'element',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(HTMLTypes.element, []),
+                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.element, []),
                       nullable: false),
                   false)
             ],
             namedParams: [],
           ),
           isStatic: false),
-      'contentDataFromDocument': BridgeMethodDef(
+      'mediaParse': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.contentData, []),
+                  BridgeTypeRef(ExtensionLibTypes.media, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaFromDocument': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.future, [
+                  BridgeTypeRef(ExtensionLibTypes.media, []),
                 ]),
                 nullable: false),
             params: [
               BridgeParameter(
                   'document',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(HTMLTypes.document, []),
+                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.document, []),
                       nullable: false),
                   false)
             ],
@@ -304,73 +381,16 @@ class $ParsedHttpSource extends ParsedHttpSource
 
   @override
   $Value? $bridgeGet(String identifier) {
-    switch (identifier) {
-      case 'id':
-        return _$id;
-      case 'supportsHomePage':
-        return _$supportsHomePage;
-      case 'homePageRequestTimeout':
-        return _$homePageRequestTimeout;
-      case 'lang':
-        return _$lang;
-      case 'network':
-        return _$network;
-      case 'versionId':
-        return _$versionId;
-      case 'headers':
-        return _$headers;
-      case 'client':
-        return _$client;
-      case 'preferences':
-        return _$preferences;
-      case 'headersBuilder':
-        return __$headersBuilder;
-      case 'getHomePage':
-        return __$getHomePage;
-      case 'homePageParse':
-        return __$homePageParse;
-      case 'getSearchPage':
-        return __$getSearchPage;
-      case 'searchPageParse':
-        return __$searchPageParse;
-      case 'getInfoPage':
-        return __$getInfoPage;
-      case 'infoPageParse':
-        return __$infoPageParse;
-      case 'getContentDataLinks':
-        return __$getContentDataLinks;
-      case 'contentDataLinksParse':
-        return __$contentDataLinksParse;
-      case 'getContentData':
-        return __$getContentData;
-      case 'contentDataRequest':
-        return __$contentDataRequest;
-      case 'contentDataParse':
-        return __$contentDataParse;
-      case 'contentDataFromDocument':
-        return __$contentDataFromDocument;
-      case 'setupPreferences':
-        return __$setupPreferences;
-      case 'homePageDataSelector':
-        return __$homePageDataSelector;
-      case 'homePageDataFromElement':
-        return __$homePageDataFromElement;
-      case 'fullHomePage':
-        return __$fullHomePage;
-      case 'homePageItemSelector':
-        return __$homePageItemSelector;
-      case 'homePageItemFromElement':
-        return __$homePageItemFromElement;
-      case 'singleHomePage':
-        return __$singleHomePage;
-      default:
-        throw UnimplementedError('Unknown identifier $identifier');
-    }
+    return $bridgeGetFromParsedHttpSource(identifier);
   }
 
   @override
-  void $bridgeSet(String identifier, $Value value) =>
-      throw UnimplementedError();
+  void $bridgeSet(String identifier, $Value value) {
+    switch (identifier) {
+      default:
+        return $_set(identifier, value);
+    }
+  }
 
   static const __$ParsedHttpSource$new = $Function(_$ParsedHttpSource$new);
   static $Value? _$ParsedHttpSource$new(
@@ -379,172 +399,212 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   @override
-  int get id => $_get('id') as int;
-
-  $Value get _$id => $int(super.id);
+  OkHttpClient get $superClient => super.client;
 
   @override
-  String get name => $_get('name') as String;
+  Future<HomePage> $superGetHomePage(int page, HomePageRequest request) =>
+      super.getHomePage(page, request);
 
   @override
-  bool get supportsHomePage => $_get('supportsHomePage') as bool;
-
-  $Value get _$supportsHomePage => $bool(super.supportsHomePage);
+  Future<Media?> $superGetMedia(MediaLink link) => super.getMedia(link);
 
   @override
-  double get homePageRequestTimeout =>
-      $_get('homePageRequestTimeout') as double;
-
-  $Value get _$homePageRequestTimeout => $double(super.homePageRequestTimeout);
+  Future<MediaDetails> $superGetMediaDetails(String url) =>
+      super.getMediaDetails(url);
 
   @override
-  String get lang => $_get('lang') as String;
-
-  $Value get _$lang => $String(super.lang);
-
-  @override
-  NetworkHelper get network => $_get('network') as NetworkHelper;
-
-  $Value get _$network => $NetworkHelper.wrap(super.network);
-  @override
-  String get baseUrl => $_get('baseUrl') as String;
+  Future<List<MediaLink>> $superGetMediaLinks(String url) =>
+      super.getMediaLinks(url);
 
   @override
-  int get versionId => $_get('versionId') as int;
-
-  $Value get _$versionId => $int(super.versionId);
-
-  @override
-  Headers get headers => $_get('headers') as Headers;
-
-  $Value get _$headers => $Headers.wrap(super.headers);
+  Future<SearchPage> $superGetSearchPage(
+          int page, String query, FilterList filters) =>
+      super.getSearchPage(page, query, filters);
 
   @override
-  List<HomePageRequest> homePageRequests() {
-    return ($_invoke('homePageRequests', []) as List).cast<HomePageRequest>();
+  Headers get $superHeaders => super.headers;
+
+  @override
+  HeadersBuilder $superHeadersBuilder() => super.headersBuilder();
+
+  @override
+  double get $superHomePageRequestTimeout => super.homePageRequestTimeout;
+
+  @override
+  int get $superId => super.id;
+
+  @override
+  String get $superLang => super.lang;
+
+  @override
+  Request $superMediaDetailsRequest(String url) =>
+      super.mediaDetailsRequest(url);
+
+  @override
+  Future<Media?> $superMediaParse(Response response) =>
+      super.mediaParse(response);
+
+  @override
+  Request $superMediaRequest(MediaLink link) => super.mediaRequest(link);
+
+  @override
+  NetworkHelper get $superNetwork => super.network;
+
+  @override
+  SharedPreferences get $superPreferences => super.preferences;
+
+  @override
+  List<PreferenceData> $superSetupPreferences() => super.setupPreferences();
+
+  @override
+  bool get $superSupportsHomePage => super.supportsHomePage;
+
+  @override
+  int get $superVersionId => super.versionId;
+
+  @override
+  HomePage $superFullHomePageParse(
+          HomePageRequest request, Document document) =>
+      super.fullHomePageParse(request, document);
+
+  @override
+  HomePageData $superHomeDataFromElement(
+          HomePageRequest request, Element element) =>
+      super.homeDataFromElement(request, element);
+
+  @override
+  String $superHomeDataSelector(HomePageRequest request) =>
+      super.homeDataSelector(request);
+
+  @override
+  MediaPreview $superHomePageItemFromElement(
+          HomePageRequest request, Element element) =>
+      super.homePageItemFromElement(request, element);
+
+  @override
+  String $superHomePageItemSelector(HomePageRequest request) =>
+      super.homePageItemSelector(request);
+
+  @override
+  Future<MediaDetails> $superMediaDetailsParse(Response response) =>
+      super.mediaDetailsParse(response);
+
+  @override
+  Future<Media?> $superMediaFromDocument(Document document) =>
+      super.mediaFromDocument(document);
+
+  @override
+  List<MediaLink> $superMedialinksParse(Response response) =>
+      super.medialinksParse(response);
+
+  @override
+  SearchPage $superSearchPageParse(Response response) =>
+      super.searchPageParse(response);
+
+  @override
+  HomePage $superSingleHomePageParse(
+          HomePageRequest request, Document document) =>
+      super.singleHomePageParse(request, document);
+}
+
+abstract mixin class $ParsedHttpSourceMixin {
+  dynamic $_get(String prop);
+
+  dynamic $_invoke(String method, List<$Value?> args);
+
+  $Value? $bridgeGetFromParsedHttpSource(String identifier) {
+    switch (identifier) {
+      case 'homeDataSelector':
+        return __$homeDataSelector;
+      case 'homeDataFromElement':
+        return __$homeDataFromElement;
+      case 'fullHomePageParse':
+        return __$fullHomePageParse;
+      case 'homePageItemSelector':
+        return __$homePageItemSelector;
+      case 'homePageItemFromElement':
+        return __$homePageItemFromElement;
+      case 'singleHomePageParse':
+        return __$singleHomePageParse;
+      case 'searchPageParse':
+        return __$searchPageParse;
+      case 'mediaDetailsParse':
+        return __$mediaDetailsParse;
+      case 'medialinksParse':
+        return __$medialinksParse;
+      case 'mediaParse':
+        return __$mediaParse;
+      case 'mediaFromDocument':
+        return __$mediaFromDocument;
+      default:
+        return $bridgeGetFromHttpSource(identifier);
+    }
   }
 
-  @override
-  HeadersBuilder headersBuilder() {
-    return $_invoke('headersBuilder', []) as HeadersBuilder;
-  }
+  $Value? $bridgeGetFromHttpSource(String identifier);
 
-  $Value get __$headersBuilder => $Function(_$headersBuilder);
-  $Value? _$headersBuilder(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final $result = super.headersBuilder();
-    return $HeadersBuilder.wrap($result);
-  }
-
-  @override
-  FilterList getFilterList() {
-    return $_invoke('getFilterList', []) as FilterList;
-  }
-
-  $Value get __$getHomePage => $Function(_$getHomePage);
-  $Value? _$getHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
-    final page = args[1]?.$value as int;
-    final request = args[2]?.$reified as HomePageRequest;
-    final $result = super.getHomePage(
-      page,
-      request,
-    );
-    return $Future.wrap($result.then((value) => $HomePage.wrap(value)))
-        as $Value?;
-  }
-
-  @override
-  Request homePageRequest(int page, HomePageRequest request) {
-    return $_invoke('homePageRequest', [
-      $int(page),
-      $HomePageRequest.wrap(request),
-    ]) as Request;
-  }
-
-  @override
-  HomePage homePageParse(HomePageRequest request, Response response) {
-    return $_invoke('homePageParse', [
-      $HomePageRequest.wrap(request),
-      $Response.wrap(response),
-    ]) as HomePage;
-  }
-
-  $Value get __$homePageParse => $Function(_$homePageParse);
-  $Value? _$homePageParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    final request = args[1]?.$reified as HomePageRequest;
-    final response = args[2]?.$reified as Response;
-    final $result = super.homePageParse(
-      request,
-      response,
-    );
-    return $HomePage.wrap($result);
-  }
-
-  @override
-  String? homePageNextPageSelector(HomePageRequest request) {
-    return $_invoke('homePageNextPageSelector', [
+  String? homeNextPageSelector(HomePageRequest request) {
+    return $_invoke('homeNextPageSelector', [
       $HomePageRequest.wrap(request),
     ]) as String?;
   }
 
-  @override
-  String homePageDataSelector(HomePageRequest request) {
-    return $_invoke('homePageDataSelector', [
+  String homeDataSelector(HomePageRequest request) {
+    return $_invoke('homeDataSelector', [
       $HomePageRequest.wrap(request),
     ]) as String;
   }
 
-  $Value get __$homePageDataSelector => $Function(_$homePageDataSelector);
-  $Value? _$homePageDataSelector(
+  $Value get __$homeDataSelector => $Function(_$homeDataSelector);
+  String $superHomeDataSelector(HomePageRequest request);
+  $Value? _$homeDataSelector(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
-    final $result = super.homePageDataSelector(
-      request,
-    );
+    final $result = $superHomeDataSelector(request);
     return $String($result);
   }
 
-  @override
-  HomePageData homePageDataFromElement(
-      HomePageRequest request, Element element) {
-    return $_invoke('homePageDataFromElement', [
+  HomePageData homeDataFromElement(HomePageRequest request, Element element) {
+    return $_invoke('homeDataFromElement', [
       $HomePageRequest.wrap(request),
       $Element.wrap(element),
     ]) as HomePageData;
   }
 
-  $Value get __$homePageDataFromElement => $Function(_$homePageDataFromElement);
-  $Value? _$homePageDataFromElement(
+  $Value get __$homeDataFromElement => $Function(_$homeDataFromElement);
+  HomePageData $superHomeDataFromElement(
+      HomePageRequest request, Element element);
+  $Value? _$homeDataFromElement(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
     final element = args[2]?.$reified as Element;
-    final $result = super.homePageDataFromElement(
+    final $result = $superHomeDataFromElement(
       request,
       element,
     );
     return $HomePageData.wrap($result);
   }
 
-  @override
-  HomePage fullHomePage(HomePageRequest request, Document document) {
-    return $_invoke('fullHomePage', [
+  HomePage fullHomePageParse(HomePageRequest request, Document document) {
+    return $_invoke('fullHomePageParse', [
       $HomePageRequest.wrap(request),
       $Document.wrap(document),
     ]) as HomePage;
   }
 
-  $Value get __$fullHomePage => $Function(_$fullHomePage);
-  $Value? _$fullHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
+  $Value get __$fullHomePageParse => $Function(_$fullHomePageParse);
+  HomePage $superFullHomePageParse(HomePageRequest request, Document document);
+  $Value? _$fullHomePageParse(
+      Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
     final document = args[2]?.$reified as Document;
-    final $result = super.fullHomePage(
+    final $result = $superFullHomePageParse(
       request,
       document,
     );
     return $HomePage.wrap($result);
   }
 
-  @override
   String homePageItemSelector(HomePageRequest request) {
     return $_invoke('homePageItemSelector', [
       $HomePageRequest.wrap(request),
@@ -552,303 +612,161 @@ class $ParsedHttpSource extends ParsedHttpSource
   }
 
   $Value get __$homePageItemSelector => $Function(_$homePageItemSelector);
+  String $superHomePageItemSelector(HomePageRequest request);
   $Value? _$homePageItemSelector(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
-    final $result = super.homePageItemSelector(
+    final $result = $superHomePageItemSelector(
       request,
     );
     return $String($result);
   }
 
-  @override
-  ContentItem homePageItemFromElement(
+  MediaPreview homePageItemFromElement(
       HomePageRequest request, Element element) {
     return $_invoke('homePageItemFromElement', [
       $HomePageRequest.wrap(request),
       $Element.wrap(element),
-    ]) as ContentItem;
+    ]) as MediaPreview;
   }
 
   $Value get __$homePageItemFromElement => $Function(_$homePageItemFromElement);
+  MediaPreview $superHomePageItemFromElement(
+      HomePageRequest request, Element element);
   $Value? _$homePageItemFromElement(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
     final element = args[2]?.$reified as Element;
-    final $result = super.homePageItemFromElement(
+    final $result = $superHomePageItemFromElement(
       request,
       element,
     );
-    return $ContentItem.wrap($result);
+    return $MediaPreview.wrap($result);
   }
 
-  @override
-  HomePage singleHomePage(HomePageRequest request, Document document) {
-    return $_invoke('singleHomePage', [
+  HomePage singleHomePageParse(HomePageRequest request, Document document) {
+    return $_invoke('singleHomePageParse', [
       $HomePageRequest.wrap(request),
       $Document.wrap(document),
     ]) as HomePage;
   }
 
-  $Value get __$singleHomePage => $Function(_$singleHomePage);
-  $Value? _$singleHomePage(
+  $Value get __$singleHomePageParse => $Function(_$singleHomePageParse);
+  HomePage $superSingleHomePageParse(
+      HomePageRequest request, Document document);
+  $Value? _$singleHomePageParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
     final document = args[2]?.$reified as Document;
-    final $result = super.singleHomePage(
+    final $result = $superSingleHomePageParse(
       request,
       document,
     );
     return $HomePage.wrap($result);
   }
 
-  $Value get __$getSearchPage => $Function(_$getSearchPage);
-  $Value? _$getSearchPage(Runtime runtime, $Value? target, List<$Value?> args) {
-    final page = args[1]?.$value as int;
-    final query = args[2]?.$value as String;
-    final filters = args[3]?.$reified as FilterList;
-    final $result = super.getSearchPage(
-      page,
-      query,
-      filters,
-    );
-    return $Future.wrap($result.then((value) => $SearchPage.wrap(value)))
-        as $Value?;
-  }
-
-  @override
-  Request searchPageRequest(int page, String query, FilterList filters) {
-    return $_invoke('searchPageRequest', [
-      $int(page),
-      $String(query),
-      $FilterList.wrap(filters),
-    ]) as Request;
-  }
-
-  @override
-  SearchPage searchPageParse(Response response) {
-    return $_invoke('searchPageParse', [
-      $Response.wrap(response),
-    ]) as SearchPage;
-  }
-
   $Value get __$searchPageParse => $Function(_$searchPageParse);
+  SearchPage $superSearchPageParse(Response response);
   $Value? _$searchPageParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final response = args[1]?.$reified as Response;
-    final $result = super.searchPageParse(
+    final $result = $superSearchPageParse(
       response,
     );
     return $SearchPage.wrap($result);
   }
 
-  @override
-  String searchPageItemSelector() {
-    return $_invoke('searchPageItemSelector', []) as String;
+  String searchItemSelector() {
+    return $_invoke('searchItemSelector', []) as String;
   }
 
-  @override
-  String? searchPageNextPageSelector() {
-    return $_invoke('searchPageNextPageSelector', []) as String?;
+  String? searchNextPageSelector() {
+    return $_invoke('searchNextPageSelector', []) as String?;
   }
 
-  @override
-  ContentItem searchPageItemFromElement(Element element) {
-    return $_invoke('searchPageItemFromElement', [
+  MediaPreview searchItemFromElement(Element element) {
+    return $_invoke('searchItemFromElement', [
       $Element.wrap(element),
-    ]) as ContentItem;
+    ]) as MediaPreview;
   }
 
-  @override
-  Future<InfoPage> getInfoPage(String url) {
-    return ($_invoke('getInfoPage', [
-      $String(url),
-    ]) as Future)
-        .then((value) => value as InfoPage);
-  }
-
-  $Value get __$getInfoPage => $Function(_$getInfoPage);
-  $Value? _$getInfoPage(Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[1]?.$value as String;
-    final $result = super.getInfoPage(
-      url,
-    );
-    return $Future.wrap($result.then((value) => $InfoPage.wrap(value)))
-        as $Value?;
-  }
-
-  @override
-  Request infoPageRequest(String url) {
-    return $_invoke('infoPageRequest', [
-      $String(url),
-    ]) as Request;
-  }
-
-  @override
-  Future<InfoPage> infoPageParse(Response response) {
-    return ($_invoke('infoPageParse', [
-      $Response.wrap(response),
-    ]) as Future)
-        .then((value) => value as InfoPage);
-  }
-
-  $Value get __$infoPageParse => $Function(_$infoPageParse);
-  $Value? _$infoPageParse(Runtime runtime, $Value? target, List<$Value?> args) {
+  $Value get __$mediaDetailsParse => $Function(_$mediaDetailsParse);
+  Future<MediaDetails> $superMediaDetailsParse(Response response);
+  $Value? _$mediaDetailsParse(
+      Runtime runtime, $Value? target, List<$Value?> args) {
     final response = args[1]?.$reified as Response;
-    final $result = super.infoPageParse(
+    final $result = $superMediaDetailsParse(
       response,
     );
-    return $Future.wrap($result.then((value) => $InfoPage.wrap(value)))
+    return $Future.wrap($result.then((value) => $MediaDetails.wrap(value)))
         as $Value?;
   }
 
-  @override
-  Future<InfoPage> infoPageFromDocument(Document document) {
-    return ($_invoke('infoPageFromDocument', [
+  Future<MediaDetails> mediaDetailsFromDocument(Document document) {
+    return ($_invoke('mediaDetailsFromDocument', [
       $Document.wrap(document),
     ]) as Future)
-        .then((value) => value as InfoPage);
+        .then((value) => value as MediaDetails);
   }
 
-  $Value get __$getContentDataLinks => $Function(_$getContentDataLinks);
-  $Value? _$getContentDataLinks(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[1]?.$value as String;
-    final $result = super.getContentDataLinks(
-      url,
-    );
-    return $Future.wrap(
-        $result.then((value) => $List.wrap(List.generate(value.length, (index) {
-              return $ContentDataLink.wrap(value[index]);
-            })) as $Value?)) as $Value?;
-  }
-
-  @override
-  Request contentDataLinksRequest(String url) {
-    return $_invoke('contentDataLinksRequest', [
-      $String(url),
-    ]) as Request;
-  }
-
-  @override
-  List<ContentDataLink> contentDataLinksParse(Response response) {
-    return ($_invoke('contentDataLinksParse', [
+  List<MediaLink> medialinksParse(Response response) {
+    return ($_invoke('medialinksParse', [
       $Response.wrap(response),
     ]) as List)
-        .cast<ContentDataLink>();
+        .cast<MediaLink>();
   }
 
-  $Value get __$contentDataLinksParse => $Function(_$contentDataLinksParse);
-  $Value? _$contentDataLinksParse(
+  $Value get __$medialinksParse => $Function(_$medialinksParse);
+  List<MediaLink> $superMedialinksParse(Response response);
+  $Value? _$medialinksParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final response = args[1]?.$reified as Response;
-    final $result = super.contentDataLinksParse(
+    final $result = $superMedialinksParse(
       response,
     );
     return $List.wrap(List.generate($result.length, (index) {
-      return $ContentDataLink.wrap($result[index]);
-    })) as $Value?;
+      return $MediaLink.wrap($result[index]);
+    }));
   }
 
-  @override
-  String contentDataLinkSelector() {
-    return $_invoke('contentDataLinkSelector', []) as String;
+  String mediaLinkSelector() {
+    return $_invoke('mediaLinkSelector', []) as String;
   }
 
-  $Value get __$getContentData => $Function(_$getContentData);
-  $Value? _$getContentData(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final link = args[1]?.$reified as ContentDataLink;
-    final $result = super.getContentData(
-      link,
-    );
-    return $Future.wrap($result.then(
-            (value) => value == null ? $null() : $ContentData.wrap(value)))
-        as $Value?;
-  }
-
-  @override
-  Request contentDataRequest(ContentDataLink link) {
-    return $_invoke('contentDataRequest', [
-      $ContentDataLink.wrap(link),
-    ]) as Request;
-  }
-
-  $Value get __$contentDataRequest => $Function(_$contentDataRequest);
-  $Value? _$contentDataRequest(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final link = args[1]?.$reified as ContentDataLink;
-    final $result = super.contentDataRequest(
-      link,
-    );
-    return $Request.wrap($result);
-  }
-
-  @override
-  ContentDataLink contentDataLinkFromElement(Element element) {
-    return $_invoke('contentDataLinkFromElement', [
+  MediaLink mediaLinkFromElement(Element element) {
+    return $_invoke('mediaLinkFromElement', [
       $Element.wrap(element),
-    ]) as ContentDataLink;
+    ]) as MediaLink;
   }
 
-  @override
-  Future<ContentData> contentDataParse(Response response) {
-    return ($_invoke('contentDataParse', [
-      $Response.wrap(response),
-    ]) as Future)
-        .then((value) => value as ContentData);
-  }
-
-  $Value get __$contentDataParse => $Function(_$contentDataParse);
-  $Value? _$contentDataParse(
-      Runtime runtime, $Value? target, List<$Value?> args) {
+  $Value get __$mediaParse => $Function(_$mediaParse);
+  Future<Media?> $superMediaParse(Response response);
+  $Value? _$mediaParse(Runtime runtime, $Value? target, List<$Value?> args) {
     final response = args[1]?.$reified as Response;
-    final $result = super.contentDataParse(
+    final $result = $superMediaParse(
       response,
     );
-    return $Future.wrap($result.then((value) => $ContentData.wrap(value)))
-        as $Value?;
+    return $Future.wrap($result.then(
+        (value) => value == null ? $null() : $Media.wrap(value))) as $Value?;
   }
 
-  @override
-  Future<ContentData> contentDataFromDocument(Document document) {
-    return ($_invoke('contentDataFromDocument', [
+  Future<Media?> mediaFromDocument(Document document) {
+    return ($_invoke('mediaFromDocument', [
       $Document.wrap(document),
     ]) as Future)
-        .then((value) => value as ContentData);
+        .then((value) => value as Media?);
   }
 
-  $Value get __$contentDataFromDocument => $Function(_$contentDataFromDocument);
-  $Value? _$contentDataFromDocument(
+  $Value get __$mediaFromDocument => $Function(_$mediaFromDocument);
+  Future<Media?> $superMediaFromDocument(Document document);
+  $Value? _$mediaFromDocument(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final document = args[1]?.$reified as Document;
-    final $result = super.contentDataFromDocument(
+    final $result = $superMediaFromDocument(
       document,
     );
-    return $Future.wrap($result.then((value) => $ContentData.wrap(value)))
+    return $Future.wrap($result.then(
+            (value) => value == null ? $null() : $Media.wrapByType(value)))
         as $Value?;
   }
-
-  @override
-  List<PreferenceData> setupPreferences() {
-    return ($_invoke('setupPreferences', []) as List).cast<PreferenceData>();
-  }
-
-  $Value get __$setupPreferences => $Function(_$setupPreferences);
-
-  $Value? _$setupPreferences(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    return $UnsupportedError.wrap(UnsupportedError('Not implemented'));
-  }
-
-  @override
-  OkHttpClient get client => $_get('client') as OkHttpClient;
-
-  $Value get _$client => $OkHttpClient.wrap(super.client);
-
-  @override
-  SharedPreferences get preferences =>
-      $_get('preferences') as SharedPreferences;
-
-  $Value get _$preferences => $SharedPreferences.wrap(super.preferences);
 }

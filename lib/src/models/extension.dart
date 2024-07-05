@@ -164,14 +164,6 @@ class AvailableSource {
     this.baseUrl = "",
   });
 
-  StubSource toStubSource() {
-    return StubSource(
-      id: id,
-      lang: lang,
-      name: name,
-    );
-  }
-
   factory AvailableSource.fromJson(dynamic json) {
     return AvailableSource(
       id: json["id"],

@@ -15,7 +15,7 @@ abstract class ParsedHttpSource extends HttpSource {
   ParsedHttpSource();
 
   @override
-  HomePage homeParse(HomePageRequest request, Response response) {
+  HomePage homePageParse(HomePageRequest request, Response response) {
     final document = response.body.document;
 
     if (request.hasFullData) {
@@ -75,7 +75,7 @@ abstract class ParsedHttpSource extends HttpSource {
   }
 
   @override
-  SearchPage searchParse(Response response) {
+  SearchPage searchPageParse(Response response) {
     final document = response.body.document;
     final list = document
         .select(searchItemSelector())

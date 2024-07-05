@@ -1,3 +1,5 @@
+
+import 'package:meiyou_extensions_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/lib_overrides.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
@@ -6,7 +8,6 @@ import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/models/source/catalogue_source.dart';
-import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:meta/meta.dart';
 import 'package:okhttp/okhttp.dart';
@@ -41,28 +42,6 @@ abstract class HttpSource extends CatalogueSource {
 
   OkHttpClient get client => network.client;
 
-  // /// Generates a unique ID for the source based on the provided [name], [lang] and
-  // /// [versionId]. It will use the first 16 characters (64 bits) of the MD5 of the string
-  // /// `"${name.lowercase()}/$lang/$versionId"`.
-  // ///
-  // /// Note: the generated ID sets the sign bit to `0`.
-  // ///
-  // /// Can be used to generate outdated IDs, such as when the source name or language
-  // /// needs to be changed but migrations can be avoided.
-  // ///
-  // /// @param name [String] the name of the source
-  // /// @param lang [String] the language of the source
-  // /// @param versionId [Int] the version ID of the source
-  // /// @return a unique ID for the source
-  // int _generateId(String name, String lang, int versionId) {
-  //   final key = "${name.toLowerCase()}/$lang/$versionId";
-  //   final bytes = MD5(key.codeUnits).bytes;
-  //   return List.generate(
-  //               8, (index) => (bytes[index] & 0xFF) << (8 * (7 - index)))
-  //           .reduce((value, element) => value | element) &
-  //       0x7FFFFFFFFFFFFFFF;
-  // }
-
   /// Headers builder for requests. Implementations can override this method for custom headers.
   HeadersBuilder headersBuilder() =>
       Headers.Builder().add('User-Agent', network.defaultUserAgentProvider);
@@ -70,38 +49,38 @@ abstract class HttpSource extends CatalogueSource {
   @override
   Future<HomePage> getHomePage(int page, HomePageRequest request) {
     return client
-        .newCall(homeRequest(page, request))
+        .newCall(homePageRequest(page, request))
         .execute()
-        .then((response) => homeParse(request, response));
+        .then((response) => homePageParse(request, response));
   }
 
   /// Returns the request for the popular manga given the page.
   ///
   /// * page the page number to retrieve.
-  Request homeRequest(int page, HomePageRequest request);
+  Request homePageRequest(int page, HomePageRequest request);
 
   /// Parses the response from the site and returns a [MangasPage] object.
   ///
   /// * response the response from the site.
-  HomePage homeParse(HomePageRequest request, Response response);
+  HomePage homePageParse(HomePageRequest request, Response response);
 
   @override
   Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {
     return client
-        .newCall(searchRequest(page, query, filters))
+        .newCall(searchPageRequest(page, query, filters))
         .execute()
-        .then((response) => searchParse(response));
+        .then((response) => searchPageParse(response));
   }
 
   /// Returns the request for the search manga given the page.
   ///
   /// * page the page number to retrieve.
-  Request searchRequest(int page, String query, FilterList filters);
+  Request searchPageRequest(int page, String query, FilterList filters);
 
   /// Parses the response from the site and returns a [SearchResponse] object.
   ///
   /// * response the response from the site.
-  SearchPage searchParse(Response response);
+  SearchPage searchPageParse(Response response);
 
   @override
   Future<MediaDetails> getMediaDetails(String url) {
@@ -111,7 +90,9 @@ abstract class HttpSource extends CatalogueSource {
         .then((response) => mediaDetailsParse(response));
   }
 
-  Request mediaDetailsRequest(String url);
+  Request mediaDetailsRequest(String url) {
+    return GET(baseUrl + url, headers: headers);
+  }
 
   Future<MediaDetails> mediaDetailsParse(Response response);
 

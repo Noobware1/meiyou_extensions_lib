@@ -1,13 +1,9 @@
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:dart_eval/stdlib/async.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/headers.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
-import 'dart:io';
-
 import 'package:okhttp/okhttp.dart';
 
 /// dart_eval bimodal wrapper for [MediaLink]
@@ -207,9 +203,7 @@ class $MediaLink implements MediaLink, $Instance {
       case 'extra':
         return $value.extra == null
             ? $null()
-            : $Map
-                .wrap(($value.extra as Map<String, dynamic>))
-                .map((key, value) {
+            : $Map.wrap($value.extra!).map((key, value) {
                 return $MapEntry.wrap(MapEntry(
                   key is $Value ? key : $String(key),
                   value is $Value ? value : value,
@@ -294,12 +288,12 @@ class $MediaLink implements MediaLink, $Instance {
   static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaLink;
     final $result = $this.toJson();
-    return $Map.wrap(($result as Map<String, dynamic>)).map((key, value) {
+    return $Map.wrap($result.map((key, value) {
       return $MapEntry.wrap(MapEntry(
         key is $Value ? key : $String(key),
         value is $Value ? value : value,
       ));
-    }) as $Value?;
+    }));
   }
 
   @override

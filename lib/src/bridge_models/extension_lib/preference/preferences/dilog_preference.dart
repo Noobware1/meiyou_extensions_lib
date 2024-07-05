@@ -2,7 +2,6 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/preference/preferences/dilog_preference.dart';
-import 'package:nice_dart/nice_dart.dart';
 
 import 'preference_data.dart';
 

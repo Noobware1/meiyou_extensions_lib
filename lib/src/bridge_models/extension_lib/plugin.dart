@@ -1,12 +1,11 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/dart_eval_security.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_category.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_item.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/info_page.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_format.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_link.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_preview.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/quality.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/catalogue_source.dart';
@@ -65,38 +64,35 @@ class ExtensionLibPlugin extends EvalPlugin {
     $HomePageRequest.configureForCompile(registry);
     $HomePage.configureForCompile(registry);
 
-    //info_page.dart
-    $InfoPage.configureForCompile(registry);
+    //media_details.dart
+    $MediaDetails.configureForCompile(registry);
+    $MediaDetailsBuilder.configureForCompile(registry);
+    $MediaContent.configureForCompile(registry);
+    $LazyMediaContent.configureForCompile(registry);
+    $Movie.configureForCompile(registry);
+    $EpisodicContent.configureForCompile(registry);
+    $TvSeries.configureForCompile(registry);
+    $SeasonList.configureForCompile(registry);
+    $Season.configureForCompile(registry);
+    $Episode.configureForCompile(registry);
     $Status.configureForCompile(registry);
-    $ExternalId.configureForCompile(registry);
     $Character.configureForCompile(registry);
 
     //search_page.dart
     $SearchPage.configureForCompile(registry);
 
-    // content.dart
-    $Content.configureForCompile(registry);
-    $LazyContent.configureForCompile(registry);
-    $Movie.configureForCompile(registry);
-    $Series.configureForCompile(registry);
-    $Anime.configureForCompile(registry);
-    $SeasonList.configureForCompile(registry);
-    $Season.configureForCompile(registry);
-    $Episode.configureForCompile(registry);
+    // media_format.dart
+    $MediaFormat.configureForCompile(registry);
 
-    // content_category.dart
-    $ContentCategory.configureForCompile(registry);
+    //media_preview.dart
+    $MediaPreview.configureForCompile(registry);
 
-    //content_item.dart
-    $ContentItem.configureForCompile(registry);
+    //media_link.dart
+    $MediaLink.configureForCompile(registry);
 
-    //content_link.dart
-    $ContentDataLink.configureForCompile(registry);
+    //media.dart
 
-    //content_data.dart
-
-    $ContentData.configureForCompile(registry);
-    $ContentDataType.configureForCompile(registry);
+    $Media.configureForCompile(registry);
     $Video.configureForCompile(registry);
     $VideoFormat.configureForCompile(registry);
     $VideoSource.configureForCompile(registry);
@@ -178,37 +174,33 @@ class ExtensionLibPlugin extends EvalPlugin {
     $HomePageRequest.configureForRuntime(runtime);
     $HomePage.configureForRuntime(runtime);
 
-    //info_page.dart
-    $InfoPage.configureForRuntime(runtime);
+    //media_details.dart
+    $MediaDetails.configureForRuntime(runtime);
+    $MediaContent.configureForRuntime(runtime);
+    $LazyMediaContent.configureForRuntime(runtime);
+    $Movie.configureForRuntime(runtime);
+    $EpisodicContent.configureForRuntime(runtime);
+    $TvSeries.configureForRuntime(runtime);
+    $SeasonList.configureForRuntime(runtime);
+    $Season.configureForRuntime(runtime);
+    $Episode.configureForRuntime(runtime);
     $Status.configureForRuntime(runtime);
-    $ExternalId.configureForRuntime(runtime);
     $Character.configureForRuntime(runtime);
 
     //search_page.dart
     $SearchPage.configureForRuntime(runtime);
 
-    // content.dart
-    $Content.configureForRuntime(runtime);
-    $LazyContent.configureForRuntime(runtime);
-    $Movie.configureForRuntime(runtime);
-    $Series.configureForRuntime(runtime);
-    $Anime.configureForRuntime(runtime);
-    $SeasonList.configureForRuntime(runtime);
-    $Season.configureForRuntime(runtime);
-    $Episode.configureForRuntime(runtime);
+    // media_format.dart
+    $MediaFormat.configureForRuntime(runtime);
 
-    // content_category.dart
-    $ContentCategory.configureForRuntime(runtime);
+    //media_preview.dart
+    $MediaPreview.configureForRuntime(runtime);
 
-    //content_item.dart
-    $ContentItem.configureForRuntime(runtime);
+    //media_link.dart
+    $MediaLink.configureForRuntime(runtime);
 
-    //content_link.dart
-    $ContentDataLink.configureForRuntime(runtime);
-
-    //content_data.dart
-    $ContentData.configureForRuntime(runtime);
-    $ContentDataType.configureForRuntime(runtime);
+    //media.dart
+    $Media.configureForRuntime(runtime);
     $Video.configureForRuntime(runtime);
     $VideoFormat.configureForRuntime(runtime);
     $VideoSource.configureForRuntime(runtime);

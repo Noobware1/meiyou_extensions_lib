@@ -1,20 +1,22 @@
-import 'package:dart_eval/dart_eval.dart';
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_link.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data_link.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/models/info_page.dart';
+import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/source/source.dart';
 import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 
 /// dart_eval bimodal wrapper for [Source]
-class $Source extends Source with $Bridge<Source> {
+class $Source extends Source with $SourceMixin, $Bridge<Source> {
   $Source();
 
   static void configureForCompile(BridgeDeclarationRegistry registry) {
@@ -103,11 +105,11 @@ class $Source extends Source with $Bridge<Source> {
             namedParams: [],
           ),
           isStatic: false),
-      'getInfoPage': BridgeMethodDef(
+      'getMediaDetails': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.infoPage, []),
+                  BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
                 ]),
                 nullable: false),
             params: [
@@ -120,12 +122,12 @@ class $Source extends Source with $Bridge<Source> {
             namedParams: [],
           ),
           isStatic: false),
-      'getContentDataLinks': BridgeMethodDef(
+      'getMediaLinks': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.future, [
                   BridgeTypeRef(CoreTypes.list, [
-                    BridgeTypeRef(ExtensionLibTypes.contentDataLink, []),
+                    BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
                   ]),
                 ]),
                 nullable: false),
@@ -139,18 +141,18 @@ class $Source extends Source with $Bridge<Source> {
             namedParams: [],
           ),
           isStatic: false),
-      'getContentData': BridgeMethodDef(
+      'getMedia': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.contentData, []),
+                  BridgeTypeRef(ExtensionLibTypes.media, []),
                 ]),
                 nullable: false),
             params: [
               BridgeParameter(
                   'link',
                   BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.contentDataLink, []),
+                      BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
                       nullable: false),
                   false)
             ],
@@ -187,6 +189,45 @@ class $Source extends Source with $Bridge<Source> {
 
   @override
   $Value? $bridgeGet(String identifier) {
+    return $bridgeGetFromSource(identifier);
+  }
+
+  @override
+  void $bridgeSet(String identifier, $Value value) {
+    switch (identifier) {
+      default:
+        return $_set(identifier, value);
+    }
+  }
+
+  static const __$Source$new = $Function(_$Source$new);
+  static $Value? _$Source$new(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    return $Source();
+  }
+
+  @override
+  double get $superHomePageRequestTimeout => super.homePageRequestTimeout;
+
+  @override
+  String get $superLang => super.lang;
+
+  @override
+  SharedPreferences get $superPreferences => super.preferences;
+
+  @override
+  List<PreferenceData> $superSetupPreferences() => super.setupPreferences();
+
+  @override
+  bool get $superSupportsHomePage => super.supportsHomePage;
+}
+
+abstract mixin class $SourceMixin {
+  dynamic $_get(String prop);
+
+  dynamic $_invoke(String method, List<$Value?> args);
+
+  $Value? $bridgeGetFromSource(String identifier) {
     switch (identifier) {
       case 'supportsHomePage':
         return _$supportsHomePage;
@@ -203,37 +244,30 @@ class $Source extends Source with $Bridge<Source> {
     }
   }
 
-  @override
-  void $bridgeSet(String identifier, $Value value) =>
-      throw UnimplementedError();
-
-  static const __$Source$new = $Function(_$Source$new);
-  static $Value? _$Source$new(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Source();
-  }
-
-  @override
   int get id => $_get('id') as int;
-  @override
+
   String get name => $_get('name') as String;
-  @override
+
   bool get supportsHomePage => $_get('supportsHomePage') as bool;
-  $Value get _$supportsHomePage => $bool(super.supportsHomePage);
-  @override
+
+  bool get $superSupportsHomePage;
+
+  $Value get _$supportsHomePage => $bool($superSupportsHomePage);
+
   double get homePageRequestTimeout =>
       $_get('homePageRequestTimeout') as double;
-  $Value get _$homePageRequestTimeout => $double(super.homePageRequestTimeout);
-  @override
-  String get lang => $_get('lang') as String;
-  $Value get _$lang => $String(super.lang);
 
-  @override
+  double get $superHomePageRequestTimeout;
+  $Value get _$homePageRequestTimeout => $double($superHomePageRequestTimeout);
+
+  String get lang => $_get('lang') as String;
+  String get $superLang;
+  $Value get _$lang => $String($superLang);
+
   List<HomePageRequest> homePageRequests() {
     return ($_invoke('homePageRequests', []) as List).cast<HomePageRequest>();
   }
 
-  @override
   Future<HomePage> getHomePage(int page, HomePageRequest request) {
     return ($_invoke('getHomePage', [
       $int(page),
@@ -242,43 +276,46 @@ class $Source extends Source with $Bridge<Source> {
         .then((value) => value as HomePage);
   }
 
-  @override
-  Future<InfoPage> getInfoPage(String url) {
-    return ($_invoke('getInfoPage', [
+  Future<MediaDetails> getMediaDetails(String url) {
+    return ($_invoke('getMediaDetails', [
       $String(url),
     ]) as Future)
-        .then((value) => value as InfoPage);
+        .then((value) => value as MediaDetails);
   }
 
-  @override
-  Future<List<ContentDataLink>> getContentDataLinks(String url) {
-    return ($_invoke('getContentDataLinks', [
+  Future<List<MediaLink>> getMediaLinks(String url) {
+    return ($_invoke('getMediaLinks', [
       $String(url),
     ]) as Future)
-        .then((value) => (value as List).cast<ContentDataLink>());
+        .then((value) => (value as List).cast<MediaLink>());
   }
 
-  @override
-  Future<ContentData?> getContentData(ContentDataLink link) {
-    return ($_invoke('getContentData', [
-      $ContentDataLink.wrap(link),
+  Future<Media?> getMedia(MediaLink link) {
+    return ($_invoke('getMedia', [
+      $MediaLink.wrap(link),
     ]) as Future)
-        .then((value) => value as ContentData?);
+        .then((value) => value as Media?);
   }
 
-  @override
   List<PreferenceData> setupPreferences() {
     return ($_invoke('setupPreferences', []) as List).cast<PreferenceData>();
   }
 
   $Value get __$setupPreferences => $Function(_$setupPreferences);
+
+  List<PreferenceData> $superSetupPreferences();
+
   $Value? _$setupPreferences(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $UnsupportedError.wrap(UnsupportedError('Not implemented'));
+    final $result = $superSetupPreferences();
+    return $List.wrap(List.generate($result.length, (index) {
+      return $PreferenceData.wrap($result[index]);
+    }));
   }
 
-  @override
   SharedPreferences get preferences =>
-      $_get('preferences') as SharedPreferences;
-  $Value get _$preferences => $SharedPreferences.wrap(super.preferences);
+      $_invoke('preferences', []) as SharedPreferences;
+
+  SharedPreferences get $superPreferences;
+  $Value get _$preferences => $SharedPreferences.wrap($superPreferences);
 }

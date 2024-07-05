@@ -1,12 +1,8 @@
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:dart_eval/stdlib/async.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_format.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/models/media_format.dart';
-import 'dart:io';
-
 import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
 
 /// dart_eval bimodal wrapper for [MediaPreview]
@@ -340,12 +336,12 @@ class $MediaPreview implements MediaPreview, $Instance {
   static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaPreview;
     final $result = $this.toJson();
-    return $Map.wrap(($result as Map<String, dynamic>)).map((key, value) {
+    return $Map.wrap($result.map((key, value) {
       return $MapEntry.wrap(MapEntry(
         key is $Value ? key : $String(key),
         value is $Value ? value : value,
       ));
-    }) as $Value?;
+    }));
   }
 
   static const __$MediaPreview$new = $Function(_$MediaPreview$new);

@@ -1,12 +1,8 @@
-import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:dart_eval/stdlib/async.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_format.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_preview.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
-import 'dart:io';
-
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_format.dart';
 import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
@@ -491,7 +487,7 @@ class $MediaDetails implements MediaDetails, $Instance {
   }
 }
 
-/// dart_eval bimodal wrapper for [MediaDetailsBuilder]
+/// dart_eval wrapper for [MediaDetailsBuilder]
 class $MediaDetailsBuilder implements $Instance {
   /// Configure the [$MediaDetailsBuilder] wrapper for use in a [Runtime]
   static void configureForCompile(BridgeDeclarationRegistry registry) {
@@ -931,10 +927,6 @@ class $MediaDetailsBuilder implements $Instance {
   @override
   final MediaDetailsBuilder $value;
 
-  @override
-  MediaDetailsBuilder title(String title) => $value.title(
-        title,
-      );
   static const __$title = $Function(_$title);
   static $Value? _$title(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
@@ -945,10 +937,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder format(MediaFormat format) => $value.format(
-        format,
-      );
   static const __$format = $Function(_$format);
   static $Value? _$format(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
@@ -959,10 +947,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder url(String url) => $value.url(
-        url,
-      );
   static const __$url = $Function(_$url);
   static $Value? _$url(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
@@ -973,11 +957,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder otherTitles(List<String> otherTitles) =>
-      $value.otherTitles(
-        otherTitles,
-      );
   static const __$otherTitles = $Function(_$otherTitles);
   static $Value? _$otherTitles(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -989,10 +968,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder addOtherTitle(String otherTitle) => $value.addOtherTitle(
-        otherTitle,
-      );
   static const __$addOtherTitle = $Function(_$addOtherTitle);
   static $Value? _$addOtherTitle(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1004,10 +979,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder status(Status status) => $value.status(
-        status,
-      );
   static const __$status = $Function(_$status);
   static $Value? _$status(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
@@ -1018,10 +989,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder banner(String banner) => $value.banner(
-        banner,
-      );
   static const __$banner = $Function(_$banner);
   static $Value? _$banner(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
@@ -1032,10 +999,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder poster(String poster) => $value.poster(
-        poster,
-      );
   static const __$poster = $Function(_$poster);
   static $Value? _$poster(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
@@ -1046,10 +1009,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder score(double score) => $value.score(
-        score,
-      );
   static const __$score = $Function(_$score);
   static $Value? _$score(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
@@ -1060,11 +1019,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder contentRating(String contentRating) =>
-      $value.contentRating(
-        contentRating,
-      );
   static const __$contentRating = $Function(_$contentRating);
   static $Value? _$contentRating(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1076,10 +1030,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder description(String description) => $value.description(
-        description,
-      );
   static const __$description = $Function(_$description);
   static $Value? _$description(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1091,10 +1041,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder startDate(DateTime startDate) => $value.startDate(
-        startDate,
-      );
   static const __$startDate = $Function(_$startDate);
   static $Value? _$startDate(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1106,10 +1052,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder duration(Duration duration) => $value.duration(
-        duration,
-      );
   static const __$duration = $Function(_$duration);
   static $Value? _$duration(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1121,10 +1063,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder genres(List<String> genres) => $value.genres(
-        genres,
-      );
   static const __$genres = $Function(_$genres);
   static $Value? _$genres(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
@@ -1135,10 +1073,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder addGenre(String genre) => $value.addGenre(
-        genre,
-      );
   static const __$addGenre = $Function(_$addGenre);
   static $Value? _$addGenre(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1150,11 +1084,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder recommendations(List<MediaPreview> recommendations) =>
-      $value.recommendations(
-        recommendations,
-      );
   static const __$recommendations = $Function(_$recommendations);
   static $Value? _$recommendations(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1166,11 +1095,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder addRecommendation(MediaPreview recommendation) =>
-      $value.addRecommendation(
-        recommendation,
-      );
   static const __$addRecommendation = $Function(_$addRecommendation);
   static $Value? _$addRecommendation(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1182,11 +1106,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder characters(List<Character> characters) =>
-      $value.characters(
-        characters,
-      );
   static const __$characters = $Function(_$characters);
   static $Value? _$characters(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1198,10 +1117,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder addCharacter(Character character) => $value.addCharacter(
-        character,
-      );
   static const __$addCharacter = $Function(_$addCharacter);
   static $Value? _$addCharacter(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1213,10 +1128,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetailsBuilder content(MediaContent content) => $value.content(
-        content,
-      );
   static const __$content = $Function(_$content);
   static $Value? _$content(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -1228,8 +1139,6 @@ class $MediaDetailsBuilder implements $Instance {
     return $MediaDetailsBuilder.wrap($result);
   }
 
-  @override
-  MediaDetails build() => $value.build();
   static const __$build = $Function(_$build);
   static $Value? _$build(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
@@ -1936,10 +1845,9 @@ class $TvSeries implements TvSeries, $Instance {
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
       case 'seasons':
-        return $List.wrap(
-            List.generate(($value.seasons as List<SeasonList>).length, (index) {
+        return $List.wrap(List.generate($value.seasons.length, (index) {
           return $SeasonList.wrap($value.seasons[index]);
-        })) as $Value?;
+        }));
 
       case 'when':
         return __$when;
@@ -2402,11 +2310,9 @@ class $SeasonList implements SeasonList, $Instance {
       case 'season':
         return $Season.wrap($value.season);
       case 'episodes':
-        return $List.wrap(
-            List.generate(($value.episodes as List<Episode>).length, (index) {
+        return $List.wrap(List.generate($value.episodes.length, (index) {
           return $Episode.wrap($value.episodes[index]);
         })) as $Value?;
-
       case 'toJson':
         return __$toJson;
       case 'copyWith':

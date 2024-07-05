@@ -1,5 +1,5 @@
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/content_data.dart';
-import 'package:meiyou_extensions_lib/src/models/content_data.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media.dart';
 import 'package:nice_dart/nice_dart.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/duration.dart';
@@ -142,8 +142,8 @@ class AppUtils {
   /// * `format`: The format of the duration string.
   ///
   /// Returns a `Duration` object if parsing is successful, or null if an exception occurs during parsing.
-  static Duration? tryParseDuration(String value, String format) {
-    return DurationUtils.tryParse(value, format);
+  static Duration? tryParseDuration(String value) {
+    return DurationUtils.tryParse(value);
   }
 
   /// Parses a duration from a string using the specified format.
@@ -152,8 +152,8 @@ class AppUtils {
   /// * `format`: The format of the duration string.
   ///
   /// Returns a `Duration` object.
-  static Duration parseDuration(String value, String format) {
-    return DurationUtils.parse(value, format);
+  static Duration parseDuration(String value) {
+    return DurationUtils.parse(value);
   }
 
   /// Unpacks JavaScript code from a packed string.
@@ -426,11 +426,6 @@ class $AppUtils implements AppUtils, $Instance {
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                       nullable: false),
                   false),
-              BridgeParameter(
-                  'format',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false)
             ],
             namedParams: [],
           ),
@@ -445,11 +440,6 @@ class $AppUtils implements AppUtils, $Instance {
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                       nullable: false),
                   false),
-              BridgeParameter(
-                  'format',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false)
             ],
             namedParams: [],
           ),
@@ -596,9 +586,8 @@ class $AppUtils implements AppUtils, $Instance {
       $Function(_$static$method$tryParseDuration);
   static $Value? _$static$method$tryParseDuration(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final value = args[0]?.$reified as String;
-    final format = args[1]?.$reified as String;
-    final $result = AppUtils.tryParseDuration(value, format);
+    final value = args[0]?.$value as String;
+    final $result = AppUtils.tryParseDuration(value);
     return $result == null ? $null() : $Duration.wrap($result);
   }
 
@@ -606,9 +595,8 @@ class $AppUtils implements AppUtils, $Instance {
       $Function(_$static$method$parseDuration);
   static $Value? _$static$method$parseDuration(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final value = args[0]?.$reified as String;
-    final format = args[1]?.$reified as String;
-    final $result = AppUtils.parseDuration(value, format);
+    final value = args[0]?.$value as String;
+    final $result = AppUtils.parseDuration(value);
     return $Duration.wrap($result);
   }
 
