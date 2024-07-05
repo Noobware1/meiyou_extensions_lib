@@ -13,7 +13,7 @@ class $MediaFormat implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeEnumValues('', 'MediaFormat', $MediaFormat.$values);
+    runtime.registerBridgeEnumValues($type.spec!.library, 'MediaFormat', $MediaFormat.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.mediaFormat);

@@ -1583,7 +1583,8 @@ class $VideoFormat implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeEnumValues('', 'VideoFormat', $VideoFormat.$values);
+    runtime.registerBridgeEnumValues(
+        $type.spec!.library, 'VideoFormat', $VideoFormat.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.videoFormat);
@@ -1638,7 +1639,7 @@ class $SubtitleFormat implements $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeEnumValues(
-        '', 'SubtitleFormat', $SubtitleFormat.$values);
+        $type.spec!.library, 'SubtitleFormat', $SubtitleFormat.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.subtitleFormat);

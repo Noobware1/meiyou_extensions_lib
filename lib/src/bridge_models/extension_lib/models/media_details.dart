@@ -3262,7 +3262,7 @@ class $Status implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeEnumValues('', 'Status', $Status.$values);
+    runtime.registerBridgeEnumValues($type.spec!.library, 'Status', $Status.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.status);
