@@ -224,7 +224,7 @@ class $ResponseBody implements ResponseBody, $Instance {
     final fromJson = args[0] as EvalCallable?;
 
     final $result = obj.json((json) {
-      final decoded = runtime.wrapRecursive(json);
+      final decoded = runtime.wrap(json, recursive: true);
       if (fromJson == null) return decoded;
       return fromJson.call(runtime, target, [decoded]);
     });
@@ -237,7 +237,7 @@ class $ResponseBody implements ResponseBody, $Instance {
     final obj = target?.$value as ResponseBody;
     final fromJson = args[0] as EvalCallable?;
     final $result = obj.jsonSafe((json) {
-      final decoded = runtime.wrapRecursive(json);
+      final decoded = runtime.wrap(json, recursive: true);
       if (fromJson == null) return decoded;
       return fromJson.call(runtime, target, [decoded]);
     });

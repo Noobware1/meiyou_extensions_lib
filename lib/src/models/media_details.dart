@@ -94,7 +94,7 @@ class MediaDetails {
       score: json['score'],
       contentRating: json['contentRating'],
       description: json['description'],
-      startDate: json['startDate'],
+      startDate: DateTime.tryParse((json['startDate'] as String?) ?? ''),
       duration: Duration(minutes: json['duration']),
       genres: (json['genres'] as List?)?.cast<String>(),
       recommendations: (json['recommendations'] as List?)
@@ -118,7 +118,7 @@ class MediaDetails {
       'score': score,
       'contentRating': contentRating,
       'description': description,
-      'startDate': startDate,
+      'startDate': startDate?.toIso8601String(),
       'duration': duration?.inMinutes,
       'genres': genres,
       'recommendations': recommendations?.mapList((e) => e.toJson()),
@@ -130,6 +130,11 @@ class MediaDetails {
         (lazy) => null,
       ),
     };
+  }
+
+  @override
+  String toString() {
+    return jsonPrettyEncode(toJson());
   }
 }
 
@@ -209,7 +214,7 @@ abstract class MediaDetailsBuilder {
 
   MediaDetailsBuilder addOtherTitle(String? otherTitle) => apply((it) {
         if (otherTitle == null) return;
-        if (it._otherTitles == null) {
+        if (it._otherTitles != null) {
           it._otherTitles!.add(otherTitle);
         } else {
           it._otherTitles = [otherTitle];
@@ -254,7 +259,7 @@ abstract class MediaDetailsBuilder {
 
   MediaDetailsBuilder addGenre(String? genre) => apply((it) {
         if (genre == null) return;
-        if (it._genres == null) {
+        if (it._genres != null) {
           it._genres!.add(genre);
         } else {
           it._genres = [genre];
@@ -269,7 +274,7 @@ abstract class MediaDetailsBuilder {
   MediaDetailsBuilder addRecommendation(MediaPreview? recommendation) =>
       apply((it) {
         if (recommendation == null) return;
-        if (it._recommendations == null) {
+        if (it._recommendations != null) {
           it._recommendations!.add(recommendation);
         } else {
           it._recommendations = [recommendation];
@@ -282,7 +287,7 @@ abstract class MediaDetailsBuilder {
 
   MediaDetailsBuilder addCharacter(Character? character) => apply((it) {
         if (character == null) return;
-        if (it._characters == null) {
+        if (it._characters != null) {
           it._characters!.add(character);
         } else {
           it._characters = [character];

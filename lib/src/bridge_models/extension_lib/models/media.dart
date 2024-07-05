@@ -140,7 +140,9 @@ class $Media implements Media, $Instance {
             : $Map.wrap($value.extra!.map((key, value) {
                 return $MapEntry.wrap(MapEntry(
                   key is $Value ? key : $String(key),
-                  value is $Value ? value : value,
+                  value is $Value
+                      ? value
+                      : runtime.wrap(value, recursive: true),
                 ));
               }));
 

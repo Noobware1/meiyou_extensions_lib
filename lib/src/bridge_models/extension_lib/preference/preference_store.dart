@@ -412,7 +412,8 @@ class $PreferenceStore implements PreferenceStore, $Instance {
     final $result = obj.getObject(
       key,
       defaultValue,
-      (obj) => serializer.call(runtime, null, [runtime.wrap(obj)])!.$value,
+      (obj) => serializer
+          .call(runtime, null, [runtime.wrap(obj, recursive: true)])!.$value,
       (str) => deserializer.call(runtime, null, [$String(str)]),
     );
     return $Preference.wrap($result, (val) => val);
@@ -462,6 +463,7 @@ class $PreferenceStore implements PreferenceStore, $Instance {
       defaultValue,
       values,
     );
-    return $Preference.wrap($result, (val) => runtime.wrap(val));
+    return $Preference.wrap(
+        $result, (val) => runtime.wrap(val));
   }
 }

@@ -203,13 +203,14 @@ class $MediaLink implements MediaLink, $Instance {
       case 'extra':
         return $value.extra == null
             ? $null()
-            : $Map.wrap($value.extra!).map((key, value) {
+            : $Map.wrap($value.extra!.map((key, value) {
                 return $MapEntry.wrap(MapEntry(
                   key is $Value ? key : $String(key),
-                  value is $Value ? value : value,
+                  value is $Value
+                      ? value
+                      : runtime.wrap(value, recursive: true),
                 ));
-              }) as $Value?;
-
+              }));
       case 'copyWith':
         return __$copyWith;
       case 'toJson':
@@ -246,6 +247,7 @@ class $MediaLink implements MediaLink, $Instance {
   Headers? get headers => $value.headers;
   @override
   String? get referer => $value.referer;
+
   @override
   Map<String, dynamic>? get extra => $value.extra;
 

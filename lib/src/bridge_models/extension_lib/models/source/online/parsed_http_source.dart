@@ -400,6 +400,8 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
 
   $Value? $bridgeGetFromParsedHttpSource(String identifier) {
     switch (identifier) {
+      case 'homePageParse':
+        return __$homePageParse;
       case 'homeDataSelector':
         return __$homeDataSelector;
       case 'homeDataFromElement':
@@ -469,6 +471,21 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
       element,
     );
     return $HomePageData.wrap($result);
+  }
+
+  @override
+  HomePage homePageParse(HomePageRequest request, Response response) =>
+      $_invoke('homePageParse', [
+        $HomePageRequest.wrap(request),
+        $Response.wrap(response),
+      ]) as HomePage;
+
+  $Value get __$homePageParse => $Function(_$homePageParse);
+  $Value? _$homePageParse(Runtime runtime, $Value? target, List<$Value?> args) {
+    final request = args[1]?.$reified as HomePageRequest;
+    final response = args[2]?.$reified as Response;
+    final $result = super.homePageParse(request, response);
+    return $HomePage.wrap($result);
   }
 
   @override

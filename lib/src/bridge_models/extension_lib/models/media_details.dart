@@ -485,6 +485,11 @@ class $MediaDetails implements MediaDetails, $Instance {
       json,
     ));
   }
+
+  @override
+  String toString() {
+    return $value.toString();
+  }
 }
 
 /// dart_eval wrapper for [MediaDetailsBuilder]
@@ -3262,7 +3267,8 @@ class $Status implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeEnumValues($type.spec!.library, 'Status', $Status.$values);
+    runtime.registerBridgeEnumValues(
+        $type.spec!.library, 'Status', $Status.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.status);
