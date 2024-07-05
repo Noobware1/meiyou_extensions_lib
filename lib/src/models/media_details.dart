@@ -203,11 +203,12 @@ abstract class MediaDetailsBuilder {
         it._url = url;
       });
 
-  MediaDetailsBuilder otherTitles(List<String> otherTitles) => apply((it) {
+  MediaDetailsBuilder otherTitles(List<String>? otherTitles) => apply((it) {
         it._otherTitles = otherTitles;
       });
 
-  MediaDetailsBuilder addOtherTitle(String otherTitle) => apply((it) {
+  MediaDetailsBuilder addOtherTitle(String? otherTitle) => apply((it) {
+        if (otherTitle == null) return;
         if (it._otherTitles == null) {
           it._otherTitles!.add(otherTitle);
         } else {
@@ -215,43 +216,44 @@ abstract class MediaDetailsBuilder {
         }
       });
 
-  MediaDetailsBuilder status(Status status) => apply((it) {
+  MediaDetailsBuilder status(Status? status) => apply((it) {
         it._status = status;
       });
 
-  MediaDetailsBuilder banner(String banner) => apply((it) {
+  MediaDetailsBuilder banner(String? banner) => apply((it) {
         it._banner = banner;
       });
 
-  MediaDetailsBuilder poster(String poster) => apply((it) {
+  MediaDetailsBuilder poster(String? poster) => apply((it) {
         it._poster = poster;
       });
 
-  MediaDetailsBuilder score(double score) => apply((it) {
+  MediaDetailsBuilder score(double? score) => apply((it) {
         it._score = score;
       });
 
-  MediaDetailsBuilder contentRating(String contentRating) => apply((it) {
+  MediaDetailsBuilder contentRating(String? contentRating) => apply((it) {
         it._contentRating = contentRating;
       });
 
-  MediaDetailsBuilder description(String description) => apply((it) {
+  MediaDetailsBuilder description(String? description) => apply((it) {
         it._description = description;
       });
 
-  MediaDetailsBuilder startDate(DateTime startDate) => apply((it) {
+  MediaDetailsBuilder startDate(DateTime? startDate) => apply((it) {
         it._startDate = startDate;
       });
 
-  MediaDetailsBuilder duration(Duration duration) => apply((it) {
+  MediaDetailsBuilder duration(Duration? duration) => apply((it) {
         it._duration = duration;
       });
 
-  MediaDetailsBuilder genres(List<String> genres) => apply((it) {
+  MediaDetailsBuilder genres(List<String>? genres) => apply((it) {
         it._genres = genres;
       });
 
-  MediaDetailsBuilder addGenre(String genre) => apply((it) {
+  MediaDetailsBuilder addGenre(String? genre) => apply((it) {
+        if (genre == null) return;
         if (it._genres == null) {
           it._genres!.add(genre);
         } else {
@@ -259,13 +261,14 @@ abstract class MediaDetailsBuilder {
         }
       });
 
-  MediaDetailsBuilder recommendations(List<MediaPreview> recommendations) =>
+  MediaDetailsBuilder recommendations(List<MediaPreview>? recommendations) =>
       apply((it) {
         it._recommendations = recommendations;
       });
 
-  MediaDetailsBuilder addRecommendation(MediaPreview recommendation) =>
+  MediaDetailsBuilder addRecommendation(MediaPreview? recommendation) =>
       apply((it) {
+        if (recommendation == null) return;
         if (it._recommendations == null) {
           it._recommendations!.add(recommendation);
         } else {
@@ -273,11 +276,12 @@ abstract class MediaDetailsBuilder {
         }
       });
 
-  MediaDetailsBuilder characters(List<Character> characters) => apply((it) {
+  MediaDetailsBuilder characters(List<Character>? characters) => apply((it) {
         it._characters = characters;
       });
 
-  MediaDetailsBuilder addCharacter(Character character) => apply((it) {
+  MediaDetailsBuilder addCharacter(Character? character) => apply((it) {
+        if (character == null) return;
         if (it._characters == null) {
           it._characters!.add(character);
         } else {
@@ -285,7 +289,7 @@ abstract class MediaDetailsBuilder {
         }
       });
 
-  MediaDetailsBuilder content(MediaContent content) => apply((it) {
+  MediaDetailsBuilder content(MediaContent? content) => apply((it) {
         it._content = content;
       });
 

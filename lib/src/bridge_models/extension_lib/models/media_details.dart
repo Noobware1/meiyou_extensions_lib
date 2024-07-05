@@ -582,7 +582,7 @@ class $MediaDetailsBuilder implements $Instance {
                       BridgeTypeRef(CoreTypes.list, [
                         BridgeTypeRef(CoreTypes.string, []),
                       ]),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -597,7 +597,7 @@ class $MediaDetailsBuilder implements $Instance {
               BridgeParameter(
                   'otherTitle',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -613,7 +613,7 @@ class $MediaDetailsBuilder implements $Instance {
                   'status',
                   BridgeTypeAnnotation(
                       BridgeTypeRef(ExtensionLibTypes.status, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -628,7 +628,7 @@ class $MediaDetailsBuilder implements $Instance {
               BridgeParameter(
                   'banner',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -643,7 +643,7 @@ class $MediaDetailsBuilder implements $Instance {
               BridgeParameter(
                   'poster',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -658,7 +658,7 @@ class $MediaDetailsBuilder implements $Instance {
               BridgeParameter(
                   'score',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -673,7 +673,7 @@ class $MediaDetailsBuilder implements $Instance {
               BridgeParameter(
                   'contentRating',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -688,7 +688,7 @@ class $MediaDetailsBuilder implements $Instance {
               BridgeParameter(
                   'description',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -703,7 +703,7 @@ class $MediaDetailsBuilder implements $Instance {
               BridgeParameter(
                   'startDate',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dateTime, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -718,7 +718,7 @@ class $MediaDetailsBuilder implements $Instance {
               BridgeParameter(
                   'duration',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -736,7 +736,7 @@ class $MediaDetailsBuilder implements $Instance {
                       BridgeTypeRef(CoreTypes.list, [
                         BridgeTypeRef(CoreTypes.string, []),
                       ]),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -751,7 +751,7 @@ class $MediaDetailsBuilder implements $Instance {
               BridgeParameter(
                   'genre',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -769,7 +769,7 @@ class $MediaDetailsBuilder implements $Instance {
                       BridgeTypeRef(CoreTypes.list, [
                         BridgeTypeRef(ExtensionLibTypes.mediaPreview, []),
                       ]),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -785,7 +785,7 @@ class $MediaDetailsBuilder implements $Instance {
                   'recommendation',
                   BridgeTypeAnnotation(
                       BridgeTypeRef(ExtensionLibTypes.mediaPreview, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -803,7 +803,7 @@ class $MediaDetailsBuilder implements $Instance {
                       BridgeTypeRef(CoreTypes.list, [
                         BridgeTypeRef(ExtensionLibTypes.character, []),
                       ]),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -819,7 +819,7 @@ class $MediaDetailsBuilder implements $Instance {
                   'character',
                   BridgeTypeAnnotation(
                       BridgeTypeRef(ExtensionLibTypes.character, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -835,7 +835,7 @@ class $MediaDetailsBuilder implements $Instance {
                   'content',
                   BridgeTypeAnnotation(
                       BridgeTypeRef(ExtensionLibTypes.mediaContent, []),
-                      nullable: false),
+                      nullable: true),
                   false)
             ],
             namedParams: [],
@@ -961,7 +961,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$otherTitles(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final otherTitles = (args[0]?.$reified as List).cast<String>();
+    final otherTitles = (args[0]?.$reified as List?)?.cast<String>();
     final $result = $this.otherTitles(
       otherTitles,
     );
@@ -972,7 +972,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$addOtherTitle(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final otherTitle = args[0]?.$value as String;
+    final otherTitle = args[0]?.$value as String?;
     final $result = $this.addOtherTitle(
       otherTitle,
     );
@@ -982,7 +982,7 @@ class $MediaDetailsBuilder implements $Instance {
   static const __$status = $Function(_$status);
   static $Value? _$status(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final status = args[0]?.$reified as Status;
+    final status = args[0]?.$reified as Status?;
     final $result = $this.status(
       status,
     );
@@ -992,7 +992,7 @@ class $MediaDetailsBuilder implements $Instance {
   static const __$banner = $Function(_$banner);
   static $Value? _$banner(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final banner = args[0]?.$value as String;
+    final banner = args[0]?.$value as String?;
     final $result = $this.banner(
       banner,
     );
@@ -1002,7 +1002,7 @@ class $MediaDetailsBuilder implements $Instance {
   static const __$poster = $Function(_$poster);
   static $Value? _$poster(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final poster = args[0]?.$value as String;
+    final poster = args[0]?.$value as String?;
     final $result = $this.poster(
       poster,
     );
@@ -1012,7 +1012,7 @@ class $MediaDetailsBuilder implements $Instance {
   static const __$score = $Function(_$score);
   static $Value? _$score(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final score = args[0]?.$value as double;
+    final score = args[0]?.$value as double?;
     final $result = $this.score(
       score,
     );
@@ -1023,7 +1023,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$contentRating(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final contentRating = args[0]?.$value as String;
+    final contentRating = args[0]?.$value as String?;
     final $result = $this.contentRating(
       contentRating,
     );
@@ -1034,7 +1034,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$description(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final description = args[0]?.$value as String;
+    final description = args[0]?.$value as String?;
     final $result = $this.description(
       description,
     );
@@ -1045,7 +1045,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$startDate(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final startDate = args[0]?.$reified as DateTime;
+    final startDate = args[0]?.$reified as DateTime?;
     final $result = $this.startDate(
       startDate,
     );
@@ -1056,7 +1056,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$duration(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final duration = args[0]?.$reified as Duration;
+    final duration = args[0]?.$reified as Duration?;
     final $result = $this.duration(
       duration,
     );
@@ -1066,7 +1066,7 @@ class $MediaDetailsBuilder implements $Instance {
   static const __$genres = $Function(_$genres);
   static $Value? _$genres(Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final genres = (args[0]?.$reified as List).cast<String>();
+    final genres = (args[0]?.$reified as List?)?.cast<String>();
     final $result = $this.genres(
       genres,
     );
@@ -1077,7 +1077,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$addGenre(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final genre = args[0]?.$value as String;
+    final genre = args[0]?.$value as String?;
     final $result = $this.addGenre(
       genre,
     );
@@ -1088,7 +1088,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$recommendations(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final recommendations = (args[0]?.$reified as List).cast<MediaPreview>();
+    final recommendations = (args[0]?.$reified as List?)?.cast<MediaPreview>();
     final $result = $this.recommendations(
       recommendations,
     );
@@ -1099,7 +1099,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$addRecommendation(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final recommendation = args[0]?.$reified as MediaPreview;
+    final recommendation = args[0]?.$reified as MediaPreview?;
     final $result = $this.addRecommendation(
       recommendation,
     );
@@ -1110,7 +1110,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$characters(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final characters = (args[0]?.$reified as List).cast<Character>();
+    final characters = (args[0]?.$reified as List?)?.cast<Character>();
     final $result = $this.characters(
       characters,
     );
@@ -1121,7 +1121,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$addCharacter(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final character = args[0]?.$reified as Character;
+    final character = args[0]?.$reified as Character?;
     final $result = $this.addCharacter(
       character,
     );
@@ -1132,7 +1132,7 @@ class $MediaDetailsBuilder implements $Instance {
   static $Value? _$content(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaDetailsBuilder;
-    final content = args[0]?.$reified as MediaContent;
+    final content = args[0]?.$reified as MediaContent?;
     final $result = $this.content(
       content,
     );
