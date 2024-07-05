@@ -1,4 +1,3 @@
-
 import 'package:meiyou_extensions_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/lib_overrides.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
@@ -104,7 +103,9 @@ abstract class HttpSource extends CatalogueSource {
         .then((response) => medialinksParse(response));
   }
 
-  Request mediaLinksRequest(String url);
+  Request mediaLinksRequest(String url) {
+    return GET(url, headers: headers);
+  }
 
   List<MediaLink> medialinksParse(Response response);
 

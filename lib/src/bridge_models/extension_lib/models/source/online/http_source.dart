@@ -20,14 +20,11 @@ import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request.d
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/models/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/models/source/online/http_source.dart';
 import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
-import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
-import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
@@ -35,9 +32,9 @@ import 'package:okhttp/response.dart';
 /// dart_eval bimodal wrapper for [HttpSource]
 class $HttpSource extends HttpSource
     with
-        $SourceMixin,
-        $CatalogueSourceMixin,
         $HttpSourceMixin,
+        $CatalogueSourceMixin,
+        $SourceMixin,
         $Bridge<HttpSource> {
   $HttpSource();
 
@@ -423,73 +420,9 @@ class $HttpSource extends HttpSource
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $HttpSource();
   }
-
-  @override
-  OkHttpClient get $superClient => super.client;
-
-  @override
-  Future<HomePage> $superGetHomePage(int page, HomePageRequest request) =>
-      super.getHomePage(page, request);
-
-  @override
-  Future<Media?> $superGetMedia(MediaLink link) => super.getMedia(link);
-
-  @override
-  Future<MediaDetails> $superGetMediaDetails(String url) =>
-      super.getMediaDetails(url);
-
-  @override
-  Future<List<MediaLink>> $superGetMediaLinks(String url) =>
-      super.getMediaLinks(url);
-
-  @override
-  Future<SearchPage> $superGetSearchPage(
-          int page, String query, FilterList filters) =>
-      super.getSearchPage(page, query, filters);
-
-  @override
-  Headers get $superHeaders => super.headers;
-
-  @override
-  HeadersBuilder $superHeadersBuilder() => super.headersBuilder();
-
-  @override
-  double get $superHomePageRequestTimeout => super.homePageRequestTimeout;
-
-  @override
-  int get $superId => super.id;
-
-  @override
-  String get $superLang => super.lang;
-
-  @override
-  Request $superMediaDetailsRequest(String url) =>
-      super.mediaDetailsRequest(url);
-
-  @override
-  Future<Media?> $superMediaParse(Response response) =>
-      super.mediaParse(response);
-
-  @override
-  Request $superMediaRequest(MediaLink link) => super.mediaRequest(link);
-
-  @override
-  NetworkHelper get $superNetwork => super.network;
-
-  @override
-  SharedPreferences get $superPreferences => super.preferences;
-
-  @override
-  List<PreferenceData> $superSetupPreferences() => super.setupPreferences();
-
-  @override
-  bool get $superSupportsHomePage => super.supportsHomePage;
-
-  @override
-  int get $superVersionId => super.versionId;
 }
 
-abstract mixin class $HttpSourceMixin {
+mixin $HttpSourceMixin on HttpSource {
   dynamic $_get(String prop);
 
   dynamic $_invoke(String method, List<$Value?> args);
@@ -518,6 +451,8 @@ abstract mixin class $HttpSourceMixin {
         return __$mediaDetailsRequest;
       case 'getMediaLinks':
         return __$getMediaLinks;
+      case 'mediaLinksRequest':
+        return __$mediaLinksRequest;
       case 'getMedia':
         return __$getMedia;
       case 'mediaRequest':
@@ -531,54 +466,48 @@ abstract mixin class $HttpSourceMixin {
 
   $Value? $bridgeGetFromCatalogueSource(String identifier);
 
+  @override
   NetworkHelper get network => $_get('network') as NetworkHelper;
 
-  NetworkHelper get $superNetwork;
+  $Value get _$network => $NetworkHelper.wrap(super.network);
 
-  $Value get _$network => $NetworkHelper.wrap($superNetwork);
-
+  @override
   String get baseUrl => $_get('baseUrl') as String;
 
+  @override
   int get versionId => $_get('versionId') as int;
 
-  int get $superVersionId;
+  $Value get _$versionId => $int(super.versionId);
 
-  $Value get _$versionId => $int($superVersionId);
-
+  @override
   int get id => $_get('id') as int;
 
-  int get $superId;
+  $Value get _$id => $int(super.id);
 
-  $Value get _$id => $int($superId);
-
+  @override
   Headers get headers => $_get('headers') as Headers;
 
-  Headers get $superHeaders;
+  $Value get _$headers => $Headers.wrap(super.headers);
 
-  $Value get _$headers => $Headers.wrap($superHeaders);
-
+  @override
   HeadersBuilder headersBuilder() {
     return $_invoke('headersBuilder', []) as HeadersBuilder;
   }
 
   $Value get __$headersBuilder => $Function(_$headersBuilder);
 
-  HeadersBuilder $superHeadersBuilder();
-
   $Value? _$headersBuilder(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final $result = $superHeadersBuilder();
+    final $result = super.headersBuilder();
     return $HeadersBuilder.wrap($result);
   }
 
   $Value get __$getHomePage => $Function(_$getHomePage);
 
-  Future<HomePage> $superGetHomePage(int page, HomePageRequest request);
-
   $Value? _$getHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
     final page = args[1]?.$value as int;
     final request = args[2]?.$reified as HomePageRequest;
-    final $result = $superGetHomePage(
+    final $result = super.getHomePage(
       page,
       request,
     );
@@ -586,6 +515,7 @@ abstract mixin class $HttpSourceMixin {
         as $Value?;
   }
 
+  @override
   Request homePageRequest(int page, HomePageRequest request) {
     return $_invoke('homePageRequest', [
       $int(page),
@@ -593,6 +523,7 @@ abstract mixin class $HttpSourceMixin {
     ]) as Request;
   }
 
+  @override
   HomePage homePageParse(HomePageRequest request, Response response) {
     return $_invoke('homePageParse', [
       $HomePageRequest.wrap(request),
@@ -600,6 +531,7 @@ abstract mixin class $HttpSourceMixin {
     ]) as HomePage;
   }
 
+  @override
   Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {
     return ($_invoke('getSearchPage', [
       $int(page),
@@ -611,13 +543,11 @@ abstract mixin class $HttpSourceMixin {
 
   $Value get __$getSearchPage => $Function(_$getSearchPage);
 
-  Future<SearchPage> $superGetSearchPage(
-      int page, String query, FilterList filters);
   $Value? _$getSearchPage(Runtime runtime, $Value? target, List<$Value?> args) {
     final page = args[1]?.$value as int;
     final query = args[2]?.$value as String;
     final filters = args[3]?.$reified as FilterList;
-    final $result = $superGetSearchPage(
+    final $result = super.getSearchPage(
       page,
       query,
       filters,
@@ -626,6 +556,7 @@ abstract mixin class $HttpSourceMixin {
         as $Value?;
   }
 
+  @override
   Request searchPageRequest(int page, String query, FilterList filters) {
     return $_invoke('searchPageRequest', [
       $int(page),
@@ -634,6 +565,7 @@ abstract mixin class $HttpSourceMixin {
     ]) as Request;
   }
 
+  @override
   SearchPage searchPageParse(Response response) {
     return $_invoke('searchPageParse', [
       $Response.wrap(response),
@@ -642,18 +574,17 @@ abstract mixin class $HttpSourceMixin {
 
   $Value get __$getMediaDetails => $Function(_$getMediaDetails);
 
-  Future<MediaDetails> $superGetMediaDetails(String url);
-
   $Value? _$getMediaDetails(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final url = args[1]?.$value as String;
-    final $result = $superGetMediaDetails(
+    final $result = super.getMediaDetails(
       url,
     );
     return $Future.wrap($result.then((value) => $MediaDetails.wrap(value)))
         as $Value?;
   }
 
+  @override
   Request mediaDetailsRequest(String url) {
     return $_invoke('mediaDetailsRequest', [
       $String(url),
@@ -662,16 +593,16 @@ abstract mixin class $HttpSourceMixin {
 
   $Value get __$mediaDetailsRequest => $Function(_$mediaDetailsRequest);
 
-  Request $superMediaDetailsRequest(String url);
   $Value? _$mediaDetailsRequest(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final url = args[1]?.$value as String;
-    final $result = $superMediaDetailsRequest(
+    final $result = super.mediaDetailsRequest(
       url,
     );
     return $Request.wrap($result);
   }
 
+  @override
   Future<MediaDetails> mediaDetailsParse(Response response) {
     return ($_invoke('mediaDetailsParse', [
       $Response.wrap(response),
@@ -681,11 +612,9 @@ abstract mixin class $HttpSourceMixin {
 
   $Value get __$getMediaLinks => $Function(_$getMediaLinks);
 
-  Future<List<MediaLink>> $superGetMediaLinks(String url);
-
   $Value? _$getMediaLinks(Runtime runtime, $Value? target, List<$Value?> args) {
     final url = args[1]?.$value as String;
-    final $result = $superGetMediaLinks(
+    final $result = super.getMediaLinks(
       url,
     );
     return $Future.wrap(
@@ -694,12 +623,25 @@ abstract mixin class $HttpSourceMixin {
             })))) as $Value?;
   }
 
+  @override
   Request mediaLinksRequest(String url) {
     return $_invoke('mediaLinksRequest', [
       $String(url),
     ]) as Request;
   }
 
+  $Value get __$mediaLinksRequest => $Function(_$mediaLinksRequest);
+
+  $Value? _$mediaLinksRequest(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final url = args[1]?.$value as String;
+    final $result = super.mediaDetailsRequest(
+      url,
+    );
+    return $Request.wrap($result);
+  }
+
+  @override
   List<MediaLink> medialinksParse(Response response) {
     return ($_invoke('medialinksParse', [
       $Response.wrap(response),
@@ -709,11 +651,9 @@ abstract mixin class $HttpSourceMixin {
 
   $Value get __$getMedia => $Function(_$getMedia);
 
-  Future<Media?> $superGetMedia(MediaLink link);
-
   $Value? _$getMedia(Runtime runtime, $Value? target, List<$Value?> args) {
     final link = args[1]?.$reified as MediaLink;
-    final $result = $superGetMedia(
+    final $result = super.getMedia(
       link,
     );
     return $Future.wrap($result.then(
@@ -721,6 +661,7 @@ abstract mixin class $HttpSourceMixin {
         as $Value?;
   }
 
+  @override
   Request mediaRequest(MediaLink link) {
     return $_invoke('mediaRequest', [
       $MediaLink.wrap(link),
@@ -729,10 +670,9 @@ abstract mixin class $HttpSourceMixin {
 
   $Value get __$mediaRequest => $Function(_$mediaRequest);
 
-  Request $superMediaRequest(MediaLink link);
   $Value? _$mediaRequest(Runtime runtime, $Value? target, List<$Value?> args) {
     final link = args[1]?.$reified as MediaLink;
-    final $result = $superMediaRequest(
+    final $result = super.mediaRequest(
       link,
     );
     return $Request.wrap($result);
@@ -740,20 +680,17 @@ abstract mixin class $HttpSourceMixin {
 
   $Value get __$mediaParse => $Function(_$mediaParse);
 
-  Future<Media?> $superMediaParse(Response response);
-
   $Value? _$mediaParse(Runtime runtime, $Value? target, List<$Value?> args) {
     final response = args[1]?.$reified as Response;
-    final $result = $superMediaParse(
+    final $result = super.mediaParse(
       response,
     );
     return $Future.wrap($result.then(
         (value) => value == null ? $null() : $Media.wrap(value))) as $Value?;
   }
 
+  @override
   OkHttpClient get client => $_invoke('client', []) as OkHttpClient;
 
-  OkHttpClient get $superClient;
-
-  $Value get _$client => $OkHttpClient.wrap($superClient);
+  $Value get _$client => $OkHttpClient.wrap(super.client);
 }

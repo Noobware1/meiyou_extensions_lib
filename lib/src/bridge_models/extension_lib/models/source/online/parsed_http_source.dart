@@ -4,7 +4,6 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:html/dom.dart';
 import 'package:meiyou_extensions_lib/models.dart';
-import 'package:meiyou_extensions_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_details.dart';
@@ -20,20 +19,15 @@ import 'package:meiyou_extensions_lib/src/bridge_models/html/element.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response.dart';
-import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
-import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
-import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
-import 'package:okhttp/okhttp.dart';
-import 'package:okhttp/request.dart';
 import 'package:okhttp/response.dart';
 
 /// dart_eval bimodal wrapper for [ParsedHttpSource]
 class $ParsedHttpSource extends ParsedHttpSource
     with
-        $SourceMixin,
-        $CatalogueSourceMixin,
-        $HttpSourceMixin,
         $ParsedHttpSourceMixin,
+        $HttpSourceMixin,
+        $CatalogueSourceMixin,
+        $SourceMixin,
         $Bridge<ParsedHttpSource> {
   $ParsedHttpSource();
 
@@ -397,117 +391,9 @@ class $ParsedHttpSource extends ParsedHttpSource
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $ParsedHttpSource();
   }
-
-  @override
-  OkHttpClient get $superClient => super.client;
-
-  @override
-  Future<HomePage> $superGetHomePage(int page, HomePageRequest request) =>
-      super.getHomePage(page, request);
-
-  @override
-  Future<Media?> $superGetMedia(MediaLink link) => super.getMedia(link);
-
-  @override
-  Future<MediaDetails> $superGetMediaDetails(String url) =>
-      super.getMediaDetails(url);
-
-  @override
-  Future<List<MediaLink>> $superGetMediaLinks(String url) =>
-      super.getMediaLinks(url);
-
-  @override
-  Future<SearchPage> $superGetSearchPage(
-          int page, String query, FilterList filters) =>
-      super.getSearchPage(page, query, filters);
-
-  @override
-  Headers get $superHeaders => super.headers;
-
-  @override
-  HeadersBuilder $superHeadersBuilder() => super.headersBuilder();
-
-  @override
-  double get $superHomePageRequestTimeout => super.homePageRequestTimeout;
-
-  @override
-  int get $superId => super.id;
-
-  @override
-  String get $superLang => super.lang;
-
-  @override
-  Request $superMediaDetailsRequest(String url) =>
-      super.mediaDetailsRequest(url);
-
-  @override
-  Future<Media?> $superMediaParse(Response response) =>
-      super.mediaParse(response);
-
-  @override
-  Request $superMediaRequest(MediaLink link) => super.mediaRequest(link);
-
-  @override
-  NetworkHelper get $superNetwork => super.network;
-
-  @override
-  SharedPreferences get $superPreferences => super.preferences;
-
-  @override
-  List<PreferenceData> $superSetupPreferences() => super.setupPreferences();
-
-  @override
-  bool get $superSupportsHomePage => super.supportsHomePage;
-
-  @override
-  int get $superVersionId => super.versionId;
-
-  @override
-  HomePage $superFullHomePageParse(
-          HomePageRequest request, Document document) =>
-      super.fullHomePageParse(request, document);
-
-  @override
-  HomePageData $superHomeDataFromElement(
-          HomePageRequest request, Element element) =>
-      super.homeDataFromElement(request, element);
-
-  @override
-  String $superHomeDataSelector(HomePageRequest request) =>
-      super.homeDataSelector(request);
-
-  @override
-  MediaPreview $superHomePageItemFromElement(
-          HomePageRequest request, Element element) =>
-      super.homePageItemFromElement(request, element);
-
-  @override
-  String $superHomePageItemSelector(HomePageRequest request) =>
-      super.homePageItemSelector(request);
-
-  @override
-  Future<MediaDetails> $superMediaDetailsParse(Response response) =>
-      super.mediaDetailsParse(response);
-
-  @override
-  Future<Media?> $superMediaFromDocument(Document document) =>
-      super.mediaFromDocument(document);
-
-  @override
-  List<MediaLink> $superMedialinksParse(Response response) =>
-      super.medialinksParse(response);
-
-  @override
-  SearchPage $superSearchPageParse(Response response) =>
-      super.searchPageParse(response);
-
-  @override
-  HomePage $superSingleHomePageParse(
-          HomePageRequest request, Document document) =>
-      super.singleHomePageParse(request, document);
 }
 
-abstract mixin class $ParsedHttpSourceMixin {
+mixin $ParsedHttpSourceMixin on ParsedHttpSource {
   dynamic $_get(String prop);
 
   dynamic $_invoke(String method, List<$Value?> args);
@@ -543,12 +429,14 @@ abstract mixin class $ParsedHttpSourceMixin {
 
   $Value? $bridgeGetFromHttpSource(String identifier);
 
+  @override
   String? homeNextPageSelector(HomePageRequest request) {
     return $_invoke('homeNextPageSelector', [
       $HomePageRequest.wrap(request),
     ]) as String?;
   }
 
+  @override
   String homeDataSelector(HomePageRequest request) {
     return $_invoke('homeDataSelector', [
       $HomePageRequest.wrap(request),
@@ -556,14 +444,14 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$homeDataSelector => $Function(_$homeDataSelector);
-  String $superHomeDataSelector(HomePageRequest request);
   $Value? _$homeDataSelector(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
-    final $result = $superHomeDataSelector(request);
+    final $result = super.homeDataSelector(request);
     return $String($result);
   }
 
+  @override
   HomePageData homeDataFromElement(HomePageRequest request, Element element) {
     return $_invoke('homeDataFromElement', [
       $HomePageRequest.wrap(request),
@@ -572,19 +460,18 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$homeDataFromElement => $Function(_$homeDataFromElement);
-  HomePageData $superHomeDataFromElement(
-      HomePageRequest request, Element element);
   $Value? _$homeDataFromElement(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
     final element = args[2]?.$reified as Element;
-    final $result = $superHomeDataFromElement(
+    final $result = super.homeDataFromElement(
       request,
       element,
     );
     return $HomePageData.wrap($result);
   }
 
+  @override
   HomePage fullHomePageParse(HomePageRequest request, Document document) {
     return $_invoke('fullHomePageParse', [
       $HomePageRequest.wrap(request),
@@ -593,18 +480,18 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$fullHomePageParse => $Function(_$fullHomePageParse);
-  HomePage $superFullHomePageParse(HomePageRequest request, Document document);
   $Value? _$fullHomePageParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
     final document = args[2]?.$reified as Document;
-    final $result = $superFullHomePageParse(
+    final $result = super.fullHomePageParse(
       request,
       document,
     );
     return $HomePage.wrap($result);
   }
 
+  @override
   String homePageItemSelector(HomePageRequest request) {
     return $_invoke('homePageItemSelector', [
       $HomePageRequest.wrap(request),
@@ -612,16 +499,16 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$homePageItemSelector => $Function(_$homePageItemSelector);
-  String $superHomePageItemSelector(HomePageRequest request);
   $Value? _$homePageItemSelector(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
-    final $result = $superHomePageItemSelector(
+    final $result = super.homePageItemSelector(
       request,
     );
     return $String($result);
   }
 
+  @override
   MediaPreview homePageItemFromElement(
       HomePageRequest request, Element element) {
     return $_invoke('homePageItemFromElement', [
@@ -631,19 +518,19 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$homePageItemFromElement => $Function(_$homePageItemFromElement);
-  MediaPreview $superHomePageItemFromElement(
-      HomePageRequest request, Element element);
+
   $Value? _$homePageItemFromElement(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
     final element = args[2]?.$reified as Element;
-    final $result = $superHomePageItemFromElement(
+    final $result = super.homePageItemFromElement(
       request,
       element,
     );
     return $MediaPreview.wrap($result);
   }
 
+  @override
   HomePage singleHomePageParse(HomePageRequest request, Document document) {
     return $_invoke('singleHomePageParse', [
       $HomePageRequest.wrap(request),
@@ -652,13 +539,11 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$singleHomePageParse => $Function(_$singleHomePageParse);
-  HomePage $superSingleHomePageParse(
-      HomePageRequest request, Document document);
   $Value? _$singleHomePageParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
     final document = args[2]?.$reified as Document;
-    final $result = $superSingleHomePageParse(
+    final $result = super.singleHomePageParse(
       request,
       document,
     );
@@ -666,24 +551,26 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$searchPageParse => $Function(_$searchPageParse);
-  SearchPage $superSearchPageParse(Response response);
   $Value? _$searchPageParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final response = args[1]?.$reified as Response;
-    final $result = $superSearchPageParse(
+    final $result = super.searchPageParse(
       response,
     );
     return $SearchPage.wrap($result);
   }
 
+  @override
   String searchItemSelector() {
     return $_invoke('searchItemSelector', []) as String;
   }
 
+  @override
   String? searchNextPageSelector() {
     return $_invoke('searchNextPageSelector', []) as String?;
   }
 
+  @override
   MediaPreview searchItemFromElement(Element element) {
     return $_invoke('searchItemFromElement', [
       $Element.wrap(element),
@@ -691,17 +578,17 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$mediaDetailsParse => $Function(_$mediaDetailsParse);
-  Future<MediaDetails> $superMediaDetailsParse(Response response);
   $Value? _$mediaDetailsParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final response = args[1]?.$reified as Response;
-    final $result = $superMediaDetailsParse(
+    final $result = super.mediaDetailsParse(
       response,
     );
     return $Future.wrap($result.then((value) => $MediaDetails.wrap(value)))
         as $Value?;
   }
 
+  @override
   Future<MediaDetails> mediaDetailsFromDocument(Document document) {
     return ($_invoke('mediaDetailsFromDocument', [
       $Document.wrap(document),
@@ -709,6 +596,7 @@ abstract mixin class $ParsedHttpSourceMixin {
         .then((value) => value as MediaDetails);
   }
 
+  @override
   List<MediaLink> medialinksParse(Response response) {
     return ($_invoke('medialinksParse', [
       $Response.wrap(response),
@@ -717,11 +605,10 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$medialinksParse => $Function(_$medialinksParse);
-  List<MediaLink> $superMedialinksParse(Response response);
   $Value? _$medialinksParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final response = args[1]?.$reified as Response;
-    final $result = $superMedialinksParse(
+    final $result = super.medialinksParse(
       response,
     );
     return $List.wrap(List.generate($result.length, (index) {
@@ -729,10 +616,12 @@ abstract mixin class $ParsedHttpSourceMixin {
     }));
   }
 
+  @override
   String mediaLinkSelector() {
     return $_invoke('mediaLinkSelector', []) as String;
   }
 
+  @override
   MediaLink mediaLinkFromElement(Element element) {
     return $_invoke('mediaLinkFromElement', [
       $Element.wrap(element),
@@ -740,16 +629,16 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$mediaParse => $Function(_$mediaParse);
-  Future<Media?> $superMediaParse(Response response);
   $Value? _$mediaParse(Runtime runtime, $Value? target, List<$Value?> args) {
     final response = args[1]?.$reified as Response;
-    final $result = $superMediaParse(
+    final $result = super.mediaParse(
       response,
     );
     return $Future.wrap($result.then(
         (value) => value == null ? $null() : $Media.wrap(value))) as $Value?;
   }
 
+  @override
   Future<Media?> mediaFromDocument(Document document) {
     return ($_invoke('mediaFromDocument', [
       $Document.wrap(document),
@@ -758,11 +647,10 @@ abstract mixin class $ParsedHttpSourceMixin {
   }
 
   $Value get __$mediaFromDocument => $Function(_$mediaFromDocument);
-  Future<Media?> $superMediaFromDocument(Document document);
   $Value? _$mediaFromDocument(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final document = args[1]?.$reified as Document;
-    final $result = $superMediaFromDocument(
+    final $result = super.mediaFromDocument(
       document,
     );
     return $Future.wrap($result.then(

@@ -8,12 +8,10 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/models/source/catalogue_source.dart';
-import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
-import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 
 /// dart_eval bimodal wrapper for [CatalogueSource]
 class $CatalogueSource extends CatalogueSource
-    with $SourceMixin, $CatalogueSourceMixin, $Bridge<CatalogueSource> {
+    with $CatalogueSourceMixin, $SourceMixin, $Bridge<CatalogueSource> {
   $CatalogueSource();
 
   static void configureForCompile(BridgeDeclarationRegistry registry) {
@@ -114,24 +112,9 @@ class $CatalogueSource extends CatalogueSource
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $CatalogueSource();
   }
-
-  @override
-  double get $superHomePageRequestTimeout => super.homePageRequestTimeout;
-
-  @override
-  String get $superLang => super.lang;
-
-  @override
-  SharedPreferences get $superPreferences => super.preferences;
-
-  @override
-  List<PreferenceData> $superSetupPreferences() => super.setupPreferences();
-
-  @override
-  bool get $superSupportsHomePage => super.supportsHomePage;
 }
 
-abstract mixin class $CatalogueSourceMixin {
+mixin $CatalogueSourceMixin on CatalogueSource {
   dynamic $_get(String prop);
 
   dynamic $_invoke(String method, List<$Value?> args);
@@ -142,6 +125,7 @@ abstract mixin class $CatalogueSourceMixin {
 
   $Value? $bridgeGetFromSource(String identifier);
 
+  @override
   Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {
     return ($_invoke('getSearchPage', [
       $int(page),
@@ -151,6 +135,7 @@ abstract mixin class $CatalogueSourceMixin {
         .then((value) => value as SearchPage);
   }
 
+  @override
   FilterList getFilterList() {
     return $_invoke('getFilterList', []) as FilterList;
   }

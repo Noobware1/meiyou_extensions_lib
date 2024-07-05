@@ -190,6 +190,20 @@ class $Source extends Source with $SourceMixin, $Bridge<Source> {
   @override
   $Value? $bridgeGet(String identifier) {
     return $bridgeGetFromSource(identifier);
+    // switch (identifier) {
+    //   case 'supportsHomePage':
+    //     return _$supportsHomePage;
+    //   case 'homePageRequestTimeout':
+    //     return _$homePageRequestTimeout;
+    //   case 'lang':
+    //     return _$lang;
+    //   case 'preferences':
+    //     return _$preferences;
+    //   case 'setupPreferences':
+    //     return __$setupPreferences;
+    //   default:
+    //     throw UnimplementedError('Unknown identifier $identifier');
+    // }
   }
 
   @override
@@ -205,24 +219,9 @@ class $Source extends Source with $SourceMixin, $Bridge<Source> {
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $Source();
   }
-
-  @override
-  double get $superHomePageRequestTimeout => super.homePageRequestTimeout;
-
-  @override
-  String get $superLang => super.lang;
-
-  @override
-  SharedPreferences get $superPreferences => super.preferences;
-
-  @override
-  List<PreferenceData> $superSetupPreferences() => super.setupPreferences();
-
-  @override
-  bool get $superSupportsHomePage => super.supportsHomePage;
 }
 
-abstract mixin class $SourceMixin {
+mixin $SourceMixin on Source {
   dynamic $_get(String prop);
 
   dynamic $_invoke(String method, List<$Value?> args);
@@ -244,30 +243,33 @@ abstract mixin class $SourceMixin {
     }
   }
 
+  @override
   int get id => $_get('id') as int;
 
+  @override
   String get name => $_get('name') as String;
 
+  @override
   bool get supportsHomePage => $_get('supportsHomePage') as bool;
 
-  bool get $superSupportsHomePage;
+  $Value get _$supportsHomePage => $bool(super.supportsHomePage);
 
-  $Value get _$supportsHomePage => $bool($superSupportsHomePage);
-
+  @override
   double get homePageRequestTimeout =>
       $_get('homePageRequestTimeout') as double;
+  $Value get _$homePageRequestTimeout => $double(super.homePageRequestTimeout);
 
-  double get $superHomePageRequestTimeout;
-  $Value get _$homePageRequestTimeout => $double($superHomePageRequestTimeout);
-
+  @override
   String get lang => $_get('lang') as String;
-  String get $superLang;
-  $Value get _$lang => $String($superLang);
 
+  $Value get _$lang => $String(super.lang);
+
+  @override
   List<HomePageRequest> homePageRequests() {
     return ($_invoke('homePageRequests', []) as List).cast<HomePageRequest>();
   }
 
+  @override
   Future<HomePage> getHomePage(int page, HomePageRequest request) {
     return ($_invoke('getHomePage', [
       $int(page),
@@ -276,6 +278,7 @@ abstract mixin class $SourceMixin {
         .then((value) => value as HomePage);
   }
 
+  @override
   Future<MediaDetails> getMediaDetails(String url) {
     return ($_invoke('getMediaDetails', [
       $String(url),
@@ -283,6 +286,7 @@ abstract mixin class $SourceMixin {
         .then((value) => value as MediaDetails);
   }
 
+  @override
   Future<List<MediaLink>> getMediaLinks(String url) {
     return ($_invoke('getMediaLinks', [
       $String(url),
@@ -290,6 +294,7 @@ abstract mixin class $SourceMixin {
         .then((value) => (value as List).cast<MediaLink>());
   }
 
+  @override
   Future<Media?> getMedia(MediaLink link) {
     return ($_invoke('getMedia', [
       $MediaLink.wrap(link),
@@ -297,25 +302,24 @@ abstract mixin class $SourceMixin {
         .then((value) => value as Media?);
   }
 
+  @override
   List<PreferenceData> setupPreferences() {
     return ($_invoke('setupPreferences', []) as List).cast<PreferenceData>();
   }
 
   $Value get __$setupPreferences => $Function(_$setupPreferences);
 
-  List<PreferenceData> $superSetupPreferences();
-
   $Value? _$setupPreferences(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final $result = $superSetupPreferences();
+    final $result = super.setupPreferences();
     return $List.wrap(List.generate($result.length, (index) {
       return $PreferenceData.wrap($result[index]);
     }));
   }
 
+  @override
   SharedPreferences get preferences =>
       $_invoke('preferences', []) as SharedPreferences;
 
-  SharedPreferences get $superPreferences;
-  $Value get _$preferences => $SharedPreferences.wrap($superPreferences);
+  $Value get _$preferences => $SharedPreferences.wrap(super.preferences);
 }
