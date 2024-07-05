@@ -690,7 +690,7 @@ mixin $HttpSourceMixin on HttpSource {
   }
 
   @override
-  OkHttpClient get client => $_invoke('client', []) as OkHttpClient;
+  OkHttpClient get client => $_get('client') as OkHttpClient;
 
   $Value get _$client => $OkHttpClient.wrap(super.client);
 }
