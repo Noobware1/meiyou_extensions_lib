@@ -35,8 +35,8 @@ class DurationUtils {
       for (var element in it) {
         final timeText = element.group(0)!;
         if (timeText.isNotEmpty) {
-          final time = timeText.filter((s) => s.isDigit()).trim().toInt();
-          final scale = timeText.filter((s) => !s.isDigit()).trim();
+          final time = timeText.filter((s) => s.isDigit).trim().toInt();
+          final scale = timeText.filter((s) => !s.isDigit).trim();
           final int timeVal;
           switch (scale) {
             case "hr":
@@ -90,12 +90,5 @@ class DurationUtils {
     });
 
     return Duration(minutes: minutes!);
-  }
-}
-
-extension on String {
-  bool isDigit() {
-    final code = codeUnitAt(0);
-    return code >= 48 && code <= 57;
   }
 }

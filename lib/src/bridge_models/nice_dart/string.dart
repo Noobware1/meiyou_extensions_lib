@@ -1,5 +1,3 @@
-// import 'package:nice_dart/src/extensions/iterable.dart';
-
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/stdlib/io.dart';
@@ -109,6 +107,16 @@ class StringUtils {
   static double? toDoubleOrNull(String? str) => str.toDoubleOrNull();
 
   static String valueToString(dynamic value) => value.toString();
+
+  static String trimIndent(String str) => str.trimIndent();
+
+  static bool isBlank(String str) => str.isBlank;
+
+  static bool isNotBlank(String str) => str.isNotBlank;
+
+  static bool isWhiteSpace(String str) => str.isWhiteSpace;
+
+  static bool isDigit(String str) => str.isDigit;
 }
 
 /// dart_eval bimodal wrapper for [StringUtils]
@@ -203,8 +211,26 @@ class $StringUtils implements StringUtils, $Instance {
         __$static$method$toIntOrNull.call);
     runtime.registerBridgeFunc($type.spec!.library,
         'StringUtils.toDoubleOrNull', __$static$method$toDoubleOrNull.call);
-    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.valueToString',
-        __$static$method$valueToString.call);
+    runtime.registerBridgeFunc(
+      $type.spec!.library,
+      'StringUtils.valueToString',
+      __$static$method$valueToString.call,
+    );
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.trimIndent',
+        __$static$method$trimIndent.call,
+        isBridge: false);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.isBlank',
+        __$static$method$isBlank.call,
+        isBridge: false);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.isNotBlank',
+        __$static$method$isNotBlank.call,
+        isBridge: false);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.isWhiteSpace',
+        __$static$method$isWhiteSpace.call,
+        isBridge: false);
+    runtime.registerBridgeFunc($type.spec!.library, 'StringUtils.isDigit',
+        __$static$method$isDigit.call,
+        isBridge: false);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -939,6 +965,76 @@ class $StringUtils implements StringUtils, $Instance {
             namedParams: [],
           ),
           isStatic: true),
+      'trimIndent': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'str',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
+      'isBlank': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'str',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
+      'isNotBlank': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'str',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
+      'isWhiteSpace': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'str',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
+      'isDigit': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'str',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
     },
     getters: {},
     setters: {},
@@ -1391,6 +1487,59 @@ class $StringUtils implements StringUtils, $Instance {
     final value = args[0]?.$reified;
     final $result = StringUtils.valueToString(value);
     return $String($result);
+  }
+
+  static const __$static$method$trimIndent =
+      $Function(_$static$method$trimIndent);
+  static $Value? _$static$method$trimIndent(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final str = args[0]?.$value as String;
+    final $result = StringUtils.trimIndent(
+      str,
+    );
+    return $String($result);
+  }
+
+  static const __$static$method$isBlank = $Function(_$static$method$isBlank);
+  static $Value? _$static$method$isBlank(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final str = args[0]?.$value as String;
+    final $result = StringUtils.isBlank(
+      str,
+    );
+    return $bool($result);
+  }
+
+  static const __$static$method$isNotBlank =
+      $Function(_$static$method$isNotBlank);
+  static $Value? _$static$method$isNotBlank(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final str = args[0]?.$value as String;
+    final $result = StringUtils.isNotBlank(
+      str,
+    );
+    return $bool($result);
+  }
+
+  static const __$static$method$isWhiteSpace =
+      $Function(_$static$method$isWhiteSpace);
+  static $Value? _$static$method$isWhiteSpace(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final str = args[0]?.$value as String;
+    final $result = StringUtils.isWhiteSpace(
+      str,
+    );
+    return $bool($result);
+  }
+
+  static const __$static$method$isDigit = $Function(_$static$method$isDigit);
+  static $Value? _$static$method$isDigit(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final str = args[0]?.$value as String;
+    final $result = StringUtils.isDigit(
+      str,
+    );
+    return $bool($result);
   }
 
   static const __$StringUtils$new = $Function(_$StringUtils$new);
