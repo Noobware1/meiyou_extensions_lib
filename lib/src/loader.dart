@@ -33,6 +33,18 @@ class ExtensionLoader extends Runtime {
     return executeLib('package:$pkgName/main.dart', 'main', []);
   }
 
+  List<Source> getSourceList(String pkgName) {
+    final $instance = getSource(pkgName);
+
+    if ($instance is SourceFactory) {
+      return $instance.getSources();
+    } else if ($instance is Source) {
+      return [$instance];
+    } else {
+      throw Exception('Invalid source type');
+    }
+  }
+
   SourceFactory getSourceFactory(String pkgName) {
     return getSource(pkgName);
   }

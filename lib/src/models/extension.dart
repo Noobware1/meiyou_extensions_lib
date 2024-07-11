@@ -1,45 +1,50 @@
+import 'package:meiyou_extensions_lib/src/models/home_page.dart';
+import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/models/media_link.dart';
+import 'package:meiyou_extensions_lib/src/models/source/source.dart';
 import 'dart:typed_data';
 
-import 'package:meiyou_extensions_lib/models.dart';
+// import 'package:meiyou_extensions_lib/models.dart';
 import 'package:nice_dart/nice_dart.dart';
 
 abstract class Extension {
-  abstract final String name;
-  abstract final String pkgName;
-  abstract final String versionName;
-  abstract final String? lang;
-  abstract final bool isNsfw;
-}
-
-class InstalledExtension extends Extension {
-  @override
   final String name;
-  @override
   final String pkgName;
-  @override
   final String versionName;
-  @override
   final String? lang;
-  @override
   final bool isNsfw;
-
   final List<Source> sources;
-  final Uint8List? icon;
-  final String? repoUrl;
-  final bool hasUpdate;
-  final bool isOnline;
 
-  InstalledExtension({
+  Extension({
     required this.name,
     required this.pkgName,
     required this.versionName,
-    required this.sources,
-    required this.isOnline,
     this.lang,
+    required this.isNsfw,
+    required this.sources,
+  });
+}
+
+class InstalledExtension extends Extension {
+  final Uint8List? icon;
+  final String repoUrl;
+  final bool hasUpdate;
+  final bool isObsolote;
+  final bool isOnline;
+
+  InstalledExtension({
+    required super.name,
+    required super.pkgName,
+    required super.versionName,
+    required super.sources,
+    required this.isOnline,
+    required this.repoUrl,
+    super.lang,
+    super.isNsfw = false,
     this.icon,
-    this.repoUrl,
-    this.isNsfw = false,
     this.hasUpdate = false,
+    this.isObsolote = false,
   });
 
   Map<String, dynamic> toJson() {
@@ -95,31 +100,24 @@ class InstalledExtension extends Extension {
 }
 
 class AvailableExtension extends Extension {
-  @override
-  final String name;
-  @override
-  final String pkgName;
-  @override
-  final String versionName;
-  @override
-  final String? lang;
-  @override
-  final bool isNsfw;
-
-  final List<AvailableSource> sources;
   final String pluginName;
-  final String iconUrl;
   final String repoUrl;
 
+  String get iconUrl => "$repoUrl/icon/$pkgName.png";
+
+  String get pluginUrl => "$repoUrl/plugin/$pluginName";
+
+  @override
+  List<AvailableSource> get sources => super.sources.cast();
+
   AvailableExtension({
-    required this.name,
-    required this.pkgName,
-    required this.versionName,
-    required this.lang,
-    required this.isNsfw,
-    required this.sources,
+    required super.name,
+    required super.pkgName,
+    required super.versionName,
+    required super.lang,
+    required super.isNsfw,
+    required List<AvailableSource> super.sources,
     required this.pluginName,
-    required this.iconUrl,
     required this.repoUrl,
   });
 
@@ -131,7 +129,6 @@ class AvailableExtension extends Extension {
       lang: json['lang'],
       isNsfw: (json['nsfw'] as int) == 1,
       pluginName: json['plugin'],
-      iconUrl: '$repoUrl/icon/${json['pkg']}.png',
       sources: ((json['sources'] as List?)?.mapList(AvailableSource.fromJson))
           .orEmpty(),
       repoUrl: repoUrl,
@@ -151,10 +148,16 @@ class AvailableExtension extends Extension {
   }
 }
 
-class AvailableSource {
+class AvailableSource extends Source {
+  @override
   final int id;
-  final String lang;
+
+  @override
   final String name;
+
+  @override
+  final String lang;
+
   final String? baseUrl;
 
   AvailableSource({
@@ -178,10 +181,32 @@ class AvailableSource {
       "id": id,
       "name": name,
       "lang": lang,
-    }.apply((it) {
-      if (baseUrl != null) {
-        it["baseUrl"] = baseUrl!;
-      }
-    });
+      "baseUrl": baseUrl,
+    };
+  }
+
+  @override
+  Future<HomePage> getHomePage(int page, HomePageRequest request) {
+    throw UnsupportedError('Stub Source');
+  }
+
+  @override
+  Future<Media?> getMedia(MediaLink link) {
+    throw UnsupportedError('Stub Source');
+  }
+
+  @override
+  Future<MediaDetails> getMediaDetails(String url) {
+    throw UnsupportedError('Stub Source');
+  }
+
+  @override
+  Future<List<MediaLink>> getMediaLinks(String url) {
+    throw UnsupportedError('Stub Source');
+  }
+
+  @override
+  List<HomePageRequest> homePageRequests() {
+    throw UnsupportedError('Stub Source');
   }
 }
