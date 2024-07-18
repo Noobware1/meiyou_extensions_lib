@@ -180,14 +180,34 @@ class $MediaDetails implements MediaDetails, $Instance {
             namedParams: [],
           ),
           isStatic: false),
-      'toString': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
+      'addGenre': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.voidType, []),
+              nullable: false),
+          params: [
+            BridgeParameter(
+                'genre',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: true),
+                false)
+          ],
+          namedParams: [],
+        ),
+      ),
+      'addOtherTitle': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.voidType, []),
+              nullable: false),
+          params: [
+            BridgeParameter(
+                'title',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: true),
+                false)
+          ],
+          namedParams: [],
+        ),
+      ),
     },
     getters: {},
     setters: {},
@@ -231,7 +251,10 @@ class $MediaDetails implements MediaDetails, $Instance {
             : $List.wrap(List.generate($value.genres!.length, (index) {
                 return $String($value.genres![index]);
               }));
-
+      case 'addGenre':
+        return __$addGenre;
+      case 'addOtherTitle':
+        return __$addOtherTitle;
       case 'toJson':
         return __$toJson;
       case 'toString':
@@ -357,6 +380,28 @@ class $MediaDetails implements MediaDetails, $Instance {
   @override
   set genres(List<String>? genres) {
     $value.genres = genres;
+  }
+
+  @override
+  void addGenre(String? genre) => $value.addGenre(genre);
+  static const __$addGenre = $Function(_$addGenre);
+  static $Value? _$addGenre(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as MediaDetails;
+    final genre = args[0]?.$value as String?;
+    $this.addGenre(genre);
+    return null;
+  }
+
+  @override
+  void addOtherTitle(String? title) => $value.addOtherTitle(title);
+  static const __$addOtherTitle = $Function(_$addOtherTitle);
+  static $Value? _$addOtherTitle(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as MediaDetails;
+    final title = args[0]?.$value as String?;
+    $this.addOtherTitle(title);
+    return null;
   }
 
   @override

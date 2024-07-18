@@ -37,6 +37,20 @@ class MediaDetails {
 
   List<String>? genres;
 
+  void addOtherTitle(String? title) {
+    if (title != null) {
+      otherTitles ??= [];
+      otherTitles!.add(title);
+    }
+  }
+
+  void addGenre(String? genre) {
+    if (genre != null) {
+      genres ??= [];
+      genres!.add(genre);
+    }
+  }
+
   factory MediaDetails.fromJson(Map<String, dynamic> json) {
     return MediaDetails(
       title: json['title'],
