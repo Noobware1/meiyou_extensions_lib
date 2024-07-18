@@ -57,14 +57,6 @@ class $Quality implements Quality, $Instance {
         ),
         isFactory: false,
       ),
-      'auto': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [],
-          namedParams: [],
-        ),
-        isFactory: false,
-      ),
       'getFromString': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
@@ -99,6 +91,10 @@ class $Quality implements Quality, $Instance {
       )
     },
     fields: {
+      'auto': BridgeFieldDef(
+        BridgeTypeAnnotation($type),
+        isStatic: true,
+      ),
       'width': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
               nullable: false),
