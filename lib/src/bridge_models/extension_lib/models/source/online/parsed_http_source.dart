@@ -6,6 +6,7 @@ import 'package:html/dom.dart';
 import 'package:meiyou_extensions_lib/models.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_content.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_preview.dart';
@@ -19,6 +20,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/html/element.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response.dart';
+import 'package:meiyou_extensions_lib/src/models/media_content.dart';
 import 'package:okhttp/response.dart';
 
 /// dart_eval bimodal wrapper for [ParsedHttpSource]
@@ -62,27 +64,6 @@ class $ParsedHttpSource extends ParsedHttpSource
     },
     fields: {},
     methods: {
-      'homePageParse': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.homePage, []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'request',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
       'homeNextPageSelector': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
@@ -98,7 +79,7 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'homeDataSelector': BridgeMethodDef(
+      'homeListSelector': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                 nullable: false),
@@ -113,10 +94,10 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'homeDataFromElement': BridgeMethodDef(
+      'homeListFromElement': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.homePageData, []),
+                BridgeTypeRef(ExtensionLibTypes.homePageList, []),
                 nullable: false),
             params: [
               BridgeParameter(
@@ -212,21 +193,6 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'searchPageParse': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.searchPage, []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
       'searchItemSelector': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
@@ -258,29 +224,10 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'mediaDetailsParse': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
       'mediaDetailsFromDocument': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
-                ]),
+                BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
                 nullable: false),
             params: [
               BridgeParameter(
@@ -292,17 +239,15 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'medialinksParse': BridgeMethodDef(
+      'mediaContentFromDocument': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.list, [
-                  BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
-                ]),
+                BridgeTypeRef(ExtensionLibTypes.mediaContent, []),
                 nullable: false),
             params: [
               BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                  'document',
+                  BridgeTypeAnnotation(BridgeTypeRef(HTMLTypes.document, []),
                       nullable: false),
                   false)
             ],
@@ -335,10 +280,8 @@ class $ParsedHttpSource extends ParsedHttpSource
       'mediaParse': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.media, []),
-                ]),
-                nullable: false),
+                BridgeTypeRef(ExtensionLibTypes.media, []),
+                nullable: true),
             params: [
               BridgeParameter(
                   'response',
@@ -352,9 +295,7 @@ class $ParsedHttpSource extends ParsedHttpSource
       'mediaFromDocument': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.media, []),
-                ]),
+                BridgeTypeRef(ExtensionLibTypes.media, []),
                 nullable: false),
             params: [
               BridgeParameter(
@@ -402,10 +343,10 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     switch (identifier) {
       case 'homePageParse':
         return __$homePageParse;
-      case 'homeDataSelector':
-        return __$homeDataSelector;
-      case 'homeDataFromElement':
-        return __$homeDataFromElement;
+      case 'homeListSelector':
+        return __$homeListSelector;
+      case 'homeListFromElement':
+        return __$homeListFromElement;
       case 'fullHomePageParse':
         return __$fullHomePageParse;
       case 'homePageItemSelector':
@@ -418,6 +359,8 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
         return __$searchPageParse;
       case 'mediaDetailsParse':
         return __$mediaDetailsParse;
+      case 'mediaContentParse':
+        return __$mediaContentParse;
       case 'medialinksParse':
         return __$medialinksParse;
       case 'mediaParse':
@@ -432,6 +375,25 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
   $Value? $bridgeGetFromHttpSource(String identifier);
 
   @override
+  HomePage homePageParse(HomePageRequest request, Response response) {
+    return $_invoke('homePageParse', [
+      $HomePageRequest.wrap(request),
+      $Response.wrap(response),
+    ]) as HomePage;
+  }
+
+  $Value get __$homePageParse => $Function(_$homePageParse);
+  $Value? _$homePageParse(Runtime runtime, $Value? target, List<$Value?> args) {
+    final request = args[1]?.$reified as HomePageRequest;
+    final response = args[2]?.$reified as Response;
+    final $result = super.homePageParse(
+      request,
+      response,
+    );
+    return $HomePage.wrap($result);
+  }
+
+  @override
   String? homeNextPageSelector(HomePageRequest request) {
     return $_invoke('homeNextPageSelector', [
       $HomePageRequest.wrap(request),
@@ -439,53 +401,40 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
   }
 
   @override
-  String homeDataSelector(HomePageRequest request) {
-    return $_invoke('homeDataSelector', [
+  String homeListSelector(HomePageRequest request) {
+    return $_invoke('homeListSelector', [
       $HomePageRequest.wrap(request),
     ]) as String;
   }
 
-  $Value get __$homeDataSelector => $Function(_$homeDataSelector);
-  $Value? _$homeDataSelector(
+  $Value get __$homeListSelector => $Function(_$homeListSelector);
+  $Value? _$homeListSelector(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
-    final $result = super.homeDataSelector(request);
+    final $result = super.homeListSelector(
+      request,
+    );
     return $String($result);
   }
 
   @override
-  HomePageData homeDataFromElement(HomePageRequest request, Element element) {
-    return $_invoke('homeDataFromElement', [
+  HomePageList homeListFromElement(HomePageRequest request, Element element) {
+    return $_invoke('homeListFromElement', [
       $HomePageRequest.wrap(request),
       $Element.wrap(element),
-    ]) as HomePageData;
+    ]) as HomePageList;
   }
 
-  $Value get __$homeDataFromElement => $Function(_$homeDataFromElement);
-  $Value? _$homeDataFromElement(
+  $Value get __$homeListFromElement => $Function(_$homeListFromElement);
+  $Value? _$homeListFromElement(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
     final element = args[2]?.$reified as Element;
-    final $result = super.homeDataFromElement(
+    final $result = super.homeListFromElement(
       request,
       element,
     );
-    return $HomePageData.wrap($result);
-  }
-
-  @override
-  HomePage homePageParse(HomePageRequest request, Response response) =>
-      $_invoke('homePageParse', [
-        $HomePageRequest.wrap(request),
-        $Response.wrap(response),
-      ]) as HomePage;
-
-  $Value get __$homePageParse => $Function(_$homePageParse);
-  $Value? _$homePageParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    final request = args[1]?.$reified as HomePageRequest;
-    final response = args[2]?.$reified as Response;
-    final $result = super.homePageParse(request, response);
-    return $HomePage.wrap($result);
+    return $HomePageList.wrap($result);
   }
 
   @override
@@ -535,7 +484,6 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
   }
 
   $Value get __$homePageItemFromElement => $Function(_$homePageItemFromElement);
-
   $Value? _$homePageItemFromElement(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[1]?.$reified as HomePageRequest;
@@ -567,6 +515,13 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     return $HomePage.wrap($result);
   }
 
+  @override
+  SearchPage searchPageParse(Response response) {
+    return $_invoke('searchPageParse', [
+      $Response.wrap(response),
+    ]) as SearchPage;
+  }
+
   $Value get __$searchPageParse => $Function(_$searchPageParse);
   $Value? _$searchPageParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -594,6 +549,13 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     ]) as MediaPreview;
   }
 
+  @override
+  MediaDetails mediaDetailsParse(Response response) {
+    return $_invoke('mediaDetailsParse', [
+      $Response.wrap(response),
+    ]) as MediaDetails;
+  }
+
   $Value get __$mediaDetailsParse => $Function(_$mediaDetailsParse);
   $Value? _$mediaDetailsParse(
       Runtime runtime, $Value? target, List<$Value?> args) {
@@ -601,16 +563,38 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     final $result = super.mediaDetailsParse(
       response,
     );
-    return $Future.wrap($result.then((value) => $MediaDetails.wrap(value)))
-        as $Value?;
+    return $MediaDetails.wrap($result);
   }
 
   @override
-  Future<MediaDetails> mediaDetailsFromDocument(Document document) {
-    return ($_invoke('mediaDetailsFromDocument', [
+  MediaDetails mediaDetailsFromDocument(Document document) {
+    return $_invoke('mediaDetailsFromDocument', [
       $Document.wrap(document),
-    ]) as Future)
-        .then((value) => value as MediaDetails);
+    ]) as MediaDetails;
+  }
+
+  @override
+  MediaContent mediaContentParse(Response response) {
+    return $_invoke('mediaContentParse', [
+      $Response.wrap(response),
+    ]) as MediaContent;
+  }
+
+  $Value get __$mediaContentParse => $Function(_$mediaContentParse);
+  $Value? _$mediaContentParse(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final response = args[1]?.$reified as Response;
+    final $result = super.mediaContentParse(
+      response,
+    );
+    return $MediaContent.wrapByType($result);
+  }
+
+  @override
+  MediaContent mediaContentFromDocument(Document document) {
+    return $_invoke('mediaContentFromDocument', [
+      $Document.wrap(document),
+    ]) as MediaContent;
   }
 
   @override
@@ -645,22 +629,27 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     ]) as MediaLink;
   }
 
+  @override
+  Media? mediaParse(Response response) {
+    return $_invoke('mediaParse', [
+      $Response.wrap(response),
+    ]) as Media?;
+  }
+
   $Value get __$mediaParse => $Function(_$mediaParse);
   $Value? _$mediaParse(Runtime runtime, $Value? target, List<$Value?> args) {
     final response = args[1]?.$reified as Response;
     final $result = super.mediaParse(
       response,
     );
-    return $Future.wrap($result.then(
-        (value) => value == null ? $null() : $Media.wrap(value))) as $Value?;
+    return $result == null ? $null() : $Media.wrapByType($result);
   }
 
   @override
-  Future<Media?> mediaFromDocument(Document document) {
-    return ($_invoke('mediaFromDocument', [
+  Media mediaFromDocument(Document document) {
+    return $_invoke('mediaFromDocument', [
       $Document.wrap(document),
-    ]) as Future)
-        .then((value) => value as Media?);
+    ]) as Media;
   }
 
   $Value get __$mediaFromDocument => $Function(_$mediaFromDocument);
@@ -670,8 +659,6 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     final $result = super.mediaFromDocument(
       document,
     );
-    return $Future.wrap($result.then(
-            (value) => value == null ? $null() : $Media.wrapByType(value)))
-        as $Value?;
+    return $Media.wrapByType($result);
   }
 }

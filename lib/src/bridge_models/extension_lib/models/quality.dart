@@ -260,7 +260,7 @@ class $Quality implements Quality, $Instance {
   static const __$Quality$auto = $Function(_$Quality$auto);
   static $Value? _$Quality$auto(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Quality.wrap(Quality.auto());
+    return $Quality.wrap(Quality.auto);
   }
 
   static const __$Quality$getFromString = $Function(_$Quality$getFromString);

@@ -164,6 +164,22 @@ class AppUtils {
   static String? unpackJS(String packedJS) {
     return JSUnpacker(packedJS).unpack();
   }
+
+  static String getUrlWithoutDomain(String org) {
+    try {
+      final uri = Uri.parse(org);
+      var out = uri.path;
+      if (uri.query.isNotEmpty) {
+        out += "?" + uri.query;
+      }
+      if (uri.fragment.isNotEmpty) {
+        out += "#" + uri.fragment;
+      }
+      return out;
+    } catch (_) {
+      return org;
+    }
+  }
 }
 
 /// dart_eval bimodal wrapper for [AppUtils]
@@ -202,6 +218,10 @@ class $AppUtils implements AppUtils, $Instance {
         __$static$method$parseDuration.call);
     runtime.registerBridgeFunc($type.spec!.library, 'AppUtils.unpackJS',
         __$static$method$unpackJS.call);
+    runtime.registerBridgeFunc(
+        $type.spec!.library,
+        'AppUtils.getUrlWithoutDomain',
+        __$static$method$getUrlWithoutDomain.call);
   }
 
   late final $Instance _superclass = $Object($value);
@@ -458,6 +478,20 @@ class $AppUtils implements AppUtils, $Instance {
             namedParams: [],
           ),
           isStatic: true),
+      'getUrlWithoutDomain': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                nullable: true),
+            params: [
+              BridgeParameter(
+                  'org',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: true),
     },
     getters: {},
     setters: {},
@@ -606,6 +640,15 @@ class $AppUtils implements AppUtils, $Instance {
     final packedJS = args[0]?.$reified as String;
     final $result = AppUtils.unpackJS(packedJS);
     return $result == null ? $null() : $String($result);
+  }
+
+  static const __$static$method$getUrlWithoutDomain =
+      $Function(_$static$method$getUrlWithoutDomain);
+  static $Value? _$static$method$getUrlWithoutDomain(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final packedJS = args[0]?.$reified as String;
+    final $result = AppUtils.getUrlWithoutDomain(packedJS);
+    return $String($result);
   }
 
   static const __$AppUtils$new = $Function(_$AppUtils$new);

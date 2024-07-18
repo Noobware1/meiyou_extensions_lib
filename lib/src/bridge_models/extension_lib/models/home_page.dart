@@ -23,7 +23,7 @@ class $HomePage implements HomePage, $Instance {
         __$HomePage$fromRequest.call,
         isBridge: false);
     runtime.registerBridgeFunc(
-        $type.spec!.library, 'HomePage.fromData', __$HomePage$fromData.call,
+        $type.spec!.library, 'HomePage.fromItems', __$HomePage$fromItems.call,
         isBridge: false);
     runtime.registerBridgeFunc(
         $type.spec!.library, 'HomePage.list', __$HomePage$list.call,
@@ -54,7 +54,7 @@ class $HomePage implements HomePage, $Instance {
                 'items',
                 BridgeTypeAnnotation(
                     BridgeTypeRef(CoreTypes.list, [
-                      BridgeTypeRef(ExtensionLibTypes.homePageData, []),
+                      BridgeTypeRef(ExtensionLibTypes.homePageList, []),
                     ]),
                     nullable: false),
                 false),
@@ -127,7 +127,7 @@ class $HomePage implements HomePage, $Instance {
         ),
         isFactory: true,
       ),
-      'fromData': BridgeConstructorDef(
+      'fromItems': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
           params: [],
@@ -135,7 +135,7 @@ class $HomePage implements HomePage, $Instance {
             BridgeParameter(
                 'items',
                 BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.homePageData, []),
+                    BridgeTypeRef(ExtensionLibTypes.homePageList, []),
                     nullable: false),
                 false),
             BridgeParameter(
@@ -156,7 +156,7 @@ class $HomePage implements HomePage, $Instance {
                 'items',
                 BridgeTypeAnnotation(
                     BridgeTypeRef(CoreTypes.list, [
-                      BridgeTypeRef(ExtensionLibTypes.homePageData, []),
+                      BridgeTypeRef(ExtensionLibTypes.homePageList, []),
                     ]),
                     nullable: false),
                 false),
@@ -192,7 +192,7 @@ class $HomePage implements HomePage, $Instance {
       'items': BridgeFieldDef(
           BridgeTypeAnnotation(
               BridgeTypeRef(CoreTypes.list, [
-                BridgeTypeRef(ExtensionLibTypes.homePageData, []),
+                BridgeTypeRef(ExtensionLibTypes.homePageList, []),
               ]),
               nullable: false),
           isStatic: false),
@@ -229,7 +229,7 @@ class $HomePage implements HomePage, $Instance {
                   'items',
                   BridgeTypeAnnotation(
                       BridgeTypeRef(CoreTypes.list, [
-                        BridgeTypeRef(ExtensionLibTypes.homePageData, []),
+                        BridgeTypeRef(ExtensionLibTypes.homePageList, []),
                       ]),
                       nullable: true),
                   true),
@@ -276,7 +276,7 @@ class $HomePage implements HomePage, $Instance {
     switch (identifier) {
       case 'items':
         return $List.wrap(List.generate($value.items.length, (index) {
-          return $HomePageData.wrap($value.items[index]);
+          return $HomePageList.wrap($value.items[index]);
         }));
       case 'hasNextPage':
         return $bool($value.hasNextPage);
@@ -311,7 +311,7 @@ class $HomePage implements HomePage, $Instance {
   final HomePage $value;
 
   @override
-  List<HomePageData> get items => $value.items;
+  List<HomePageList> get items => $value.items;
   @override
   bool get hasNextPage => $value.hasNextPage;
 
@@ -327,7 +327,7 @@ class $HomePage implements HomePage, $Instance {
   }
 
   @override
-  HomePage copyWith({List<HomePageData>? items, bool? hasNextPage}) =>
+  HomePage copyWith({List<HomePageList>? items, bool? hasNextPage}) =>
       $value.copyWith(
         items: items,
         hasNextPage: hasNextPage,
@@ -336,7 +336,7 @@ class $HomePage implements HomePage, $Instance {
   static $Value? _$copyWith(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as HomePage;
-    final items = (args[0]?.$reified as List?)?.cast<HomePageData>();
+    final items = (args[0]?.$reified as List?)?.cast<HomePageList>();
     final hasNextPage = args[1]?.$value as bool?;
     final $result = $this.copyWith(
       items: items,
@@ -372,7 +372,7 @@ class $HomePage implements HomePage, $Instance {
   static const __$HomePage$new = $Function(_$HomePage$new);
   static $Value? _$HomePage$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final items = (args[0]?.$reified as List).cast<HomePageData>();
+    final items = (args[0]?.$reified as List).cast<HomePageList>();
     final hasNextPage = args[1]?.$value as bool;
     return $HomePage.wrap(HomePage(
       items: items,
@@ -408,12 +408,12 @@ class $HomePage implements HomePage, $Instance {
     ));
   }
 
-  static const __$HomePage$fromData = $Function(_$HomePage$fromData);
-  static $Value? _$HomePage$fromData(
+  static const __$HomePage$fromItems = $Function(_$HomePage$fromItems);
+  static $Value? _$HomePage$fromItems(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final items = args[0]?.$reified as HomePageData;
+    final items = args[0]?.$reified as HomePageList;
     final hasNextPage = args[1]?.$value as bool?;
-    return $HomePage.wrap(HomePage.fromData(
+    return $HomePage.wrap(HomePage.fromItems(
       items: items,
       hasNextPage: hasNextPage,
     ));
@@ -422,7 +422,7 @@ class $HomePage implements HomePage, $Instance {
   static const __$HomePage$list = $Function(_$HomePage$list);
   static $Value? _$HomePage$list(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final items = (args[0]?.$reified as List).cast<HomePageData>();
+    final items = (args[0]?.$reified as List).cast<HomePageList>();
     final hasNextPage = args[1]?.$value as bool?;
     return $HomePage.wrap(HomePage.list(
       items: items,
@@ -440,28 +440,28 @@ class $HomePage implements HomePage, $Instance {
   }
 }
 
-/// dart_eval bimodal wrapper for [HomePageData]
-class $HomePageData implements HomePageData, $Instance {
-  /// Configure the [$HomePageData] wrapper for use in a [Runtime]
+/// dart_eval bimodal wrapper for [HomePageList]
+class $HomePageList implements HomePageList, $Instance {
+  /// Configure the [$HomePageList] wrapper for use in a [Runtime]
   static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        $type.spec!.library, 'HomePageData.', __$HomePageData$new.call,
+        $type.spec!.library, 'HomePageList.', __$HomePageList$new.call,
         isBridge: false);
-    runtime.registerBridgeFunc($type.spec!.library, 'HomePageData.withRequest',
-        __$HomePageData$withRequest.call,
+    runtime.registerBridgeFunc($type.spec!.library, 'HomePageList.withRequest',
+        __$HomePageList$withRequest.call,
         isBridge: false);
-    runtime.registerBridgeFunc($type.spec!.library, 'HomePageData.fromJson',
-        __$HomePageData$fromJson.call,
+    runtime.registerBridgeFunc($type.spec!.library, 'HomePageList.fromJson',
+        __$HomePageList$fromJson.call,
         isBridge: false);
   }
 
   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(ExtensionLibTypes.homePageData);
+  static const $type = BridgeTypeRef(ExtensionLibTypes.homePageList);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(
@@ -493,7 +493,7 @@ class $HomePageData implements HomePageData, $Instance {
                 'horizontalImages',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
                     nullable: false),
-                false)
+                true)
           ],
         ),
         isFactory: false,
@@ -561,7 +561,7 @@ class $HomePageData implements HomePageData, $Instance {
       'copyWith': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.homePageData, []),
+                BridgeTypeRef(ExtensionLibTypes.homePageList, []),
                 nullable: false),
             params: [],
             namedParams: [
@@ -613,8 +613,8 @@ class $HomePageData implements HomePageData, $Instance {
     wrap: true,
   );
 
-  /// Wrap an [HomePageData] in an [$HomePageData]
-  $HomePageData.wrap(this.$value);
+  /// Wrap an [HomePageList] in an [$HomePageList]
+  $HomePageList.wrap(this.$value);
 
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
@@ -627,7 +627,6 @@ class $HomePageData implements HomePageData, $Instance {
         }));
       case 'horizontalImages':
         return $bool($value.horizontalImages);
-
       case 'copyWith':
         return __$copyWith;
       case 'toString':
@@ -643,7 +642,7 @@ class $HomePageData implements HomePageData, $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   @override
-  HomePageData get $reified => $value;
+  HomePageList get $reified => $value;
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
@@ -654,7 +653,7 @@ class $HomePageData implements HomePageData, $Instance {
   }
 
   @override
-  final HomePageData $value;
+  final HomePageList $value;
 
   @override
   String get title => $value.title;
@@ -664,7 +663,7 @@ class $HomePageData implements HomePageData, $Instance {
   bool get horizontalImages => $value.horizontalImages;
 
   @override
-  HomePageData copyWith(
+  HomePageList copyWith(
           {String? title, List<MediaPreview>? list, bool? horizontalImages}) =>
       $value.copyWith(
         title: title,
@@ -674,7 +673,7 @@ class $HomePageData implements HomePageData, $Instance {
   static const __$copyWith = $Function(_$copyWith);
   static $Value? _$copyWith(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as HomePageData;
+    final $this = target?.$value as HomePageList;
     final title = args[0]?.$value as String?;
     final list = (args[1]?.$reified as List?)?.cast<MediaPreview>();
     final horizontalImages = args[2]?.$value as bool?;
@@ -683,7 +682,7 @@ class $HomePageData implements HomePageData, $Instance {
       list: list,
       horizontalImages: horizontalImages,
     );
-    return $HomePageData.wrap($result);
+    return $HomePageList.wrap($result);
   }
 
   @override
@@ -691,7 +690,7 @@ class $HomePageData implements HomePageData, $Instance {
   static const __$toString = $Function(_$toString);
   static $Value? _$toString(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as HomePageData;
+    final $this = target?.$value as HomePageList;
     final $result = $this.toString();
     return $String($result);
   }
@@ -700,7 +699,7 @@ class $HomePageData implements HomePageData, $Instance {
   Map<String, dynamic> toJson() => $value.toJson();
   static const __$toJson = $Function(_$toJson);
   static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as HomePageData;
+    final $this = target?.$value as HomePageList;
     final $result = $this.toJson();
     return $Map.wrap(($result.map((key, value) {
       return $MapEntry.wrap(MapEntry(
@@ -710,36 +709,36 @@ class $HomePageData implements HomePageData, $Instance {
     })));
   }
 
-  static const __$HomePageData$new = $Function(_$HomePageData$new);
-  static $Value? _$HomePageData$new(
+  static const __$HomePageList$new = $Function(_$HomePageList$new);
+  static $Value? _$HomePageList$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final title = args[0]?.$value as String;
     final list = (args[1]?.$reified as List).cast<MediaPreview>();
-    final horizontalImages = args[2]?.$value as bool;
-    return $HomePageData.wrap(HomePageData(
+    final horizontalImages = (args[2]?.$value as bool?) ?? false;
+    return $HomePageList.wrap(HomePageList(
       title: title,
       list: list,
       horizontalImages: horizontalImages,
     ));
   }
 
-  static const __$HomePageData$withRequest =
-      $Function(_$HomePageData$withRequest);
-  static $Value? _$HomePageData$withRequest(
+  static const __$HomePageList$withRequest =
+      $Function(_$HomePageList$withRequest);
+  static $Value? _$HomePageList$withRequest(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final request = args[0]?.$reified as HomePageRequest;
     final list = (args[1]?.$reified as List).cast<MediaPreview>();
-    return $HomePageData.wrap(HomePageData.withRequest(
+    return $HomePageList.wrap(HomePageList.withRequest(
       request,
       list,
     ));
   }
 
-  static const __$HomePageData$fromJson = $Function(_$HomePageData$fromJson);
-  static $Value? _$HomePageData$fromJson(
+  static const __$HomePageList$fromJson = $Function(_$HomePageList$fromJson);
+  static $Value? _$HomePageList$fromJson(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final json = (args[0]?.$reified as Map).cast<String, dynamic>();
-    return $HomePageData.wrap(HomePageData.fromJson(
+    return $HomePageList.wrap(HomePageList.fromJson(
       json,
     ));
   }

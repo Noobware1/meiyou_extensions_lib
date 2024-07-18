@@ -3,6 +3,7 @@ import 'package:meiyou_extensions_lib/src/lib_overrides.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_content.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
@@ -47,10 +48,15 @@ abstract class HttpSource extends CatalogueSource {
 
   @override
   Future<HomePage> getHomePage(int page, HomePageRequest request) {
-    return client
-        .newCall(homePageRequest(page, request))
-        .execute()
-        .then((response) => homePageParse(request, response));
+    return client.newCall(homePageRequest(page, request)).execute().then(
+      (response) {
+        try {
+          return homePageParse(request, response);
+        } on UnsupportedError {
+          return homePageParseAsync(request, response);
+        }
+      },
+    );
   }
 
   /// Returns the request for the popular manga given the page.
@@ -61,14 +67,29 @@ abstract class HttpSource extends CatalogueSource {
   /// Parses the response from the site and returns a [MangasPage] object.
   ///
   /// * response the response from the site.
-  HomePage homePageParse(HomePageRequest request, Response response);
+  HomePage homePageParse(HomePageRequest request, Response response) {
+    return throw UnsupportedError('Not implemented');
+  }
+
+  Future<HomePage> homePageParseAsync(
+      HomePageRequest request, Response response) {
+    throw UnsupportedError('Not implemented');
+  }
 
   @override
   Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {
     return client
         .newCall(searchPageRequest(page, query, filters))
         .execute()
-        .then((response) => searchPageParse(response));
+        .then(
+      (response) {
+        try {
+          return searchPageParse(response);
+        } on UnsupportedError {
+          return searchPageParseAsync(response);
+        }
+      },
+    );
   }
 
   /// Returns the request for the search manga given the page.
@@ -79,35 +100,88 @@ abstract class HttpSource extends CatalogueSource {
   /// Parses the response from the site and returns a [SearchResponse] object.
   ///
   /// * response the response from the site.
-  SearchPage searchPageParse(Response response);
+  SearchPage searchPageParse(Response response) {
+    return throw UnsupportedError('Not implemented');
+  }
+
+  Future<SearchPage> searchPageParseAsync(Response response) {
+    throw UnsupportedError('Not implemented');
+  }
 
   @override
-  Future<MediaDetails> getMediaDetails(String url) {
-    return client
-        .newCall(mediaDetailsRequest(url))
-        .execute()
-        .then((response) => mediaDetailsParse(response));
+  Future<MediaDetails> getMediaDetails(MediaDetails mediaDetails) {
+    return client.newCall(mediaDetailsRequest(mediaDetails)).execute().then(
+      (response) {
+        try {
+          return mediaDetailsParse(response);
+        } on UnsupportedError {
+          return mediaDetailsParseAsync(response);
+        }
+      },
+    );
   }
 
-  Request mediaDetailsRequest(String url) {
-    return GET(baseUrl + url, headers: headers);
+  Request mediaDetailsRequest(MediaDetails mediaDetails) {
+    return GET(baseUrl + mediaDetails.url, headers: headers);
   }
 
-  Future<MediaDetails> mediaDetailsParse(Response response);
+  MediaDetails mediaDetailsParse(Response response) {
+    return throw UnsupportedError('Not implemented');
+  }
+
+  Future<MediaDetails> mediaDetailsParseAsync(Response response) {
+    throw UnsupportedError('Not implemented');
+  }
 
   @override
-  Future<List<MediaLink>> getMediaLinks(String url) {
-    return client
-        .newCall(mediaLinksRequest(url))
-        .execute()
-        .then((response) => medialinksParse(response));
+  Future<MediaContent> getMediaContent(MediaDetails mediaDetails) {
+    return client.newCall(mediaContentRequest(mediaDetails)).execute().then(
+      (response) {
+        try {
+          return mediaContentParse(response);
+        } on UnsupportedError {
+          return mediaContentParseAsync(response);
+        }
+      },
+    );
   }
 
-  Request mediaLinksRequest(String url) {
-    return GET(url, headers: headers);
+  Request mediaContentRequest(MediaDetails mediaDetails) {
+    return GET(baseUrl + mediaDetails.url, headers: headers);
   }
 
-  List<MediaLink> medialinksParse(Response response);
+  MediaContent mediaContentParse(Response response) {
+    return throw UnsupportedError('Not implemented');
+  }
+
+  Future<MediaContent> mediaContentParseAsync(Response response) {
+    throw UnsupportedError('Not implemented');
+  }
+
+  @override
+  Future<List<MediaLink>> getMediaLinks(String data) {
+    return client.newCall(mediaLinksRequest(data)).execute().then(
+      (response) {
+        try {
+          return medialinksParse(response);
+        } on UnsupportedError {
+          return medialinksParseAsync(response);
+        }
+      },
+    );
+  }
+
+  Request mediaLinksRequest(String data) {
+    return GET(data, headers: headers);
+  }
+
+  List<MediaLink> medialinksParse(Response response) {
+    return throw UnsupportedError('Not implemented');
+  }
+
+  Future<List<MediaLink>> medialinksParseAsync(Response response) {
+    throw UnsupportedError('Not implemented');
+  }
 
   @override
   Future<Media?> getMedia(MediaLink link) {
@@ -124,10 +198,10 @@ abstract class HttpSource extends CatalogueSource {
   }
 
   Request mediaRequest(MediaLink link) {
-    return throw UnsupportedError('Not implemented');
+    return GET(link.data, headers: headers);
   }
 
-  Future<Media?> mediaParse(Response response) {
+  Media? mediaParse(Response response) {
     return throw UnsupportedError('Not implemented');
   }
 }

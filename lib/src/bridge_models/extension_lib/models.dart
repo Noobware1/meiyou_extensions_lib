@@ -26,6 +26,7 @@ String _source() {
     "export 'src/models/media_preview.dart';",
     "export 'src/models/home_page.dart';",
     "export 'src/models/media_details.dart';",
+    "export 'src/models/media_content.dart';",
     "export 'src/models/search_page.dart';",
     "export 'src/models/quality.dart';",
     "export 'src/models/filter.dart';",

@@ -3,7 +3,7 @@ import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:nice_dart/nice_dart.dart';
 
 class HomePage {
-  final List<HomePageData> items;
+  final List<HomePageList> items;
   final bool hasNextPage;
 
   const HomePage({
@@ -37,7 +37,7 @@ class HomePage {
   }) {
     return HomePage(
       items: [
-        HomePageData(
+        HomePageList(
           title: title,
           list: list,
           horizontalImages: horizontalImages,
@@ -54,7 +54,7 @@ class HomePage {
   }) {
     return HomePage(
       items: [
-        HomePageData(
+        HomePageList(
           title: reqeust.title,
           list: list,
           horizontalImages: reqeust.horizontalImages,
@@ -64,8 +64,8 @@ class HomePage {
     );
   }
 
-  factory HomePage.fromData({
-    required HomePageData items,
+  factory HomePage.fromItems({
+    required HomePageList items,
     bool? hasNextPage,
   }) {
     return HomePage(
@@ -75,7 +75,7 @@ class HomePage {
   }
 
   factory HomePage.list({
-    required List<HomePageData> items,
+    required List<HomePageList> items,
     bool? hasNextPage,
   }) {
     return HomePage(
@@ -86,7 +86,7 @@ class HomePage {
   }
 
   HomePage copyWith({
-    List<HomePageData>? items,
+    List<HomePageList>? items,
     bool? hasNextPage,
   }) {
     return HomePage(
@@ -97,7 +97,7 @@ class HomePage {
 
   factory HomePage.fromJson(Map<String, dynamic> json) {
     return HomePage(
-      items: (json['items'] as List).mapList((e) => HomePageData.fromJson(e)),
+      items: (json['items'] as List).mapList((e) => HomePageList.fromJson(e)),
       hasNextPage: json['hasNextPage'],
     );
   }
@@ -115,34 +115,34 @@ class HomePage {
   }
 }
 
-class HomePageData {
+class HomePageList {
   final String title;
   final List<MediaPreview> list;
   final bool horizontalImages;
 
-  const HomePageData({
+  const HomePageList({
     required this.title,
     required this.list,
-    required this.horizontalImages,
+    this.horizontalImages = false,
   });
 
-  factory HomePageData.withRequest(
+  factory HomePageList.withRequest(
     HomePageRequest request,
     List<MediaPreview> list,
   ) {
-    return HomePageData(
+    return HomePageList(
       title: request.title,
       list: list,
       horizontalImages: request.horizontalImages,
     );
   }
 
-  HomePageData copyWith({
+  HomePageList copyWith({
     String? title,
     List<MediaPreview>? list,
     bool? horizontalImages,
   }) {
-    return HomePageData(
+    return HomePageList(
       title: title ?? this.title,
       list: list ?? this.list,
       horizontalImages: horizontalImages ?? this.horizontalImages,
@@ -154,8 +154,8 @@ class HomePageData {
     return jsonPrettyEncode(toJson());
   }
 
-  factory HomePageData.fromJson(Map<String, dynamic> json) {
-    return HomePageData(
+  factory HomePageList.fromJson(Map<String, dynamic> json) {
+    return HomePageList(
       title: json['title'],
       list: (json['list'] as List).mapList((e) => MediaPreview.fromJson(e)),
       horizontalImages: json['horizontalImages'],

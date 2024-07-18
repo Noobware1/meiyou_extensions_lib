@@ -1,5 +1,6 @@
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_content.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
@@ -15,9 +16,6 @@ abstract class Source {
   /// Name of the source.
   abstract final String name;
 
-  /// Whether this source supports homepage or not
-  final bool supportsHomePage = true;
-
   final double homePageRequestTimeout = 0.0;
 
   /// Language of the source.
@@ -25,25 +23,14 @@ abstract class Source {
 
   List<HomePageRequest> homePageRequests();
 
-  /// This function will be called by iterating over homePage to load the `HomePage` for the app.
-  ///
-  /// [page] is the page number to load.
-  /// [request] is the `HomePageRequest` object containing the request details.
   Future<HomePage> getHomePage(int page, HomePageRequest request);
 
-  /// Gets the details of a specific media.
-  ///
-  /// [searchResponse] is the `SearchResponse` object containing the search response details.
-  Future<MediaDetails> getMediaDetails(String url);
+  Future<MediaDetails> getMediaDetails(MediaDetails mediaDetails);
 
-  /// Gets the links for a specific URL.
-  ///
-  /// [url] is the URL to get the links from.
-  Future<List<MediaLink>> getMediaLinks(String url);
+  Future<MediaContent> getMediaContent(MediaDetails mediaDetails);
 
-  /// Gets content's data from a [link].
-  ///
-  /// [link] is the `ContentDataLink` object containing the link details.
+  Future<List<MediaLink>> getMediaLinks(String data);
+
   Future<Media?> getMedia(MediaLink link);
 
   @protected

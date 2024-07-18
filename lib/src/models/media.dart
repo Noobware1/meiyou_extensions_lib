@@ -196,7 +196,7 @@ class VideoSource {
     this.title,
     this.isBackup = false,
   })  : format = VideoFormat.hls,
-        quality = const Quality.auto();
+        quality = Quality.auto;
 
   /// A string representing the URL of the video source.
   final String url;

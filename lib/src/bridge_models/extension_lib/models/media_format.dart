@@ -13,7 +13,8 @@ class $MediaFormat implements $Instance {
   }
 
   static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeEnumValues($type.spec!.library, 'MediaFormat', $MediaFormat.$values);
+    runtime.registerBridgeEnumValues(
+        $type.spec!.library, 'MediaFormat', $MediaFormat.$values);
   }
 
   static const $type = BridgeTypeRef(ExtensionLibTypes.mediaFormat);
@@ -26,6 +27,8 @@ class $MediaFormat implements $Instance {
     'anime',
     'ova',
     'ona',
+    'documentary',
+    'asainDrama',
     'lightNovel',
     'webNovel',
     'novel',
@@ -43,6 +46,8 @@ class $MediaFormat implements $Instance {
     'anime': $MediaFormat.wrap(MediaFormat.anime),
     'ova': $MediaFormat.wrap(MediaFormat.ova),
     'ona': $MediaFormat.wrap(MediaFormat.ona),
+    'documentary': $MediaFormat.wrap(MediaFormat.documentary),
+    'asainDrama': $MediaFormat.wrap(MediaFormat.asainDrama),
     'lightNovel': $MediaFormat.wrap(MediaFormat.lightNovel),
     'webNovel': $MediaFormat.wrap(MediaFormat.webNovel),
     'novel': $MediaFormat.wrap(MediaFormat.novel),

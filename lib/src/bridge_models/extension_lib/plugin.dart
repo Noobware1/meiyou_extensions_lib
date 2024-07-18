@@ -2,6 +2,7 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/dart_eval_security.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_content.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_format.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_link.dart';
@@ -60,23 +61,19 @@ class ExtensionLibPlugin extends EvalPlugin {
   @override
   void configureForCompile(BridgeDeclarationRegistry registry) {
     //home_page.dart
-    $HomePageData.configureForCompile(registry);
+    $HomePageList.configureForCompile(registry);
     $HomePageRequest.configureForCompile(registry);
     $HomePage.configureForCompile(registry);
 
     //media_details.dart
     $MediaDetails.configureForCompile(registry);
-    $MediaDetailsBuilder.configureForCompile(registry);
     $MediaContent.configureForCompile(registry);
-    $LazyMediaContent.configureForCompile(registry);
     $Movie.configureForCompile(registry);
-    $EpisodicContent.configureForCompile(registry);
     $TvSeries.configureForCompile(registry);
-    $SeasonList.configureForCompile(registry);
+    $Anime.configureForCompile(registry);
     $Season.configureForCompile(registry);
     $Episode.configureForCompile(registry);
     $Status.configureForCompile(registry);
-    $Character.configureForCompile(registry);
 
     //search_page.dart
     $SearchPage.configureForCompile(registry);
@@ -170,22 +167,19 @@ class ExtensionLibPlugin extends EvalPlugin {
     runtime.grant(FilesystemPermission.any);
 
     //home_page.dart
-    $HomePageData.configureForRuntime(runtime);
+    $HomePageList.configureForRuntime(runtime);
     $HomePageRequest.configureForRuntime(runtime);
     $HomePage.configureForRuntime(runtime);
 
     //media_details.dart
     $MediaDetails.configureForRuntime(runtime);
     $MediaContent.configureForRuntime(runtime);
-    $LazyMediaContent.configureForRuntime(runtime);
     $Movie.configureForRuntime(runtime);
-    $EpisodicContent.configureForRuntime(runtime);
+    $Anime.configureForRuntime(runtime);
     $TvSeries.configureForRuntime(runtime);
-    $SeasonList.configureForRuntime(runtime);
     $Season.configureForRuntime(runtime);
     $Episode.configureForRuntime(runtime);
     $Status.configureForRuntime(runtime);
-    $Character.configureForRuntime(runtime);
 
     //search_page.dart
     $SearchPage.configureForRuntime(runtime);

@@ -2,6 +2,7 @@ import 'package:html/dom.dart';
 import 'package:meiyou_extensions_lib/src/html_extensions.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_content.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
@@ -27,17 +28,17 @@ abstract class ParsedHttpSource extends HttpSource {
 
   String? homeNextPageSelector(HomePageRequest request);
 
-  String homeDataSelector(HomePageRequest request) {
+  String homeListSelector(HomePageRequest request) {
     throw UnsupportedError('Not implemented');
   }
 
-  HomePageData homeDataFromElement(HomePageRequest request, Element element) {
+  HomePageList homeListFromElement(HomePageRequest request, Element element) {
     throw UnsupportedError('Not implemented');
   }
 
   HomePage fullHomePageParse(HomePageRequest request, Document document) {
-    final items = document.select(homeDataSelector(request)).mapList((element) {
-      return homeDataFromElement(request, element);
+    final items = document.select(homeListSelector(request)).mapList((element) {
+      return homeListFromElement(request, element);
     });
 
     final hasNextPage =
@@ -99,11 +100,18 @@ abstract class ParsedHttpSource extends HttpSource {
   MediaPreview searchItemFromElement(Element element);
 
   @override
-  Future<MediaDetails> mediaDetailsParse(Response response) {
+  MediaDetails mediaDetailsParse(Response response) {
     return mediaDetailsFromDocument(response.body.document);
   }
 
-  Future<MediaDetails> mediaDetailsFromDocument(Document document);
+  MediaDetails mediaDetailsFromDocument(Document document);
+
+  @override
+  MediaContent mediaContentParse(Response response) {
+    return mediaContentFromDocument(response.body.document);
+  }
+
+  MediaContent mediaContentFromDocument(Document document);
 
   @override
   List<MediaLink> medialinksParse(Response response) {
@@ -117,11 +125,11 @@ abstract class ParsedHttpSource extends HttpSource {
   MediaLink mediaLinkFromElement(Element element);
 
   @override
-  Future<Media?> mediaParse(Response response) {
+  Media? mediaParse(Response response) {
     return mediaFromDocument(response.body.document);
   }
 
-  Future<Media?> mediaFromDocument(Document document) {
+  Media mediaFromDocument(Document document) {
     throw UnsupportedError('Not implemented');
   }
 }

@@ -3,12 +3,14 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_content.dart';
 import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/source/source.dart';
@@ -55,10 +57,6 @@ class $Source extends Source with $SourceMixin, $Bridge<Source> {
           isStatic: false),
       'name': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-              nullable: false),
-          isStatic: false),
-      'supportsHomePage': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
               nullable: false),
           isStatic: false),
       'homePageRequestTimeout': BridgeFieldDef(
@@ -122,6 +120,23 @@ class $Source extends Source with $SourceMixin, $Bridge<Source> {
             namedParams: [],
           ),
           isStatic: false),
+      'getMediaContent': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(
+              BridgeTypeRef(CoreTypes.future, [
+                BridgeTypeRef(ExtensionLibTypes.mediaContent, []),
+              ]),
+              nullable: false),
+          params: [
+            BridgeParameter(
+                'url',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: false),
+                false)
+          ],
+          namedParams: [],
+        ),
+      ),
       'getMediaLinks': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
@@ -190,20 +205,6 @@ class $Source extends Source with $SourceMixin, $Bridge<Source> {
   @override
   $Value? $bridgeGet(String identifier) {
     return $bridgeGetFromSource(identifier);
-    // switch (identifier) {
-    //   case 'supportsHomePage':
-    //     return _$supportsHomePage;
-    //   case 'homePageRequestTimeout':
-    //     return _$homePageRequestTimeout;
-    //   case 'lang':
-    //     return _$lang;
-    //   case 'preferences':
-    //     return _$preferences;
-    //   case 'setupPreferences':
-    //     return __$setupPreferences;
-    //   default:
-    //     throw UnimplementedError('Unknown identifier $identifier');
-    // }
   }
 
   @override
@@ -228,8 +229,6 @@ mixin $SourceMixin on Source {
 
   $Value? $bridgeGetFromSource(String identifier) {
     switch (identifier) {
-      case 'supportsHomePage':
-        return _$supportsHomePage;
       case 'homePageRequestTimeout':
         return _$homePageRequestTimeout;
       case 'lang':
@@ -248,11 +247,6 @@ mixin $SourceMixin on Source {
 
   @override
   String get name => $_get('name') as String;
-
-  @override
-  bool get supportsHomePage => $_get('supportsHomePage') as bool;
-
-  $Value get _$supportsHomePage => $bool(super.supportsHomePage);
 
   @override
   double get homePageRequestTimeout =>
@@ -279,11 +273,19 @@ mixin $SourceMixin on Source {
   }
 
   @override
-  Future<MediaDetails> getMediaDetails(String url) {
+  Future<MediaDetails> getMediaDetails(MediaDetails mediaDetails) {
     return ($_invoke('getMediaDetails', [
-      $String(url),
+      $MediaDetails.wrap(mediaDetails),
     ]) as Future)
         .then((value) => value as MediaDetails);
+  }
+
+  @override
+  Future<MediaContent> getMediaContent(MediaDetails mediaDetails) {
+    return ($_invoke('getMediaContent', [
+      $MediaDetails.wrap(mediaDetails),
+    ]) as Future)
+        .then((value) => value as MediaContent);
   }
 
   @override
