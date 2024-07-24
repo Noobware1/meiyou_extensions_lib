@@ -738,7 +738,7 @@ mixin $HttpSourceMixin on HttpSource {
     final $result = super.getMediaAsset(
       link,
     );
-    return $Future.wrap($result.then((value) => $MediaAsset.wrap(value)))
+    return $Future.wrap($result.then((value) => $MediaAsset.wrapByType(value)))
         as $Value?;
   }
 

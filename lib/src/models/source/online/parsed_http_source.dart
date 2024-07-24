@@ -58,10 +58,10 @@ abstract class ParsedHttpSource extends HttpSource {
 
   @override
   FutureOr<List<IMediaContent>> mediaContentListParse(Response response) {
-    return mediaContentListParseFromDocument(response.body.document);
+    return mediaContentListFromDocument(response.body.document);
   }
 
-  FutureOr<List<IMediaContent>> mediaContentListParseFromDocument(
+  FutureOr<List<IMediaContent>> mediaContentListFromDocument(
       Document document) {
     return document
         .select(mediaContentListSelector())
@@ -74,10 +74,10 @@ abstract class ParsedHttpSource extends HttpSource {
 
   @override
   FutureOr<List<MediaLink>> mediaLinkListParse(Response response) {
-    return mediaLinkListParseFromDocument(response.body.document);
+    return mediaLinkListFromDocument(response.body.document);
   }
 
-  FutureOr<List<MediaLink>> mediaLinkListParseFromDocument(Document document) {
+  FutureOr<List<MediaLink>> mediaLinkListFromDocument(Document document) {
     return document
         .select(mediaLinkListSelector())
         .mapList(mediaLinkFromElement);

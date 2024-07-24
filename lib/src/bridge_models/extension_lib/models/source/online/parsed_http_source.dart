@@ -170,7 +170,7 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'mediaContentListParseFromDocument': BridgeMethodDef(
+      'mediaContentListFromDocument': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(AsyncTypes.futureOr, [
@@ -212,7 +212,7 @@ class $ParsedHttpSource extends ParsedHttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'mediaLinkListParseFromDocument': BridgeMethodDef(
+      'mediaLinkListFromDocument': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(AsyncTypes.futureOr, [
@@ -373,12 +373,12 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
         return __$mediaDetailsParse;
       case 'mediaContentListParse':
         return __$mediaContentListParse;
-      case 'mediaContentListParseFromDocument':
-        return __$mediaContentListParseFromDocument;
+      case 'mediaContentListFromDocument':
+        return __$mediaContentListFromDocument;
       case 'mediaLinkListParse':
         return __$mediaLinkListParse;
-      case 'mediaLinkListParseFromDocument':
-        return __$mediaLinkListParseFromDocument;
+      case 'mediaLinkListFromDocument':
+        return __$mediaLinkListFromDocument;
       case 'mediaAssetParse':
         return __$mediaAssetParse;
       case 'searchPageParse':
@@ -609,9 +609,9 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
   }
 
   @override
-  FutureOr<List<IMediaContent>> mediaContentListParseFromDocument(
+  FutureOr<List<IMediaContent>> mediaContentListFromDocument(
       Document document) {
-    final result = $_invoke('mediaContentListParseFromDocument', [
+    final result = $_invoke('mediaContentListFromDocument', [
       $Document.wrap(document),
     ]);
     final FutureOr<List<IMediaContent>> casted;
@@ -623,15 +623,15 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     return casted;
   }
 
-  $Value get __$mediaContentListParseFromDocument =>
-      $Function(_$mediaContentListParseFromDocument);
-  $Value? _$mediaContentListParseFromDocument(
+  $Value get __$mediaContentListFromDocument =>
+      $Function(_$mediaContentListFromDocument);
+  $Value? _$mediaContentListFromDocument(
       Runtime runtime, $Value? target, List<$Value?> args) {
     if (args[0]?.$value is ParsedHttpSource) {
       args = args.sublist(1);
     }
     final document = args[0]?.$reified as Document;
-    final $result = super.mediaContentListParseFromDocument(
+    final $result = super.mediaContentListFromDocument(
       document,
     );
 
@@ -703,8 +703,8 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
   }
 
   @override
-  FutureOr<List<MediaLink>> mediaLinkListParseFromDocument(Document document) {
-    final result = $_invoke('mediaLinkListParseFromDocument', [
+  FutureOr<List<MediaLink>> mediaLinkListFromDocument(Document document) {
+    final result = $_invoke('mediaLinkListFromDocument', [
       $Document.wrap(document),
     ]);
     final FutureOr<List<MediaLink>> casted;
@@ -716,15 +716,15 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     return casted;
   }
 
-  $Value get __$mediaLinkListParseFromDocument =>
-      $Function(_$mediaLinkListParseFromDocument);
-  $Value? _$mediaLinkListParseFromDocument(
+  $Value get __$mediaLinkListFromDocument =>
+      $Function(_$mediaLinkListFromDocument);
+  $Value? _$mediaLinkListFromDocument(
       Runtime runtime, $Value? target, List<$Value?> args) {
     if (args[0]?.$value is ParsedHttpSource) {
       args = args.sublist(1);
     }
     final document = args[0]?.$reified as Document;
-    final $result = super.mediaLinkListParseFromDocument(
+    final $result = super.mediaLinkListFromDocument(
       document,
     );
 

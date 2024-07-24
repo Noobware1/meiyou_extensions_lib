@@ -10,7 +10,6 @@ import 'package:meiyou_extensions_lib/src/models/media_content.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/models/source/catalogue_source.dart';
-import 'package:meiyou_extensions_lib/src/models/unsupported_operation_exception.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:meta/meta.dart';
 import 'package:okhttp/okhttp.dart';
