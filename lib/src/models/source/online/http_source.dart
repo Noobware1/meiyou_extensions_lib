@@ -68,7 +68,8 @@ abstract class HttpSource extends CatalogueSource {
     return client
         .newCall(mediaDetailsRequest(media))
         .execute()
-        .then(mediaDetailsParse);
+        .then(mediaDetailsParse)
+        .then((details) => details..initalized = true);
   }
 
   Request mediaDetailsRequest(IMedia media) {
@@ -104,8 +105,9 @@ abstract class HttpSource extends CatalogueSource {
   }
 
   FutureOr<List<MediaLink>> mediaLinkListParse(Response response);
+
   @override
-  Future<MediaAsset> getMediaAsset(MediaLink link) {
+  Future<MediaAsset?> getMediaAsset(MediaLink link) {
     return client.newCall(mediaAssetRequest(link)).execute().then(
           (response) => mediaAssetParse(link, response),
         );
@@ -115,7 +117,7 @@ abstract class HttpSource extends CatalogueSource {
     return GET(link.url, headers: link.headers);
   }
 
-  FutureOr<MediaAsset> mediaAssetParse(MediaLink link, Response response);
+  FutureOr<MediaAsset?> mediaAssetParse(MediaLink link, Response response);
 
   @override
   Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {

@@ -347,11 +347,6 @@ class $ParsedHttpSource extends ParsedHttpSource
       Runtime runtime, $Value? target, List<$Value?> args) {
     return $ParsedHttpSource();
   }
-
-  @override
-  dynamic $_invoke(String method, List<$Value?> args) {
-    return super.$_invoke(method, args);
-  }
 }
 
 mixin $ParsedHttpSourceMixin on ParsedHttpSource {
@@ -400,17 +395,19 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
 
   @override
   FutureOr<HomePage> homePageParse(HomePageRequest request, Response response) {
-    final result = $_invoke('homePageParse', [
-      $HomePageRequest.wrap(request),
-      $Response.wrap(response),
-    ]);
-    final FutureOr<HomePage> casted;
-    if (result is Future) {
-      casted = result.then((value) => value as HomePage);
-    } else {
-      casted = result as HomePage;
-    }
-    return casted;
+    return () {
+      final result = $_invoke('homePageParse', [
+        $HomePageRequest.wrap(request),
+        $Response.wrap(response),
+      ]);
+      final FutureOr<HomePage> casted;
+      if (result is Future) {
+        casted = result.then((value) => value as HomePage);
+      } else {
+        casted = result as HomePage;
+      }
+      return casted;
+    }();
   }
 
   $Value get __$homePageParse => $Function(_$homePageParse);
@@ -424,32 +421,35 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
       request,
       response,
     );
-
-    final result = $result;
-    final FutureOr wrapped;
-    if (result is Future) {
-      wrapped =
-          ($result as Future<HomePage>).then((value) => $HomePage.wrap(value));
-    } else {
-      wrapped = $HomePage.wrap(result);
-    }
-    return $FutureOr.wrap(wrapped);
+    return () {
+      final result = $result;
+      final FutureOr wrapped;
+      if (result is Future) {
+        wrapped =
+            (result as Future<HomePage>).then((value) => $HomePage.wrap(value));
+      } else {
+        wrapped = $HomePage.wrap(result);
+      }
+      return $FutureOr.wrap(wrapped);
+    }();
   }
 
   @override
   FutureOr<HomePage> homePageFromDocument(
       HomePageRequest request, Document document) {
-    final result = $_invoke('homePageFromDocument', [
-      $HomePageRequest.wrap(request),
-      $Document.wrap(document),
-    ]);
-    final FutureOr<HomePage> casted;
-    if (result is Future) {
-      casted = result.then((value) => value as HomePage);
-    } else {
-      casted = result as HomePage;
-    }
-    return casted;
+    return () {
+      final result = $_invoke('homePageFromDocument', [
+        $HomePageRequest.wrap(request),
+        $Document.wrap(document),
+      ]);
+      final FutureOr<HomePage> casted;
+      if (result is Future) {
+        casted = result.then((value) => value as HomePage);
+      } else {
+        casted = result as HomePage;
+      }
+      return casted;
+    }();
   }
 
   $Value get __$homePageFromDocument => $Function(_$homePageFromDocument);
@@ -464,16 +464,17 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
       request,
       document,
     );
-
-    final result = $result;
-    final FutureOr wrapped;
-    if (result is Future) {
-      wrapped =
-          ($result as Future<HomePage>).then((value) => $HomePage.wrap(value));
-    } else {
-      wrapped = $HomePage.wrap(result);
-    }
-    return $FutureOr.wrap(wrapped);
+    return () {
+      final result = $result;
+      final FutureOr wrapped;
+      if (result is Future) {
+        wrapped =
+            (result as Future<HomePage>).then((value) => $HomePage.wrap(value));
+      } else {
+        wrapped = $HomePage.wrap(result);
+      }
+      return $FutureOr.wrap(wrapped);
+    }();
   }
 
   @override
@@ -520,16 +521,18 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
 
   @override
   FutureOr<IMedia> mediaDetailsParse(Response response) {
-    final result = $_invoke('mediaDetailsParse', [
-      $Response.wrap(response),
-    ]);
-    final FutureOr<IMedia> casted;
-    if (result is Future) {
-      casted = result.then((value) => value as IMedia);
-    } else {
-      casted = result as IMedia;
-    }
-    return casted;
+    return () {
+      final result = $_invoke('mediaDetailsParse', [
+        $Response.wrap(response),
+      ]);
+      final FutureOr<IMedia> casted;
+      if (result is Future) {
+        casted = result.then((value) => value as IMedia);
+      } else {
+        casted = result as IMedia;
+      }
+      return casted;
+    }();
   }
 
   $Value get __$mediaDetailsParse => $Function(_$mediaDetailsParse);
@@ -542,44 +545,49 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     final $result = super.mediaDetailsParse(
       response,
     );
-
-    final result = $result;
-    final FutureOr wrapped;
-    if (result is Future) {
-      wrapped =
-          ($result as Future<IMedia>).then((value) => $IMedia.wrap(value));
-    } else {
-      wrapped = $IMedia.wrap(result);
-    }
-    return $FutureOr.wrap(wrapped);
+    return () {
+      final result = $result;
+      final FutureOr wrapped;
+      if (result is Future) {
+        wrapped =
+            (result as Future<IMedia>).then((value) => $IMedia.wrap(value));
+      } else {
+        wrapped = $IMedia.wrap(result);
+      }
+      return $FutureOr.wrap(wrapped);
+    }();
   }
 
   @override
   FutureOr<IMedia> mediaDetailsFromDocument(Document document) {
-    final result = $_invoke('mediaDetailsFromDocument', [
-      $Document.wrap(document),
-    ]);
-    final FutureOr<IMedia> casted;
-    if (result is Future) {
-      casted = result.then((value) => value as IMedia);
-    } else {
-      casted = result as IMedia;
-    }
-    return casted;
+    return () {
+      final result = $_invoke('mediaDetailsFromDocument', [
+        $Document.wrap(document),
+      ]);
+      final FutureOr<IMedia> casted;
+      if (result is Future) {
+        casted = result.then((value) => value as IMedia);
+      } else {
+        casted = result as IMedia;
+      }
+      return casted;
+    }();
   }
 
   @override
   FutureOr<List<IMediaContent>> mediaContentListParse(Response response) {
-    final result = $_invoke('mediaContentListParse', [
-      $Response.wrap(response),
-    ]);
-    final FutureOr<List<IMediaContent>> casted;
-    if (result is Future) {
-      casted = result.then((value) => (value as List).cast<IMediaContent>());
-    } else {
-      casted = (result as List).cast<IMediaContent>();
-    }
-    return casted;
+    return () {
+      final result = $_invoke('mediaContentListParse', [
+        $Response.wrap(response),
+      ]);
+      final FutureOr<List<IMediaContent>> casted;
+      if (result is Future) {
+        casted = result.then((value) => (value as List).cast<IMediaContent>());
+      } else {
+        casted = (result as List).cast<IMediaContent>();
+      }
+      return casted;
+    }();
   }
 
   $Value get __$mediaContentListParse => $Function(_$mediaContentListParse);
@@ -592,35 +600,38 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     final $result = super.mediaContentListParse(
       response,
     );
-
-    final result = $result;
-    final FutureOr wrapped;
-    if (result is Future) {
-      wrapped = ($result as Future<List<IMediaContent>>)
-          .then((value) => $List.wrap(List.generate(value.length, (index) {
-                return $IMediaContent.wrap(value[index]);
-              })));
-    } else {
-      wrapped = $List.wrap(List.generate(result.length, (index) {
-        return $IMediaContent.wrap(result[index]);
-      }));
-    }
-    return $FutureOr.wrap(wrapped);
+    return () {
+      final result = $result;
+      final FutureOr wrapped;
+      if (result is Future) {
+        wrapped = (result as Future<List<IMediaContent>>)
+            .then((value) => $List.wrap(List.generate(value.length, (index) {
+                  return $IMediaContent.wrap(value[index]);
+                })));
+      } else {
+        wrapped = $List.wrap(List.generate(result.length, (index) {
+          return $IMediaContent.wrap(result[index]);
+        }));
+      }
+      return $FutureOr.wrap(wrapped);
+    }();
   }
 
   @override
   FutureOr<List<IMediaContent>> mediaContentListFromDocument(
       Document document) {
-    final result = $_invoke('mediaContentListFromDocument', [
-      $Document.wrap(document),
-    ]);
-    final FutureOr<List<IMediaContent>> casted;
-    if (result is Future) {
-      casted = result.then((value) => (value as List).cast<IMediaContent>());
-    } else {
-      casted = (result as List).cast<IMediaContent>();
-    }
-    return casted;
+    return () {
+      final result = $_invoke('mediaContentListFromDocument', [
+        $Document.wrap(document),
+      ]);
+      final FutureOr<List<IMediaContent>> casted;
+      if (result is Future) {
+        casted = result.then((value) => (value as List).cast<IMediaContent>());
+      } else {
+        casted = (result as List).cast<IMediaContent>();
+      }
+      return casted;
+    }();
   }
 
   $Value get __$mediaContentListFromDocument =>
@@ -634,20 +645,21 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     final $result = super.mediaContentListFromDocument(
       document,
     );
-
-    final result = $result;
-    final FutureOr wrapped;
-    if (result is Future) {
-      wrapped = ($result as Future<List<IMediaContent>>)
-          .then((value) => $List.wrap(List.generate(value.length, (index) {
-                return $IMediaContent.wrap(value[index]);
-              })));
-    } else {
-      wrapped = $List.wrap(List.generate(result.length, (index) {
-        return $IMediaContent.wrap(result[index]);
-      }));
-    }
-    return $FutureOr.wrap(wrapped);
+    return () {
+      final result = $result;
+      final FutureOr wrapped;
+      if (result is Future) {
+        wrapped = (result as Future<List<IMediaContent>>)
+            .then((value) => $List.wrap(List.generate(value.length, (index) {
+                  return $IMediaContent.wrap(value[index]);
+                })));
+      } else {
+        wrapped = $List.wrap(List.generate(result.length, (index) {
+          return $IMediaContent.wrap(result[index]);
+        }));
+      }
+      return $FutureOr.wrap(wrapped);
+    }();
   }
 
   @override
@@ -664,16 +676,18 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
 
   @override
   FutureOr<List<MediaLink>> mediaLinkListParse(Response response) {
-    final result = $_invoke('mediaLinkListParse', [
-      $Response.wrap(response),
-    ]);
-    final FutureOr<List<MediaLink>> casted;
-    if (result is Future) {
-      casted = result.then((value) => (value as List).cast<MediaLink>());
-    } else {
-      casted = (result as List).cast<MediaLink>();
-    }
-    return casted;
+    return () {
+      final result = $_invoke('mediaLinkListParse', [
+        $Response.wrap(response),
+      ]);
+      final FutureOr<List<MediaLink>> casted;
+      if (result is Future) {
+        casted = result.then((value) => (value as List).cast<MediaLink>());
+      } else {
+        casted = (result as List).cast<MediaLink>();
+      }
+      return casted;
+    }();
   }
 
   $Value get __$mediaLinkListParse => $Function(_$mediaLinkListParse);
@@ -686,34 +700,37 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     final $result = super.mediaLinkListParse(
       response,
     );
-
-    final result = $result;
-    final FutureOr wrapped;
-    if (result is Future) {
-      wrapped = ($result as Future<List<MediaLink>>)
-          .then((value) => $List.wrap(List.generate(value.length, (index) {
-                return $MediaLink.wrap(value[index]);
-              })));
-    } else {
-      wrapped = $List.wrap(List.generate(result.length, (index) {
-        return $MediaLink.wrap(result[index]);
-      }));
-    }
-    return $FutureOr.wrap(wrapped);
+    return () {
+      final result = $result;
+      final FutureOr wrapped;
+      if (result is Future) {
+        wrapped = (result as Future<List<MediaLink>>)
+            .then((value) => $List.wrap(List.generate(value.length, (index) {
+                  return $MediaLink.wrap(value[index]);
+                })));
+      } else {
+        wrapped = $List.wrap(List.generate(result.length, (index) {
+          return $MediaLink.wrap(result[index]);
+        }));
+      }
+      return $FutureOr.wrap(wrapped);
+    }();
   }
 
   @override
   FutureOr<List<MediaLink>> mediaLinkListFromDocument(Document document) {
-    final result = $_invoke('mediaLinkListFromDocument', [
-      $Document.wrap(document),
-    ]);
-    final FutureOr<List<MediaLink>> casted;
-    if (result is Future) {
-      casted = result.then((value) => (value as List).cast<MediaLink>());
-    } else {
-      casted = (result as List).cast<MediaLink>();
-    }
-    return casted;
+    return () {
+      final result = $_invoke('mediaLinkListFromDocument', [
+        $Document.wrap(document),
+      ]);
+      final FutureOr<List<MediaLink>> casted;
+      if (result is Future) {
+        casted = result.then((value) => (value as List).cast<MediaLink>());
+      } else {
+        casted = (result as List).cast<MediaLink>();
+      }
+      return casted;
+    }();
   }
 
   $Value get __$mediaLinkListFromDocument =>
@@ -727,20 +744,21 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     final $result = super.mediaLinkListFromDocument(
       document,
     );
-
-    final result = $result;
-    final FutureOr wrapped;
-    if (result is Future) {
-      wrapped = ($result as Future<List<MediaLink>>)
-          .then((value) => $List.wrap(List.generate(value.length, (index) {
-                return $MediaLink.wrap(value[index]);
-              })));
-    } else {
-      wrapped = $List.wrap(List.generate(result.length, (index) {
-        return $MediaLink.wrap(result[index]);
-      }));
-    }
-    return $FutureOr.wrap(wrapped);
+    return () {
+      final result = $result;
+      final FutureOr wrapped;
+      if (result is Future) {
+        wrapped = (result as Future<List<MediaLink>>)
+            .then((value) => $List.wrap(List.generate(value.length, (index) {
+                  return $MediaLink.wrap(value[index]);
+                })));
+      } else {
+        wrapped = $List.wrap(List.generate(result.length, (index) {
+          return $MediaLink.wrap(result[index]);
+        }));
+      }
+      return $FutureOr.wrap(wrapped);
+    }();
   }
 
   @override
@@ -756,18 +774,20 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
   }
 
   @override
-  FutureOr<MediaAsset> mediaAssetParse(MediaLink link, Response response) {
-    final result = $_invoke('mediaAssetParse', [
-      $MediaLink.wrap(link),
-      $Response.wrap(response),
-    ]);
-    final FutureOr<MediaAsset> casted;
-    if (result is Future) {
-      casted = result.then((value) => value as MediaAsset);
-    } else {
-      casted = result as MediaAsset;
-    }
-    return casted;
+  FutureOr<MediaAsset?> mediaAssetParse(MediaLink link, Response response) {
+    return () {
+      final result = $_invoke('mediaAssetParse', [
+        $MediaLink.wrap(link),
+        $Response.wrap(response),
+      ]);
+      final FutureOr<MediaAsset?> casted;
+      if (result is Future) {
+        casted = result.then((value) => value as MediaAsset?);
+      } else {
+        casted = result as MediaAsset?;
+      }
+      return casted;
+    }();
   }
 
   $Value get __$mediaAssetParse => $Function(_$mediaAssetParse);
@@ -782,46 +802,51 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
       link,
       response,
     );
-
-    final result = $result;
-    final FutureOr wrapped;
-    if (result is Future) {
-      wrapped = ($result as Future<MediaAsset>)
-          .then((value) => $MediaAsset.wrapByType(value));
-    } else {
-      wrapped = $MediaAsset.wrapByType(result);
-    }
-    return $FutureOr.wrap(wrapped);
+    return () {
+      final result = $result;
+      final FutureOr wrapped;
+      if (result is Future) {
+        wrapped = (result as Future<MediaAsset?>).then(
+            (value) => value == null ? $null() : $MediaAsset.wrap(value!));
+      } else {
+        wrapped = result == null ? $null() : $MediaAsset.wrap(result!);
+      }
+      return $FutureOr.wrap(wrapped);
+    }();
   }
 
   @override
-  FutureOr<MediaAsset> mediaAssetFromDocument(
+  FutureOr<MediaAsset?> mediaAssetFromDocument(
       MediaLink link, Document document) {
-    final result = $_invoke('mediaAssetFromDocument', [
-      $MediaLink.wrap(link),
-      $Document.wrap(document),
-    ]);
-    final FutureOr<MediaAsset> casted;
-    if (result is Future) {
-      casted = result.then((value) => value as MediaAsset);
-    } else {
-      casted = result as MediaAsset;
-    }
-    return casted;
+    return () {
+      final result = $_invoke('mediaAssetFromDocument', [
+        $MediaLink.wrap(link),
+        $Document.wrap(document),
+      ]);
+      final FutureOr<MediaAsset?> casted;
+      if (result is Future) {
+        casted = result.then((value) => value as MediaAsset?);
+      } else {
+        casted = result as MediaAsset?;
+      }
+      return casted;
+    }();
   }
 
   @override
   FutureOr<SearchPage> searchPageParse(Response response) {
-    final result = $_invoke('searchPageParse', [
-      $Response.wrap(response),
-    ]);
-    final FutureOr<SearchPage> casted;
-    if (result is Future) {
-      casted = result.then((value) => value as SearchPage);
-    } else {
-      casted = result as SearchPage;
-    }
-    return casted;
+    return () {
+      final result = $_invoke('searchPageParse', [
+        $Response.wrap(response),
+      ]);
+      final FutureOr<SearchPage> casted;
+      if (result is Future) {
+        casted = result.then((value) => value as SearchPage);
+      } else {
+        casted = result as SearchPage;
+      }
+      return casted;
+    }();
   }
 
   $Value get __$searchPageParse => $Function(_$searchPageParse);
@@ -834,30 +859,33 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     final $result = super.searchPageParse(
       response,
     );
-
-    final result = $result;
-    final FutureOr wrapped;
-    if (result is Future) {
-      wrapped = ($result as Future<SearchPage>)
-          .then((value) => $SearchPage.wrap(value));
-    } else {
-      wrapped = $SearchPage.wrap(result);
-    }
-    return $FutureOr.wrap(wrapped);
+    return () {
+      final result = $result;
+      final FutureOr wrapped;
+      if (result is Future) {
+        wrapped = (result as Future<SearchPage>)
+            .then((value) => $SearchPage.wrap(value));
+      } else {
+        wrapped = $SearchPage.wrap(result);
+      }
+      return $FutureOr.wrap(wrapped);
+    }();
   }
 
   @override
   FutureOr<SearchPage> searchPageFromDocument(Document document) {
-    final result = $_invoke('searchPageFromDocument', [
-      $Document.wrap(document),
-    ]);
-    final FutureOr<SearchPage> casted;
-    if (result is Future) {
-      casted = result.then((value) => value as SearchPage);
-    } else {
-      casted = result as SearchPage;
-    }
-    return casted;
+    return () {
+      final result = $_invoke('searchPageFromDocument', [
+        $Document.wrap(document),
+      ]);
+      final FutureOr<SearchPage> casted;
+      if (result is Future) {
+        casted = result.then((value) => value as SearchPage);
+      } else {
+        casted = result as SearchPage;
+      }
+      return casted;
+    }();
   }
 
   $Value get __$searchPageFromDocument => $Function(_$searchPageFromDocument);
@@ -870,16 +898,17 @@ mixin $ParsedHttpSourceMixin on ParsedHttpSource {
     final $result = super.searchPageFromDocument(
       document,
     );
-
-    final result = $result;
-    final FutureOr wrapped;
-    if (result is Future) {
-      wrapped = ($result as Future<SearchPage>)
-          .then((value) => $SearchPage.wrap(value));
-    } else {
-      wrapped = $SearchPage.wrap(result);
-    }
-    return $FutureOr.wrap(wrapped);
+    return () {
+      final result = $result;
+      final FutureOr wrapped;
+      if (result is Future) {
+        wrapped = (result as Future<SearchPage>)
+            .then((value) => $SearchPage.wrap(value));
+      } else {
+        wrapped = $SearchPage.wrap(result);
+      }
+      return $FutureOr.wrap(wrapped);
+    }();
   }
 
   @override

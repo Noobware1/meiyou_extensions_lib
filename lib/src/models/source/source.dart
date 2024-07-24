@@ -27,7 +27,7 @@ abstract class Source {
 
   Future<List<MediaLink>> getMediaLinkList(IMediaContent content);
 
-  Future<MediaAsset> getMediaAsset(MediaLink link);
+  Future<MediaAsset?> getMediaAsset(MediaLink link);
 
   @protected
   SharedPreferences get preferences => _preferences;

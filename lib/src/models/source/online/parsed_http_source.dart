@@ -88,11 +88,11 @@ abstract class ParsedHttpSource extends HttpSource {
   MediaLink mediaLinkFromElement(Element element);
 
   @override
-  FutureOr<MediaAsset> mediaAssetParse(MediaLink link, Response response) {
+  FutureOr<MediaAsset?> mediaAssetParse(MediaLink link, Response response) {
     return mediaAssetFromDocument(link, response.body.document);
   }
 
-  FutureOr<MediaAsset> mediaAssetFromDocument(
+  FutureOr<MediaAsset?> mediaAssetFromDocument(
       MediaLink link, Document document);
 
   @override

@@ -251,7 +251,7 @@ mixin $SourceMixin on Source {
   }
 
   @override
-  Future<MediaAsset> getMediaAsset(MediaLink link) {
+  Future<MediaAsset?> getMediaAsset(MediaLink link) {
     return ($_invoke('getMediaAsset', [
       $MediaLink.wrap(link),
     ]) as Future)
@@ -277,4 +277,3 @@ mixin $SourceMixin on Source {
       $_get('preferences') as SharedPreferences;
   $Value get _$preferences => $SharedPreferences.wrap(super.preferences);
 }
-
