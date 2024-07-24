@@ -22,7 +22,6 @@ class $PreferenceStore implements PreferenceStore, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: true,
     ),
@@ -463,7 +462,6 @@ class $PreferenceStore implements PreferenceStore, $Instance {
       defaultValue,
       values,
     );
-    return $Preference.wrap(
-        $result, (val) => runtime.wrap(val));
+    return $Preference.wrap($result, (val) => runtime.wrap(val));
   }
 }

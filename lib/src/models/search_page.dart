@@ -1,22 +1,22 @@
-import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
+import 'package:meiyou_extensions_lib/src/models/media.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:nice_dart/nice_dart.dart';
 
 class SearchPage {
-  final List<MediaPreview> list;
+  final List<IMedia> list;
   final bool hasNextPage;
 
   const SearchPage({required this.hasNextPage, required this.list});
 
   factory SearchPage.fromJson(Map<String, dynamic> json) {
     return SearchPage(
-      list: (json['list'] as List).mapList((e) => MediaPreview.fromJson(e)),
+      list: (json['list'] as List).mapList((e) => IMedia.fromJson(e)),
       hasNextPage: json['hasNextPage'] as bool,
     );
   }
 
   SearchPage copyWith({
-    List<MediaPreview>? list,
+    List<IMedia>? list,
     bool? hasNextPage,
   }) {
     return SearchPage(

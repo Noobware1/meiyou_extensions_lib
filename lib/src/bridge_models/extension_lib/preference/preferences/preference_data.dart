@@ -18,7 +18,6 @@ class $PreferenceData<T> implements PreferenceData<T>, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: true,
       generics: {

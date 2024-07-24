@@ -96,15 +96,12 @@ class $CatalogueSource extends CatalogueSource
 
   @override
   $Value? $bridgeGet(String identifier) {
-    return $bridgeGetFromCatalogueSource(identifier);
+    return $bridgeGetCatalogueSource(identifier);
   }
 
   @override
   void $bridgeSet(String identifier, $Value value) {
-    switch (identifier) {
-      default:
-        return $_set(identifier, value);
-    }
+    return $bridgeSetCatalogueSource(identifier, value);
   }
 
   static const __$CatalogueSource$new = $Function(_$CatalogueSource$new);
@@ -119,11 +116,19 @@ mixin $CatalogueSourceMixin on CatalogueSource {
 
   dynamic $_invoke(String method, List<$Value?> args);
 
-  $Value? $bridgeGetFromCatalogueSource(String identifier) {
-    return $bridgeGetFromSource(identifier);
+  void $_set(String prop, $Value value);
+
+  $Value? $bridgeGetCatalogueSource(String identifier) {
+    return $bridgeGetSource(identifier);
   }
 
-  $Value? $bridgeGetFromSource(String identifier);
+  void $bridgeSetCatalogueSource(String identifier, $Value value) {
+    $bridgeSetSource(identifier, value);
+  }
+
+  $Value? $bridgeGetSource(String identifier);
+
+  void $bridgeSetSource(String identifier, $Value value);
 
   @override
   Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {

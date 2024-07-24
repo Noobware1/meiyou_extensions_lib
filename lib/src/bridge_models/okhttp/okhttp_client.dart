@@ -35,7 +35,6 @@ class $OkHttpClient implements OkHttpClient, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),
@@ -348,7 +347,6 @@ class $OkHttpClientBuilder implements $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),

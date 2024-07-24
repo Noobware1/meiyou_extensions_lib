@@ -315,7 +315,6 @@ class $Part implements Part, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),
@@ -433,7 +432,6 @@ class $Part implements Part, $Instance {
 
   @override
   String toString() => $value.toString();
- 
 
   static const __$Part$new = $Function(_$Part$new);
   static $Value? _$Part$new(
@@ -474,7 +472,6 @@ class $MultipartBodyBuilder implements $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),

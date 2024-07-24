@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:crypto_dart/hashers.dart';
+import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:nice_dart/nice_dart.dart';
 import 'package:okhttp/okhttp.dart';
 
@@ -25,4 +26,13 @@ Headers headersFromJson(Map<String, dynamic> json) {
     }
     return it.build();
   });
+}
+
+extension FilterBridgeArgs on List<$Value?> {
+  List<$Value?> filterBridgeArgs<T>() {
+    if (this[0] is! T) {
+      return sublist(1);
+    }
+    return this;
+  }
 }

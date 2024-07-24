@@ -25,7 +25,6 @@ class $Logger implements Logger, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),
@@ -149,7 +148,6 @@ class $LoggingInterceptor implements LoggingInterceptor, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [
         BridgeTypeRef(OkHttpTypes.interceptor, []),
       ],

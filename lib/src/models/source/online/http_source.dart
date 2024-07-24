@@ -1,13 +1,16 @@
+import 'dart:async';
+
 import 'package:meiyou_extensions_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/lib_overrides.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_asset.dart';
 import 'package:meiyou_extensions_lib/src/models/media_content.dart';
-import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/models/source/catalogue_source.dart';
+import 'package:meiyou_extensions_lib/src/models/unsupported_operation_exception.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:meta/meta.dart';
 import 'package:okhttp/okhttp.dart';
@@ -46,162 +49,84 @@ abstract class HttpSource extends CatalogueSource {
   HeadersBuilder headersBuilder() =>
       Headers.Builder().add('User-Agent', network.defaultUserAgentProvider);
 
-  @override
+  List<HomePageRequest> getHomePageRequestList();
+
   Future<HomePage> getHomePage(int page, HomePageRequest request) {
-    return client.newCall(homePageRequest(page, request)).execute().then(
-      (response) {
-        try {
-          return homePageParse(request, response);
-        } on UnsupportedError {
-          return homePageParseAsync(request, response);
-        }
-      },
-    );
+    return client
+        .newCall(homePageRequest(page, request))
+        .execute()
+        .then((response) => homePageParse(request, response));
   }
 
-  /// Returns the request for the popular manga given the page.
-  ///
-  /// * page the page number to retrieve.
-  Request homePageRequest(int page, HomePageRequest request);
-
-  /// Parses the response from the site and returns a [MangasPage] object.
-  ///
-  /// * response the response from the site.
-  HomePage homePageParse(HomePageRequest request, Response response) {
-    return throw UnsupportedError('Not implemented');
+  Request homePageRequest(int page, HomePageRequest request) {
+    return GET(baseUrl + request.url, headers: headers);
   }
 
-  Future<HomePage> homePageParseAsync(
-      HomePageRequest request, Response response) {
-    throw UnsupportedError('Not implemented');
+  FutureOr<HomePage> homePageParse(HomePageRequest request, Response response);
+
+  @override
+  Future<IMedia> getMediaDetails(IMedia media) {
+    return client
+        .newCall(mediaDetailsRequest(media))
+        .execute()
+        .then(mediaDetailsParse);
   }
+
+  Request mediaDetailsRequest(IMedia media) {
+    return GET(baseUrl + media.url, headers: headers);
+  }
+
+  FutureOr<IMedia> mediaDetailsParse(Response response);
+
+  @override
+  Future<List<IMediaContent>> getMediaContentList(IMedia media) {
+    return client
+        .newCall(mediaContentListRequest(media))
+        .execute()
+        .then(mediaContentListParse);
+  }
+
+  Request mediaContentListRequest(IMedia media) {
+    return GET(baseUrl + media.url, headers: headers);
+  }
+
+  FutureOr<List<IMediaContent>> mediaContentListParse(Response response);
+
+  @override
+  Future<List<MediaLink>> getMediaLinkList(IMediaContent content) {
+    return client
+        .newCall(mediaLinkListRequest(content))
+        .execute()
+        .then(mediaLinkListParse);
+  }
+
+  Request mediaLinkListRequest(IMediaContent content) {
+    return GET(baseUrl + content.url, headers: headers);
+  }
+
+  FutureOr<List<MediaLink>> mediaLinkListParse(Response response);
+  @override
+  Future<MediaAsset> getMediaAsset(MediaLink link) {
+    return client.newCall(mediaAssetRequest(link)).execute().then(
+          (response) => mediaAssetParse(link, response),
+        );
+  }
+
+  Request mediaAssetRequest(MediaLink link) {
+    return GET(link.url, headers: link.headers);
+  }
+
+  FutureOr<MediaAsset> mediaAssetParse(MediaLink link, Response response);
 
   @override
   Future<SearchPage> getSearchPage(int page, String query, FilterList filters) {
     return client
         .newCall(searchPageRequest(page, query, filters))
         .execute()
-        .then(
-      (response) {
-        try {
-          return searchPageParse(response);
-        } on UnsupportedError {
-          return searchPageParseAsync(response);
-        }
-      },
-    );
+        .then(searchPageParse);
   }
 
-  /// Returns the request for the search manga given the page.
-  ///
-  /// * page the page number to retrieve.
   Request searchPageRequest(int page, String query, FilterList filters);
 
-  /// Parses the response from the site and returns a [SearchResponse] object.
-  ///
-  /// * response the response from the site.
-  SearchPage searchPageParse(Response response) {
-    return throw UnsupportedError('Not implemented');
-  }
-
-  Future<SearchPage> searchPageParseAsync(Response response) {
-    throw UnsupportedError('Not implemented');
-  }
-
-  @override
-  Future<MediaDetails> getMediaDetails(MediaDetails mediaDetails) {
-    return client.newCall(mediaDetailsRequest(mediaDetails)).execute().then(
-      (response) {
-        try {
-          return mediaDetailsParse(response);
-        } on UnsupportedError {
-          return mediaDetailsParseAsync(response);
-        }
-      },
-    );
-  }
-
-  Request mediaDetailsRequest(MediaDetails mediaDetails) {
-    return GET(baseUrl + mediaDetails.url, headers: headers);
-  }
-
-  MediaDetails mediaDetailsParse(Response response) {
-    return throw UnsupportedError('Not implemented');
-  }
-
-  Future<MediaDetails> mediaDetailsParseAsync(Response response) {
-    throw UnsupportedError('Not implemented');
-  }
-
-  @override
-  Future<MediaContent> getMediaContent(MediaDetails mediaDetails) {
-    return client.newCall(mediaContentRequest(mediaDetails)).execute().then(
-      (response) {
-        try {
-          return mediaContentParse(response);
-        } on UnsupportedError {
-          return mediaContentParseAsync(response);
-        }
-      },
-    );
-  }
-
-  Request mediaContentRequest(MediaDetails mediaDetails) {
-    return GET(baseUrl + mediaDetails.url, headers: headers);
-  }
-
-  MediaContent mediaContentParse(Response response) {
-    return throw UnsupportedError('Not implemented');
-  }
-
-  Future<MediaContent> mediaContentParseAsync(Response response) {
-    throw UnsupportedError('Not implemented');
-  }
-
-  @override
-  Future<List<MediaLink>> getMediaLinks(String data) {
-    return client.newCall(mediaLinksRequest(data)).execute().then(
-      (response) {
-        try {
-          return medialinksParse(response);
-        } on UnsupportedError {
-          return medialinksParseAsync(response);
-        }
-      },
-    );
-  }
-
-  Request mediaLinksRequest(String data) {
-    return GET(data, headers: headers);
-  }
-
-  List<MediaLink> medialinksParse(Response response) {
-    return throw UnsupportedError('Not implemented');
-  }
-
-  Future<List<MediaLink>> medialinksParseAsync(Response response) {
-    throw UnsupportedError('Not implemented');
-  }
-
-  @override
-  Future<Media?> getMedia(MediaLink link) {
-    try {
-      return client
-          .newCall(mediaRequest(link))
-          .execute()
-          .then((response) => mediaParse(response));
-    } on UnsupportedError {
-      return Future.value(null);
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Request mediaRequest(MediaLink link) {
-    return GET(link.data, headers: headers);
-  }
-
-  Media? mediaParse(Response response) {
-    return throw UnsupportedError('Not implemented');
-  }
+  FutureOr<SearchPage> searchPageParse(Response response);
 }

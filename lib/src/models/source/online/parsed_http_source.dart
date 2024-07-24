@@ -1,135 +1,122 @@
+import 'dart:async';
+
 import 'package:html/dom.dart';
+import 'package:meiyou_extensions_lib/models.dart';
+import 'package:meiyou_extensions_lib/okhttp_extensions.dart';
 import 'package:meiyou_extensions_lib/src/html_extensions.dart';
-import 'package:meiyou_extensions_lib/src/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/models/media.dart';
-import 'package:meiyou_extensions_lib/src/models/media_content.dart';
-import 'package:meiyou_extensions_lib/src/models/media_details.dart';
-import 'package:meiyou_extensions_lib/src/models/media_link.dart';
-import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
-import 'package:meiyou_extensions_lib/src/models/search_page.dart';
-import 'package:meiyou_extensions_lib/src/models/source/online/http_source.dart';
 import 'package:nice_dart/nice_dart.dart';
 import 'package:okhttp/response.dart';
-import 'package:meiyou_extensions_lib/src/okhttp_extensions.dart';
 
+/// A simple implementation for sources from a website using html package.
 abstract class ParsedHttpSource extends HttpSource {
   ParsedHttpSource();
 
   @override
-  HomePage homePageParse(HomePageRequest request, Response response) {
-    final document = response.body.document;
-
-    if (request.hasFullData) {
-      return fullHomePageParse(request, document);
-    } else {
-      return singleHomePageParse(request, document);
-    }
+  FutureOr<HomePage> homePageParse(HomePageRequest request, Response response) {
+    return homePageFromDocument(request, response.body.document);
   }
 
-  String? homeNextPageSelector(HomePageRequest request);
+  /// Parses the home page from the document.
+  FutureOr<HomePage> homePageFromDocument(
+      HomePageRequest request, Document document) {
+    final homePageList =
+        document.select(homePageListSelector(request)).mapList((element) {
+      final list = element
+          .select(homeMediaListSelector(request))
+          .mapList((element) => homeMediaFromElement(request, element));
 
-  String homeListSelector(HomePageRequest request) {
-    throw UnsupportedError('Not implemented');
-  }
-
-  HomePageList homeListFromElement(HomePageRequest request, Element element) {
-    throw UnsupportedError('Not implemented');
-  }
-
-  HomePage fullHomePageParse(HomePageRequest request, Document document) {
-    final items = document.select(homeListSelector(request)).mapList((element) {
-      return homeListFromElement(request, element);
+      return HomePageList(
+        title: request.title,
+        list: list,
+        horizontalImages: request.horizontalImages,
+      );
     });
 
     final hasNextPage =
-        homeNextPageSelector(request)?.let(document.selectFirst) != null;
+        homeHasNextPageSelector(request)?.let(document.selectFirst) != null;
 
-    return HomePage.list(
-      items: items,
+    return HomePage(
+      items: homePageList,
       hasNextPage: hasNextPage,
     );
   }
 
-  String homePageItemSelector(HomePageRequest request) {
-    throw UnsupportedError('Not implemented');
-  }
+  String homePageListSelector(HomePageRequest request) => 'html > body';
 
-  MediaPreview homePageItemFromElement(
-      HomePageRequest request, Element element) {
-    throw UnsupportedError('Not implemented');
-  }
+  String homeMediaListSelector(HomePageRequest request);
 
-  HomePage singleHomePageParse(HomePageRequest request, Document document) {
-    final list =
-        document.select(homePageItemSelector(request)).mapList((element) {
-      return homePageItemFromElement(request, element);
-    });
+  String? homeHasNextPageSelector(HomePageRequest request);
 
-    final hasNextPage =
-        homeNextPageSelector(request)?.let(document.selectFirst) != null;
-
-    return HomePage.fromRequest(
-      list: list,
-      reqeust: request,
-      hasNextPage: hasNextPage,
-    );
-  }
+  IMedia homeMediaFromElement(HomePageRequest request, Element element);
 
   @override
-  SearchPage searchPageParse(Response response) {
-    final document = response.body.document;
-    final list = document
-        .select(searchItemSelector())
-        .mapList((element) => searchItemFromElement(element));
-
-    final hasNextPage = searchNextPageSelector()?.let(
-          document.selectFirst,
-        ) !=
-        null;
-
-    return SearchPage(
-      list: list,
-      hasNextPage: hasNextPage,
-    );
-  }
-
-  String searchItemSelector();
-
-  String? searchNextPageSelector();
-
-  MediaPreview searchItemFromElement(Element element);
-
-  @override
-  MediaDetails mediaDetailsParse(Response response) {
+  FutureOr<IMedia> mediaDetailsParse(Response response) {
     return mediaDetailsFromDocument(response.body.document);
   }
 
-  MediaDetails mediaDetailsFromDocument(Document document);
+  FutureOr<IMedia> mediaDetailsFromDocument(Document document);
 
   @override
-  MediaContent mediaContentParse(Response response) {
-    return mediaContentFromDocument(response.body.document);
+  FutureOr<List<IMediaContent>> mediaContentListParse(Response response) {
+    return mediaContentListParseFromDocument(response.body.document);
   }
 
-  MediaContent mediaContentFromDocument(Document document);
+  FutureOr<List<IMediaContent>> mediaContentListParseFromDocument(
+      Document document) {
+    return document
+        .select(mediaContentListSelector())
+        .mapList(mediaContentFromElement);
+  }
+
+  String mediaContentListSelector();
+
+  IMediaContent mediaContentFromElement(Element element);
 
   @override
-  List<MediaLink> medialinksParse(Response response) {
-    return response.body.document
-        .select(mediaLinkSelector())
-        .mapList((element) => mediaLinkFromElement(element));
+  FutureOr<List<MediaLink>> mediaLinkListParse(Response response) {
+    return mediaLinkListParseFromDocument(response.body.document);
   }
 
-  String mediaLinkSelector();
+  FutureOr<List<MediaLink>> mediaLinkListParseFromDocument(Document document) {
+    return document
+        .select(mediaLinkListSelector())
+        .mapList(mediaLinkFromElement);
+  }
+
+  String mediaLinkListSelector();
 
   MediaLink mediaLinkFromElement(Element element);
 
   @override
-  Media? mediaParse(Response response) {
-    return mediaFromDocument(response.body.document);
+  FutureOr<MediaAsset> mediaAssetParse(MediaLink link, Response response) {
+    return mediaAssetFromDocument(link, response.body.document);
   }
 
-  Media mediaFromDocument(Document document) {
-    throw UnsupportedError('Not implemented');
+  FutureOr<MediaAsset> mediaAssetFromDocument(
+      MediaLink link, Document document);
+
+  @override
+  FutureOr<SearchPage> searchPageParse(Response response) {
+    return searchPageFromDocument(response.body.document);
   }
+
+  FutureOr<SearchPage> searchPageFromDocument(Document document) {
+    final searchList = document
+        .select(searchMediaListSelector())
+        .mapList((element) => searchMediaFromElement(element));
+
+    final hasNextPage =
+        searchHasNextPageSelector()?.let(document.selectFirst) != null;
+
+    return SearchPage(
+      list: searchList,
+      hasNextPage: hasNextPage,
+    );
+  }
+
+  String searchMediaListSelector();
+
+  String? searchHasNextPageSelector();
+
+  IMedia searchMediaFromElement(Element element);
 }

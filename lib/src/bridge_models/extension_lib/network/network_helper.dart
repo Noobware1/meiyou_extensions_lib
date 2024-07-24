@@ -27,7 +27,6 @@ class $NetworkHelper implements NetworkHelper, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),

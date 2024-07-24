@@ -29,7 +29,6 @@ class $InternetSocketAddress implements InternetSocketAddress, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),
@@ -196,7 +195,6 @@ class $InternetSocketAddress implements InternetSocketAddress, $Instance {
 
   @override
   String toString() => $value.toString();
-
 
   static const __$static$method$fromHost = $Function(_$static$method$fromHost);
   static $Value? _$static$method$fromHost(

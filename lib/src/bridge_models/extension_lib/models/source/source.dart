@@ -2,16 +2,15 @@
 
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_details.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_content.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/shared_preferences.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
-import 'package:meiyou_extensions_lib/src/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_asset.dart';
 import 'package:meiyou_extensions_lib/src/models/media_content.dart';
-import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/source/source.dart';
 import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
@@ -36,7 +35,6 @@ class $Source extends Source with $SourceMixin, $Bridge<Source> {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: true,
     ),
@@ -69,75 +67,45 @@ class $Source extends Source with $SourceMixin, $Bridge<Source> {
           isStatic: false),
     },
     methods: {
-      'homePageRequests': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.list, [
-                  BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
-                ]),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'getHomePage': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.homePage, []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'page',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'request',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
       'getMediaDetails': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
+                  BridgeTypeRef(ExtensionLibTypes.iMedia, []),
                 ]),
                 nullable: false),
             params: [
               BridgeParameter(
-                  'url',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                  'media',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.iMedia, []),
                       nullable: false),
                   false)
             ],
             namedParams: [],
           ),
           isStatic: false),
-      'getMediaContent': BridgeMethodDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation(
-              BridgeTypeRef(CoreTypes.future, [
-                BridgeTypeRef(ExtensionLibTypes.mediaContent, []),
-              ]),
-              nullable: false),
-          params: [
-            BridgeParameter(
-                'url',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                false)
-          ],
-          namedParams: [],
-        ),
-      ),
-      'getMediaLinks': BridgeMethodDef(
+      'getMediaContentList': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.future, [
+                  BridgeTypeRef(CoreTypes.list, [
+                    BridgeTypeRef(ExtensionLibTypes.iMediaContent, []),
+                  ]),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'media',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.iMedia, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'getMediaLinkList': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.future, [
@@ -148,19 +116,20 @@ class $Source extends Source with $SourceMixin, $Bridge<Source> {
                 nullable: false),
             params: [
               BridgeParameter(
-                  'url',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                  'content',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.iMediaContent, []),
                       nullable: false),
                   false)
             ],
             namedParams: [],
           ),
           isStatic: false),
-      'getMedia': BridgeMethodDef(
+      'getMediaAsset': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.media, []),
+                  BridgeTypeRef(ExtensionLibTypes.mediaAsset, []),
                 ]),
                 nullable: false),
             params: [
@@ -204,15 +173,12 @@ class $Source extends Source with $SourceMixin, $Bridge<Source> {
 
   @override
   $Value? $bridgeGet(String identifier) {
-    return $bridgeGetFromSource(identifier);
+    return $bridgeGetSource(identifier);
   }
 
   @override
   void $bridgeSet(String identifier, $Value value) {
-    switch (identifier) {
-      default:
-        return $_set(identifier, value);
-    }
+    return $bridgeSetSource(identifier, value);
   }
 
   static const __$Source$new = $Function(_$Source$new);
@@ -227,7 +193,9 @@ mixin $SourceMixin on Source {
 
   dynamic $_invoke(String method, List<$Value?> args);
 
-  $Value? $bridgeGetFromSource(String identifier) {
+  void $_set(String prop, $Value value);
+
+  $Value? $bridgeGetSource(String identifier) {
     switch (identifier) {
       case 'homePageRequestTimeout':
         return _$homePageRequestTimeout;
@@ -242,66 +210,52 @@ mixin $SourceMixin on Source {
     }
   }
 
+  void $bridgeSetSource(String identifier, $Value value) {
+    throw UnimplementedError('Unknown identifier $identifier');
+  }
+
   @override
   int get id => $_get('id') as int;
-
   @override
   String get name => $_get('name') as String;
-
   @override
   double get homePageRequestTimeout =>
       $_get('homePageRequestTimeout') as double;
   $Value get _$homePageRequestTimeout => $double(super.homePageRequestTimeout);
-
   @override
   String get lang => $_get('lang') as String;
-
   $Value get _$lang => $String(super.lang);
 
   @override
-  List<HomePageRequest> homePageRequests() {
-    return ($_invoke('homePageRequests', []) as List).cast<HomePageRequest>();
-  }
-
-  @override
-  Future<HomePage> getHomePage(int page, HomePageRequest request) {
-    return ($_invoke('getHomePage', [
-      $int(page),
-      $HomePageRequest.wrap(request),
-    ]) as Future)
-        .then((value) => value as HomePage);
-  }
-
-  @override
-  Future<MediaDetails> getMediaDetails(MediaDetails mediaDetails) {
+  Future<IMedia> getMediaDetails(IMedia media) {
     return ($_invoke('getMediaDetails', [
-      $MediaDetails.wrap(mediaDetails),
+      $IMedia.wrap(media),
     ]) as Future)
-        .then((value) => value as MediaDetails);
+        .then((value) => value as IMedia);
   }
 
   @override
-  Future<MediaContent> getMediaContent(MediaDetails mediaDetails) {
-    return ($_invoke('getMediaContent', [
-      $MediaDetails.wrap(mediaDetails),
+  Future<List<IMediaContent>> getMediaContentList(IMedia media) {
+    return ($_invoke('getMediaContentList', [
+      $IMedia.wrap(media),
     ]) as Future)
-        .then((value) => value as MediaContent);
+        .then((value) => (value as List).cast<IMediaContent>());
   }
 
   @override
-  Future<List<MediaLink>> getMediaLinks(String url) {
-    return ($_invoke('getMediaLinks', [
-      $String(url),
+  Future<List<MediaLink>> getMediaLinkList(IMediaContent content) {
+    return ($_invoke('getMediaLinkList', [
+      $IMediaContent.wrap(content),
     ]) as Future)
         .then((value) => (value as List).cast<MediaLink>());
   }
 
   @override
-  Future<Media?> getMedia(MediaLink link) {
-    return ($_invoke('getMedia', [
+  Future<MediaAsset> getMediaAsset(MediaLink link) {
+    return ($_invoke('getMediaAsset', [
       $MediaLink.wrap(link),
     ]) as Future)
-        .then((value) => value as Media?);
+        .then((value) => value as MediaAsset);
   }
 
   @override
@@ -310,7 +264,6 @@ mixin $SourceMixin on Source {
   }
 
   $Value get __$setupPreferences => $Function(_$setupPreferences);
-
   $Value? _$setupPreferences(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $result = super.setupPreferences();
@@ -321,7 +274,7 @@ mixin $SourceMixin on Source {
 
   @override
   SharedPreferences get preferences =>
-      $_invoke('preferences', []) as SharedPreferences;
-
+      $_get('preferences') as SharedPreferences;
   $Value get _$preferences => $SharedPreferences.wrap(super.preferences);
 }
+

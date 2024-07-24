@@ -2,11 +2,10 @@ import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/dart_eval_security.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_asset.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_content.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_format.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_link.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_preview.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/quality.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/catalogue_source.dart';
@@ -14,6 +13,7 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/sou
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/online/parsed_http_source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/source_factory.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/unsupported_operation_exception.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preference.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preference_store.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference/preferences/dilog_preference.dart';
@@ -23,10 +23,8 @@ import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/preference
 import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/html_extensions.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models.dart';
-
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter_list.dart';
-// import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/interfaces/base_source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/interceptor/interceptor_impl.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/interceptor/user_agent_interceptor.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/network_helper.dart';
@@ -65,14 +63,9 @@ class ExtensionLibPlugin extends EvalPlugin {
     $HomePageRequest.configureForCompile(registry);
     $HomePage.configureForCompile(registry);
 
-    //media_details.dart
-    $MediaDetails.configureForCompile(registry);
-    $MediaContent.configureForCompile(registry);
-    $Movie.configureForCompile(registry);
-    $TvSeries.configureForCompile(registry);
-    $Anime.configureForCompile(registry);
-    $Season.configureForCompile(registry);
-    $Episode.configureForCompile(registry);
+    //media.dart
+    $IMedia.configureForCompile(registry);
+    $IMediaContent.configureForCompile(registry);
     $Status.configureForCompile(registry);
 
     //search_page.dart
@@ -81,15 +74,12 @@ class ExtensionLibPlugin extends EvalPlugin {
     // media_format.dart
     $MediaFormat.configureForCompile(registry);
 
-    //media_preview.dart
-    $MediaPreview.configureForCompile(registry);
-
     //media_link.dart
     $MediaLink.configureForCompile(registry);
 
     //media.dart
 
-    $Media.configureForCompile(registry);
+    $MediaAsset.configureForCompile(registry);
     $Video.configureForCompile(registry);
     $VideoFormat.configureForCompile(registry);
     $VideoSource.configureForCompile(registry);
@@ -154,6 +144,8 @@ class ExtensionLibPlugin extends EvalPlugin {
     $Preference.configureForCompile(registry);
     $PreferenceStore.configureForCompile(registry);
 
+    $UnsupportedOperationException.configureForCompile(registry);
+
     registry.addSource(preferenceSource);
 
     registry.addSource(okhttpExtensionsSource);
@@ -171,14 +163,9 @@ class ExtensionLibPlugin extends EvalPlugin {
     $HomePageRequest.configureForRuntime(runtime);
     $HomePage.configureForRuntime(runtime);
 
-    //media_details.dart
-    $MediaDetails.configureForRuntime(runtime);
-    $MediaContent.configureForRuntime(runtime);
-    $Movie.configureForRuntime(runtime);
-    $Anime.configureForRuntime(runtime);
-    $TvSeries.configureForRuntime(runtime);
-    $Season.configureForRuntime(runtime);
-    $Episode.configureForRuntime(runtime);
+    //media.dart
+    $IMedia.configureForRuntime(runtime);
+    $IMediaContent.configureForRuntime(runtime);
     $Status.configureForRuntime(runtime);
 
     //search_page.dart
@@ -187,14 +174,11 @@ class ExtensionLibPlugin extends EvalPlugin {
     // media_format.dart
     $MediaFormat.configureForRuntime(runtime);
 
-    //media_preview.dart
-    $MediaPreview.configureForRuntime(runtime);
-
     //media_link.dart
     $MediaLink.configureForRuntime(runtime);
 
     //media.dart
-    $Media.configureForRuntime(runtime);
+    $MediaAsset.configureForRuntime(runtime);
     $Video.configureForRuntime(runtime);
     $VideoFormat.configureForRuntime(runtime);
     $VideoSource.configureForRuntime(runtime);
@@ -250,6 +234,8 @@ class ExtensionLibPlugin extends EvalPlugin {
     $MultiSelectListPreference.configureForRuntime(runtime);
     $CheckBoxPreference.configureForRuntime(runtime);
     $SwitchPreference.configureForRuntime(runtime);
+
+    $UnsupportedOperationException.configureForRuntime(runtime);
   }
 
   @override

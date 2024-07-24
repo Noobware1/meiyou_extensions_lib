@@ -21,7 +21,6 @@ class $SourceFactory extends SourceFactory with $Bridge<SourceFactory> {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: true,
     ),

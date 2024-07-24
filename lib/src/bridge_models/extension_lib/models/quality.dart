@@ -3,6 +3,12 @@ import 'package:dart_eval/stdlib/core.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
 import 'package:meiyou_extensions_lib/src/models/quality.dart';
 
+import 'package:dart_eval/dart_eval.dart';
+import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:dart_eval/stdlib/core.dart';
+import 'package:dart_eval/stdlib/async.dart';
+import 'dart:io';
+
 /// dart_eval bimodal wrapper for [Quality]
 class $Quality implements Quality, $Instance {
   /// Configure the [$Quality] wrapper for use in a [Runtime]
@@ -15,13 +21,13 @@ class $Quality implements Quality, $Instance {
         $type.spec!.library, 'Quality.', __$Quality$new.call,
         isBridge: false);
     runtime.registerBridgeFunc(
-        $type.spec!.library, 'Quality.auto', __$Quality$auto.call,
+        $type.spec!.library, 'Quality.fromJson', __$Quality$fromJson.call,
         isBridge: false);
     runtime.registerBridgeFunc($type.spec!.library, 'Quality.getFromString',
         __$Quality$getFromString.call,
         isBridge: false);
     runtime.registerBridgeFunc(
-        $type.spec!.library, 'Quality.fromJson', __$Quality$fromJson.call,
+        $type.spec!.library, 'Quality.auto*g', __$static$auto.call,
         isBridge: false);
   }
 
@@ -32,9 +38,11 @@ class $Quality implements Quality, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: BridgeTypeRef(CoreTypes.comparable, [
-        BridgeTypeRef(ExtensionLibTypes.quality, []),
-      ]),
+      $implements: [
+        BridgeTypeRef(CoreTypes.comparable, [
+          BridgeTypeRef(ExtensionLibTypes.quality, []),
+        ]),
+      ],
       isAbstract: false,
     ),
     constructors: {
@@ -57,20 +65,6 @@ class $Quality implements Quality, $Instance {
         ),
         isFactory: false,
       ),
-      'getFromString': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [
-            BridgeParameter(
-                'str',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                false)
-          ],
-          namedParams: [],
-        ),
-        isFactory: true,
-      ),
       'fromJson': BridgeConstructorDef(
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation($type),
@@ -88,13 +82,27 @@ class $Quality implements Quality, $Instance {
           namedParams: [],
         ),
         isFactory: true,
+      ),
+      'getFromString': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          params: [
+            BridgeParameter(
+                'str',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: false),
+                false)
+          ],
+          namedParams: [],
+        ),
+        isFactory: true,
       )
     },
     fields: {
       'auto': BridgeFieldDef(
-        BridgeTypeAnnotation($type),
-        isStatic: true,
-      ),
+          BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.quality, []),
+              nullable: false),
+          isStatic: true),
       'width': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
               nullable: false),
@@ -137,14 +145,6 @@ class $Quality implements Quality, $Instance {
             ],
           ),
           isStatic: false),
-      'toString': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
     },
     getters: {},
     setters: {},
@@ -162,10 +162,13 @@ class $Quality implements Quality, $Instance {
         return $int($value.width);
       case 'height':
         return $int($value.height);
+
       case 'toJson':
         return __$toJson;
       case 'copyWith':
         return __$copyWith;
+      case 'compareTo':
+        return __$compareTo;
       case 'toString':
         return __$toString;
       default:
@@ -194,6 +197,13 @@ class $Quality implements Quality, $Instance {
   int get width => $value.width;
   @override
   int get height => $value.height;
+
+  static const __$static$auto = $Function(_$static$auto);
+  static $Value? _$static$auto(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $result = Quality.auto;
+    return $Quality.wrap($result);
+  }
 
   @override
   Map<String, dynamic> toJson() => $value.toJson();
@@ -228,6 +238,21 @@ class $Quality implements Quality, $Instance {
   }
 
   @override
+  int compareTo(Quality other) => $value.compareTo(
+        other,
+      );
+  static const __$compareTo = $Function(_$compareTo);
+  static $Value? _$compareTo(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as Quality;
+    final other = args[0]?.$reified as Quality;
+    final $result = $this.compareTo(
+      other,
+    );
+    return $int($result);
+  }
+
+  @override
   String toString() => $value.toString();
   static const __$toString = $Function(_$toString);
   static $Value? _$toString(
@@ -236,11 +261,6 @@ class $Quality implements Quality, $Instance {
     final $result = $this.toString();
     return $String($result);
   }
-
-  @override
-  int compareTo(Quality other) => $value.compareTo(
-        other,
-      );
 
   static const __$Quality$new = $Function(_$Quality$new);
   static $Value? _$Quality$new(
@@ -253,10 +273,13 @@ class $Quality implements Quality, $Instance {
     ));
   }
 
-  static const __$Quality$auto = $Function(_$Quality$auto);
-  static $Value? _$Quality$auto(
+  static const __$Quality$fromJson = $Function(_$Quality$fromJson);
+  static $Value? _$Quality$fromJson(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    return $Quality.wrap(Quality.auto);
+    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
+    return $Quality.wrap(Quality.fromJson(
+      json,
+    ));
   }
 
   static const __$Quality$getFromString = $Function(_$Quality$getFromString);
@@ -265,15 +288,6 @@ class $Quality implements Quality, $Instance {
     final str = args[0]?.$value as String;
     return $Quality.wrap(Quality.getFromString(
       str,
-    ));
-  }
-
-  static const __$Quality$fromJson = $Function(_$Quality$fromJson);
-  static $Value? _$Quality$fromJson(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
-    return $Quality.wrap(Quality.fromJson(
-      json,
     ));
   }
 }

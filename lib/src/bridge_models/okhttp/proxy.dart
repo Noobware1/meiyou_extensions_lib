@@ -81,7 +81,6 @@ class $Proxy implements Proxy, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),
@@ -230,7 +229,6 @@ class $Proxy implements Proxy, $Instance {
 
   @override
   String toString() => $value.toString();
-  
 
   static const __$Proxy$new = $Function(_$Proxy$new);
   static $Value? _$Proxy$new(

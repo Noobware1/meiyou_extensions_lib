@@ -28,7 +28,6 @@ class $UserAgentInterceptor implements UserAgentInterceptor, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [
         BridgeTypeRef(OkHttpTypes.interceptor, []),
       ],

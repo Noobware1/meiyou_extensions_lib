@@ -1,8 +1,8 @@
-import 'package:meiyou_extensions_lib/src/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_asset.dart';
 import 'package:meiyou_extensions_lib/src/models/media_content.dart';
-import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
+import 'package:meiyou_extensions_lib/src/models/unsupported_operation_exception.dart';
 import 'package:meiyou_extensions_lib/src/preference/preferences/preference_data.dart';
 import 'package:meiyou_extensions_lib/src/preference/shared_preferences.dart';
 import 'package:meta/meta.dart';
@@ -21,17 +21,13 @@ abstract class Source {
   /// Language of the source.
   final String lang = "";
 
-  List<HomePageRequest> homePageRequests();
+  Future<IMedia> getMediaDetails(IMedia media);
 
-  Future<HomePage> getHomePage(int page, HomePageRequest request);
+  Future<List<IMediaContent>> getMediaContentList(IMedia media);
 
-  Future<MediaDetails> getMediaDetails(MediaDetails mediaDetails);
+  Future<List<MediaLink>> getMediaLinkList(IMediaContent content);
 
-  Future<MediaContent> getMediaContent(MediaDetails mediaDetails);
-
-  Future<List<MediaLink>> getMediaLinks(String data);
-
-  Future<Media?> getMedia(MediaLink link);
+  Future<MediaAsset> getMediaAsset(MediaLink link);
 
   @protected
   SharedPreferences get preferences => _preferences;
@@ -42,6 +38,6 @@ abstract class Source {
   String _getPreferenceKey() => 'source_$id';
 
   List<PreferenceData> setupPreferences() {
-    throw UnsupportedError('Not Used');
+    throw UnsupportedOperationException();
   }
 }

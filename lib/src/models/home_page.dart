@@ -1,4 +1,4 @@
-import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
+import 'package:meiyou_extensions_lib/src/models/media.dart';
 import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:nice_dart/nice_dart.dart';
 
@@ -31,7 +31,7 @@ class HomePage {
 
   factory HomePage.of({
     required String title,
-    required List<MediaPreview> list,
+    required List<IMedia> list,
     bool horizontalImages = false,
     bool? hasNextPage,
   }) {
@@ -49,7 +49,7 @@ class HomePage {
 
   factory HomePage.fromRequest({
     required HomePageRequest reqeust,
-    required List<MediaPreview> list,
+    required List<IMedia> list,
     bool? hasNextPage,
   }) {
     return HomePage(
@@ -117,7 +117,7 @@ class HomePage {
 
 class HomePageList {
   final String title;
-  final List<MediaPreview> list;
+  final List<IMedia> list;
   final bool horizontalImages;
 
   const HomePageList({
@@ -128,7 +128,7 @@ class HomePageList {
 
   factory HomePageList.withRequest(
     HomePageRequest request,
-    List<MediaPreview> list,
+    List<IMedia> list,
   ) {
     return HomePageList(
       title: request.title,
@@ -139,7 +139,7 @@ class HomePageList {
 
   HomePageList copyWith({
     String? title,
-    List<MediaPreview>? list,
+    List<IMedia>? list,
     bool? horizontalImages,
   }) {
     return HomePageList(
@@ -157,7 +157,7 @@ class HomePageList {
   factory HomePageList.fromJson(Map<String, dynamic> json) {
     return HomePageList(
       title: json['title'],
-      list: (json['list'] as List).mapList((e) => MediaPreview.fromJson(e)),
+      list: (json['list'] as List).mapList((e) => IMedia.fromJson(e)),
       horizontalImages: json['horizontalImages'],
     );
   }
@@ -175,35 +175,31 @@ class HomePageList {
 ///
 /// It includes the following properties:
 /// * `title`: A string representing the title of the home page.
-/// * `data`: A string representing the items of the home page.
+/// * `url`: A string representing the items of the home page.
 /// * `horizontalImages`: A boolean indicating whether the images on the home page are horizontal.
 ///
 /// The `HomePageRequest` class has a constructor that takes these properties.
 
 class HomePageRequest {
   final String title;
-  final String data;
+  final String url;
   final bool horizontalImages;
-  final bool hasFullData;
 
   const HomePageRequest({
     required this.title,
-    required this.data,
+    required this.url,
     this.horizontalImages = false,
-    this.hasFullData = false,
   });
 
   HomePageRequest copyWith({
     String? title,
-    String? data,
+    String? url,
     bool? horizontalImages,
-    bool? hasFullData,
   }) {
     return HomePageRequest(
       title: title ?? this.title,
-      data: data ?? this.data,
+      url: url ?? this.url,
       horizontalImages: horizontalImages ?? this.horizontalImages,
-      hasFullData: hasFullData ?? this.hasFullData,
     );
   }
 
@@ -215,18 +211,16 @@ class HomePageRequest {
   factory HomePageRequest.fromJson(Map<String, dynamic> json) {
     return HomePageRequest(
       title: json['title'],
-      data: json['data'],
+      url: json['url'],
       horizontalImages: json['horizontalImages'],
-      hasFullData: json['hasFullData'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'title': title,
-      'data': data,
+      'url': url,
       'horizontalImages': horizontalImages,
-      'hasFullData': hasFullData,
     };
   }
 }

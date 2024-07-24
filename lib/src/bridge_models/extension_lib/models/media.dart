@@ -1,239 +1,34 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/quality.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_format.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/headers.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
+
 import 'package:meiyou_extensions_lib/src/models/media.dart';
-import 'package:meiyou_extensions_lib/src/models/quality.dart';
-import 'package:okhttp/okhttp.dart';
+import 'package:meiyou_extensions_lib/src/models/media_format.dart';
 
-/// dart_eval bimodal wrapper for [Media]
-class $Media implements Media, $Instance {
-  /// Configure the [$Media] wrapper for use in a [Runtime]
+/// dart_eval bimodal wrapper for [IMedia]
+class $IMedia implements IMedia, $Instance {
+  /// Configure the [$IMedia] wrapper for use in a [Runtime]
   static void configureForCompile(BridgeDeclarationRegistry registry) {
     registry.defineBridgeClass($declaration);
   }
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-        $type.spec!.library, 'Media.fromJson', __$Media$fromJson.call,
+        $type.spec!.library, 'IMedia.', __$IMedia$new.call,
+        isBridge: false);
+    runtime.registerBridgeFunc(
+        $type.spec!.library, 'IMedia.fromJson', __$IMedia$fromJson.call,
         isBridge: false);
   }
 
   late final $Instance _superclass = $Object($value);
 
-  static const $type = BridgeTypeRef(ExtensionLibTypes.media);
+  static const $type = BridgeTypeRef(ExtensionLibTypes.iMedia);
 
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
-      $implements: [],
-      isAbstract: true,
-    ),
-    constructors: {
-      '': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [],
-          namedParams: [
-            BridgeParameter(
-                'headers',
-                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
-                    nullable: true),
-                true),
-            BridgeParameter(
-                'extra',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.map, [
-                      BridgeTypeRef(CoreTypes.string, []),
-                      BridgeTypeRef(CoreTypes.dynamic, []),
-                    ]),
-                    nullable: true),
-                true)
-          ],
-        ),
-        isFactory: false,
-      ),
-      'fromJson': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [
-            BridgeParameter(
-                'json',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.map, [
-                      BridgeTypeRef(CoreTypes.string, []),
-                      BridgeTypeRef(CoreTypes.dynamic, []),
-                    ]),
-                    nullable: false),
-                false)
-          ],
-          namedParams: [],
-        ),
-        isFactory: true,
-      )
-    },
-    fields: {
-      'headers': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
-              nullable: true),
-          isStatic: false),
-      'extra': BridgeFieldDef(
-          BridgeTypeAnnotation(
-              BridgeTypeRef(CoreTypes.map, [
-                BridgeTypeRef(CoreTypes.string, []),
-                BridgeTypeRef(CoreTypes.dynamic, []),
-              ]),
-              nullable: true),
-          isStatic: false),
-    },
-    methods: {
-      'toJson': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.map, [
-                  BridgeTypeRef(CoreTypes.string, []),
-                  BridgeTypeRef(CoreTypes.dynamic, []),
-                ]),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'toString': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
-    },
-    getters: {},
-    setters: {},
-    bridge: false,
-    wrap: true,
-  );
-
-  /// Wrap an [Media] in an [$Media]
-  $Media.wrap(this.$value);
-
-  static $Value wrapByType(Media value) {
-    if (value is Video) {
-      return $Video.wrap(value);
-    }
-    return $Media.wrap(value);
-  }
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
-    switch (identifier) {
-      case 'headers':
-        return $value.headers == null
-            ? $null()
-            : $Headers.wrap($value.headers!);
-      case 'extra':
-        return $value.extra == null
-            ? $null()
-            : $Map.wrap($value.extra!.map((key, value) {
-                return $MapEntry.wrap(MapEntry(
-                  key is $Value ? key : $String(key),
-                  value is $Value
-                      ? value
-                      : runtime.wrap(value, recursive: true),
-                ));
-              }));
-
-      case 'toJson':
-        return __$toJson;
-      case 'toString':
-        return __$toString;
-      default:
-        return _superclass.$getProperty(runtime, identifier);
-    }
-  }
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
-
-  @override
-  Media get $reified => $value;
-
-  @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    switch (identifier) {
-      default:
-        _superclass.$setProperty(runtime, identifier, value);
-    }
-  }
-
-  @override
-  final Media $value;
-
-  @override
-  Headers? get headers => $value.headers;
-  @override
-  Map<String, dynamic>? get extra => $value.extra;
-
-  @override
-  Map<String, dynamic> toJson() => $value.toJson();
-  static const __$toJson = $Function(_$toJson);
-  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as Media;
-    final $result = $this.toJson();
-    return $Map.wrap($result.map((key, value) {
-      return $MapEntry.wrap(MapEntry(
-        key is $Value ? key : $String(key),
-        value is $Value ? value : value,
-      ));
-    }));
-  }
-
-  @override
-  String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as Media;
-    final $result = $this.toString();
-    return $String($result);
-  }
-
-  static const __$Media$fromJson = $Function(_$Media$fromJson);
-  static $Value? _$Media$fromJson(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
-    return $Media.wrap(Media.fromJson(
-      json,
-    ));
-  }
-}
-
-/// dart_eval bimodal wrapper for [Video]
-class $Video implements Video, $Instance {
-  /// Configure the [$Video] wrapper for use in a [Runtime]
-  static void configureForCompile(BridgeDeclarationRegistry registry) {
-    registry.defineBridgeClass($declaration);
-  }
-
-  static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc($type.spec!.library, 'Video.', __$Video$new.call,
-        isBridge: false);
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'Video.fromJson', __$Video$fromJson.call,
-        isBridge: false);
-  }
-
-  late final $Instance _superclass = $Media.wrap($value);
-
-  static const $type = BridgeTypeRef(ExtensionLibTypes.video);
-
-  static const $declaration = BridgeClassDef(
-    BridgeClassType(
-      $type,
-      $extends: BridgeTypeRef(ExtensionLibTypes.media, []),
       $implements: [],
       isAbstract: false,
     ),
@@ -243,768 +38,66 @@ class $Video implements Video, $Instance {
           returns: BridgeTypeAnnotation($type),
           params: [],
           namedParams: [
-            BridgeParameter(
-                'sources',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.list, [
-                      BridgeTypeRef(ExtensionLibTypes.videoSource, []),
-                    ]),
-                    nullable: false),
-                true),
-            BridgeParameter(
-                'subtitles',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.list, [
-                      BridgeTypeRef(ExtensionLibTypes.subtitle, []),
-                    ]),
-                    nullable: true),
-                true),
-            BridgeParameter(
-                'intro',
-                BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.intro, []),
-                    nullable: true),
-                true),
-            BridgeParameter(
-                'outro',
-                BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.outro, []),
-                    nullable: true),
-                true),
-            BridgeParameter(
-                'extra',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.map, [
-                      BridgeTypeRef(CoreTypes.string, []),
-                      BridgeTypeRef(CoreTypes.dynamic, []),
-                    ]),
-                    nullable: true),
-                true),
-            BridgeParameter(
-                'headers',
-                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
-                    nullable: true),
-                true)
-          ],
-        ),
-        isFactory: false,
-      ),
-      'fromJson': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [
-            BridgeParameter(
-                'json',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.map, [
-                      BridgeTypeRef(CoreTypes.string, []),
-                      BridgeTypeRef(CoreTypes.dynamic, []),
-                    ]),
-                    nullable: false),
-                false)
-          ],
-          namedParams: [],
-        ),
-        isFactory: true,
-      )
-    },
-    fields: {
-      'sources': BridgeFieldDef(
-          BridgeTypeAnnotation(
-              BridgeTypeRef(CoreTypes.list, [
-                BridgeTypeRef(ExtensionLibTypes.videoSource, []),
-              ]),
-              nullable: false),
-          isStatic: false),
-      'subtitles': BridgeFieldDef(
-          BridgeTypeAnnotation(
-              BridgeTypeRef(CoreTypes.list, [
-                BridgeTypeRef(ExtensionLibTypes.subtitle, []),
-              ]),
-              nullable: true),
-          isStatic: false),
-      'intro': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.intro, []),
-              nullable: true),
-          isStatic: false),
-      'outro': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.outro, []),
-              nullable: true),
-          isStatic: false),
-    },
-    methods: {
-      'copyWith': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.video, []),
-                nullable: false),
-            params: [],
-            namedParams: [
-              BridgeParameter(
-                  'sources',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(CoreTypes.list, [
-                        BridgeTypeRef(ExtensionLibTypes.videoSource, []),
-                      ]),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'subtitles',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(CoreTypes.list, [
-                        BridgeTypeRef(ExtensionLibTypes.subtitle, []),
-                      ]),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'intro',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.intro, []),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'outro',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.outro, []),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'extra',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(CoreTypes.map, [
-                        BridgeTypeRef(CoreTypes.string, []),
-                        BridgeTypeRef(CoreTypes.dynamic, []),
-                      ]),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'headers',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
-                      nullable: true),
-                  true)
-            ],
-          ),
-          isStatic: false),
-      'toJson': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.map, [
-                  BridgeTypeRef(CoreTypes.string, []),
-                  BridgeTypeRef(CoreTypes.dynamic, []),
-                ]),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
-    },
-    getters: {},
-    setters: {},
-    bridge: false,
-    wrap: true,
-  );
-
-  /// Wrap an [Video] in an [$Video]
-  $Video.wrap(this.$value);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
-    switch (identifier) {
-      case 'sources':
-        return $List.wrap(List.generate($value.sources.length, (index) {
-          return $VideoSource.wrap($value.sources[index]);
-        }));
-      case 'subtitles':
-        return $value.subtitles == null
-            ? $null()
-            : $List.wrap(List.generate($value.subtitles!.length, (index) {
-                return $Subtitle.wrap($value.subtitles![index]);
-              }));
-      case 'intro':
-        return $value.intro == null ? $null() : $Intro.wrap($value.intro!);
-      case 'outro':
-        return $value.outro == null ? $null() : $Outro.wrap($value.outro!);
-      case 'copyWith':
-        return __$copyWith;
-      case 'toJson':
-        return __$toJson;
-      default:
-        return _superclass.$getProperty(runtime, identifier);
-    }
-  }
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
-
-  @override
-  Video get $reified => $value;
-
-  @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    switch (identifier) {
-      default:
-        _superclass.$setProperty(runtime, identifier, value);
-    }
-  }
-
-  @override
-  final Video $value;
-
-  @override
-  List<VideoSource> get sources => $value.sources;
-  @override
-  List<Subtitle>? get subtitles => $value.subtitles;
-  @override
-  Intro? get intro => $value.intro;
-  @override
-  Outro? get outro => $value.outro;
-  @override
-  Map<String, dynamic>? get extra => $value.extra;
-  @override
-  Headers? get headers => $value.headers;
-
-  @override
-  Video copyWith(
-          {List<VideoSource>? sources,
-          List<Subtitle>? subtitles,
-          Intro? intro,
-          Outro? outro,
-          Map<String, dynamic>? extra,
-          Headers? headers}) =>
-      $value.copyWith(
-        sources: sources,
-        subtitles: subtitles,
-        intro: intro,
-        outro: outro,
-        extra: extra,
-        headers: headers,
-      );
-  static const __$copyWith = $Function(_$copyWith);
-  static $Value? _$copyWith(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as Video;
-    final sources = (args[0]?.$reified as List?)?.cast<VideoSource>();
-    final subtitles = (args[1]?.$reified as List?)?.cast<Subtitle>();
-    final intro = args[2]?.$reified as Intro?;
-    final outro = args[3]?.$reified as Outro?;
-    final extra = (args[4]?.$reified as Map?)?.cast<String, dynamic>();
-    final headers = args[5]?.$reified as Headers?;
-    final $result = $this.copyWith(
-      sources: sources,
-      subtitles: subtitles,
-      intro: intro,
-      outro: outro,
-      extra: extra,
-      headers: headers,
-    );
-    return $Video.wrap($result);
-  }
-
-  @override
-  Map<String, dynamic> toJson() => $value.toJson();
-  static const __$toJson = $Function(_$toJson);
-  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as Video;
-    final $result = $this.toJson();
-    return $Map.wrap($result.map((key, value) {
-      return $MapEntry.wrap(MapEntry(
-        key is $Value ? key : $String(key),
-        value is $Value ? value : value,
-      ));
-    }));
-  }
-
-  static const __$Video$new = $Function(_$Video$new);
-  static $Value? _$Video$new(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final sources =
-        (args[0]?.$reified as List?)?.cast<VideoSource>() ?? const [];
-    final subtitles = (args[1]?.$reified as List?)?.cast<Subtitle>();
-    final intro = args[2]?.$reified as Intro?;
-    final outro = args[3]?.$reified as Outro?;
-    final extra = (args[4]?.$reified as Map?)?.cast<String, dynamic>();
-    final headers = args[5]?.$reified as Headers?;
-    return $Video.wrap(Video(
-      sources: sources,
-      subtitles: subtitles,
-      intro: intro,
-      outro: outro,
-      extra: extra,
-      headers: headers,
-    ));
-  }
-
-  static const __$Video$fromJson = $Function(_$Video$fromJson);
-  static $Value? _$Video$fromJson(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
-    return $Video.wrap(Video.fromJson(
-      json,
-    ));
-  }
-}
-
-/// dart_eval bimodal wrapper for [Intro]
-class $Intro implements Intro, $Instance {
-  /// Configure the [$Intro] wrapper for use in a [Runtime]
-  static void configureForCompile(BridgeDeclarationRegistry registry) {
-    registry.defineBridgeClass($declaration);
-  }
-
-  static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc($type.spec!.library, 'Intro.', __$Intro$new.call,
-        isBridge: false);
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'Intro.fromJson', __$Intro$fromJson.call,
-        isBridge: false);
-  }
-
-  late final $Instance _superclass = $Object($value);
-
-  static const $type = BridgeTypeRef(ExtensionLibTypes.intro);
-
-  static const $declaration = BridgeClassDef(
-    BridgeClassType(
-      $type,
-      $extends: null,
-      $implements: [],
-      isAbstract: false,
-    ),
-    constructors: {
-      '': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [],
-          namedParams: [
-            BridgeParameter(
-                'start',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-                    nullable: false),
-                false),
-            BridgeParameter(
-                'end',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-                    nullable: false),
-                false)
-          ],
-        ),
-        isFactory: false,
-      ),
-      'fromJson': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [
-            BridgeParameter(
-                'json',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.map, [
-                      BridgeTypeRef(CoreTypes.string, []),
-                      BridgeTypeRef(CoreTypes.dynamic, []),
-                    ]),
-                    nullable: false),
-                false)
-          ],
-          namedParams: [],
-        ),
-        isFactory: true,
-      )
-    },
-    fields: {
-      'start': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-              nullable: false),
-          isStatic: false),
-      'end': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-              nullable: false),
-          isStatic: false),
-    },
-    methods: {
-      'toJson': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.map, [
-                  BridgeTypeRef(CoreTypes.string, []),
-                  BridgeTypeRef(CoreTypes.dynamic, []),
-                ]),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
-    },
-    getters: {},
-    setters: {},
-    bridge: false,
-    wrap: true,
-  );
-
-  /// Wrap an [Intro] in an [$Intro]
-  $Intro.wrap(this.$value);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
-    switch (identifier) {
-      case 'start':
-        return $Duration.wrap($value.start);
-      case 'end':
-        return $Duration.wrap($value.end);
-
-      case 'toJson':
-        return __$toJson;
-      default:
-        return _superclass.$getProperty(runtime, identifier);
-    }
-  }
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
-
-  @override
-  Intro get $reified => $value;
-
-  @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    switch (identifier) {
-      default:
-        _superclass.$setProperty(runtime, identifier, value);
-    }
-  }
-
-  @override
-  final Intro $value;
-
-  @override
-  Duration get start => $value.start;
-  @override
-  Duration get end => $value.end;
-
-  @override
-  Map<String, dynamic> toJson() => $value.toJson();
-  static const __$toJson = $Function(_$toJson);
-  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as Intro;
-    final $result = $this.toJson();
-    return $Map.wrap($result.map((key, value) {
-      return $MapEntry.wrap(MapEntry(
-        key is $Value ? key : $String(key),
-        value is $Value ? value : value,
-      ));
-    }));
-  }
-
-  static const __$Intro$new = $Function(_$Intro$new);
-  static $Value? _$Intro$new(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final start = args[0]?.$reified as Duration;
-    final end = args[1]?.$reified as Duration;
-    return $Intro.wrap(Intro(
-      start: start,
-      end: end,
-    ));
-  }
-
-  static const __$Intro$fromJson = $Function(_$Intro$fromJson);
-  static $Value? _$Intro$fromJson(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
-    return $Intro.wrap(Intro.fromJson(
-      json,
-    ));
-  }
-}
-
-/// dart_eval bimodal wrapper for [Outro]
-class $Outro implements Outro, $Instance {
-  /// Configure the [$Outro] wrapper for use in a [Runtime]
-  static void configureForCompile(BridgeDeclarationRegistry registry) {
-    registry.defineBridgeClass($declaration);
-  }
-
-  static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc($type.spec!.library, 'Outro.', __$Outro$new.call,
-        isBridge: false);
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'Outro.fromJson', __$Outro$fromJson.call,
-        isBridge: false);
-  }
-
-  late final $Instance _superclass = $Object($value);
-
-  static const $type = BridgeTypeRef(ExtensionLibTypes.outro);
-
-  static const $declaration = BridgeClassDef(
-    BridgeClassType(
-      $type,
-      $extends: null,
-      $implements: [],
-      isAbstract: false,
-    ),
-    constructors: {
-      '': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [],
-          namedParams: [
-            BridgeParameter(
-                'start',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-                    nullable: false),
-                false),
-            BridgeParameter(
-                'end',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-                    nullable: false),
-                false)
-          ],
-        ),
-        isFactory: false,
-      ),
-      'fromJson': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [
-            BridgeParameter(
-                'json',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.map, [
-                      BridgeTypeRef(CoreTypes.string, []),
-                      BridgeTypeRef(CoreTypes.dynamic, []),
-                    ]),
-                    nullable: false),
-                false)
-          ],
-          namedParams: [],
-        ),
-        isFactory: true,
-      )
-    },
-    fields: {
-      'start': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-              nullable: false),
-          isStatic: false),
-      'end': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-              nullable: false),
-          isStatic: false),
-    },
-    methods: {
-      'toJson': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.map, [
-                  BridgeTypeRef(CoreTypes.string, []),
-                  BridgeTypeRef(CoreTypes.dynamic, []),
-                ]),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'copyWith': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.outro, []),
-                nullable: false),
-            params: [],
-            namedParams: [
-              BridgeParameter(
-                  'start',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'end',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.duration, []),
-                      nullable: true),
-                  true)
-            ],
-          ),
-          isStatic: false),
-    },
-    getters: {},
-    setters: {},
-    bridge: false,
-    wrap: true,
-  );
-
-  /// Wrap an [Outro] in an [$Outro]
-  $Outro.wrap(this.$value);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
-    switch (identifier) {
-      case 'start':
-        return $Duration.wrap($value.start);
-      case 'end':
-        return $Duration.wrap($value.end);
-      case 'toJson':
-        return __$toJson;
-      case 'copyWith':
-        return __$copyWith;
-      default:
-        return _superclass.$getProperty(runtime, identifier);
-    }
-  }
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
-
-  @override
-  Outro get $reified => $value;
-
-  @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    switch (identifier) {
-      default:
-        _superclass.$setProperty(runtime, identifier, value);
-    }
-  }
-
-  @override
-  final Outro $value;
-
-  @override
-  Duration get start => $value.start;
-  @override
-  Duration get end => $value.end;
-
-  @override
-  Map<String, dynamic> toJson() => $value.toJson();
-  static const __$toJson = $Function(_$toJson);
-  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as Outro;
-    final $result = $this.toJson();
-    return $Map.wrap($result.map((key, value) {
-      return $MapEntry.wrap(MapEntry(
-        key is $Value ? key : $String(key),
-        value is $Value ? value : value,
-      ));
-    }));
-  }
-
-  @override
-  Outro copyWith({Duration? start, Duration? end}) => $value.copyWith(
-        start: start,
-        end: end,
-      );
-  static const __$copyWith = $Function(_$copyWith);
-  static $Value? _$copyWith(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as Outro;
-    final start = args[0]?.$reified as Duration?;
-    final end = args[1]?.$reified as Duration?;
-    final $result = $this.copyWith(
-      start: start,
-      end: end,
-    );
-    return $Outro.wrap($result);
-  }
-
-  static const __$Outro$new = $Function(_$Outro$new);
-  static $Value? _$Outro$new(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final start = args[0]?.$reified as Duration;
-    final end = args[1]?.$reified as Duration;
-    return $Outro.wrap(Outro(
-      start: start,
-      end: end,
-    ));
-  }
-
-  static const __$Outro$fromJson = $Function(_$Outro$fromJson);
-  static $Value? _$Outro$fromJson(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
-    return $Outro.wrap(Outro.fromJson(
-      json,
-    ));
-  }
-}
-
-/// dart_eval bimodal wrapper for [VideoSource]
-class $VideoSource implements VideoSource, $Instance {
-  /// Configure the [$VideoSource] wrapper for use in a [Runtime]
-  static void configureForCompile(BridgeDeclarationRegistry registry) {
-    registry.defineBridgeClass($declaration);
-  }
-
-  static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'VideoSource.', __$VideoSource$new.call,
-        isBridge: false);
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'VideoSource.hls', __$VideoSource$hls.call,
-        isBridge: false);
-    runtime.registerBridgeFunc($type.spec!.library, 'VideoSource.fromJson',
-        __$VideoSource$fromJson.call,
-        isBridge: false);
-  }
-
-  late final $Instance _superclass = $Object($value);
-
-  static const $type = BridgeTypeRef(ExtensionLibTypes.videoSource);
-
-  static const $declaration = BridgeClassDef(
-    BridgeClassType(
-      $type,
-      $extends: null,
-      $implements: [],
-      isAbstract: false,
-    ),
-    constructors: {
-      '': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [],
-          namedParams: [
-            BridgeParameter(
-                'url',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                true),
             BridgeParameter(
                 'format',
                 BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.videoFormat, []),
+                    BridgeTypeRef(ExtensionLibTypes.mediaFormat, []),
                     nullable: false),
-                true),
-            BridgeParameter(
-                'quality',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.quality, []),
-                    nullable: true),
                 true),
             BridgeParameter(
                 'title',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: true),
-                true),
-            BridgeParameter(
-                'isBackup',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
                     nullable: false),
-                true)
-          ],
-        ),
-        isFactory: false,
-      ),
-      'hls': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [],
-          namedParams: [
+                true),
             BridgeParameter(
                 'url',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                     nullable: false),
                 true),
             BridgeParameter(
-                'title',
+                'otherTitles',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                    ]),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'status',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(ExtensionLibTypes.status, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'banner',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                     nullable: true),
                 true),
             BridgeParameter(
-                'isBackup',
+                'poster',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'score',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'description',
+                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'genres',
+                BridgeTypeAnnotation(
+                    BridgeTypeRef(CoreTypes.list, [
+                      BridgeTypeRef(CoreTypes.string, []),
+                    ]),
+                    nullable: true),
+                true),
+            BridgeParameter(
+                'initalized',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
                     nullable: false),
                 true)
@@ -1032,63 +125,84 @@ class $VideoSource implements VideoSource, $Instance {
       )
     },
     fields: {
-      'url': BridgeFieldDef(
+      'title': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
               nullable: false),
           isStatic: false),
       'format': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.videoFormat, []),
+          BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.mediaFormat, []),
               nullable: false),
           isStatic: false),
-      'quality': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.quality, []),
+      'url': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+              nullable: false),
+          isStatic: false),
+      'otherTitles': BridgeFieldDef(
+          BridgeTypeAnnotation(
+              BridgeTypeRef(CoreTypes.list, [
+                BridgeTypeRef(CoreTypes.string, []),
+              ]),
               nullable: true),
           isStatic: false),
-      'isBackup': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
-              nullable: false),
+      'status': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.status, []),
+              nullable: true),
           isStatic: false),
-      'title': BridgeFieldDef(
+      'banner': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
               nullable: true),
           isStatic: false),
+      'poster': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+              nullable: true),
+          isStatic: false),
+      'score': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double, []),
+              nullable: true),
+          isStatic: false),
+      'description': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+              nullable: true),
+          isStatic: false),
+      'genres': BridgeFieldDef(
+          BridgeTypeAnnotation(
+              BridgeTypeRef(CoreTypes.list, [
+                BridgeTypeRef(CoreTypes.string, []),
+              ]),
+              nullable: true),
+          isStatic: false),
+      'initalized': BridgeFieldDef(
+          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
+              nullable: false),
+          isStatic: false),
     },
     methods: {
-      'copyWith': BridgeMethodDef(
+      'addOtherTitle': BridgeMethodDef(
           BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.videoSource, []),
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.voidType, []),
                 nullable: false),
-            params: [],
-            namedParams: [
-              BridgeParameter(
-                  'url',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'format',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.videoFormat, []),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'quality',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.quality, []),
-                      nullable: true),
-                  true),
+            params: [
               BridgeParameter(
                   'title',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                       nullable: true),
-                  true),
-              BridgeParameter(
-                  'isBackup',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.bool, []),
-                      nullable: true),
-                  true)
+                  false)
             ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'addGenre': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.voidType, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'genre',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
+                      nullable: true),
+                  false)
+            ],
+            namedParams: [],
           ),
           isStatic: false),
       'toJson': BridgeMethodDef(
@@ -1118,343 +232,49 @@ class $VideoSource implements VideoSource, $Instance {
     wrap: true,
   );
 
-  /// Wrap an [VideoSource] in an [$VideoSource]
-  $VideoSource.wrap(this.$value);
+  /// Wrap an [IMedia] in an [$IMedia]
+  $IMedia.wrap(this.$value);
 
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
-      case 'url':
-        return $String($value.url);
-      case 'format':
-        return $VideoFormat.wrap($value.format);
-      case 'quality':
-        return $value.quality == null
-            ? $null()
-            : $Quality.wrap($value.quality!);
-      case 'isBackup':
-        return $bool($value.isBackup);
       case 'title':
-        return $value.title == null ? $null() : $String($value.title!);
-      case 'copyWith':
-        return __$copyWith;
-      case 'toJson':
-        return __$toJson;
-      case 'toString':
-        return __$toString;
-      default:
-        return _superclass.$getProperty(runtime, identifier);
-    }
-  }
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
-
-  @override
-  VideoSource get $reified => $value;
-
-  @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    switch (identifier) {
-      default:
-        _superclass.$setProperty(runtime, identifier, value);
-    }
-  }
-
-  @override
-  final VideoSource $value;
-
-  @override
-  String get url => $value.url;
-  @override
-  VideoFormat get format => $value.format;
-  @override
-  Quality? get quality => $value.quality;
-  @override
-  bool get isBackup => $value.isBackup;
-  @override
-  String? get title => $value.title;
-
-  @override
-  VideoSource copyWith(
-          {String? url,
-          VideoFormat? format,
-          Quality? quality,
-          String? title,
-          bool? isBackup}) =>
-      $value.copyWith(
-        url: url,
-        format: format,
-        quality: quality,
-        title: title,
-        isBackup: isBackup,
-      );
-  static const __$copyWith = $Function(_$copyWith);
-  static $Value? _$copyWith(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as VideoSource;
-    final url = args[0]?.$value as String?;
-    final format = args[1]?.$reified as VideoFormat?;
-    final quality = args[2]?.$reified as Quality?;
-    final title = args[3]?.$value as String?;
-    final isBackup = args[4]?.$value as bool?;
-    final $result = $this.copyWith(
-      url: url,
-      format: format,
-      quality: quality,
-      title: title,
-      isBackup: isBackup,
-    );
-    return $VideoSource.wrap($result);
-  }
-
-  @override
-  Map<String, dynamic> toJson() => $value.toJson();
-  static const __$toJson = $Function(_$toJson);
-  static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as VideoSource;
-    final $result = $this.toJson();
-    return $Map.wrap($result.map((key, value) {
-      return $MapEntry.wrap(MapEntry(
-        key is $Value ? key : $String(key),
-        value is $Value ? value : value,
-      ));
-    }));
-  }
-
-  @override
-  String toString() => $value.toString();
-  static const __$toString = $Function(_$toString);
-  static $Value? _$toString(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as VideoSource;
-    final $result = $this.toString();
-    return $String($result);
-  }
-
-  static const __$VideoSource$new = $Function(_$VideoSource$new);
-  static $Value? _$VideoSource$new(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[0]?.$value as String? ?? '';
-    final format = args[1]?.$reified as VideoFormat? ?? VideoFormat.other;
-    final quality = args[2]?.$reified as Quality?;
-    final title = args[3]?.$value as String?;
-    final isBackup = args[4]?.$value as bool? ?? false;
-    return $VideoSource.wrap(VideoSource(
-      url: url,
-      format: format,
-      quality: quality,
-      title: title,
-      isBackup: isBackup,
-    ));
-  }
-
-  static const __$VideoSource$hls = $Function(_$VideoSource$hls);
-  static $Value? _$VideoSource$hls(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[0]?.$value as String? ?? '';
-    final title = args[1]?.$value as String?;
-    final isBackup = args[2]?.$value as bool? ?? false;
-    return $VideoSource.wrap(VideoSource.hls(
-      url: url,
-      title: title,
-      isBackup: isBackup,
-    ));
-  }
-
-  static const __$VideoSource$fromJson = $Function(_$VideoSource$fromJson);
-  static $Value? _$VideoSource$fromJson(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final json = (args[0]?.$reified as Map).cast<String, dynamic>();
-    return $VideoSource.wrap(VideoSource.fromJson(
-      json,
-    ));
-  }
-}
-
-/// dart_eval bimodal wrapper for [Subtitle]
-class $Subtitle implements Subtitle, $Instance {
-  /// Configure the [$Subtitle] wrapper for use in a [Runtime]
-  static void configureForCompile(BridgeDeclarationRegistry registry) {
-    registry.defineBridgeClass($declaration);
-  }
-
-  static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'Subtitle.', __$Subtitle$new.call,
-        isBridge: false);
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'Subtitle.fromJson', __$Subtitle$fromJson.call,
-        isBridge: false);
-    runtime.registerBridgeFunc(
-        $type.spec!.library, 'Subtitle.noSubtitle*g', __$static$noSubtitle.call,
-        isBridge: false);
-  }
-
-  late final $Instance _superclass = $Object($value);
-
-  static const $type = BridgeTypeRef(ExtensionLibTypes.subtitle);
-
-  static const $declaration = BridgeClassDef(
-    BridgeClassType(
-      $type,
-      $extends: null,
-      $implements: [],
-      isAbstract: false,
-    ),
-    constructors: {
-      '': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [],
-          namedParams: [
-            BridgeParameter(
-                'url',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: false),
-                true),
-            BridgeParameter(
-                'format',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(ExtensionLibTypes.subtitleFormat, []),
-                    nullable: true),
-                true),
-            BridgeParameter(
-                'language',
-                BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                    nullable: true),
-                true),
-            BridgeParameter(
-                'headers',
-                BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
-                    nullable: true),
-                true)
-          ],
-        ),
-        isFactory: false,
-      ),
-      'fromJson': BridgeConstructorDef(
-        BridgeFunctionDef(
-          returns: BridgeTypeAnnotation($type),
-          params: [
-            BridgeParameter(
-                'json',
-                BridgeTypeAnnotation(
-                    BridgeTypeRef(CoreTypes.map, [
-                      BridgeTypeRef(CoreTypes.string, []),
-                      BridgeTypeRef(CoreTypes.dynamic, []),
-                    ]),
-                    nullable: false),
-                false)
-          ],
-          namedParams: [],
-        ),
-        isFactory: true,
-      )
-    },
-    fields: {
-      'noSubtitle': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(ExtensionLibTypes.subtitle, []),
-              nullable: false),
-          isStatic: true),
-      'url': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-              nullable: false),
-          isStatic: false),
-      'format': BridgeFieldDef(
-          BridgeTypeAnnotation(
-              BridgeTypeRef(ExtensionLibTypes.subtitleFormat, []),
-              nullable: true),
-          isStatic: false),
-      'language': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-              nullable: true),
-          isStatic: false),
-      'headers': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
-              nullable: true),
-          isStatic: false),
-    },
-    methods: {
-      'copyWith': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.subtitle, []),
-                nullable: false),
-            params: [],
-            namedParams: [
-              BridgeParameter(
-                  'url',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'format',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.subtitleFormat, []),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'language',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: true),
-                  true),
-              BridgeParameter(
-                  'headers',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
-                      nullable: true),
-                  true)
-            ],
-          ),
-          isStatic: false),
-      'toJson': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.map, [
-                  BridgeTypeRef(CoreTypes.string, []),
-                  BridgeTypeRef(CoreTypes.dynamic, []),
-                ]),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'toString': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                nullable: false),
-            params: [],
-            namedParams: [],
-          ),
-          isStatic: false),
-    },
-    getters: {},
-    setters: {},
-    bridge: false,
-    wrap: true,
-  );
-
-  /// Wrap an [Subtitle] in an [$Subtitle]
-  $Subtitle.wrap(this.$value);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
-    switch (identifier) {
+        return $String($value.title);
+      case 'format':
+        return $MediaFormat.wrap($value.format);
       case 'url':
         return $String($value.url);
-      case 'format':
-        return $value.format == null
+      case 'otherTitles':
+        return $value.otherTitles == null
             ? $null()
-            : $SubtitleFormat.wrap($value.format!);
-      case 'language':
-        return $value.language == null ? $null() : $String($value.language!);
-      case 'headers':
-        return $value.headers == null
+            : $List.wrap(List.generate($value.otherTitles!.length, (index) {
+                return $String($value.otherTitles![index]);
+              }));
+      case 'status':
+        return $value.status == null ? $null() : $Status.wrap($value.status!);
+      case 'banner':
+        return $value.banner == null ? $null() : $String($value.banner!);
+      case 'poster':
+        return $value.poster == null ? $null() : $String($value.poster!);
+      case 'score':
+        return $value.score == null ? $null() : $double($value.score!);
+      case 'description':
+        return $value.description == null
             ? $null()
-            : $Headers.wrap($value.headers!);
+            : $String($value.description!);
+      case 'genres':
+        return $value.genres == null
+            ? $null()
+            : $List.wrap(List.generate($value.genres!.length, (index) {
+                return $String($value.genres![index]);
+              }));
+      case 'initalized':
+        return $bool($value.initalized);
 
-      case 'copyWith':
-        return __$copyWith;
+      case 'addOtherTitle':
+        return __$addOtherTitle;
+      case 'addGenre':
+        return __$addGenre;
       case 'toJson':
         return __$toJson;
       case 'toString':
@@ -1468,69 +288,165 @@ class $Subtitle implements Subtitle, $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   @override
-  Subtitle get $reified => $value;
+  IMedia get $reified => $value;
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
     switch (identifier) {
+      case 'title':
+        $value.title = value.$value as String;
+        break;
+      case 'format':
+        $value.format = value.$reified as MediaFormat;
+        break;
+      case 'url':
+        $value.url = value.$value as String;
+        break;
+      case 'otherTitles':
+        $value.otherTitles = (value.$reified as List?)?.cast<String>();
+        break;
+      case 'status':
+        $value.status = value.$reified as Status?;
+        break;
+      case 'banner':
+        $value.banner = value.$value as String?;
+        break;
+      case 'poster':
+        $value.poster = value.$value as String?;
+        break;
+      case 'score':
+        $value.score = value.$value as double?;
+        break;
+      case 'description':
+        $value.description = value.$value as String?;
+        break;
+      case 'genres':
+        $value.genres = (value.$reified as List?)?.cast<String>();
+        break;
+      case 'initalized':
+        $value.initalized = value.$value as bool;
+        break;
+
       default:
         _superclass.$setProperty(runtime, identifier, value);
     }
   }
 
   @override
-  final Subtitle $value;
+  final IMedia $value;
+
+  @override
+  String get title => $value.title;
+  @override
+  set title(String title) {
+    $value.title = title;
+  }
+
+  @override
+  MediaFormat get format => $value.format;
+  @override
+  set format(MediaFormat format) {
+    $value.format = format;
+  }
 
   @override
   String get url => $value.url;
   @override
-  SubtitleFormat? get format => $value.format;
-  @override
-  String? get language => $value.language;
-  @override
-  Headers? get headers => $value.headers;
-
-  static const __$static$noSubtitle = $Function(_$static$noSubtitle);
-  static $Value? _$static$noSubtitle(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final $result = Subtitle.noSubtitle;
-    return $Subtitle.wrap($result);
+  set url(String url) {
+    $value.url = url;
   }
 
   @override
-  Subtitle copyWith(
-          {String? url,
-          SubtitleFormat? format,
-          String? language,
-          Headers? headers}) =>
-      $value.copyWith(
-        url: url,
-        format: format,
-        language: language,
-        headers: headers,
+  List<String>? get otherTitles => $value.otherTitles;
+  @override
+  set otherTitles(List<String>? otherTitles) {
+    $value.otherTitles = otherTitles;
+  }
+
+  @override
+  Status? get status => $value.status;
+  @override
+  set status(Status? status) {
+    $value.status = status;
+  }
+
+  @override
+  String? get banner => $value.banner;
+  @override
+  set banner(String? banner) {
+    $value.banner = banner;
+  }
+
+  @override
+  String? get poster => $value.poster;
+  @override
+  set poster(String? poster) {
+    $value.poster = poster;
+  }
+
+  @override
+  double? get score => $value.score;
+  @override
+  set score(double? score) {
+    $value.score = score;
+  }
+
+  @override
+  String? get description => $value.description;
+  @override
+  set description(String? description) {
+    $value.description = description;
+  }
+
+  @override
+  List<String>? get genres => $value.genres;
+  @override
+  set genres(List<String>? genres) {
+    $value.genres = genres;
+  }
+
+  @override
+  bool get initalized => $value.initalized;
+  @override
+  set initalized(bool initalized) {
+    $value.initalized = initalized;
+  }
+
+  @override
+  void addOtherTitle(String? title) => $value.addOtherTitle(
+        title,
       );
-  static const __$copyWith = $Function(_$copyWith);
-  static $Value? _$copyWith(
+  static const __$addOtherTitle = $Function(_$addOtherTitle);
+  static $Value? _$addOtherTitle(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as Subtitle;
-    final url = args[0]?.$value as String?;
-    final format = args[1]?.$reified as SubtitleFormat?;
-    final language = args[2]?.$value as String?;
-    final headers = args[3]?.$reified as Headers?;
-    final $result = $this.copyWith(
-      url: url,
-      format: format,
-      language: language,
-      headers: headers,
+    final $this = target?.$value as IMedia;
+    final title = args[0]?.$value as String?;
+    $this.addOtherTitle(
+      title,
     );
-    return $Subtitle.wrap($result);
+    return null;
+  }
+
+  @override
+  void addGenre(String? genre) => $value.addGenre(
+        genre,
+      );
+  static const __$addGenre = $Function(_$addGenre);
+  static $Value? _$addGenre(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final $this = target?.$value as IMedia;
+    final genre = args[0]?.$value as String?;
+    $this.addGenre(
+      genre,
+    );
+    return null;
   }
 
   @override
   Map<String, dynamic> toJson() => $value.toJson();
   static const __$toJson = $Function(_$toJson);
   static $Value? _$toJson(Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as Subtitle;
+    final $this = target?.$value as IMedia;
     final $result = $this.toJson();
     return $Map.wrap($result.map((key, value) {
       return $MapEntry.wrap(MapEntry(
@@ -1545,38 +461,52 @@ class $Subtitle implements Subtitle, $Instance {
   static const __$toString = $Function(_$toString);
   static $Value? _$toString(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final $this = target?.$value as Subtitle;
+    final $this = target?.$value as IMedia;
     final $result = $this.toString();
     return $String($result);
   }
 
-  static const __$Subtitle$new = $Function(_$Subtitle$new);
-  static $Value? _$Subtitle$new(
+  static const __$IMedia$new = $Function(_$IMedia$new);
+  static $Value? _$IMedia$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
-    final url = args[0]?.$value as String? ?? '';
-    final format = args[1]?.$reified as SubtitleFormat?;
-    final language = args[2]?.$value as String?;
-    final headers = args[3]?.$reified as Headers?;
-    return $Subtitle.wrap(Subtitle(
-      url: url,
+    final format = args[0]?.$reified as MediaFormat? ?? MediaFormat.others;
+    final title = args[1]?.$value as String? ?? '';
+    final url = args[2]?.$value as String? ?? '';
+    final otherTitles = (args[3]?.$reified as List?)?.cast<String>();
+    final status = args[4]?.$reified as Status?;
+    final banner = args[5]?.$value as String?;
+    final poster = args[6]?.$value as String?;
+    final score = args[7]?.$value as double?;
+    final description = args[8]?.$value as String?;
+    final genres = (args[9]?.$reified as List?)?.cast<String>();
+    final initalized = args[10]?.$value as bool? ?? false;
+    return $IMedia.wrap(IMedia(
       format: format,
-      language: language,
-      headers: headers,
+      title: title,
+      url: url,
+      otherTitles: otherTitles,
+      status: status,
+      banner: banner,
+      poster: poster,
+      score: score,
+      description: description,
+      genres: genres,
+      initalized: initalized,
     ));
   }
 
-  static const __$Subtitle$fromJson = $Function(_$Subtitle$fromJson);
-  static $Value? _$Subtitle$fromJson(
+  static const __$IMedia$fromJson = $Function(_$IMedia$fromJson);
+  static $Value? _$IMedia$fromJson(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final json = (args[0]?.$reified as Map).cast<String, dynamic>();
-    return $Subtitle.wrap(Subtitle.fromJson(
+    return $IMedia.wrap(IMedia.fromJson(
       json,
     ));
   }
 }
 
-class $VideoFormat implements $Instance {
-  $VideoFormat.wrap(this.$value) : _superclass = $Object($value);
+class $Status implements $Instance {
+  $Status.wrap(this.$value) : _superclass = $Object($value);
 
   late final $Instance _superclass;
 
@@ -1586,24 +516,22 @@ class $VideoFormat implements $Instance {
 
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeEnumValues(
-        $type.spec!.library, 'VideoFormat', $VideoFormat.$values);
+        $type.spec!.library, 'Status', $Status.$values);
   }
 
-  static const $type = BridgeTypeRef(ExtensionLibTypes.videoFormat);
+  static const $type = BridgeTypeRef(ExtensionLibTypes.status);
 
   static const $declaration = BridgeEnumDef($type,
-      values: ['hls', 'mp4', 'dash', 'torrent', 'other'],
+      values: ['completed', 'ongoing', 'unknown'],
       methods: {},
       getters: {},
       setters: {},
       fields: {});
 
   static final $values = {
-    'hls': $VideoFormat.wrap(VideoFormat.hls),
-    'mp4': $VideoFormat.wrap(VideoFormat.mp4),
-    'dash': $VideoFormat.wrap(VideoFormat.dash),
-    'torrent': $VideoFormat.wrap(VideoFormat.torrent),
-    'other': $VideoFormat.wrap(VideoFormat.other),
+    'completed': $Status.wrap(Status.completed),
+    'ongoing': $Status.wrap(Status.ongoing),
+    'unknown': $Status.wrap(Status.unknown),
   };
 
   @override
@@ -1614,7 +542,7 @@ class $VideoFormat implements $Instance {
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
 
   @override
-  VideoFormat get $reified => $value;
+  Status get $reified => $value;
 
   @override
   void $setProperty(Runtime runtime, String identifier, $Value value) {
@@ -1622,60 +550,7 @@ class $VideoFormat implements $Instance {
   }
 
   @override
-  final VideoFormat $value;
-
-  @override
-  String toString() {
-    return $value.toString();
-  }
-}
-
-class $SubtitleFormat implements $Instance {
-  $SubtitleFormat.wrap(this.$value) : _superclass = $Object($value);
-
-  late final $Instance _superclass;
-
-  static void configureForCompile(BridgeDeclarationRegistry registry) {
-    registry.defineBridgeEnum($declaration);
-  }
-
-  static void configureForRuntime(Runtime runtime) {
-    runtime.registerBridgeEnumValues(
-        $type.spec!.library, 'SubtitleFormat', $SubtitleFormat.$values);
-  }
-
-  static const $type = BridgeTypeRef(ExtensionLibTypes.subtitleFormat);
-
-  static const $declaration = BridgeEnumDef($type,
-      values: ['vtt', 'srt', 'ass'],
-      methods: {},
-      getters: {},
-      setters: {},
-      fields: {});
-
-  static final $values = {
-    'vtt': $SubtitleFormat.wrap(SubtitleFormat.vtt),
-    'srt': $SubtitleFormat.wrap(SubtitleFormat.srt),
-    'ass': $SubtitleFormat.wrap(SubtitleFormat.ass),
-  };
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) =>
-      _superclass.$getProperty(runtime, identifier);
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($type.spec!);
-
-  @override
-  SubtitleFormat get $reified => $value;
-
-  @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    _superclass.$setProperty(runtime, identifier, value);
-  }
-
-  @override
-  final SubtitleFormat $value;
+  final Status $value;
 
   @override
   String toString() {

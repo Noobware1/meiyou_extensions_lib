@@ -51,7 +51,6 @@ class $Result<T> implements Result<T>, $Instance {
 
   static const $declaration = BridgeClassDef(
     BridgeClassType($type,
-        $extends: null,
         $implements: [],
         isAbstract: false,
         generics: {
@@ -531,7 +530,6 @@ class $Failure implements $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),

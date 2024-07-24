@@ -1,7 +1,6 @@
-import 'package:meiyou_extensions_lib/src/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/models/media_asset.dart';
 import 'package:meiyou_extensions_lib/src/models/media_content.dart';
-import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/source/source.dart';
 import 'dart:typed_data';
@@ -187,32 +186,22 @@ class AvailableSource extends Source {
   }
 
   @override
-  Future<HomePage> getHomePage(int page, HomePageRequest request) {
+  Future<MediaAsset> getMediaAsset(MediaLink link) {
     throw UnsupportedError('Stub Source');
   }
 
   @override
-  Future<Media?> getMedia(MediaLink link) {
+  Future<List<IMediaContent>> getMediaContentList(IMedia media) {
     throw UnsupportedError('Stub Source');
   }
 
   @override
-  Future<MediaDetails> getMediaDetails(MediaDetails mediaDetails) {
+  Future<IMedia> getMediaDetails(IMedia media) {
     throw UnsupportedError('Stub Source');
   }
 
   @override
-  Future<List<MediaLink>> getMediaLinks(String data) {
-    throw UnsupportedError('Stub Source');
-  }
-
-  @override
-  List<HomePageRequest> homePageRequests() {
-    throw UnsupportedError('Stub Source');
-  }
-
-  @override
-  Future<MediaContent> getMediaContent(MediaDetails mediaDetails) {
+  Future<List<MediaLink>> getMediaLinkList(IMediaContent content) {
     throw UnsupportedError('Stub Source');
   }
 }

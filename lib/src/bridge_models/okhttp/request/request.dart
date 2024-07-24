@@ -25,7 +25,6 @@ class $Request implements Request, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),
@@ -143,7 +142,6 @@ class $Request implements Request, $Instance {
 
   @override
   String toString() => $value.toString();
- 
 
   static const __$static$method$Builder = $Function(_$static$method$Builder);
   static $Value? _$static$method$Builder(
@@ -167,7 +165,6 @@ class $RequestBuilder implements $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),

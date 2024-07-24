@@ -19,7 +19,6 @@ class $Filter<T> implements Filter<T>, $Instance {
 
   static const $declaration = BridgeClassDef(
     BridgeClassType($type,
-        $extends: null,
         $implements: [],
         isAbstract: true,
         generics: {
@@ -1059,7 +1058,6 @@ class $Selection implements Selection, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),

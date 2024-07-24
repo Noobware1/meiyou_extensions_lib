@@ -26,7 +26,6 @@ class $RealResponseBody implements RealResponseBody, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [
         BridgeTypeRef(OkHttpTypes.responseBody, []),
       ],

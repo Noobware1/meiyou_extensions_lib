@@ -29,7 +29,6 @@ class $ResponseBody implements ResponseBody, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: true,
     ),

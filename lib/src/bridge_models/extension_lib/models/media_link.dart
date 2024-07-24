@@ -29,7 +29,6 @@ class $MediaLink implements MediaLink, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),
@@ -45,7 +44,7 @@ class $MediaLink implements MediaLink, $Instance {
                     nullable: false),
                 false),
             BridgeParameter(
-                'data',
+                'url',
                 BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                     nullable: false),
                 false),
@@ -96,7 +95,7 @@ class $MediaLink implements MediaLink, $Instance {
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
               nullable: false),
           isStatic: false),
-      'data': BridgeFieldDef(
+      'url': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
               nullable: false),
           isStatic: false),
@@ -131,7 +130,7 @@ class $MediaLink implements MediaLink, $Instance {
                       nullable: true),
                   true),
               BridgeParameter(
-                  'data',
+                  'url',
                   BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
                       nullable: true),
                   true),
@@ -192,8 +191,8 @@ class $MediaLink implements MediaLink, $Instance {
     switch (identifier) {
       case 'name':
         return $String($value.name);
-      case 'data':
-        return $String($value.data);
+      case 'url':
+        return $String($value.url);
       case 'headers':
         return $value.headers == null
             ? $null()
@@ -242,7 +241,7 @@ class $MediaLink implements MediaLink, $Instance {
   @override
   String get name => $value.name;
   @override
-  String get data => $value.data;
+  String get url => $value.url;
   @override
   Headers? get headers => $value.headers;
   @override
@@ -254,13 +253,13 @@ class $MediaLink implements MediaLink, $Instance {
   @override
   MediaLink copyWith(
           {String? name,
-          String? data,
+          String? url,
           Headers? headers,
           String? referer,
           Map<String, dynamic>? extra}) =>
       $value.copyWith(
         name: name,
-        data: data,
+        url: url,
         headers: headers,
         referer: referer,
         extra: extra,
@@ -270,13 +269,13 @@ class $MediaLink implements MediaLink, $Instance {
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as MediaLink;
     final name = args[0]?.$value as String?;
-    final data = args[1]?.$value as String?;
+    final url = args[1]?.$value as String?;
     final headers = args[2]?.$reified as Headers?;
     final referer = args[3]?.$value as String?;
     final extra = (args[4]?.$reified as Map?)?.cast<String, dynamic>();
     final $result = $this.copyWith(
       name: name,
-      data: data,
+      url: url,
       headers: headers,
       referer: referer,
       extra: extra,
@@ -312,13 +311,13 @@ class $MediaLink implements MediaLink, $Instance {
   static $Value? _$MediaLink$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final name = args[0]?.$value as String;
-    final data = args[1]?.$value as String;
+    final url = args[1]?.$value as String;
     final headers = args[2]?.$reified as Headers?;
     final referer = args[3]?.$value as String?;
     final extra = (args[4]?.$reified as Map?)?.cast<String, dynamic>();
     return $MediaLink.wrap(MediaLink(
       name: name,
-      data: data,
+      url: url,
       headers: headers,
       referer: referer,
       extra: extra,

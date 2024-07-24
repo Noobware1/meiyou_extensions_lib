@@ -1,5 +1,5 @@
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
-import 'package:meiyou_extensions_lib/src/models/media.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_asset.dart';
+import 'package:meiyou_extensions_lib/src/models/media_asset.dart';
 import 'package:nice_dart/nice_dart.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/nice_dart/plugin.dart';
 import 'package:meiyou_extensions_lib/src/extenstions/duration.dart';
@@ -231,7 +231,6 @@ class $AppUtils implements AppUtils, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),

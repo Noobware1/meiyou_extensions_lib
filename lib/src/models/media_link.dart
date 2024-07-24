@@ -3,14 +3,14 @@ import 'package:okhttp/okhttp.dart';
 
 class MediaLink {
   final String name;
-  final String data;
+  final String url;
   final Headers? headers;
   final String? referer;
   final Map<String, dynamic>? extra;
 
   const MediaLink({
     required this.name,
-    required this.data,
+    required this.url,
     this.headers,
     this.referer,
     this.extra,
@@ -19,7 +19,7 @@ class MediaLink {
   factory MediaLink.fromJson(Map<String, dynamic> json) {
     return MediaLink(
       name: json['name'] as String,
-      data: json['data'] as String,
+      url: json['url'] as String,
       headers:
           json['headers'] != null ? headersFromJson(json['headers']) : null,
       referer: json['referer'] as String?,
@@ -29,14 +29,14 @@ class MediaLink {
 
   MediaLink copyWith({
     String? name,
-    String? data,
+    String? url,
     Headers? headers,
     String? referer,
     Map<String, dynamic>? extra,
   }) {
     return MediaLink(
       name: name ?? this.name,
-      data: data ?? this.data,
+      url: url ?? this.url,
       headers: headers ?? this.headers,
       referer: referer ?? this.referer,
       extra: extra ?? this.extra,
@@ -46,7 +46,7 @@ class MediaLink {
   Map<String, dynamic> toJson() {
     return {
       'name': name,
-      'data': data,
+      'url': url,
       'headers': headers?.toMap(),
       'referer': referer,
       'extra': extra,

@@ -25,7 +25,6 @@ class $EvpKDFResult implements EvpKDFResult, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),

@@ -1,3 +1,4 @@
+import 'package:meiyou_extensions_lib/src/utils/utils.dart';
 import 'package:nice_dart/nice_dart.dart';
 
 /// A class that represents the quality of a video.
@@ -46,25 +47,22 @@ class Quality implements Comparable<Quality> {
   // / * `str`: A string representing the video quality.
   // /
   factory Quality.getFromString(String str) {
-    str = str.toLowerCase().trim();
-    if (str.endsWith('p')) {
-      final int? value = str.substring(0, str.length - 1).trim().toIntOrNull();
-      if (value == null) return Quality.auto;
+    str = str.trim().toLowerCase();
+    return runCatching(() => RegExp(r'\b(\d{3,4})\s*x\s*(\d{3,4})\b').let((it) {
+          final match = it.firstMatch(str);
 
-      return Quality((value * 16) ~/ 9, value);
-    } else if (str.contains('x')) {
-      final heightAndWidth =
-          str.split('x').mapList((it) => it.trim().toIntOrNull());
-      if (heightAndWidth.length != 2 || heightAndWidth.contains(null)) {
-        return Quality.auto;
-      }
+          final groups = match!.groups([1, 2]);
 
-      return runCatching(() =>
-              Quality(heightAndWidth[0]!.toInt(), heightAndWidth[1]!.toInt()))
-          .getOrDefault(Quality.auto);
-    }
+          return Quality(groups[0]!.toInt(), groups[1]!.toInt());
+        })).recoverCatching((_) {
+      return RegExp(r'\b(\d{3,4})p\b').let((it) {
+        final match = it.firstMatch(str);
 
-    return Quality.auto;
+        final height = match!.group(1)!.toInt();
+
+        return Quality(height * 16 ~/ 9, height);
+      });
+    }).getOrDefault(auto);
   }
 
   @override
@@ -72,5 +70,10 @@ class Quality implements Comparable<Quality> {
     return (width == other.width)
         ? height.compareTo(other.height)
         : width.compareTo(other.width);
+  }
+
+  @override
+  String toString() {
+    return jsonPrettyEncode(toJson());
   }
 }

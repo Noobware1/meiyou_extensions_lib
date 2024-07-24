@@ -1,33 +1,34 @@
-// ignore_for_file: non_constant_identifier_names
+import 'dart:async';
 
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_asset.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/source.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
+import 'package:meiyou_extensions_lib/src/models/media_asset.dart';
+
+import 'package:meiyou_extensions_lib/src/models/source/online/http_source.dart';
+
 import 'package:meiyou_extensions_lib/network.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_content.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/search_page.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/catalogue_source.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/source/source.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/network/network_helper.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/html/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/headers.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/okhttp_client.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/plugin.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/request/request.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/okhttp/response/response.dart';
 import 'package:meiyou_extensions_lib/src/models/filter_list.dart';
 import 'package:meiyou_extensions_lib/src/models/home_page.dart';
 import 'package:meiyou_extensions_lib/src/models/media.dart';
 import 'package:meiyou_extensions_lib/src/models/media_content.dart';
-import 'package:meiyou_extensions_lib/src/models/media_details.dart';
 import 'package:meiyou_extensions_lib/src/models/media_link.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
-import 'package:meiyou_extensions_lib/src/models/source/online/http_source.dart';
 import 'package:meiyou_extensions_lib/src/network/network_helper.dart';
 import 'package:okhttp/okhttp.dart';
 import 'package:okhttp/request.dart';
@@ -85,10 +86,6 @@ class $HttpSource extends HttpSource
           BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
               nullable: false),
           isStatic: false),
-      'id': BridgeFieldDef(
-          BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
-              nullable: false),
-          isStatic: false),
       'headers': BridgeFieldDef(
           BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.headers, []),
               nullable: false),
@@ -101,6 +98,40 @@ class $HttpSource extends HttpSource
                 BridgeTypeRef(OkHttpTypes.headersBuilder, []),
                 nullable: false),
             params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'getHomePageRequestList': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.list, [
+                  BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
+                ]),
+                nullable: false),
+            params: [],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'getHomePage': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.future, [
+                  BridgeTypeRef(ExtensionLibTypes.homePage, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'page',
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'request',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
+                      nullable: false),
+                  false)
+            ],
             namedParams: [],
           ),
           isStatic: false),
@@ -128,28 +159,7 @@ class $HttpSource extends HttpSource
       'homePageParse': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.homePage, []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'request',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.homePageRequest, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'homePageParseAsync': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
+                BridgeTypeRef(AsyncTypes.futureOr, [
                   BridgeTypeRef(ExtensionLibTypes.homePage, []),
                 ]),
                 nullable: false),
@@ -169,28 +179,142 @@ class $HttpSource extends HttpSource
             namedParams: [],
           ),
           isStatic: false),
-      'getSearchPage': BridgeMethodDef(
+      'mediaDetailsRequest': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.searchPage, []),
+                BridgeTypeRef(OkHttpTypes.request, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'media',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.iMedia, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaDetailsParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(AsyncTypes.futureOr, [
+                  BridgeTypeRef(ExtensionLibTypes.iMedia, []),
                 ]),
                 nullable: false),
             params: [
               BridgeParameter(
-                  'page',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []),
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
                       nullable: false),
-                  false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaContentListRequest': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.request, []),
+                nullable: false),
+            params: [
               BridgeParameter(
-                  'query',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false),
-              BridgeParameter(
-                  'filters',
+                  'media',
                   BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.filterList, []),
+                      BridgeTypeRef(ExtensionLibTypes.iMedia, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaContentListParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(AsyncTypes.futureOr, [
+                  BridgeTypeRef(CoreTypes.list, [
+                    BridgeTypeRef(ExtensionLibTypes.iMediaContent, []),
+                  ]),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaLinkListRequest': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.request, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'content',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.iMediaContent, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaLinkListParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(AsyncTypes.futureOr, [
+                  BridgeTypeRef(CoreTypes.list, [
+                    BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
+                  ]),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaAssetRequest': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(OkHttpTypes.request, []),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'link',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
+                      nullable: false),
+                  false)
+            ],
+            namedParams: [],
+          ),
+          isStatic: false),
+      'mediaAssetParse': BridgeMethodDef(
+          BridgeFunctionDef(
+            returns: BridgeTypeAnnotation(
+                BridgeTypeRef(AsyncTypes.futureOr, [
+                  BridgeTypeRef(ExtensionLibTypes.mediaAsset, []),
+                ]),
+                nullable: false),
+            params: [
+              BridgeParameter(
+                  'link',
+                  BridgeTypeAnnotation(
+                      BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
+                      nullable: false),
+                  false),
+              BridgeParameter(
+                  'response',
+                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
                       nullable: false),
                   false)
             ],
@@ -226,276 +350,10 @@ class $HttpSource extends HttpSource
       'searchPageParse': BridgeMethodDef(
           BridgeFunctionDef(
             returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.searchPage, []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'searchPageParseAsync': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
+                BridgeTypeRef(AsyncTypes.futureOr, [
                   BridgeTypeRef(ExtensionLibTypes.searchPage, []),
                 ]),
                 nullable: false),
-            params: [
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'getMediaDetails': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'mediaDetails',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'mediaDetailsRequest': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(OkHttpTypes.request, []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'mediaDetails',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'mediaDetailsParse': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'mediaDetailsParseAsync': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'getMediaContent': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.mediaContent, []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'mediaDetails',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'mediaContentRequest': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(OkHttpTypes.request, []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'mediaDetails',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.mediaDetails, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'mediaContentParse': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.mediaContent, []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'mediaContentParseAsync': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.mediaContent, []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'getMediaLinks': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(CoreTypes.list, [
-                    BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
-                  ]),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'data',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'mediaLinksRequest': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(OkHttpTypes.request, []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'data',
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'medialinksParse': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.list, [
-                  BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'medialinksParseAsync': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(CoreTypes.list, [
-                    BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
-                  ]),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'response',
-                  BridgeTypeAnnotation(BridgeTypeRef(OkHttpTypes.response, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'getMedia': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.future, [
-                  BridgeTypeRef(ExtensionLibTypes.media, []),
-                ]),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'link',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'mediaRequest': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(OkHttpTypes.request, []),
-                nullable: false),
-            params: [
-              BridgeParameter(
-                  'link',
-                  BridgeTypeAnnotation(
-                      BridgeTypeRef(ExtensionLibTypes.mediaLink, []),
-                      nullable: false),
-                  false)
-            ],
-            namedParams: [],
-          ),
-          isStatic: false),
-      'mediaParse': BridgeMethodDef(
-          BridgeFunctionDef(
-            returns: BridgeTypeAnnotation(
-                BridgeTypeRef(ExtensionLibTypes.media, []),
-                nullable: true),
             params: [
               BridgeParameter(
                   'response',
@@ -525,15 +383,12 @@ class $HttpSource extends HttpSource
 
   @override
   $Value? $bridgeGet(String identifier) {
-    return $bridgeGetFromHttpSource(identifier);
+    return $bridgeGetHttpSource(identifier);
   }
 
   @override
   void $bridgeSet(String identifier, $Value value) {
-    switch (identifier) {
-      default:
-        return $_set(identifier, value);
-    }
+    return $bridgeSetHttpSource(identifier, value);
   }
 
   static const __$HttpSource$new = $Function(_$HttpSource$new);
@@ -548,7 +403,9 @@ mixin $HttpSourceMixin on HttpSource {
 
   dynamic $_invoke(String method, List<$Value?> args);
 
-  $Value? $bridgeGetFromHttpSource(String identifier) {
+  void $_set(String prop, $Value value);
+
+  $Value? $bridgeGetHttpSource(String identifier) {
     switch (identifier) {
       case 'network':
         return _$network;
@@ -564,80 +421,53 @@ mixin $HttpSourceMixin on HttpSource {
         return __$headersBuilder;
       case 'getHomePage':
         return __$getHomePage;
-      case 'homePageParse':
-        return __$homePageParse;
-      case 'homePageParseAsync':
-        return __$homePageParseAsync;
-      case 'getSearchPage':
-        return __$getSearchPage;
-      case 'searchPageParse':
-        return __$searchPageParse;
-      case 'searchPageParseAsync':
-        return __$searchPageParseAsync;
+      case 'homePageRequest':
+        return __$homePageRequest;
       case 'getMediaDetails':
         return __$getMediaDetails;
       case 'mediaDetailsRequest':
         return __$mediaDetailsRequest;
-      case 'mediaDetailsParse':
-        return __$mediaDetailsParse;
-      case 'mediaDetailsParseAsync':
-        return __$mediaDetailsParseAsync;
-      case 'getMediaContent':
-        return __$getMediaContent;
-      case 'mediaContentRequest':
-        return __$mediaContentRequest;
-      case 'mediaContentParse':
-        return __$mediaContentParse;
-      case 'mediaContentParseAsync':
-        return __$mediaContentParseAsync;
-      case 'getMediaLinks':
-        return __$getMediaLinks;
-      case 'mediaLinksRequest':
-        return __$mediaLinksRequest;
-      case 'medialinksParse':
-        return __$medialinksParse;
-      case 'medialinksParseAsync':
-        return __$medialinksParseAsync;
-      case 'getMedia':
-        return __$getMedia;
-      case 'mediaRequest':
-        return __$mediaRequest;
-      case 'mediaParse':
-        return __$mediaParse;
+      case 'getMediaContentList':
+        return __$getMediaContentList;
+      case 'mediaContentListRequest':
+        return __$mediaContentListRequest;
+      case 'getMediaLinkList':
+        return __$getMediaLinkList;
+      case 'mediaLinkListRequest':
+        return __$mediaLinkListRequest;
+      case 'getMediaAsset':
+        return __$getMediaAsset;
+      case 'mediaAssetRequest':
+        return __$mediaAssetRequest;
+      case 'getSearchPage':
+        return __$getSearchPage;
       default:
-        return $bridgeGetFromCatalogueSource(identifier);
+        return $bridgeGetCatalogueSource(identifier);
     }
   }
 
-  $Value? $bridgeGetFromCatalogueSource(String identifier);
+  void $bridgeSetHttpSource(String identifier, $Value value) {
+    return $bridgeSetCatalogueSource(identifier, value);
+  }
+
+  $Value? $bridgeGetCatalogueSource(String identifier);
+
+  void $bridgeSetCatalogueSource(String identifier, $Value value);
 
   @override
   NetworkHelper get network => $_get('network') as NetworkHelper;
-
   $Value get _$network => $NetworkHelper.wrap(super.network);
-
   @override
   String get baseUrl => $_get('baseUrl') as String;
-
   @override
   int get versionId => $_get('versionId') as int;
-
   $Value get _$versionId => $int(super.versionId);
-
   @override
   int get id => $_get('id') as int;
-
   $Value get _$id => $int(super.id);
-
   @override
   Headers get headers => $_get('headers') as Headers;
-
   $Value get _$headers => $Headers.wrap(super.headers);
-
-  @override
-  OkHttpClient get client => $_get('client') as OkHttpClient;
-
-  $Value get _$client => $OkHttpClient.wrap(super.client);
 
   @override
   HeadersBuilder headersBuilder() {
@@ -645,11 +475,16 @@ mixin $HttpSourceMixin on HttpSource {
   }
 
   $Value get __$headersBuilder => $Function(_$headersBuilder);
-
   $Value? _$headersBuilder(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $result = super.headersBuilder();
     return $HeadersBuilder.wrap($result);
+  }
+
+  @override
+  List<HomePageRequest> getHomePageRequestList() {
+    return ($_invoke('getHomePageRequestList', []) as List)
+        .cast<HomePageRequest>();
   }
 
   @override
@@ -663,8 +498,11 @@ mixin $HttpSourceMixin on HttpSource {
 
   $Value get __$getHomePage => $Function(_$getHomePage);
   $Value? _$getHomePage(Runtime runtime, $Value? target, List<$Value?> args) {
-    final page = args[1]?.$value as int;
-    final request = args[2]?.$reified as HomePageRequest;
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final page = args[0]?.$value as int;
+    final request = args[1]?.$reified as HomePageRequest;
     final $result = super.getHomePage(
       page,
       request,
@@ -681,46 +519,262 @@ mixin $HttpSourceMixin on HttpSource {
     ]) as Request;
   }
 
-  @override
-  HomePage homePageParse(HomePageRequest request, Response response) {
-    return $_invoke('homePageParse', [
-      $HomePageRequest.wrap(request),
-      $Response.wrap(response),
-    ]) as HomePage;
-  }
-
-  $Value get __$homePageParse => $Function(_$homePageParse);
-  $Value? _$homePageParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    final request = args[1]?.$reified as HomePageRequest;
-    final response = args[2]?.$reified as Response;
-    final $result = super.homePageParse(
-      request,
-      response,
-    );
-    return $HomePage.wrap($result);
-  }
-
-  @override
-  Future<HomePage> homePageParseAsync(
-      HomePageRequest request, Response response) {
-    return ($_invoke('homePageParseAsync', [
-      $HomePageRequest.wrap(request),
-      $Response.wrap(response),
-    ]) as Future)
-        .then((value) => value as HomePage);
-  }
-
-  $Value get __$homePageParseAsync => $Function(_$homePageParseAsync);
-  $Value? _$homePageParseAsync(
+  $Value get __$homePageRequest => $Function(_$homePageRequest);
+  $Value? _$homePageRequest(
       Runtime runtime, $Value? target, List<$Value?> args) {
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final page = args[0]?.$value as int;
     final request = args[1]?.$reified as HomePageRequest;
-    final response = args[2]?.$reified as Response;
-    final $result = super.homePageParseAsync(
+    final $result = super.homePageRequest(
+      page,
       request,
-      response,
     );
-    return $Future.wrap($result.then((value) => $HomePage.wrap(value)))
+    return $Request.wrap($result);
+  }
+
+  @override
+  FutureOr<HomePage> homePageParse(HomePageRequest request, Response response) {
+    final result = $_invoke('homePageParse', [
+      $HomePageRequest.wrap(request),
+      $Response.wrap(response),
+    ]);
+    final FutureOr<HomePage> casted;
+    if (result is Future) {
+      casted = result.then((value) => value as HomePage);
+    } else {
+      casted = result as HomePage;
+    }
+    return casted;
+  }
+
+  @override
+  Future<IMedia> getMediaDetails(IMedia media) {
+    return ($_invoke('getMediaDetails', [
+      $IMedia.wrap(media),
+    ]) as Future)
+        .then((value) => value as IMedia);
+  }
+
+  $Value get __$getMediaDetails => $Function(_$getMediaDetails);
+  $Value? _$getMediaDetails(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final media = args[0]?.$reified as IMedia;
+    final $result = super.getMediaDetails(
+      media,
+    );
+    return $Future.wrap($result.then((value) => $IMedia.wrap(value)))
         as $Value?;
+  }
+
+  @override
+  Request mediaDetailsRequest(IMedia media) {
+    return $_invoke('mediaDetailsRequest', [
+      $IMedia.wrap(media),
+    ]) as Request;
+  }
+
+  $Value get __$mediaDetailsRequest => $Function(_$mediaDetailsRequest);
+  $Value? _$mediaDetailsRequest(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final media = args[0]?.$reified as IMedia;
+    final $result = super.mediaDetailsRequest(
+      media,
+    );
+    return $Request.wrap($result);
+  }
+
+  @override
+  FutureOr<IMedia> mediaDetailsParse(Response response) {
+    final result = $_invoke('mediaDetailsParse', [
+      $Response.wrap(response),
+    ]);
+    final FutureOr<IMedia> casted;
+    if (result is Future) {
+      casted = result.then((value) => value as IMedia);
+    } else {
+      casted = result as IMedia;
+    }
+    return casted;
+  }
+
+  @override
+  Future<List<IMediaContent>> getMediaContentList(IMedia media) {
+    return ($_invoke('getMediaContentList', [
+      $IMedia.wrap(media),
+    ]) as Future)
+        .then((value) => (value as List).cast<IMediaContent>());
+  }
+
+  $Value get __$getMediaContentList => $Function(_$getMediaContentList);
+  $Value? _$getMediaContentList(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final media = args[0]?.$reified as IMedia;
+    final $result = super.getMediaContentList(
+      media,
+    );
+    return $Future.wrap(
+        $result.then((value) => $List.wrap(List.generate(value.length, (index) {
+              return $IMediaContent.wrap(value[index]);
+            })))) as $Value?;
+  }
+
+  @override
+  Request mediaContentListRequest(IMedia media) {
+    return $_invoke('mediaContentListRequest', [
+      $IMedia.wrap(media),
+    ]) as Request;
+  }
+
+  $Value get __$mediaContentListRequest => $Function(_$mediaContentListRequest);
+  $Value? _$mediaContentListRequest(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final media = args[0]?.$reified as IMedia;
+    final $result = super.mediaContentListRequest(
+      media,
+    );
+    return $Request.wrap($result);
+  }
+
+  @override
+  FutureOr<List<IMediaContent>> mediaContentListParse(Response response) {
+    final result = $_invoke('mediaContentListParse', [
+      $Response.wrap(response),
+    ]);
+    final FutureOr<List<IMediaContent>> casted;
+    if (result is Future) {
+      casted = result.then((value) => (value as List).cast<IMediaContent>());
+    } else {
+      casted = (result as List).cast<IMediaContent>();
+    }
+    return casted;
+  }
+
+  @override
+  Future<List<MediaLink>> getMediaLinkList(IMediaContent content) {
+    return ($_invoke('getMediaLinkList', [
+      $IMediaContent.wrap(content),
+    ]) as Future)
+        .then((value) => (value as List).cast<MediaLink>());
+  }
+
+  $Value get __$getMediaLinkList => $Function(_$getMediaLinkList);
+  $Value? _$getMediaLinkList(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final content = args[0]?.$reified as IMediaContent;
+    final $result = super.getMediaLinkList(
+      content,
+    );
+    return $Future.wrap(
+        $result.then((value) => $List.wrap(List.generate(value.length, (index) {
+              return $MediaLink.wrap(value[index]);
+            })))) as $Value?;
+  }
+
+  @override
+  Request mediaLinkListRequest(IMediaContent content) {
+    return $_invoke('mediaLinkListRequest', [
+      $IMediaContent.wrap(content),
+    ]) as Request;
+  }
+
+  $Value get __$mediaLinkListRequest => $Function(_$mediaLinkListRequest);
+  $Value? _$mediaLinkListRequest(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final content = args[0]?.$reified as IMediaContent;
+    final $result = super.mediaLinkListRequest(
+      content,
+    );
+    return $Request.wrap($result);
+  }
+
+  @override
+  FutureOr<List<MediaLink>> mediaLinkListParse(Response response) {
+    final result = $_invoke('mediaLinkListParse', [
+      $Response.wrap(response),
+    ]);
+    final FutureOr<List<MediaLink>> casted;
+    if (result is Future) {
+      casted = result.then((value) => (value as List).cast<MediaLink>());
+    } else {
+      casted = (result as List).cast<MediaLink>();
+    }
+    return casted;
+  }
+
+  @override
+  Future<MediaAsset> getMediaAsset(MediaLink link) {
+    return ($_invoke('getMediaAsset', [
+      $MediaLink.wrap(link),
+    ]) as Future)
+        .then((value) => value as MediaAsset);
+  }
+
+  $Value get __$getMediaAsset => $Function(_$getMediaAsset);
+  $Value? _$getMediaAsset(Runtime runtime, $Value? target, List<$Value?> args) {
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final link = args[0]?.$reified as MediaLink;
+    final $result = super.getMediaAsset(
+      link,
+    );
+    return $Future.wrap($result.then((value) => $MediaAsset.wrap(value)))
+        as $Value?;
+  }
+
+  @override
+  Request mediaAssetRequest(MediaLink link) {
+    return $_invoke('mediaAssetRequest', [
+      $MediaLink.wrap(link),
+    ]) as Request;
+  }
+
+  $Value get __$mediaAssetRequest => $Function(_$mediaAssetRequest);
+  $Value? _$mediaAssetRequest(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final link = args[0]?.$reified as MediaLink;
+    final $result = super.mediaAssetRequest(
+      link,
+    );
+    return $Request.wrap($result);
+  }
+
+  @override
+  FutureOr<MediaAsset> mediaAssetParse(MediaLink link, Response response) {
+    final result = $_invoke('mediaAssetParse', [
+      $MediaLink.wrap(link),
+      $Response.wrap(response),
+    ]);
+    final FutureOr<MediaAsset> casted;
+    if (result is Future) {
+      casted = result.then((value) => value as MediaAsset);
+    } else {
+      casted = result as MediaAsset;
+    }
+    return casted;
   }
 
   @override
@@ -735,9 +789,12 @@ mixin $HttpSourceMixin on HttpSource {
 
   $Value get __$getSearchPage => $Function(_$getSearchPage);
   $Value? _$getSearchPage(Runtime runtime, $Value? target, List<$Value?> args) {
-    final page = args[1]?.$value as int;
-    final query = args[2]?.$value as String;
-    final filters = args[3]?.$reified as FilterList;
+    if (args[0]?.$value is HttpSource) {
+      args = args.sublist(1);
+    }
+    final page = args[0]?.$value as int;
+    final query = args[1]?.$value as String;
+    final filters = args[2]?.$reified as FilterList;
     final $result = super.getSearchPage(
       page,
       query,
@@ -757,317 +814,20 @@ mixin $HttpSourceMixin on HttpSource {
   }
 
   @override
-  SearchPage searchPageParse(Response response) {
-    return $_invoke('searchPageParse', [
+  FutureOr<SearchPage> searchPageParse(Response response) {
+    final result = $_invoke('searchPageParse', [
       $Response.wrap(response),
-    ]) as SearchPage;
-  }
-
-  $Value get __$searchPageParse => $Function(_$searchPageParse);
-  $Value? _$searchPageParse(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final response = args[1]?.$reified as Response;
-    final $result = super.searchPageParse(
-      response,
-    );
-    return $SearchPage.wrap($result);
+    ]);
+    final FutureOr<SearchPage> casted;
+    if (result is Future) {
+      casted = result.then((value) => value as SearchPage);
+    } else {
+      casted = result as SearchPage;
+    }
+    return casted;
   }
 
   @override
-  Future<SearchPage> searchPageParseAsync(Response response) {
-    return ($_invoke('searchPageParseAsync', [
-      $Response.wrap(response),
-    ]) as Future)
-        .then((value) => value as SearchPage);
-  }
-
-  $Value get __$searchPageParseAsync => $Function(_$searchPageParseAsync);
-  $Value? _$searchPageParseAsync(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final response = args[1]?.$reified as Response;
-    final $result = super.searchPageParseAsync(
-      response,
-    );
-    return $Future.wrap($result.then((value) => $SearchPage.wrap(value)))
-        as $Value?;
-  }
-
-  @override
-  Future<MediaDetails> getMediaDetails(MediaDetails mediaDetails) {
-    return ($_invoke('getMediaDetails', [
-      $MediaDetails.wrap(mediaDetails),
-    ]) as Future)
-        .then((value) => value as MediaDetails);
-  }
-
-  $Value get __$getMediaDetails => $Function(_$getMediaDetails);
-  $Value? _$getMediaDetails(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final mediaDetails = args[1]?.$reified as MediaDetails;
-    final $result = super.getMediaDetails(
-      mediaDetails,
-    );
-    return $Future.wrap($result.then((value) => $MediaDetails.wrap(value)))
-        as $Value?;
-  }
-
-  @override
-  Request mediaDetailsRequest(MediaDetails mediaDetails) {
-    return $_invoke('mediaDetailsRequest', [
-      $MediaDetails.wrap(mediaDetails),
-    ]) as Request;
-  }
-
-  $Value get __$mediaDetailsRequest => $Function(_$mediaDetailsRequest);
-  $Value? _$mediaDetailsRequest(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final mediaDetails = args[1]?.$reified as MediaDetails;
-    final $result = super.mediaDetailsRequest(
-      mediaDetails,
-    );
-    return $Request.wrap($result);
-  }
-
-  @override
-  MediaDetails mediaDetailsParse(Response response) {
-    return $_invoke('mediaDetailsParse', [
-      $Response.wrap(response),
-    ]) as MediaDetails;
-  }
-
-  $Value get __$mediaDetailsParse => $Function(_$mediaDetailsParse);
-  $Value? _$mediaDetailsParse(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final response = args[1]?.$reified as Response;
-    final $result = super.mediaDetailsParse(
-      response,
-    );
-    return $MediaDetails.wrap($result);
-  }
-
-  @override
-  Future<MediaDetails> mediaDetailsParseAsync(Response response) {
-    return ($_invoke('mediaDetailsParseAsync', [
-      $Response.wrap(response),
-    ]) as Future)
-        .then((value) => value as MediaDetails);
-  }
-
-  $Value get __$mediaDetailsParseAsync => $Function(_$mediaDetailsParseAsync);
-  $Value? _$mediaDetailsParseAsync(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final response = args[1]?.$reified as Response;
-    final $result = super.mediaDetailsParseAsync(
-      response,
-    );
-    return $Future.wrap($result.then((value) => $MediaDetails.wrap(value)))
-        as $Value?;
-  }
-
-  @override
-  Future<MediaContent> getMediaContent(MediaDetails mediaDetails) {
-    return ($_invoke('getMediaContent', [
-      $MediaDetails.wrap(mediaDetails),
-    ]) as Future)
-        .then((value) => value as MediaContent);
-  }
-
-  $Value get __$getMediaContent => $Function(_$getMediaContent);
-  $Value? _$getMediaContent(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final mediaDetails = args[1]?.$reified as MediaDetails;
-    final $result = super.getMediaContent(
-      mediaDetails,
-    );
-    return $Future.wrap(
-        $result.then((value) => $MediaContent.wrapByType(value))) as $Value?;
-  }
-
-  @override
-  Request mediaContentRequest(MediaDetails mediaDetails) {
-    return $_invoke('mediaContentRequest', [
-      $MediaDetails.wrap(mediaDetails),
-    ]) as Request;
-  }
-
-  $Value get __$mediaContentRequest => $Function(_$mediaContentRequest);
-  $Value? _$mediaContentRequest(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final mediaDetails = args[1]?.$reified as MediaDetails;
-    final $result = super.mediaContentRequest(
-      mediaDetails,
-    );
-    return $Request.wrap($result);
-  }
-
-  @override
-  MediaContent mediaContentParse(Response response) {
-    return $_invoke('mediaContentParse', [
-      $Response.wrap(response),
-    ]) as MediaContent;
-  }
-
-  $Value get __$mediaContentParse => $Function(_$mediaContentParse);
-  $Value? _$mediaContentParse(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final response = args[1]?.$reified as Response;
-    final $result = super.mediaContentParse(
-      response,
-    );
-    return $MediaContent.wrapByType($result);
-  }
-
-  @override
-  Future<MediaContent> mediaContentParseAsync(Response response) {
-    return ($_invoke('mediaContentParseAsync', [
-      $Response.wrap(response),
-    ]) as Future)
-        .then((value) => value as MediaContent);
-  }
-
-  $Value get __$mediaContentParseAsync => $Function(_$mediaContentParseAsync);
-  $Value? _$mediaContentParseAsync(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final response = args[1]?.$reified as Response;
-    final $result = super.mediaContentParseAsync(
-      response,
-    );
-    return $Future.wrap(
-        $result.then((value) => $MediaContent.wrapByType(value))) as $Value?;
-  }
-
-  @override
-  Future<List<MediaLink>> getMediaLinks(String data) {
-    return ($_invoke('getMediaLinks', [
-      $String(data),
-    ]) as Future)
-        .then((value) => (value as List).cast<MediaLink>());
-  }
-
-  $Value get __$getMediaLinks => $Function(_$getMediaLinks);
-  $Value? _$getMediaLinks(Runtime runtime, $Value? target, List<$Value?> args) {
-    final data = args[1]?.$value as String;
-    final $result = super.getMediaLinks(
-      data,
-    );
-    return $Future.wrap($result.then(
-      (value) => $List.wrap(
-        List.generate(value.length, (index) {
-          return $MediaLink.wrap(value[index]);
-        }),
-      ),
-    )) as $Value?;
-  }
-
-  @override
-  Request mediaLinksRequest(String data) {
-    return $_invoke('mediaLinksRequest', [
-      $String(data),
-    ]) as Request;
-  }
-
-  $Value get __$mediaLinksRequest => $Function(_$mediaLinksRequest);
-  $Value? _$mediaLinksRequest(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final data = args[1]?.$value as String;
-    final $result = super.mediaLinksRequest(
-      data,
-    );
-    return $Request.wrap($result);
-  }
-
-  @override
-  List<MediaLink> medialinksParse(Response response) {
-    return ($_invoke('medialinksParse', [
-      $Response.wrap(response),
-    ]) as List)
-        .cast<MediaLink>();
-  }
-
-  $Value get __$medialinksParse => $Function(_$medialinksParse);
-  $Value? _$medialinksParse(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final response = args[1]?.$reified as Response;
-    final $result = super.medialinksParse(
-      response,
-    );
-    return $List.wrap(List.generate($result.length, (index) {
-      return $MediaLink.wrap($result[index]);
-    }));
-  }
-
-  @override
-  Future<List<MediaLink>> medialinksParseAsync(Response response) {
-    return ($_invoke('medialinksParseAsync', [
-      $Response.wrap(response),
-    ]) as Future)
-        .then((value) => (value as List).cast<MediaLink>());
-  }
-
-  $Value get __$medialinksParseAsync => $Function(_$medialinksParseAsync);
-  $Value? _$medialinksParseAsync(
-      Runtime runtime, $Value? target, List<$Value?> args) {
-    final response = args[1]?.$reified as Response;
-    final $result = super.medialinksParseAsync(
-      response,
-    );
-    return $Future.wrap($result.then(
-      (value) => $List.wrap(
-        List.generate(value.length, (index) {
-          return $MediaLink.wrap(value[index]);
-        }),
-      ),
-    )) as $Value?;
-  }
-
-  @override
-  Future<Media?> getMedia(MediaLink link) {
-    return ($_invoke('getMedia', [
-      $MediaLink.wrap(link),
-    ]) as Future)
-        .then((value) => value as Media?);
-  }
-
-  $Value get __$getMedia => $Function(_$getMedia);
-  $Value? _$getMedia(Runtime runtime, $Value? target, List<$Value?> args) {
-    final link = args[1]?.$reified as MediaLink;
-    final $result = super.getMedia(
-      link,
-    );
-    return $Future.wrap($result.then(
-            (value) => value == null ? $null() : $Media.wrapByType(value)))
-        as $Value?;
-  }
-
-  @override
-  Request mediaRequest(MediaLink link) {
-    return $_invoke('mediaRequest', [
-      $MediaLink.wrap(link),
-    ]) as Request;
-  }
-
-  $Value get __$mediaRequest => $Function(_$mediaRequest);
-  $Value? _$mediaRequest(Runtime runtime, $Value? target, List<$Value?> args) {
-    final link = args[1]?.$reified as MediaLink;
-    final $result = super.mediaRequest(
-      link,
-    );
-    return $Request.wrap($result);
-  }
-
-  @override
-  Media? mediaParse(Response response) {
-    return $_invoke('mediaParse', [
-      $Response.wrap(response),
-    ]) as Media?;
-  }
-
-  $Value get __$mediaParse => $Function(_$mediaParse);
-  $Value? _$mediaParse(Runtime runtime, $Value? target, List<$Value?> args) {
-    final response = args[1]?.$reified as Response;
-    final $result = super.mediaParse(
-      response,
-    );
-    return $result == null ? $null() : $Media.wrapByType($result);
-  }
+  OkHttpClient get client => $_get('client') as OkHttpClient;
+  $Value get _$client => $OkHttpClient.wrap(super.client);
 }

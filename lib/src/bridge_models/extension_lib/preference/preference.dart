@@ -33,7 +33,6 @@ class $Preference<T> implements Preference<T>, $Instance {
 
   static const $declaration = BridgeClassDef(
     BridgeClassType($type,
-        $extends: null,
         $implements: [],
         isAbstract: true,
         generics: {

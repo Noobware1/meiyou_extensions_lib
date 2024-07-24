@@ -1,8 +1,8 @@
 import 'package:dart_eval/dart_eval_bridge.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media_preview.dart';
+import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/models/media.dart';
 import 'package:meiyou_extensions_lib/src/bridge_models/extension_lib/types.dart';
-import 'package:meiyou_extensions_lib/src/models/media_preview.dart';
+import 'package:meiyou_extensions_lib/src/models/media.dart';
 import 'package:meiyou_extensions_lib/src/models/search_page.dart';
 
 /// dart_eval bimodal wrapper for [SearchPage]
@@ -28,7 +28,6 @@ class $SearchPage implements SearchPage, $Instance {
   static const $declaration = BridgeClassDef(
     BridgeClassType(
       $type,
-      $extends: null,
       $implements: [],
       isAbstract: false,
     ),
@@ -47,7 +46,7 @@ class $SearchPage implements SearchPage, $Instance {
                 'list',
                 BridgeTypeAnnotation(
                     BridgeTypeRef(CoreTypes.list, [
-                      BridgeTypeRef(ExtensionLibTypes.mediaPreview, []),
+                      BridgeTypeRef(ExtensionLibTypes.iMedia, []),
                     ]),
                     nullable: false),
                 false)
@@ -78,7 +77,7 @@ class $SearchPage implements SearchPage, $Instance {
       'list': BridgeFieldDef(
           BridgeTypeAnnotation(
               BridgeTypeRef(CoreTypes.list, [
-                BridgeTypeRef(ExtensionLibTypes.mediaPreview, []),
+                BridgeTypeRef(ExtensionLibTypes.iMedia, []),
               ]),
               nullable: false),
           isStatic: false),
@@ -99,7 +98,7 @@ class $SearchPage implements SearchPage, $Instance {
                   'list',
                   BridgeTypeAnnotation(
                       BridgeTypeRef(CoreTypes.list, [
-                        BridgeTypeRef(ExtensionLibTypes.mediaPreview, []),
+                        BridgeTypeRef(ExtensionLibTypes.iMedia, []),
                       ]),
                       nullable: true),
                   true),
@@ -146,7 +145,7 @@ class $SearchPage implements SearchPage, $Instance {
     switch (identifier) {
       case 'list':
         return $List.wrap(List.generate($value.list.length, (index) {
-          return $MediaPreview.wrap($value.list[index]);
+          return $IMedia.wrap($value.list[index]);
         }));
       case 'hasNextPage':
         return $bool($value.hasNextPage);
@@ -180,12 +179,12 @@ class $SearchPage implements SearchPage, $Instance {
   final SearchPage $value;
 
   @override
-  List<MediaPreview> get list => $value.list;
+  List<IMedia> get list => $value.list;
   @override
   bool get hasNextPage => $value.hasNextPage;
 
   @override
-  SearchPage copyWith({List<MediaPreview>? list, bool? hasNextPage}) =>
+  SearchPage copyWith({List<IMedia>? list, bool? hasNextPage}) =>
       $value.copyWith(
         list: list,
         hasNextPage: hasNextPage,
@@ -194,7 +193,7 @@ class $SearchPage implements SearchPage, $Instance {
   static $Value? _$copyWith(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final $this = target?.$value as SearchPage;
-    final list = (args[0]?.$reified as List?)?.cast<MediaPreview>();
+    final list = (args[0]?.$reified as List?)?.cast<IMedia>();
     final hasNextPage = args[1]?.$value as bool?;
     final $result = $this.copyWith(
       list: list,
@@ -231,7 +230,7 @@ class $SearchPage implements SearchPage, $Instance {
   static $Value? _$SearchPage$new(
       Runtime runtime, $Value? target, List<$Value?> args) {
     final hasNextPage = args[0]?.$value as bool;
-    final list = (args[1]?.$reified as List).cast<MediaPreview>();
+    final list = (args[1]?.$reified as List).cast<IMedia>();
     return $SearchPage.wrap(SearchPage(
       hasNextPage: hasNextPage,
       list: list,
