@@ -255,7 +255,7 @@ mixin $SourceMixin on Source {
     return ($_invoke('getMediaAsset', [
       $MediaLink.wrap(link),
     ]) as Future)
-        .then((value) => value as MediaAsset);
+        .then((value) => value as MediaAsset?);
   }
 
   @override
